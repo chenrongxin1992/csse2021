@@ -1,0 +1,225 @@
+{
+	"shiyanshiManagement": [
+		{
+			"title": "学院概况",
+			"icon": "&#xe716;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "学院简介",
+					"icon": "&#xe66c;",
+					"href": "/manage/xyjj",
+					"spread": false
+				},
+				{
+					"title": "院长寄语",
+					"icon": "&#xe66c;",
+					"href": "/manage/yzjy",
+					"spread": false
+				},
+				{
+					"title": "发展沿革",
+					"icon": "&#xe66c;",
+					"href": "/manage/fzyg",
+					"spread": false
+				},
+				{
+					"title": "现任领导",
+					"icon": "&#xe66c;",
+					"href": "/manage/xrld",
+					"spread": false
+				},
+				{
+					"title": "学院标识",
+					"icon": "&#xe66c;",
+					"href": "/manage/xybs",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "发布管理",
+			"icon": "&#xe609;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "新闻中心",
+					"icon": "&#xe66c;",
+					"href": "/manage/news1",
+					"spread": false
+				},
+				{
+					"title": "通知公告",
+					"icon": "&#xe66c;",
+					"href": "/manage/tzgg",
+					"spread": false
+				},
+				{
+					"title": "学术交流",
+					"icon": "&#xe66c;",
+					"href": "/manage/xsjl",
+					"spread": false
+				},
+				{
+					"title": "开放基金",
+					"icon": "&#xe66c;",
+					"href": "/manage/kfjj",
+					"spread": false
+				},
+				{
+					"title": "规章制度",
+					"icon": "&#xe66c;",
+					"href": "/manage/gzzd",
+					"spread": false
+				},
+				{
+					"title": "最新成果",
+					"icon": "&#xe66c;",
+					"href": "/manage/zxcg",
+					"spread": false
+				},
+				{
+					"title": "人才招聘",
+					"icon": "&#xe66c;",
+					"href": "/manage/zpxx",
+					"spread": false
+				},
+				{
+					"title": "网站链接",
+					"icon": "&#xe66c;",
+					"href": "/manage/wzlj",
+					"spread": false
+				},
+				{
+					"title": "开放基金附件",
+					"icon": "&#xe66c;",
+					"href": "/manage/kfjjfj",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "科研管理",
+			"icon": "&#xe615;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "科研项目",
+					"icon": "&#xe66c;",
+					"href": "/manage/kyxm",
+					"spread": false
+				},
+				{
+					"title": "期刊论文",
+					"icon": "&#xe66c;",
+					"href": "/manage/qklw",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "章节论文",
+					"icon": "&#xe66c;",
+					"href": "/manage/zjlw",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "会议论文",
+					"icon": "&#xe66c;",
+					"href": "/manage/hylw",
+					"spread": false
+				},
+				{
+					"title": "会议报告",
+					"icon": "&#xe66c;",
+					"href": "/manage/hybg",
+					"spread": false
+				},
+				{
+					"title": "学位论文",
+					"icon": "&#xe66c;",
+					"href": "/manage/xwlw",
+					"spread": false
+				},
+				{
+					"title": "专著",
+					"icon": "&#xe66c;",
+					"href": "/manage/zz",
+					"spread": false
+				},
+				{
+					"title": "获奖",
+					"icon": "&#xe66c;",
+					"href": "/manage/hj",
+					"spread": false
+				},
+				{
+					"title": "专利",
+					"icon": "&#xe66c;",
+					"href": "/manage/zl",
+					"spread": false
+				}
+			]
+		}
+	],
+	"memberCenter": [
+		{
+			"title": "用户中心",
+			"icon": "&#xe612;",
+			"href": "page/user/userList.html",
+			"spread": false
+		},
+		{
+			"title": "会员等级",
+			"icon": "icon-vip",
+			"href": "page/user/userGrade.html",
+			"spread": false
+		}
+	],
+	"systemeSttings": [
+		{
+			"title": "系统基本参数",
+			"icon": "&#xe631;",
+			"href": "page/systemSetting/basicParameter.html",
+			"spread": false
+		},{
+			"title": "系统日志",
+			"icon": "icon-log",
+			"href": "page/systemSetting/logs.html",
+			"spread": false
+		},{
+			"title": "友情链接",
+			"icon": "&#xe64c;",
+			"href": "page/systemSetting/linkList.html",
+			"spread": false
+		},{
+			"title": "图标管理",
+			"icon": "&#xe857;",
+			"href": "page/systemSetting/icons.html",
+			"spread": false
+		}
+	],
+	"seraphApi": [
+		{
+			"title": "三级联动模块",
+			"icon": "icon-mokuai",
+			"href": "page/doc/addressDoc.html",
+			"spread": false
+		},{
+			"title": "bodyTab模块",
+			"icon": "icon-mokuai",
+			"href": "page/doc/bodyTabDoc.html",
+			"spread": false
+		},{
+			"title": "三级菜单",
+			"icon": "icon-mokuai",
+			"href": "page/doc/navDoc.html",
+			"spread": false
+		}
+	]
+}
+
+
