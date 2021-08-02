@@ -6,6 +6,7 @@ const async = require('async')
 console.log()
 
 const meeting = require('../db/db_struct').meeting//用户排序
+const cmsContent = require('../db/db_struct').cmsContent
 //result.recordsets[[{}]]
 //result.output{}
 //result.rowsAffected[5]
@@ -185,5 +186,40 @@ router.get('/infolist',function(req,res){
 		return res.render('info_list',{'count':total,'page':page,'data':data,'title':'新闻','path':path,'L':req.query['L'],'leftMenu':leftMenu,'isList':isList})
 	})
 })
-
+router.get('/tempaddcms',function(req,res){
+	return res.render('tempaddcms')
+}).post('/tempaddcms',function(req,res){
+	let search = cmsContent.findOne({})
+		search.sort({'id':-1})//倒序，取最大值
+		search.limit(1)
+		search.exec(function(error,doc){
+			if(error){
+				console.log('cmsContent error',error)
+				return res.json({'code':-1,'msg':error})
+			}
+			let id = 0
+			if(doc){
+				id = parseInt(doc.id) + 1
+			}
+			console.log('最大id',doc.id,req.body)
+			let cmsContentadd = new cmsContent({
+				id : id,
+				title : req.body.title,
+				titleEN : req.body.titleEN,
+				timeAdd : req.body.timeAdd,
+				tag1 : req.body.tag1,
+				tag2 : req.body.tag2,
+				pageContent : req.body.pageContent,
+				pageContentEN : req.body.pageContentEN
+			})
+			cmsContentadd.save(function(err,doc){
+				if(err){
+					console.log('cmsContentadd save err',err)
+					return res.json({'code':-1,'msg':err})
+				}
+				console.log('save success',doc)
+				return res.json({'code':0,'msg':'cmsContentadd save success'})
+			})
+		})
+})
 module.exports = router;

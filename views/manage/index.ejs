@@ -11,8 +11,11 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="icon" href="/favicon.ico">
-	<link rel="stylesheet" href="/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="/stylesheets/index.css" media="all" />
+	<!-- 服务器与本地 -->
+	<link rel="stylesheet" href="/csse/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/csse/stylesheets/index.css" media="all" />
+	<!-- <link rel="stylesheet" href="/layui/css/layui.css" media="all" /> -->
+	<!-- <link rel="stylesheet" href="/stylesheets/index.css" media="all" /> -->
 </head>
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
@@ -120,7 +123,9 @@
 				</ul>
 				<div class="layui-tab-content clildFrame">
 					<div class="layui-tab-item layui-show">
-						<iframe src="/manage/main"></iframe>
+						<!-- 服务器与本地 -->
+						<!-- <iframe src="/manage/main"></iframe> -->
+						<iframe src="/csse/manage/main"></iframe>
 					</div>
 				</div>
 			</div>
@@ -134,9 +139,12 @@
 	<!-- 移动导航 -->
 	<div class="site-tree-mobile"><i class="layui-icon">&#xe602;</i></div>
 	<div class="site-mobile-shade"></div>
-
-	<script type="text/javascript" src="/layui/layui.js"></script>
+<!-- 服务器与本地 -->
+	<script type="text/javascript" src="/csse/layui/layui.js"></script>
+	<script type="text/javascript" src="/csse/javascripts/index.js"></script>
+	<script type="text/javascript" src="/csse/javascripts/cache.js"></script>
+	<!-- <script type="text/javascript" src="/layui/layui.js"></script>
 	<script type="text/javascript" src="/javascripts/index.js"></script>
-	<script type="text/javascript" src="/javascripts/cache.js"></script>
+	<script type="text/javascript" src="/javascripts/cache.js"></script> -->
 </body>
 </html>

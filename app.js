@@ -33,7 +33,7 @@ app.use(session({
     saveUninitialized: false, // 是指无论有没有session cookie，每次请求都设置个session cookie ，默认给个标示为 connect.sid。
     secret: 'spatial',
     cookie:{ 
-        maxAge: 60 * 60 * 1000, //60分钟有效期
+        maxAge: 24 *60 * 60 * 1000, //60分钟有效期
         httpOnly: true
         //expires : new Date(Date.now() + 7200000)//默认是UTC时间，Date.now()获取当前时间的时间戳，输出是毫秒。
     },

@@ -47,7 +47,9 @@ router.get("/ue", ueditor(path.join(__dirname, '../public/'), function(req, res,
   }
   else {
     res.setHeader('Content-Type', 'application/json');
-    res.redirect('/ueditor/config.json')
+    //服务器与本地
+    //res.redirect('/ueditor/config.json')
+    res.redirect('/csse/ueditor/config.json')
   }
 })).post('/ue',ueditor(path.join(__dirname, '../../public/'), function(req, res, next) {
   let baseimgDir = path.join(__dirname, '../../public')// //上传地址
@@ -81,7 +83,9 @@ router.get("/ue", ueditor(path.join(__dirname, '../public/'), function(req, res,
   }
   else {
     res.setHeader('Content-Type', 'application/json');
-    res.redirect('/ueditor/config.json')
+    //服务器与本地
+    //res.redirect('/ueditor/config.json')
+    res.redirect('/csse/ueditor/config.json')
   }
 }))
 module.exports = router;

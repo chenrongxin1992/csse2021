@@ -9,158 +9,337 @@
 				{
 					"title": "学院简介",
 					"icon": "&#xe66c;",
-					"href": "/manage/xyjj",
+					"href": "/csse/manage/xyjj",
 					"spread": false
 				},
 				{
 					"title": "院长寄语",
 					"icon": "&#xe66c;",
-					"href": "/manage/yzjy",
+					"href": "/csse/manage/yzjy",
 					"spread": false
 				},
 				{
 					"title": "发展沿革",
 					"icon": "&#xe66c;",
-					"href": "/manage/fzyg",
+					"href": "/csse/manage/fzyg",
 					"spread": false
 				},
 				{
 					"title": "现任领导",
 					"icon": "&#xe66c;",
-					"href": "/manage/xrld",
+					"href": "/csse/manage/xrld",
 					"spread": false
 				},
 				{
 					"title": "学院标识",
 					"icon": "&#xe66c;",
-					"href": "/manage/xybs",
+					"href": "/csse/manage/xybs",
 					"spread": false
 				}
 			]
 		},
 		{
-			"title": "发布管理",
+			"title": "机构设置",
 			"icon": "&#xe609;",
 			"href": "",
 			"spread": false,
 			"children": [
 				{
-					"title": "新闻中心",
+					"title": "行政办公室",
 					"icon": "&#xe66c;",
-					"href": "/manage/news1",
+					"href": "/csse/manage/xzbgs",
 					"spread": false
 				},
 				{
-					"title": "通知公告",
+					"title": "教学系",
 					"icon": "&#xe66c;",
-					"href": "/manage/tzgg",
+					"href": "/csse/manage/jxx",
 					"spread": false
 				},
 				{
-					"title": "学术交流",
+					"title": "研究所",
 					"icon": "&#xe66c;",
-					"href": "/manage/xsjl",
+					"href": "/csse/manage/yjs",
 					"spread": false
 				},
 				{
-					"title": "开放基金",
+					"title": "实验中心",
 					"icon": "&#xe66c;",
-					"href": "/manage/kfjj",
+					"href": "/csse/manage/syzx",
 					"spread": false
 				},
 				{
-					"title": "规章制度",
+					"title": "国家工程实验室",
 					"icon": "&#xe66c;",
-					"href": "/manage/gzzd",
+					"href": "/csse/manage/bdsc",
 					"spread": false
 				},
 				{
-					"title": "最新成果",
+					"title": "期刊编辑部",
 					"icon": "&#xe66c;",
-					"href": "/manage/zxcg",
-					"spread": false
-				},
-				{
-					"title": "人才招聘",
-					"icon": "&#xe66c;",
-					"href": "/manage/zpxx",
-					"spread": false
-				},
-				{
-					"title": "网站链接",
-					"icon": "&#xe66c;",
-					"href": "/manage/wzlj",
-					"spread": false
-				},
-				{
-					"title": "开放基金附件",
-					"icon": "&#xe66c;",
-					"href": "/manage/kfjjfj",
+					"href": "/csse/manage/qkbjb",
 					"spread": false
 				}
 			]
 		},
 		{
-			"title": "科研管理",
-			"icon": "&#xe615;",
+			"title": "教师队伍",
+			"icon": "&#xe613;",
 			"href": "",
 			"spread": false,
 			"children": [
 				{
-					"title": "科研项目",
+					"title": "杰出人才",
 					"icon": "&#xe66c;",
 					"href": "/manage/kyxm",
 					"spread": false
 				},
 				{
-					"title": "期刊论文",
+					"title": "教授",
 					"icon": "&#xe66c;",
 					"href": "/manage/qklw",
 					"spread": false,
 					"target": ""
 				},
 				{
-					"title": "章节论文",
+					"title": "研究员",
 					"icon": "&#xe66c;",
 					"href": "/manage/zjlw",
 					"spread": false,
 					"target": ""
 				},
 				{
-					"title": "会议论文",
+					"title": "副教授",
 					"icon": "&#xe66c;",
 					"href": "/manage/hylw",
 					"spread": false
 				},
 				{
-					"title": "会议报告",
+					"title": "副研究员",
 					"icon": "&#xe66c;",
 					"href": "/manage/hybg",
 					"spread": false
 				},
 				{
-					"title": "学位论文",
+					"title": "助理教授",
 					"icon": "&#xe66c;",
 					"href": "/manage/xwlw",
 					"spread": false
 				},
 				{
-					"title": "专著",
+					"title": "讲师",
 					"icon": "&#xe66c;",
 					"href": "/manage/zz",
 					"spread": false
 				},
 				{
-					"title": "获奖",
+					"title": "博士后",
 					"icon": "&#xe66c;",
 					"href": "/manage/hj",
 					"spread": false
+				}
+			]
+		},
+		{
+			"title": "招生就业",
+			"icon": "&#xe615;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "本科生招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/bkszs",
+					"spread": false
 				},
 				{
-					"title": "专利",
+					"title": "硕士生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/zl",
+					"href": "/csse/manage/ssszs",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "博士生招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/bsszs",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "成教/自考招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/cjzkzs",
 					"spread": false
+				},
+				{
+					"title": "就业服务",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jyfw",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "科学研究",
+			"icon": "&#xe705;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "高性能计算研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/gxn",
+					"spread": false
+				},
+				{
+					"title": "大数据技术与应用研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/dsj",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "未来媒体技术与计算研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/wlmt",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "网络与信息安全研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/wls",
+					"spread": false
+				},
+				{
+					"title": "计算机视觉研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/sjs",
+					"spread": false
+				},
+				{
+					"title": "智能技术与系统集成研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xtjc",
+					"spread": false
+				},
+				{
+					"title": "物联网研究中心",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/wlw",
+					"spread": false
+				},
+				{
+					"title": "可视计算研究中心",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/vcc",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "国际合作",
+			"icon": "&#xe63c;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "合作伙伴",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/hzhb",
+					"spread": false
+				},
+				{
+					"title": "联合培养",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/lhpy",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "科研合作",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/kyhz",
+					"spread": false,
+					"target": ""
+				}
+			]
+		},
+		{
+			"title": "党群工作",
+			"icon": "&#xe600;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "组织概况",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/zzgk",
+					"spread": false
+				},
+				{
+					"title": "规章制度",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/gzzd",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "通知公告",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/tzgg",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "党建活动",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/djhd",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "学“习”园地",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xxyd",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "主题教育",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/ztjy",
+					"spread": false,
+					"target": ""
+				}
+			]
+		},
+		{
+			"title": "人才招聘",
+			"icon": "&#xe612;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "教师",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jszp",
+					"spread": false
+				},
+				{
+					"title": "专职研究人员",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/zzyjry",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "博士后",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/bsh",
+					"spread": false,
+					"target": ""
 				}
 			]
 		}

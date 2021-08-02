@@ -22,7 +22,7 @@
 					<div class="layui-input-inline" style="width: 272px;">
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
-				    <label class="layui-form-label" style="width: 120px;">标题(EN)</label>
+				    <label class="layui-form-label">标题(EN)</label>
 				    <div class="layui-input-inline" style="width: 272px;">
 				      <input type="text" name="titleEN"  autocomplete="off" class="layui-input" id="titleEN">
 				    </div>
@@ -37,7 +37,7 @@
 	      			</div>
 					<label class="layui-form-label">更新时间<b style="color: red;">*</b></label>
 					<div class="layui-input-inline" style="width: 272px;">
-	        			<input type="text" class="layui-input" id="timeEdit" placeholder="yyyy-MM-dd" lay-verify='required'>
+	        			<input type="text" class="layui-input" id="timeEdit" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
 	      			</div>
 				</div>
 			</div>
@@ -46,7 +46,7 @@
 				<label class="layui-form-label">内容<b style="color: red;">*</b></label>
 				<div class="layui-input-block" id="content_bk">
 					<input id="contentValue"  value="<%=data.pageContent%>" type="hidden" />
-					<script id="content" type="text/plain" ></script>
+					<script id="pageContent" type="text/plain" ></script>
 				</div>
 			</div>
 
@@ -54,7 +54,7 @@
 				<label class="layui-form-label">内容(EN)</label>
 				<div class="layui-input-block" id="econtent_bk">
 					<input id="econtentValue"  value="<%=data.pageContentEN%>" type="hidden" />
-					<script id="econtent" type="text/plain" ></script>
+					<script id="pageContentEN" type="text/plain" ></script>
 				</div>
 			</div>
 
@@ -94,19 +94,19 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	});
     let id = '<%- data.id %>'
     let ue1,ue2
-		ue1 = UE.getEditor('content',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue1 = UE.getEditor('pageContent',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
 		ue1.ready(function () {//研究方向
 	   		console.log('初始内容...')
 	   		//先赋值给一个隐藏的input,然后获取再初始化
 	   		let htmlStr = $("#contentValue").val();
-	   		console.log('htmlStr--->',htmlStr)
+	   		//console.log('htmlStr--->',htmlStr)
 	   		ue1.setContent(htmlStr,false)
 	    });
-		ue2 = UE.getEditor('econtent',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue2 = UE.getEditor('pageContentEN',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
 		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
 	   		console.log('初始内容EN...')
 	   		let htmlStr = $("#econtentValue").val();
-	   		console.log('ehtmlStr--->',htmlStr)
+	   		//console.log('ehtmlStr--->',htmlStr)
 	   		ue2.setContent(htmlStr,false)
 
 	    });
@@ -114,14 +114,16 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	  //更新
 	  data.field.id = id
 	  data.field.title = $('#title').val()
-	  data.field.titleEN = $('#etitle').val()
-	  data.field.content = ue1.getContent()
-	  data.field.econtent = ue2.getContent()
-	  data.field.timeAdd = $('#timeAdit').val()
+	  data.field.titleEN = $('#titleEN').val()
+	  data.field.pageContent = ue1.getContent()
+	  data.field.pageContentEN = ue2.getContent()
+	  data.field.timeAdd = $('#timeAdd').val()
 	  data.field.timeEdit = $('#timeEdit').val()
 	  console.log('update data field',data.field);
 	  $.ajax({
-	  	url:'/manage/xyjj',
+	  	//本地与服务器
+	  	//url:'/manage/xrld',
+	  	url:'/csse/manage/xrld',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>新增新闻</title>
+	<title>学院简介</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -22,9 +22,9 @@
 					<div class="layui-input-inline" style="width: 272px;">
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
-				    <label class="layui-form-label" style="width: 120px;">标题(EN)</label>
+				    <label class="layui-form-label">标题(EN)</label>
 				    <div class="layui-input-inline" style="width: 272px;">
-				      <input type="text" name="etitle"  autocomplete="off" class="layui-input" id="etitle">
+				      <input type="text" name="titleEN"  autocomplete="off" class="layui-input" id="titleEN">
 				    </div>
 				</div>
 			</div>
@@ -33,7 +33,11 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">发布时间<b style="color: red;">*</b></label>
 					<div class="layui-input-inline" style="width: 272px;">
-	        			<input type="text" class="layui-input" id="time" placeholder="yyyy-MM-dd" lay-verify="required">
+	        			<input type="text" class="layui-input" id="timeAdd" placeholder="yyyy-MM-dd" lay-verify='required'>
+	      			</div>
+					<label class="layui-form-label">更新时间<b style="color: red;">*</b></label>
+					<div class="layui-input-inline" style="width: 272px;">
+	        			<input type="text" class="layui-input" id="timeEdit" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
 	      			</div>
 				</div>
 			</div>
@@ -41,25 +45,20 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">内容<b style="color: red;">*</b></label>
 				<div class="layui-input-block" id="content_bk">
-					<script id="content" type="text/plain" ></script>
+					<input id="contentValue"  value="<%=data.pageContent%>" type="hidden" />
+					<script id="pageContent" type="text/plain" ></script>
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">内容(EN)</label>
 				<div class="layui-input-block" id="econtent_bk">
-					<script id="econtent" type="text/plain" ></script>
+					<input id="econtentValue"  value="<%=data.pageContentEN%>" type="hidden" />
+					<script id="pageContentEN" type="text/plain" ></script>
 				</div>
 			</div>
 
-			<div class="layui-form-item">
-				<label class="layui-form-label ">归属于</label>
-					<div class="layui-input-block" >
-				      <% ptxx.forEach(function(item){%>
-					  	<input type="checkbox" name="showin" value="<%=item.id%>" title="<%=item.name%>" id="<%=item.id%>">
-					  <%})%>
-				    </div> 
-	       </div>
+			
 
 			<div class="layui-form-item">
 				<hr class="layui-bg-gray" />
@@ -71,52 +70,60 @@
 	</form>
 
 <script type="text/javascript" src="../layui/layui.js"></script>
-<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
-<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
 <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script type="text/javascript">
 layui.use(['jquery','layer','form','laydate'], function(){ 
     let $ = layui.$, //重点处
     	laydate = layui.laydate
     let form = layui.form,layer = layui.layer
-    let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-    console.log('frameindex',frameindex)
+    //let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+    //console.log('frameindex',frameindex)
     //日期
     laydate.render({
-	    elem: '#time'
+	    elem: '#timeAdd',
+		format:'yyyy/MM/dd HH:mm:ss'
 	});
-	 let ue1,ue2
-		ue1 = UE.getEditor('content',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+	laydate.render({
+	    elem: '#timeEdit',
+		format:'yyyy/MM/dd HH:mm:ss',
+		value: new Date()
+	});
+    let id = '<%- data.id %>'
+    let ue1,ue2
+		ue1 = UE.getEditor('pageContent',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
 		ue1.ready(function () {//研究方向
 	   		console.log('初始内容...')
+	   		//先赋值给一个隐藏的input,然后获取再初始化
+	   		let htmlStr = $("#contentValue").val();
+	   		//console.log('htmlStr--->',htmlStr)
+	   		ue1.setContent(htmlStr,false)
 	    });
-		ue2 = UE.getEditor('econtent',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue2 = UE.getEditor('pageContentEN',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
 		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
 	   		console.log('初始内容EN...')
+	   		let htmlStr = $("#econtentValue").val();
+	   		//console.log('ehtmlStr--->',htmlStr)
+	   		ue2.setContent(htmlStr,false)
+
 	    });
     form.on('submit(update)', function(data){
-    	//复选框
-            let showinarr = new Array();
-            $("input:checkbox[name='showin']:checked").each(function(i){
-                showinarr.push($(this).val())
-            })
-			console.log('showinarr',showinarr)
-			showinarr = showinarr.join(';')
-			console.log('showinarr',showinarr)
-
 	  //更新
+	  data.field.id = id
 	  data.field.title = $('#title').val()
-	  data.field.etitle = $('#etitle').val()
-	  data.field.time = $('#time').val()
-	  data.field.content = ue1.getContent()
-	  data.field.econtent = ue2.getContent()
-	  data.field.showin = showinarr
-	  console.log('news add  data field',data.field);
+	  data.field.titleEN = $('#titleEN').val()
+	  data.field.pageContent = ue1.getContent()
+	  data.field.pageContentEN = ue2.getContent()
+	  data.field.timeAdd = $('#timeAdd').val()
+	  data.field.timeEdit = $('#timeEdit').val()
+	  console.log('update data field',data.field);
 	  $.ajax({
-	  	url:'/manage/newsadd',
+	  	//本地与服务器
+	  	//url:'/manage/xybs',
+	  	url:'/csse/manage/xybs',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",
@@ -124,9 +131,9 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	  		if(result.code == 0){
 	  			console.log('update success')
 	  			//墨绿深蓝风
-				layer.alert('新增成功', {
+				layer.alert('更新成功', {
 				  skin: 'layui-layer-molv' //样式类名
-				  ,closeBtn: 0
+				  //,closeBtn: 0
 				}, function(){
 					layer.close(frameindex);
 				});	  			
@@ -137,8 +144,18 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	  	}
 	  })
 	});
-  
+
+    //初始化表单值
+    $('#title').val('<%- data.title%>')
+    if('<%- data.titleEN%>'){
+    	$('#titleEN').val('<%- data.titleEN%>')
+    }
+    $('#timeAdd').val('<%- data.timeAdd%>')
+	$('#timeEdit').val('<%- data.timeEdit%>')
+  				form.render()
+    
 })
+
 </script>
 </body>
 </html>

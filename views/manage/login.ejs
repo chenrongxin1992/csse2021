@@ -25,9 +25,9 @@
     <div id="mydiv">
         <div class="login-main">
             <div class="layui-elip">计算机与软件学院管理登录&nbsp;<span class="version"></span></div>
-            <!-- <form class="layui-form" action="/csse/manage/login"> -->
+            <form class="layui-form" action="/csse/manage/login">
             <!-- 本地与服务器区别 -->
-            <form class="layui-form" action="/manage/login">
+            <!-- <form class="layui-form" action="/manage/login"> -->
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
                         <label for="username">账号</label>
@@ -61,8 +61,8 @@
 
             $.ajax({
                 type:"get",
-                url: "/manage/vcode",
-                // url: "/csse/manage/vcode",
+                //url: "/manage/vcode",
+                url: "/csse/manage/vcode",
                 data: {　　    　  
                     inverse: true,
                     size: 4,  //验证码长度
@@ -93,8 +93,8 @@
                         icon: 1,
                         time: 1000
                     }, function() {
-                        window.location.href = '/manage/index';
-                        //window.location.href = '/csse/manage/index';
+                        //window.location.href = '/manage/index';
+                        window.location.href = '/csse/manage/index';
                     });
                 } else {
                     layer.msg(data.msg, { icon: 5 });
@@ -125,8 +125,8 @@
         $("#verify").click(function() {
             $.ajax({
                 type:"get",
-                url: "/manage/vcode",
-                //url: "/csse/manage/vcode",
+                //url: "/manage/vcode",
+                url: "/csse/manage/vcode",
                 data: {　　 
                     inverse: false,   　  
                     size: 4,  //验证码长度

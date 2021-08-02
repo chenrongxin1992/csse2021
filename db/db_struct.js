@@ -103,18 +103,20 @@ const cmsContentSchema = new Schema({
     pageContentEN:{type:String},
     viewsInt:{type:Number,default:0},
     viewsCount:{type:Number}, 
-    timeAdd:{type:String},
-    timeEdit:{type:String},
+    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
     list:{type:Number},
-    isRed:{type:Number},
-    isBold:{type:Number},
-    isTop:{type:Number},
+    isRed:{type:Number,default:0},
+    isBold:{type:Number,default:0},
+    isTop:{type:Number,default:0},
     isDisplay:{type:Number},
-    isCas:{type:Number},
-    isDelete:{type:Number},
+    isCas:{type:Number,default:0},
+    isDelete:{type:Number,default:0},
     url:{type:String},
     idAdd:{type:Number},
-    accountAdd:{type:String}
+    accountAdd:{type:String},
+    tag1:{type:String},//2021新增字段，标识所属一级菜单
+    tag2:{type:String}//2021新增字段，标识当前菜单
 },{collection:'cmsContent'})
 var meetingSchema = new Schema({ 
     room_name :{type:String},//会议室编号
