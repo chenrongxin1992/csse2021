@@ -90,6 +90,8 @@ const userSchema = new Schema({
   ipAdd:{type:String},
   idAdd:{type:String},
   accountAdd:{type:String},
+  jstype1:{type:String},
+  jstype:{type:String,default:'其他'}//教师队伍类别，新增
 },{collection:'allUser'})
 const cmsContentSchema = new Schema({
     id:{type:Number},
@@ -109,15 +111,37 @@ const cmsContentSchema = new Schema({
     isRed:{type:Number,default:0},
     isBold:{type:Number,default:0},
     isTop:{type:Number,default:0},
-    isDisplay:{type:Number},
+    isDisplay:{type:Number,default:1},
     isCas:{type:Number,default:0},
     isDelete:{type:Number,default:0},
     url:{type:String},
     idAdd:{type:Number},
     accountAdd:{type:String},
+    fujianName:{type:String},//附件
+    fujianPath:{type:String},
+    timeAddStamp:{type:String,default:moment().format('X')},//主要用于排序
     tag1:{type:String},//2021新增字段，标识所属一级菜单
     tag2:{type:String}//2021新增字段，标识当前菜单
 },{collection:'cmsContent'})
+const cmsSliderSchema = new Schema({
+    id:{type:Number},
+    isDisplay:{type:Number,default:1},
+    isDelete:{type:Number},
+    list:{type:Number},
+    title:{type:String},
+    title1:{type:String},
+    pic:{type:String},
+    url:{type:String},
+    urlTarget:{type:String},
+    memo:{type:String},
+    memo1:{type:String},
+    timeAdd:{type:String,default:moment(new Date()).format('YYYY-MM-DD HH:mm')},
+    timeEdit:{type:String,default:moment(new Date()).format('YYYY-MM-DD HH:mm')},
+    idAdd:{type:Number},
+    accountAdd:{type:String},
+    jianjie:{type:String,default:'无'},
+    jianjie1:{type:String,}
+},{collection:'cmsSlider'})
 var meetingSchema = new Schema({ 
     room_name :{type:String},//会议室编号
     title : {type:String},//会议主题
@@ -142,3 +166,4 @@ var meetingSchema = new Schema({
 exports.meeting = mongoose.model('meeting',meetingSchema)
 exports.user = mongoose.model('allUser',userSchema)
 exports.cmsContent = mongoose.model('cmsContent',cmsContentSchema)
+exports.cmsSlider = mongoose.model('cmsSlider',cmsSliderSchema)

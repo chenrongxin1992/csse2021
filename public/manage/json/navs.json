@@ -91,51 +91,57 @@
 				{
 					"title": "杰出人才",
 					"icon": "&#xe66c;",
-					"href": "/manage/kyxm",
+					"href": "/csse/manage/jsdw?type=jcrc",
 					"spread": false
 				},
 				{
 					"title": "教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/qklw",
+					"href": "/csse/manage/jsdw?type=professor",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "研究员",
 					"icon": "&#xe66c;",
-					"href": "/manage/zjlw",
+					"href": "/csse/manage/jsdw?type=yjy",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "副教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/hylw",
+					"href": "/csse/manage/jsdw?type=fjs",
 					"spread": false
 				},
 				{
 					"title": "副研究员",
 					"icon": "&#xe66c;",
-					"href": "/manage/hybg",
+					"href": "/csse/manage/jsdw?type=fyjy",
 					"spread": false
 				},
 				{
 					"title": "助理教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/xwlw",
+					"href": "/csse/manage/jsdw?type=zljs",
 					"spread": false
 				},
 				{
 					"title": "讲师",
 					"icon": "&#xe66c;",
-					"href": "/manage/zz",
+					"href": "/csse/manage/jsdw?type=jiangshi",
 					"spread": false
 				},
 				{
 					"title": "博士后",
 					"icon": "&#xe66c;",
-					"href": "/manage/hj",
+					"href": "/csse/manage/jsdw?type=boshihou",
+					"spread": false
+				},
+				{
+					"title": "其他",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=qita",
 					"spread": false
 				}
 			]
@@ -305,13 +311,6 @@
 					"href": "/csse/manage/xxyd",
 					"spread": false,
 					"target": ""
-				},
-				{
-					"title": "主题教育",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/ztjy",
-					"spread": false,
-					"target": ""
 				}
 			]
 		},
@@ -342,6 +341,207 @@
 					"target": ""
 				}
 			]
+		},
+		{
+			"title": "首页发布",
+			"icon": "&#xe609;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "轮动图",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/slider",
+					"spread": false
+				},
+				{
+					"title": "新闻中心",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jrnews",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "通知公告",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/notice",
+					"spread": false,
+					"target": ""
+				}
+				,
+				{
+					"title": "计软风采",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jrfc",
+					"spread": false,
+					"target": ""
+				}
+			]
+		}
+	],
+	"enMenu": [
+		{
+			"title": "About",
+			"icon": "&#xe716;",
+			"href": "",
+			"spread": true,
+			"children": [	
+				{
+					"title": "General Information",
+					"icon": "&#xe612;",
+					"href": "/csse/manage/xyjj",
+					"spread": false
+				},
+				{
+					"title": "Dean’s Message",
+					"icon": "icon-vip",
+					"href": "/csse/manage/yzjy",
+					"spread": false
+				},
+				{
+					"title": "Facts and Figures",
+					"icon": "icon-vip",
+					"href": "/csse/manage/?",
+					"spread": false
+				},
+				{
+					"title": "Current Leaders",
+					"icon": "icon-vip",
+					"href": "/csse/manage/xrld",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "Organization",
+			"icon": "&#xe716;",
+			"href": "",
+			"spread": true,
+			"children": [	
+				{
+					"title": "Departments",
+					"icon": "&#xe612;",
+					"href": "/csse/manage/jxx",
+					"spread": false
+				},
+				{
+					"title": "Institutes",
+					"icon": "icon-vip",
+					"href": "/csse/manage/yjs",
+					"spread": false
+				},
+				{
+					"title": "National Teaching Centers",
+					"icon": "icon-vip",
+					"href": "/csse/manage/syzx",
+					"spread": false
+				},
+				{
+					"title": "National Laboratory",
+					"icon": "icon-vip",
+					"href": "/csse/manage/bdsc",
+					"spread": false
+				},
+				{
+					"title": "IJMLC Office",
+					"icon": "icon-vip",
+					"href": "/csse/manage/qkbjb",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "People",
+			"icon": "&#xe716;",
+			"href": "",
+			"spread": true,
+			"children": [	
+				{
+					"title": "Outstanding Talent",
+					"icon": "&#xe612;",
+					"href": "/csse/manage/jsdw?type=jcrc",
+					"spread": false
+				},
+				{
+					"title": "Professor",
+					"icon": "icon-vip",
+					"href": "/csse/manage/jsdw?type=professor",
+					"spread": false
+				},
+				{
+					"title": "Researcher",
+					"icon": "icon-vip",
+					"href": "/csse/manage/jsdw?type=yjy",
+					"spread": false
+				},
+				{
+					"title": "Associate Professor",
+					"icon": "icon-vip",
+					"href": "/csse/manage/jsdw?type=fjs",
+					"spread": false
+				},
+				{
+					"title": "Associate Researcher",
+					"icon": "icon-vip",
+					"href": "/csse/manage/jsdw?type=fyjy",
+					"spread": false
+				},
+				{
+					"title": "Assistant Professor",
+					"icon": "icon-vip",
+					"href": "/csse/manage/jsdw?type=zljs",
+					"spread": false
+				},
+				{
+					"title": "Lecturer",
+					"icon": "icon-vip",
+					"href": "/csse/manage/jsdw?type=jiangshi",
+					"spread": false
+				},
+				{
+					"title": "Postdoctoral Researcher",
+					"icon": "icon-vip",
+					"href": "/csse/manage/jsdw?type=boshihou",
+					"spread": false
+				}
+			]
+		},{
+			"title": "Admissions",
+			"icon": "&#xe716;",
+			"href": "",
+			"spread": true,
+			"children": [	
+				{
+					"title": "Undergraduates",
+					"icon": "&#xe612;",
+					"href": "/csse/manage/bkszs",
+					"spread": false
+				},
+				{
+					"title": "Post-graduates",
+					"icon": "icon-vip",
+					"href": "/csse/manage/ssszs",
+					"spread": false
+				},
+				{
+					"title": "Doctor Candidates",
+					"icon": "icon-vip",
+					"href": "/csse/manage/bsszs",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "Research",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/research",
+			"spread": false
+		},
+		{
+			"title": "Join Us",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/zpxxen",
+			"spread": false
 		}
 	],
 	"memberCenter": [

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>个人资料</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		.tdstyle{
+			width:120px;
+			background-color: #009688;
+			color:#fff;
+			text-align: center;
+		}
+		.btnfloat{
+			float: right;
+		}
+		.w-e-text-container{
+	    	height: 150px !important;
+	    }
+	    .layui-unselect{
+	    	margin-top: 10px;
+	    }
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form" action="">
+	<table class="layui-table" id="shiyanshizhuren">
+	    <tbody>
+	      <tr>
+	        <td class="tdstyle">姓名</td>
+	        <td><input type="text" id="userName" class="layui-input"  value="<%=user.userName%>"></td>
+	        <td class="tdstyle">(英文)姓名</td>
+	        <td><input type="text" id="userName1" class="layui-input" value="<%=user.userName1%>"></td>
+	        <td rowspan="5" style="text-align: center;"><img id="userimg" src="<%=user.avatar%>" style="width:auto;height:auto;max-width:150px;max-height:100%;margin:5px;"><div id="uploadarea"><div class="layui-upload-list"><p id="demoText"></p></div></div></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">性别</td>
+	        <td id="tdgender">
+				<select name="sex" lay-filter="sex" id="sex">
+					<option value="男">男</option>
+					<option value="女">女</option>
+				</select>
+			</td>
+	        <td class="tdstyle">(英文)性别</td>
+	        <td id="tddegree">
+				<select name="sex1" lay-filter="sex1" id="sex1">
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+				</select>
+			</td>
+	      </tr>
+		  <tr>
+			<td class="tdstyle">类别</td>
+	        <td id="tddegree">
+				<select name="jstype" lay-filter="jstype" id="jstype">
+					<option value="杰出人才">杰出人才</option>
+					<option value="教授">教授</option>
+					<option value="研究员">研究员</option>
+					<option value="副教授">副教授</option>
+					<option value="副研究员">副研究员</option>
+					<option value="助理教授">助理教授</option>
+					<option value="讲师">讲师</option>
+					<option value="博士后">博士后</option>
+				</select>
+			</td>
+			<td class="tdstyle">(英文)类别</td>
+	        <td id="tddegree">
+				<select name="jstype1" lay-filter="jstype1" id="jstype1">
+					<option value="Outstanding Talent">Outstanding Talent</option>
+					<option value="Professor">Professor</option>
+					<option value="Researcher">Researcher</option>
+					<option value="Associate Professor">Associate Professor</option>
+					<option value="Associate Researcher">Associate Researcher</option>
+					<option value="Assistant Professor">Assistant Professor</option>
+					<option value="Lecturer">Lecturer</option>
+					<option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
+				</select>
+			</td>
+	     </tr>
+	      <tr>
+	        <td class="tdstyle">职称</td>
+	        <td><input type="text" id="zhicheng" class="layui-input"  value="<%=user.zhicheng%>"></td>
+	        <td class="tdstyle">(英文)职称</td>
+	        <td><input type="text" id="zhicheng1" class="layui-input"  value="<%=user.zhicheng1%>"></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">办公电话</td>
+	        <td ><input type="text" id="phoneOffice" class="layui-input"  value="<%=user.phoneOffice%>"></td>
+	        <td class="tdstyle">Email</td>
+	        <td ><input type="text" id="email" class="layui-input"  value="<%=user.email%>"></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">办公地址</td>
+	        <td ><input type="text" id="AddressOffice" class="layui-input"  value="<%=user.AddressOffice%>"></td>
+			<td class="tdstyle">(英文)办公地址</td>
+	        <td  colspan="2"><input type="text" id="AddressOffice1" class="layui-input"  value="<%=user.AddressOffice1%>"></td>
+		</tr>
+	      <tr>
+	        <td class="tdstyle">学位</td>
+	        <td ><input type="text" id="xuewei" class="layui-input"  value="<%=user.xuewei%>"></td>
+	        <td class="tdstyle">(英文)学位</td>
+	        <td colspan="2"><input type="text" id="xuewei1" class="layui-input"  value="<%=user.xuewei1%>"></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">学历</td>
+	        <td ><input type="text" id="xueli" class="layui-input"  value="<%=user.xueli%>"></td>
+	        <td class="tdstyle">(英文)学历</td>
+	        <td colspan="2"><input type="text" id="xueli1" class="layui-input"  value="<%=user.xueli%>"></td>
+	      </tr>
+	      <tr>
+	        <td class="tdstyle">个人介绍</td>
+	        <!-- <td colspan="4"><span id="introduce"></span></td> -->
+	        <td colspan="4">
+	        	<input id="introduceValue"  value="<%=user.intro%>" type="hidden" />
+	        	<script id="introduceeditor" type="text/plain" ></script>
+	        </td>
+	      </tr>
+	       <tr>
+	        <td class="tdstyle">(英文)个人介绍</td>
+	        <!-- <td colspan="4"><span id="eintroduce"></span></td> -->
+	        <td colspan="4">
+	        	<input id="eintroduceValue"  value="<%=user.intro1%>" type="hidden" />
+	        	<script id="eintroduceeditor" type="text/plain" ></script>
+	        </td>
+	        </tr>
+			<tr>
+				<td colspan="5">
+					<a class="layui-btn layui-btn-normal layui-btn-fluid" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				</td>
+			</tr>
+
+        </tbody>
+  </table>
+  </form>
+
+	<script type="text/javascript" src="../layui/layui.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
+
+<script type="text/javascript">
+
+let ue1,ue2
+let id = '<%=user.id%>'
+layui.use(['jquery','layer','upload','form'], function(){ 
+    let $ = layui.$ //重点处
+    let layer = layui.layer,upload=layui.upload,form=layui.form
+    $(function(){  
+		//初始化select
+		console.log('user id---','<%=user.id%>')
+		
+		$('#sex').val('<%=user.sex%>')
+		$('#sex1').val('<%=user.sex1%>')
+		$('#jstype').val('<%=user.jstype%>')
+		$('#jstype1').val('<%=user.jstype1%>')
+		form.render('select')
+		//监听下拉框
+		form.on('select(sex)',function (data) {
+			console.log('select sex',data)
+			if(data.value == '男'){
+				$("#sex1").find("option[value='Male']").attr("selected",true);
+			}
+			if(data.value == '女'){
+				$("#sex1").find("option[value='Female']").attr("selected",true);
+			}
+			form.render()
+		})
+		form.on('select(jstype)',function (data) {
+			console.log('select jstype',data)
+			if(data.value == '杰出人才'){
+				$("#jstype1").find("option[value='Outstanding Talent']").attr("selected",true);
+			}
+			if(data.value == '教授'){
+				$("#jstype1").find("option[value='Professor']").attr("selected",true);
+			}
+			if(data.value == '研究员'){
+				$("#jstype1").find("option[value='Researcher']").attr("selected",true);
+			}
+			if(data.value == '副教授'){
+				$("#jstype1").find("option[value='Associate Professor']").attr("selected",true);
+			}
+			if(data.value == '副研究员'){
+				$("#jstype1").find("option[value='Associate Researcher']").attr("selected",true);
+			}
+			if(data.value == '助理教授'){
+				$("#jstype1").find("option[value='Assistant Professor']").attr("selected",true);
+			}
+			if(data.value == '讲师'){
+				$("#jstype1").find("option[value='Lecturer']").attr("selected",true);
+			}
+			if(data.value == '博士后'){
+				$("#jstype1").find("option[value='Postdoctoral Researcher']").attr("selected",true);
+			}
+			form.render()
+		})
+		//初始化上传按钮  
+		let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button>'
+    	$('#uploadarea').append(uploadbtn)	
+		let uploadInst  = upload.render({
+		    elem: '#uploadbtn'
+			//本地与服务器
+		   // ,url: '/manage/userimgupload'
+			,url: '/csse/manage/userimgupload'
+		    , accept: 'images'
+		    ,size: 2048 //限制文件大小，单位 KB
+		    ,before: function(obj){
+		      //预读本地文件示例，不支持ie8
+		      obj.preview(function(index, file, result){
+		        $('#demo1').attr('src', result); //图片链接（base64）
+		      });
+		    }
+		    ,done: function(res){
+		      //如果上传失败
+		      if(res.errno != 0){
+		        return layer.msg('上传失败');
+		      }else{
+		      	console.log('userimg',res.data)
+		      	$('#userimg').attr('src',''+res.data)
+		      }
+		      //上传成功
+		    }
+		    ,error: function(){
+		      let demoText = $('#demoText');
+		      demoText.html('<span style="color: #FF5722;">上传失败</span> ');
+		    }
+		  });
+		  //form.render('select')
+		form.render()
+		ue1 = UE.getEditor('introduceeditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'}),
+			ue2 = UE.getEditor('eintroduceeditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'}),
+			//ue3 = UE.getEditor('workresumeueditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'}),
+			//ue4 = UE.getEditor('eworkresumeueditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'})
+		ue1.ready(function () {
+	   		console.log('初始化introduce...')
+	   		let htmlStr = $("#introduceValue").val();
+	   		ue1.setContent(htmlStr,false)
+	    });
+		ue2.ready(function () {
+	   		console.log('初始化eintroduce...')
+	   		let htmlStr = $("#eintroduceValue").val();
+	   		ue2.setContent(htmlStr,false)
+	    })
+    })
+	form.on('submit(update)', function(data){
+	  //更新
+	  data.field.id = id
+	  data.field.userName = $('#userName').val()
+	  data.field.userName1 = $('#userName1').val()
+	  data.field.intro = ue1.getContent()
+	  data.field.intro1 = ue2.getContent()
+	  data.field.sex =$('#sex option:selected').val()
+	  data.field.sex1 =$('#sex1 option:selected').val()
+	  data.field.jstype=$('#jstype option:selected').val()
+	  data.field.jstype1=$('#jstype1 option:selected').val()
+	  data.field.zhicheng=$('#zhicheng').val()
+	  data.field.zhicheng1=$('#zhicheng1').val()
+	  data.field.phoneOffice=$('#phoneOffice').val()
+	  data.field.email=$('#email').val()
+	  data.field.AddressOffice=$('#AddressOffice').val()
+	  data.field.AddressOffice1=$('#AddressOffice1').val()
+	  data.field.xuewei=$('#xuewei').val()
+	  data.field.xuewei1=$('#xuewei1').val()
+	  data.field.xueli=$('#xueli').val()
+	  data.field.xueli1=$('#xueli1').val()
+	  data.field.avatar=$('#userimg').attr('src')
+	  console.log('update data field',data.field)
+	  //return false
+	  $.ajax({
+	  	//本地与服务器
+		//url:'/manage/userinfo',
+		url:'/csse/manage/userinfo',
+	  	type:'POST',
+	  	data:data.field,
+	  	dataType : "json",
+	  	success:function(result){
+	  		if(result.code == 0){
+	  			console.log('update success')
+	  			//墨绿深蓝风
+				let frameindex = layer.alert('更新成功', {
+				  skin: 'layui-layer-molv' //样式类名
+				  //,closeBtn: 0
+				}, function(){
+					layer.close(frameindex);
+				});	  			
+	  		}
+	  	},
+	  	error:function(msg){
+	  		console.log('ajax error msg',msg)
+	  	}
+	  })
+	});
+	// $('body').on('click', '#savebtn', function() {
+	// 	//console.log('savebtn',userName:$('#userName').val(),userName1:$('#userName1').val(),jstype1:$('#jstype1 option:selected').val(),)	
+		
+	// 	$.ajax({
+	// 		//本地与服务器
+	// 		//url:'/manage/userinfo',
+	// 		url:'/csse/manage/userinfo',
+	// 		type:'post',
+	// 		dataType : "json",
+	// 		data:{
+	// 			id:id,
+	// 			userName:$('#userName').val(),
+	// 			userName1:$('#userName1').val(),
+	// 			sex:$('#sex option:selected').val(),
+	// 			sex1:$('#sex option:selected').val(),
+	// 			jstype:$('#jstype option:selected').val(),
+	// 			jstype1:$('#jstype1 option:selected').val(),
+	// 			zhicheng:$('#zhicheng').val(),
+	// 			zhicheng1:$('#zhicheng1').val(),
+	// 			phoneOffice:$('#phoneOffice').val(),
+	// 			email:$('#email').val(),
+	// 			AddressOffice:$('#AddressOffice').val(),
+	// 			AddressOffice1:$('#AddressOffice1').val(),
+	// 			xuewei:$('#xuewei').val(),
+	// 			xuewei1:$('#xuewei1').val(),
+	// 			xueli:$('#xueli').val(),
+	// 			xueli1:$('#xueli1').val(),
+	// 			intro:ue1.getContent(),
+	// 			intro1:ue2.getContent(),
+	// 			avatar:$('#userimg').attr('src')
+	// 		},
+	// 		success:function(result){
+	// 			console.log('save success')
+	// 			layer.alert('保存成功', {
+	// 			  skin: 'layui-layer-molv' //样式类名
+	// 			  ,closeBtn: 0
+	// 			  ,time:2000
+	// 			}, function(){
+	// 			});
+	// 		},
+	// 		error:function(error){
+	// 			console.log('ajax error',error)
+	// 		}
+	// 	})
+	// })
+
+
+    
+});
+
+</script>
+</body>
+</html>

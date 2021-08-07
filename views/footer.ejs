@@ -2,9 +2,9 @@
 <div class="footer">
   <div class="con-top">
     <div class="wp">
-      <div class="col-l">
+      <!-- <div class="col-l"> -->
         <div class="f-nav">
-          <dl>
+          <!-- <dl>
             <dt>教学单位</dt>
             <dd>
            <div class="con-l" frag="窗口41" portletmode="simpleSudyNavi" configs="" contents="">        
@@ -16,19 +16,8 @@
 							<li class="links i5"><a href="http://csse.szu.edu.cn/zk/" target="_blank">继续教育办公室</a> </li>			
 						</ul>						            
             </div>
-             <!-- <div class="con-r" frag="窗口411" portletmode="simpleSudyNavi" configs="" contents="">            
-              <div>
-						<ul class="clearfix" >							
-							<li class="links i1"><a href="http://cv.szu.edu.cn/" target="_blank">计算机视觉研究所</a> </li>							
-							<li class="links i2"><a href="https://vcc.tech" target="_blank">可视计算研究中心</a> </li>							
-							<li class="links i3"><a href="http://www.futurenet.ac.cn/" target="_blank">物联网研究中心</a> </li>							
-							<li class="links i4"><a href="http://itsi.szu.edu.cn/" target="_blank">智能技术与系统集成研究所</a> </li>											
-							<li class="links i5"><a href="http://security.szu.edu.cn/" target="_blank">网络与信息安全研究所</a> </li>	
-						</ul>
-						</div>            
-           </div> -->
             </dd>
-          </dl>
+          </dl> -->
           <dl>
           	<dd frag="窗口47" portletmode="simpleSudyNavi" configs="" contents="">    
           		<img src="images/yh.png" style="width: 200px;">
@@ -58,16 +47,16 @@
 
           
         </div>
-      </div>
+      <!-- </div> -->
       
     </div>
   </div>
   <div class="con-bot">
-    <div class="f-copy" frag="窗口100" portletmode="simpleSiteAttri"><a href="#" target="_blank"></a><p> Copyright © 2020  深圳大学 计算机与软件学院 </p></div>
+    <div class="f-copy" frag="窗口100" portletmode="simpleSiteAttri"><a href="#" target="_blank"></a><p> Copyright © 2021  深圳大学 计算机与软件学院 </p></div>
   </div>
 </div>
 <!-- 底部 --> 
-	
+<script src="javascripts/swiper.animate.min.js"> </script>	
 <script src="javascripts/wow.min.js"></script>
     <script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/brcheck.js"></script>
@@ -77,8 +66,50 @@
     <script src="javascripts/iconfont.js"></script>
 <script src="javascripts/common.js"></script> 
 <script src="javascripts/jClock.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"> </script>
+
 <script>
     $(document).ready(function() {
+      var mySwiper = new Swiper ('#swiper1', {
+          direction: 'vertical', // 垂直切换选项
+          loop: true, // 循环模式选项
+          // effect:'flip',//flip
+          autoplay : true,
+          speed:2000,
+  })  
+  var mySwiper2 = new Swiper ('.swiper2', {
+        on:{
+          init: function(){
+            swiperAnimateCache(this); //隐藏动画元素 
+            swiperAnimate(this); //初始化完成开始动画
+          }, 
+          slideChangeTransitionEnd: function(){ 
+            swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+            //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); //动画只展现一次，去除ani类名
+          } 
+        },
+          direction: 'horizontal', // 垂直切换选项
+          loop: true, // 循环模式选项
+          // effect:'flip',//flip
+          autoplay : true,
+          speed:1500,
+          autoplayDisableOnInteraction :true,
+          // 如果需要分页器
+          pagination: {
+            el: '.swiper-pagination',
+          },
+          
+          // 如果需要前进后退按钮
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          
+          // 如果需要滚动条
+          scrollbar: {
+            el: '.swiper-scrollbar',
+          },
+  })  
     //change language
     $('#changeL').click(function(){
       console.log('change to en')
@@ -98,12 +129,17 @@
 		})
         $('.banner .slider').slick({
             dots:true,
+            //fade:true,
+            // cssEase:'cubic-bezier(0.7, 0, 0.3, 1)' ,// 自定义缓动
+            // cssEase:'linear',// 缓动库缓动
+            respondTo:'window',
             arrows:true,
-            autoplay:true,
+            //autoplay:true,
             slidesToShow: 1,
-            autoplaySpeed: 5000,
+            //autoplaySpeed: 10000,
             pauseOnHover:true,
-            lazyLoad: 'ondemand'
+            lazyLoad: 'ondemand',
+            adaptiveHeight:true
         });
         $('.m-news .slider').slick({
             dots:true,

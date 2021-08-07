@@ -8,19 +8,50 @@
 <!-- 头部 --> 
 <!-- banner -->
 <div class="banner" frag="窗口10" portletmode="simpleNews" configs="" contents="">
-      <div class="slider"> 
-      <%data.slider.forEach(function(item){%>
+      <div class="slider">
         <div class="item">
-          <a href="<%=item.url%>" target="_blank"><div class="pic"><img data-src="" src="images/1.jpg"></div></a>
-          <div class="tit"><a href='<%=item.url%>' target='_blank' title=''>
-          <%if(L=='1'){ %>
-          	<%=item.title%>
-          <%}else{%>	
-          	<%=item.title1%>
-          <%}%>
+          <!-- <div class="video-banner ann" style="background: url(images/by.jpg) no-repeat center center; background-size: contain;"> -->
+            <div class="video-banner ann">
+            <video muted="" autoplay loop src="/csse/video/test.mp4"  webkit-playsinline playsinline x5-video-player-type="h5" x5-video-orientation="h5" x5-video-player-fullscreen="true"
+              ></video>
+              <div class="txt-box">
+                  <div>
+                      <!-- <img src="static/picture/100th-w.png" class="logo100"> -->
+                      <h1>CSSE</h1>  
+                     <!--  style="display: none;"  -->
+                      <div>
+                          <!-- <div class="more-content">
+                              <a href="https://live.bilibili.com/h5/5567237" target="_blank">
+                              <div class="more-item">
+                                  <img src="static/picture/live-logo1.png" style="height:44px; margin:0 auto;">
+                                  <span style="display: block;">Bilibili</span>
+                              </div>
+                              </a>
+                          </div> -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div> 
+
+        <div class="item">
+          <a href="" target="_blank"><div class="pic"><img data-src="" src="images/1.jpg"></div></a>
+          <div class="tit " ><a href='' target='_blank' title=''>
+           标题/内容
           </a></div>
         </div> 
-      <%})%>     
+        <div class="item">
+          <a href="" target="_blank"><div class="pic"><img data-src="" src="images/2.jpg"></div></a>
+          <div class="tit " ><a href='' target='_blank' title=''>
+           标题/内容
+          </a></div>
+        </div> 
+        <div class="item">
+          <a href="" target="_blank"><div class="pic"><img data-src="" src="images/3.jpg"></div></a>
+          <div class="tit " ><a href='' target='_blank' title=''>
+           标题/内容
+          </a></div>
+        </div> 
         <!-- 循环放slider -->
       </div>
 </div>
@@ -29,494 +60,174 @@
 <div class="main">
   <div class="row-a1 wow fadeInUp">
     <div class="wp">
-      <div class="col-l"  frag="窗口11" portletmode="simpleNews" configs="" contents="">
-        <div class="m-news" >
-          <div class="slider">
-            <div class="item">
-              <div class="con">
-                <div class="pic"><a href="#" target="_blank"><img class="lazy_img" data-src="images/zm.png"></a></div>
-                    <div class="txt">
-                      <h4 class="tit"><a href="#"><a href='#' target='_blank' title=' '></a></a></h4>
-                      <div class="det"><a href='#' target='_blank' title='<%=(data.dangjian)[0].title%>'><%=(data.dangjian)[0].pageContentNaked%></a></div>
-                    </div>
+      <!-- rongxin -->
+      <h3 class="g-t1 wow fadeInDown" style="visibility: visible; animation-name: fadeInDown;"><a href="">计软新闻</a></h3>
+      <div class="m-Journ">
+        <div class="col-l wow fadeInUp animated" data-wow-duration="1s" data-wow-delay="1s" style="visibility: visible; animation-duration: 1s; animation-delay: 2s; animation-name: fadeInUp;">
+          <ul class="ul-list2">
+            <li><a>
+              <div class="time">
+                <em class="day">01</em>
+                <em class="year">2021-7</em>
               </div>
-            </div>                
-          </div>
+              <h3 class="tit">title</h3>
+            </a></li>
+            <li><a>
+              <div class="time">
+                <em class="day">01</em>
+                <em class="year">2021-7</em>
+              </div>
+              <h3 class="tit">title</h3>
+            </a></li>
+            <li><a>
+              <div class="time">
+                <em class="day">01</em>
+                <em class="year">2021-7</em>
+              </div>
+              <h3 class="tit">title</h3>
+            </a></li>
+            <li><a>
+              <div class="time">
+                <em class="day">01</em>
+                <em class="year">2021-7</em>
+              </div>
+              <h3 class="tit">title</h3>
+            </a></li>
+            <li><a>
+              <div class="time">
+                <em class="day">01</em>
+                <em class="year">2021-7</em>
+              </div>
+              <h3 class="tit">title</h3>
+            </a></li>
+          </ul>
         </div>
-      </div>
-      <div class="col-r" frag="窗口12" portletmode="simpleNews" configs="" contents="">
-        <ul class="p-list1">
-            <li>
-              <div class="con">
-                <div class="pic"><a href="#" target="_blank"><img class="lazy_img" data-src="images/dj1.png" alt=""></a></div>
-                <div class="txt">
-                  <h4 class="tit"><a href='#' target='_blank' title=''>title1</a></h4>
-                  <div class="det"><a href='#' target='_blank' title=''>testtesttesttesttesttestt
-                  esttesttestte
-                  sttesttesttesttesttest
-                  testtesttesttesttesttesttesttesttest
-                  testtesttesttesttest</a></div>
-                  <div class="info"> <span>2020-10-17</span> <span><a href='#' target='_blank' title='学院党建'>学院党建</a></span> </div>
-                </div>
+        <div class="col-r" >
+          <div class="swiper-container " id="swiper1" style="height: 600px;padding-top: 50px;">
+            <div class="swiper-wrapper" style="position: relative;">
+                <div class="swiper-slide"><img src='images/news1.jpg'>
+                  <p class="newstitle " >title</p></div>
+                <div class="swiper-slide"><img src='images/news1.jpg' ><p class="newstitle " >title</p></div>
+                <div class="swiper-slide"><img src='images/news1.jpg' ><p class="newstitle " >title</p></div>
+            </div>
+          </div>
+          <!-- <ul class="ul-list1">
+            <li class="item2"><a class="con wow fadeInUp animated" data-wow-delay=".5s" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.5s; animation-name: fadeInUp;">
+              <div class="pic">
+                <img src='images/news1.jpg' class="myimg">
               </div>
-            </li>
+              <div class="txt"><span class="time">2021-7-1</span><h3 class="tit">title</h3></div>
+            </a></li>
             
-            <li>
-              <div class="con">
-                <div class="pic"><a href="#" target="_blank"><img class="lazy_img" data-src="images/dj2.png" alt=""></a></div>
-                <div class="txt">
-                  <h4 class="tit"><a href='#' target='_blank' title=''>title2</a></h4>
-                  <div class="det"><a href='#' target='_blank' title=''>第十二次党代会以来，学校党委坚持以习近平新时代中国特色社会主义思想为指导，增强“...</a></div>
-                  <div class="info"> <span>2020-11-05</span> <span><a href='#' target='_blank' title='学院党建'>学院党建</a></span> </div>
-                </div>
-              </div>
-            </li>
-          </ul>    
+          </ul> -->
+          <!-- <a href="" target="_blank" class="g-more">更多计软新闻</a> -->
+        </div>
       </div>
     </div>
   </div>
   <!-- 选项卡 -->
   <div class="row-a2">
     <div class="wp">
-      <div class="m-Journalisml wow fadeInLeft">
-        <div class="top">
-          <div class="more"> <a href="#" target="_blank"><span class="icon iconfont"></span> 更多</a> </div>
-          <ul class="ul-listl2 TAB_CLICK" id=".taber">
-            <li class="on">学院新闻</li>
-            <li>通知公告</li>
-            <li>学生事务</li>
-          </ul>
-        </div>
-        <div class="taber" frag="窗口13" portletmode="simpleNews" configs="" contents="" style="display: block;">
+      <h3 class="g-t1 wow fadeInDown" style="visibility: visible; animation-name: fadeInDown;"><a href="">通知公告</a></h3>
+      <div class="m-Journalisml wow bounceInLeft">
+        <div class="taber" frag="窗口13" portletmode="simpleNews" configs="{'c28':'320','c14':'1','c1':'1','c29':'1','c39':'300','c38':'100','c21':'0','c4':'1','c6':'35','c9':'0','c12':'0','c30':'0','c37':'1','c31':'0','c16':'1','c27':'320','c15':'0','c32':'','c5':'_blank','c40':'1','c17':'0','c19':'yyyy-MM-dd','c33':'500','c2':'序号,标题,发布时间,简介','c23':'1','c41':'240','c7':'1','c13':'200','c43':'0','c24':'240','c35':'-1:-1','c3':'6','c8':'1','c44':'1','c25':'320','c34':'300','c18':'yyyy-MM-dd','c20':'0','c42':'320','c10':'45','c11':'1','c36':'0','c26':'1'}" contents="{'c2':'0'}" style="display: block;">
           
-            <div class="m-newsl">
-              <ul class="ul-listl3">    
-              	<%data.news.forEach(function(item,index){%>            
-                <li class="i<%=index+1%>">
-                	<%let date = item.timeAdd;%>
-                	<%let str = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() %>
-                  <div class="con"> <span class="date"><%=str%></span>
-                    <h3 class="tit"><a href='#' target='_blank' title='<%=item.title%>'>
-                    	<%if(L=='1'){ %>
-                    		<%=item.title%>
-                    	<%}else{%>
-                    		<%=item.titleEN%>
-                    	<%}%>
-                    </a></h3>
-                    <div class="txt">
-                      <p><a href='#' target='_blank' title='<%=item.title%>'>
-                      	<%if(L=='1'){ %>
-                    		<%=item.pageContentNaked%>
-                    	<%}else{%>
-                    		<%=item.pageContentENNaked%>
-                    	<%}%>
-                      </a></p>
-                    </div>
-                  </div>
-                </li>
-                <%})%>                
-              </ul>
-            </div>
-          
-        </div>
-        <div class="taber" frag="窗口14" portletmode="simpleNews" configs="" contents="">         
-            <div class="m-newsl">
-              <ul class="ul-listl3">
-                <%data.notice.forEach(function(item,index){%>
-                	<%let date = item.timeAdd;%>
-                	<%let str = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() %>
-                <li class="i<%=index+1%>">
-                  <div class="con"> <span class="date"><%=str%></span>
-                    <h3 class="tit"><a href='#' target='_blank' title='<%=item.title%>'><%=item.title%></a></h3>
-                    <div class="txt">
-                      <p><a href='#' target='_blank' title='<%=item.title%>'>
-                      	<%if(L=='1'){ %>
-                    		<%=item.pageContentNaked%>
-                    	<%}else{%>
-                    		<%=item.pageContentENNaked%>
-                    	<%}%>
-                      	</a></p>
-                    </div>
-                  </div>
-                </li>
-                <%})%>
-              </ul>
-            </div>
-        </div>
-        <div class="taber" frag="窗口15" portletmode="simpleNews" configs="" contents="">         
-            <div class="m-newsl">
-              <ul class="ul-listl3">
-                <%data.student.forEach(function(item,index){%>
-                	<%let date = item.timeAdd;%>
-                	<%let str = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() %>
-                <li class="i<%=index+1%>">
-                  <div class="con"> <span class="date"><%=str%></span>
-                    <h3 class="tit"><a href='#' target='_blank' title='<%=item.title%>'><%=item.title%></a></h3>
-                    <div class="txt">
-                      <p><a href='#' target='_blank' title='<%=item.title%>'>
-                      	<%if(L=='1'){ %>
-                    		<%=item.pageContentNaked%>
-                    	<%}else{%>
-                    		<%=item.pageContentENNaked%>
-                    	<%}%>
-                      </a></p>
-                    </div>
-                  </div>
-                </li>
-                <%})%>
-              </ul>
-            </div>
-        </div>
-      </div>
-      <!-- <div class="m-campusl wow fadeInRight">
-        <div class="m-contactl" frag="窗口25" portletmode="simpleNews" configs="{'c28':'320','c14':'1','c1':'1','c29':'1','c39':'300','c38':'100','c21':'0','c4':'1','c6':'15','c9':'0','c12':'0','c30':'0','c37':'1','c31':'0','c16':'1','c27':'320','c15':'0','c32':'','c5':'_blank','c40':'1','c17':'0','c19':'yyyy-MM-dd','c33':'500','c2':'序号,标题,发布时间','c23':'1','c41':'240','c22':'0','c7':'1','c13':'200','c43':'0','c24':'240','c35':'-1:-1','c3':'2','c8':'1','c44':'0','c25':'320','c34':'300','c18':'yyyy-MM-dd','c20':'0','c42':'320','c10':'50','c11':'1','c36':'0','c26':'1'}" contents="{'c2':'0', 'c1':'/友情链接/图片链接'}">
-             
-            
-          <div class="item">
-            <div class="box">
-              <div class="pic"><a href="#" target="_blank" title="第十三次党代会"><img class="lazy_img" data-src="skin/images/bdsc.jpg" width="320"></a></div>
-            </div>
-          </div>
-          
-          <div class="item">
-            <div class="box">
-              <div class="pic"><a href="#" target="_blank" title="百年校庆专题网站"><img class="lazy_img" data-src="skin/images/1232c126-496e-40b3-aba8-4abfb5a5b4b5_s.jpg" width="320"></a></div>
-            </div>
-          </div>
-          
-          
-        </div>
-        <div class="m-listl4">
-          <ul class="ul-listl4">
-            <li frag="窗口15" portletmode="simpleSudyNavi" configs="{'c5':'0','c9':'0','c6':'0','c4':'_blank','c8':'2','c2':'1','c7':'2','c3':'6','c1':'1'}" contents="{'c2':'0', 'c1':'/图标链接/校园门户'}">
+          <div class="m-newsl">
+            <ul class="ul-listl3">
               
-                
-						<ul class="clearfix">
-							
-							 <a href="#" target="_blank" class="con"> <span class="icon iconfont"></span>
-                
-                <div class="txt">
-                  <h3 class="tit">校园门户</h3>
-                </div>
-                </a>  
-							
-						</ul>
-						 
-               
-              
-            </li>
-            <li frag="窗口16" portletmode="simpleSudyNavi" configs="{'c5':'0','c9':'0','c6':'0','c4':'_blank','c8':'2','c2':'1','c7':'2','c3':'6','c1':'1'}" contents="{'c2':'0', 'c1':'/图标链接/新闻网'}">
-                
-						<ul class="clearfix">
-							
-							 <a href="#" target="_blank" class="con">  <span class="icon iconfont" style="font-size: 40px;"></span>
-                
-                <div class="txt">
-                  <h3 class="tit">新闻网</h3>
-                </div>
-                </a>  
-							
-						</ul>
-						  
-            </li>
-            <li frag="窗口17" portletmode="simpleSudyNavi" configs="{'c5':'0','c9':'0','c6':'0','c4':'_blank','c8':'2','c2':'1','c7':'2','c3':'6','c1':'1'}" contents="{'c2':'0', 'c1':'/图标链接/校内信息'}">
-                
-						<ul class="clearfix">
-							
-							 <a href="#" target="_blank" class="con"> <span class="icon iconfont"></span>
-                
-                <div class="txt">
-                  <h3 class="tit">校内信息</h3>
-                </div>
-                </a>  
-							
-						</ul>
-						 
-            </li>
-            <li frag="窗口18" portletmode="simpleSudyNavi" configs="{'c5':'0','c9':'0','c6':'0','c4':'_blank','c8':'2','c2':'1','c7':'2','c3':'6','c1':'1'}" contents="{'c2':'0', 'c1':'/图标链接/电子邮箱'}">
-               
-						<ul class="clearfix">
-							
-							 <a href="#" target="_blank" class="con"> <span class="icon iconfont" style="font-size: 48px;"></span>
-                
-                <div class="txt">
-                  <h3 class="tit">电子邮箱</h3>
-                </div>
-                </a>  
-							
-						</ul>
-						 
-            </li>
-            <li frag="窗口19" portletmode="simpleSudyNavi" configs="{'c5':'0','c9':'0','c6':'0','c4':'_blank','c8':'2','c2':'1','c7':'2','c3':'6','c1':'1'}" contents="{'c2':'0', 'c1':'/图标链接/图书馆'}">
-                
-						<ul class="clearfix">
-							
-							 <a href="#" target="_blank" class="con"> <span class="icon iconfont"></span>
-                
-                <div class="txt">
-                  <h3 class="tit">图书馆</h3>
-                </div>
-                </a>  
-							
-						</ul>
-						 
-            </li>
-            <li frag="窗口20" portletmode="simpleSudyNavi" configs="{'c5':'0','c9':'0','c6':'0','c4':'_blank','c8':'2','c2':'1','c7':'2','c3':'6','c1':'1'}" contents="{'c2':'0', 'c1':'/图标链接/办公系统'}">
-               
-						<ul class="clearfix">
-							
-							 <a href="#" target="_blank" class="con"> <span class="icon iconfont"  style="font-size: 48px;"></span>
-                
-                <div class="txt">
-                  <h3 class="tit">办公系统</h3>
-                </div>
-                </a>  
-							
-						</ul>
-						 
-            </li>
-            <li frag="窗口21" portletmode="simpleSudyNavi" configs="{'c5':'0','c9':'0','c6':'0','c4':'_blank','c8':'2','c2':'1','c7':'2','c3':'6','c1':'1'}" contents="{'c2':'0', 'c1':'/图标链接/教师主页'}">
-               
-						<ul class="clearfix">
-							
-							 <a href="#" target="_blank" class="con"> <span class="icon iconfont"></span>
-                
-                <div class="txt">
-                  <h3 class="tit">教师主页</h3>
-                </div>
-                </a>  
-							
-						</ul>
-						 
-            </li>
-            <li frag="窗口22" portletmode="simpleSudyNavi" configs="{'c5':'0','c9':'0','c6':'0','c4':'_blank','c8':'2','c2':'1','c7':'2','c3':'6','c1':'1'}" contents="{'c2':'0', 'c1':'/图标链接/校园地图'}">
-               
-						<ul class="clearfix">
-							
-							 <a href="#" target="_blank" class="con"> <span class="icon iconfont" style="font-size: 50px;"></span>
-                
-                <div class="txt">
-                  <h3 class="tit">校园地图</h3>
-                </div>
-                </a>  
-							
-						</ul>
-						  
-            </li>
-            <li frag="窗口23" portletmode="simpleSudyNavi" configs="{'c5':'0','c9':'0','c6':'0','c4':'_blank','c8':'2','c2':'1','c7':'2','c3':'6','c1':'1'}" contents="{'c2':'0', 'c1':'/图标链接/服务指南'}">
-                
-						<ul class="clearfix">
-							
-							 <a href="#" target="_blank" class="con"> <span class="icon iconfont"></span>
-                
-                <div class="txt">
-                  <h3 class="tit">服务指南</h3>
-                </div>
-                </a>  
-							
-						</ul>
-						 
-            </li>
-          </ul>
-        </div>
-      </div> -->
-    </div>
-  </div>
-  <!-- <div class="row-a3" style="background-image: url(skin/img/img15.jpg)"> -->
- <!--  <div class="row-a3">
-    <div class="inner">
-      <div class="bg-pic">
-        <div class="bg-img"></div><div class="bg"></div>
-      </div>
-      <div class="hpic">
-        <div class="pic" frag="窗口39" portletmode="simpleNews" configs="{'c28':'320','c14':'1','c1':'1','c29':'1','c39':'300','c38':'100','c21':'0','c4':'1','c6':'15','c9':'0','c12':'0','c30':'0','c37':'1','c31':'0','c16':'1','c27':'320','c15':'0','c32':'','c5':'_blank','c40':'1','c17':'0','c19':'yyyy-MM-dd','c33':'500','c2':'序号,标题,发布时间','c23':'1','c41':'240','c22':'0','c7':'1','c13':'200','c43':'0','c24':'240','c35':'-1:-1','c3':'1','c8':'1','c44':'0','c25':'320','c34':'300','c18':'yyyy-MM-dd','c20':'0','c42':'320','c10':'50','c11':'1','c36':'0','c26':'1'}" contents="{'c2':'0', 'c1':'/师生风采'}">
-          <div class="img"> <img class="lazy_img" data-src="skin/images/cfad47c3-d7af-4263-971b-90acfb5b126a.jpg"></div>  
-        </div>
-      </div>
-      <div class="bg-shadow">
-        <div class="bg"></div>
-      </div>
-      <div class="wp htxt">
-        <div class="col-l" frag="窗口30" portletmode="simpleNews" configs="{'c28':'320','c14':'1','c1':'1','c29':'1','c39':'300','c38':'100','c21':'0','c4':'1','c6':'42','c9':'0','c12':'0','c30':'0','c37':'1','c31':'0','c16':'1','c27':'320','c15':'0','c32':'','c5':'_blank','c40':'1','c17':'0','c19':'yyyy-MM-dd','c33':'500','c2':'序号,标题,发布时间,简介,副标题','c23':'1','c41':'240','c22':'0','c7':'1','c13':'200','c43':'0','c24':'240','c35':'-1:-1','c3':'1','c8':'1','c44':'0','c25':'320','c34':'300','c18':'yyyy-MM-dd','c20':'0','c42':'320','c10':'100','c11':'1','c36':'0','c26':'1'}" contents="{'c2':'0', 'c1':'/师生风采'}">
-          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="wp_article_list_table"> 
-<tr> 
-<td> 
-
-            <div class="txt wow fadeInLeft">
-              <div class="s-label">师者风范</div>
-              <h4 class="tit2"><a href='#' target='_blank' title='我校黄志伟教授获第二届“科学探索奖”'>我校黄志伟教授获第二届“科学探索奖”</a></h4>
-              <div class="det"><a href='#' target='_blank' title='我校黄志伟教授获第二届“科学探索奖”'>哈工大报讯（综合/文）9月25日，根据《“科学探索奖”实施管理办法(2020年版)》的规定，“科学探索奖”评审委员会秉持客观公正的评审原则，对申报人进行了初筛、初审、复审和终审，最终，50位获奖人在“科学探索奖”...</a></div>
-              <a href="#" class="btn-more1" target="_blank"><em class="iconfont"></em>查看详情</a>
-              <div class="info"> <span>师者风范</span><span></span> </div>
-            </div>
-          </td> 
-</tr> 
-</table>
-        </div>
-        <div class="col-r" frag="窗口31" portletmode="simpleNews" configs="{'c28':'320','c14':'1','c1':'1','c29':'1','c39':'300','c38':'100','c21':'1','c4':'1','c6':'32','c9':'0','c12':'0','c30':'0','c37':'1','c31':'0','c16':'1','c27':'320','c15':'0','c32':'','c5':'_blank','c40':'1','c17':'0','c19':'yyyy-MM-dd','c33':'500','c2':'序号,标题,发布时间','c23':'1','c41':'240','c22':'0','c7':'1','c13':'200','c43':'0','c24':'240','c35':'-1:-1','c3':'6','c8':'1','c44':'0','c25':'320','c34':'300','c18':'yyyy-MM-dd','c20':'0','c42':'320','c10':'50','c11':'1','c36':'0','c26':'1'}" contents="{'c2':'1', 'c1':'/师生风采'}">
-          
-            <ul class="p-list2 wow fadeInRight">
-              
-              <li>
-                <div class="con">
-                  <div class="pic"><a href="#" target="_blank"><img src="skin/images/2bc06ac0-e01d-48aa-8b8d-6787e5c76af3.jpg" alt=""></a></div>
-                  <div class="txt"> <span class="s-label2">壮士风范</span>
-                    <h4 class="tit"><a href='#' target='_blank' title='课程连续8年评教“A+”或“A”，这位哈工大师者是如何做到的？'>课程连续8年评教“A+”或“A”，这位哈工大师者是如何做到的？</a></h4>
-                    <div class="det"><a href='#' target='_blank' title='课程连续8年评教“A+”或“A”，这位哈工大师者是如何做到的？'>他学为人师，行为世范，是传道授业的师长，是虚怀若谷的益友。2006年到校工作伊始，他始终自觉贯彻党的教育...</a></div>
+              <li class="i1">
+                <div class="con"> <span class="date">07 - 31</span>
+                  <span class="tit"><a href='#' target='_blank' title='标题'>标题</a></span>
+                  <div class="txt">
+                    <p><a href='#' target='_blank' title='标题'>内容</a></p>
                   </div>
                 </div>
               </li>
               
-              <li>
-                <div class="con">
-                  <div class="pic"><a href="#" target="_blank"><img src="skin/images/435ac135-3714-43ff-95aa-c380227ad91c.jpg" alt=""></a></div>
-                  <div class="txt"> <span class="s-label2">人才培养</span>
-                    <h4 class="tit"><a href='#' target='_blank' title='我校代表队在中国大学生物理学术竞赛中再次夺冠'>我校代表队在中国大学生物理学术竞赛中再次夺冠</a></h4>
-                    <div class="det"><a href='#' target='_blank' title='我校代表队在中国大学生物理学术竞赛中再次夺冠'>10月16日至18日，在第十一届“中国大学生物理学术竞赛（CUPT）”中，我校代表队以预选赛五轮全胜、总分207....</a></div>
+              <li class="i2">
+                <div class="con"> <span class="date">07 - 31</span>
+                  <span class="tit"><a href='#' target='_blank' title='标题'>标题</a></span>
+                  <div class="txt">
+                    <p><a href='#' target='_blank' title='标题'>内容</a></p>
+                  </div>
+                </div>
+              </li>
+              
+              <li class="i3">
+                <div class="con"> <span class="date">07 - 31</span>
+                  <span class="tit"><a href='#' target='_blank' title='标题'>标题</a></span>
+                  <div class="txt">
+                    <p><a href='#' target='_blank' title='标题'>内容</a></p>
+                  </div>
+                </div>
+              </li>
+              
+              <li class="i4">
+                <div class="con"> <span class="date">07 - 31</span>
+                  <span class="tit"><a href='#' target='_blank' title='标题'>标题</a></span>
+                  <div class="txt">
+                    <p><a href='#' target='_blank' title='标题'>内容</a></p>
+                  </div>
+                </div>
+              </li>
+              
+              <li class="i5">
+                <div class="con"> <span class="date">07 - 31</span>
+                  <span class="tit"><a href='#' target='_blank' title='标题'>标题</a></span>
+                  <div class="txt">
+                    <p><a href='#' target='_blank' title='标题'>内容</a></p>
+                  </div>
+                </div>
+              </li>
+              
+              <li class="i6">
+                <div class="con"> <span class="date">07 - 31</span>
+                  <span class="tit"><a href='#' target='_blank' title='标题'>标题</a></span>
+                  <div class="txt">
+                    <p><a href='#' target='_blank' title='标题'>内容</a></p>
                   </div>
                 </div>
               </li>
               
             </ul>
-          
-          <a href="#" class="btn-more2">更多<em class="icon iconfont"></em></a> </div>
+          </div>
+        
+      </div>  
       </div>
-    </div>
-  </div> -->
-  <!-- 专题 -->
-  <div class="m-special wow fadeInUp">
-    <div class="wp" frag="窗口32" portletmode="simpleNews" contents="">
-      <div class="g-titl1"> <!-- <a href="#" class="more">更多专题 <em class="icon iconfont"></em></a> -->
-        <h3 class="tit">研究机构</h3>
-      </div>
-      <div class="slider">
-      	<div class="imgnews">
-      		<div class="imgnewscon">
-      			<img data-lazy="images/bdsc.jpg">
-      		</div>
-      		<div class="imgdesc">
-                <a href="https://bdsc.szu.edu.cn">National Engineering Laboratory for Big Data System Computing Technology</a>
-            </div>
-      	</div>   
-      	<div class="imgnews">
-      		<div class="imgnewscon">
-      			<img data-lazy="images/bdsc.jpg">
-      		</div>
-      		<div class="imgdesc">
-                <a href="http://nhpcc.szu.edu.cn/">National High Performance Computing Center at Shenzhen</a>
-            </div>
-      	</div>
-      	<div class="imgnews">
-      		<div class="imgnewscon">
-      			<img data-lazy="images/bdsc.jpg">
-      		</div>
-      		<div class="imgdesc">
-                <a href="http://futuremedia.szu.edu.cn/">Research Institute for Future Media Computing</a>
-            </div>
-      	</div>
-      	<div class="imgnews">
-      		<div class="imgnewscon">
-      			<img data-lazy="images/bdsc.jpg">
-      		</div>
-      		<div class="imgdesc">
-                <a href="http://bigdata.szu.edu.cn/">Big Data Institute</a>
-            </div>
-      	</div>
-      	<div class="imgnews">
-      		<div class="imgnewscon">
-      			<img data-lazy="images/bdsc.jpg">
-      		</div>
-      		<div class="imgdesc">
-                <a href="http://security.szu.edu.cn/">Research Institute of Network and Information Security</a>
-            </div>
-      	</div>
-      	<div class="imgnews">
-      		<div class="imgnewscon">
-      			<img data-lazy="images/bdsc.jpg">
-      		</div>
-      		<div class="imgdesc">
-                <a href="http://cv.szu.edu.cn/">Computer Vision Institute</a>
-            </div>
-      	</div>
-      	<div class="imgnews">
-      		<div class="imgnewscon">
-      			<img data-lazy="images/bdsc.jpg">
-      		</div>
-      		<div class="imgdesc">
-                <a href="http://www.futurenet.ac.cn/">Internet of things Research Center</a>
-            </div>
-      	</div>
-      	<div class="imgnews">
-      		<div class="imgnewscon">
-      			<img data-lazy="images/bdsc.jpg">
-      		</div>
-      		<div class="imgdesc">
-                <a href="http://itsi.szu.edu.cn/">Research Institute of Intelligence Technology and System Integration</a>
-            </div>
-      	</div>
-      	<div class="imgnews">
-      		<div class="imgnewscon">
-      			<img data-lazy="images/bdsc.jpg">
-      		</div>
-      		<div class="imgdesc">
-                <a href="http://vcc.szu.edu.cn/">Visual Computing Research Center (VCC)</a>
-            </div>
-      	</div>
-             
-        </div>
-      
     </div>
   </div>
-  <!-- 风正扬帆当有为 -->
-  <!-- <div class="m-promisingl" style="background-color: #fff;">
-    <div class="bgpic wow fadeInUp"> <img class="lazy_img imgl1" data-src="skin/images/bgl1.jpg" alt="" /> <img class="lazy_img imgl2" data-src="skin/images/bgl2.jpg" alt="" /> </div>
+  
+  <!-- 计软风采 -->
+  <div class="row-a3">
     <div class="wp">
-      <div class="box wow fadeInUp">
-        <div class="pic"> <img class="lazy_img" data-src="skin/images/imgl1.png" alt="" /> </div>
-        <div class="txt">
-          <h3 class="tit"><img class="lazy_img" data-src="skin/images/imgl11.png" alt="" /></h3>
-          <p>在新时代新征程中，让我们一起携手，同心同向、并肩同行！</p>
+      <h3 class="g-t1 wow fadeInDown" style="visibility: visible; animation-name: fadeInDown;"><a href="">计软风采</a></h3>
+      <div class="swiper-container swiper2">
+        <div class="swiper-wrapper" style="position: relative;">
+            <div class="swiper-slide" >
+              <img src="images/by.jpg" style="position: relative;" >
+              <p class="ani fcdesc" swiper-animate-effect="zoomIn" swiper-animate-duration="1.5s" swiper-animate-delay="0.3s" >内容</p>
+            </div>
+            <div class="swiper-slide" ><img src="images/by.jpg" >
+              <p class="ani fcdesc" swiper-animate-effect="zoomIn" swiper-animate-duration="1.5s" swiper-animate-delay="0.3s" >内容</p>
+            </div>
+            <div class="swiper-slide"><img src="images/by.jpg" >
+              <p class="ani fcdesc" swiper-animate-effect="zoomIn" swiper-animate-duration="1.5s" swiper-animate-delay="0.3s" >内容</p>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="fot wow fadeInUp">
-      <div class="wp" frag="窗口33" portletmode="simpleNews" configs="{'c28':'320','c14':'1','c1':'1','c29':'1','c39':'300','c38':'100','c21':'0','c4':'1','c6':'15','c9':'0','c12':'0','c30':'0','c37':'1','c31':'0','c16':'1','c27':'320','c15':'0','c32':'','c5':'_blank','c40':'1','c17':'0','c19':'yyyy-MM-dd','c33':'500','c2':'序号,标题,发布时间','c23':'1','c41':'240','c22':'0','c7':'1','c13':'200','c43':'0','c24':'240','c35':'-1:-1','c3':'10','c8':'1','c44':'0','c25':'320','c34':'300','c18':'yyyy-MM-dd','c20':'0','c42':'320','c10':'50','c11':'1','c36':'0','c26':'1'}" contents="{'c2':'0', 'c1':'/友情链接/底部链接'}">
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination pagition2"></div>
         
-          <ul class="ul-listl1">
-            
-            <li>
-              <div class="con"><a href='#' target='_blank' title='本科生招生'>本科生招生</a></div>
-            </li>
-            
-            <li>
-              <div class="con"><a href='#' target='_blank' title='清风网'>清风网</a></div>
-            </li>
-            
-            <li>
-              <div class="con"><a href='#' target='_blank' title='校友总会'>校友总会</a></div>
-            </li>
-            
-            <li>
-              <div class="con"><a href='#' target='_blank' title='教育发展基金会'>教育发展基金会</a></div>
-            </li>
-            
-            <li>
-              <div class="con"><a href='#' target='_blank' title='校长信箱'>校长信箱</a></div>
-            </li>
-            
-            <li>
-              <div class="con"><a href='#' target='_blank' title='信息公开'>信息公开</a></div>
-            </li>
-            
-            <li>
-              <div class="con"><a href='#' target='_blank' title='英文简报 HIT TIMES'>英文简报 HIT TIMES</a></div>
-            </li>
-            
-          </ul>
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
         
-      </div>
+        <!-- 如果需要滚动条 -->
+        <!-- <div class="swiper-scrollbar"></div> -->
     </div>
-  </div> -->
+    </div>
+  </div>
+ 
+ 
 </div>
 <!-- 内容 --> 
 <%if(L=='1'){%>
