@@ -68,8 +68,9 @@ app.use('/manage',function(req,res,next){
   }else{
     if(req.session.account==''||req.session.account==null){
         console.log('no login redirect')
-        //return res.redirect('/csse/manage/login')
-        return res.redirect('/manage/login')//本地
+        //本地与服务器
+        //return res.redirect('/manage/login')
+        return res.redirect('/csse/manage/login')//本地
     }else{
       console.log('------- 有session 设置 ----------')
       res.locals.username = req.session.username;   // 从session 获取 user对象

@@ -1,0 +1,70 @@
+@font-face {
+  font-family: "my-iconfont"; /* Project id 1092820 */
+  src: url('iconfont.eot?t=1628493501473'); /* IE9 */
+  src: url('iconfont.eot?t=1628493501473#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('iconfont.woff2?t=1628493501473') format('woff2'),
+       url('iconfont.woff?t=1628493501473') format('woff'),
+       url('iconfont.ttf?t=1628493501473') format('truetype'),
+       url('iconfont.svg?t=1628493501473#my-iconfont') format('svg');
+}
+
+.my-iconfont {
+  font-family: "my-iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.layui-extend-gonggongbaobiao:before {
+  content: "\e605";
+}
+
+.layui-extend-hezuo:before {
+  content: "\e60c";
+}
+
+.layui-extend-yanjiu:before {
+  content: "\e607";
+}
+
+.layui-extend-rencai:before {
+  content: "\e635";
+}
+
+.layui-extend-fabu:before {
+  content: "\e602";
+}
+
+.layui-extend-jigou:before {
+  content: "\e6d9";
+}
+
+.layui-extend-dangqunguanli:before {
+  content: "\e60e";
+}
+
+.layui-extend-zhaosheng:before {
+  content: "\e600";
+}
+
+.layui-extend-method-draw-image1:before {
+  content: "\e609";
+}
+
+.layui-extend-gaikuang:before {
+  content: "\e642";
+}
+
+.layui-extend-dangjian:before {
+  content: "\e62b";
+}
+
+.layui-extend-yulan:before {
+  content: "\e6f1";
+}
+
+.layui-extend-dayin:before {
+  content: "\e660";
+}
+

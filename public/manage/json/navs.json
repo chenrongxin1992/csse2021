@@ -379,6 +379,13 @@
 			]
 		}
 	],
+	"normalMenu":[
+		{
+			"title":"个人信息",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/userinfo"
+		}
+	],
 	"enMenu": [
 		{
 			"title": "About",
@@ -401,7 +408,7 @@
 				{
 					"title": "Facts and Figures",
 					"icon": "icon-vip",
-					"href": "/csse/manage/?",
+					"href": "/csse/manage/figures",
 					"spread": false
 				},
 				{
@@ -542,6 +549,55 @@
 			"icon": "&#xe612;",
 			"href": "/csse/manage/zpxxen",
 			"spread": false
+		}
+	],
+	"dangqMenu":[
+		{
+			"title":"个人信息",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/userinfo"
+		},
+		{
+			"title": "党群工作",
+			"icon": "&#xe600;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "组织概况",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/zzgk",
+					"spread": false
+				},
+				{
+					"title": "规章制度",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/gzzd",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "通知公告",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/tzgg",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "党建活动",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/djhd",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "学“习”园地",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xxyd",
+					"spread": false,
+					"target": ""
+				}
+			]
 		}
 	],
 	"memberCenter": [

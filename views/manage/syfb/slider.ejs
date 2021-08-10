@@ -13,8 +13,8 @@
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 </head>
     <br>
-    <button class="layui-btn layui-btn-sm btnfloat" id="ptgladd"><i class="layui-icon">&#xe654;</i>新增</button>
-       
+    <button class="layui-btn layui-btn-sm btnfloat" id="ptgladd" style="float: right;margin-right: 15px;"><i class="layui-icon">&#xe654;</i>新增</button>
+    <div style="clear:both;"></div> 
 	<table id="slider_table" lay-filter="slider_table"></table>
 
 <script type="text/javascript" src="../layui/layui.js"></script>
@@ -34,7 +34,7 @@ layui.use(['jquery','table','form'], function(){
 	      {field: 'id', title: '序号',width:90,align:'center'}
 	      ,{field: 'title', title: '标题',align:'center'}
 	      ,{field: 'title1', title: '标题(EN)',align:'center'}
-	      ,{field: 'pic', title: '团队logo', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
+	      ,{field: 'pic', title: '图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
 	      ,{field: 'url', title: '链接', align:'center'}
 	      //,{field: 'isDisplay', title: '是否显示', align:'center',templet:'#displaytpl'}
 	      //,{field: 'timeEdit', title: '修改时间', align:'center'}

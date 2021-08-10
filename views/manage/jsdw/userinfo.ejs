@@ -86,9 +86,29 @@
 	     </tr>
 	      <tr>
 	        <td class="tdstyle">职称</td>
-	        <td><input type="text" id="zhicheng" class="layui-input"  value="<%=user.zhicheng%>"></td>
+			<td>
+				<select name="zhicheng" lay-filter="zhicheng" id="zhicheng">
+					<option value="教授">教授</option>
+					<option value="研究员">研究员</option>
+					<option value="副教授">副教授</option>
+					<option value="副研究员">副研究员</option>
+					<option value="助理教授">助理教授</option>
+					<option value="讲师">讲师</option>
+					<option value="博士后">博士后</option>
+				</select>
+			</td>
 	        <td class="tdstyle">(英文)职称</td>
-	        <td><input type="text" id="zhicheng1" class="layui-input"  value="<%=user.zhicheng1%>"></td>
+			<td>
+				<select name="zhicheng1" lay-filter="zhicheng1" id="zhicheng1">
+					<option value="Professor">Professor</option>
+					<option value="Researcher">Researcher</option>
+					<option value="Associate Professor">Associate Professor</option>
+					<option value="Associate Researcher">Associate Researcher</option>
+					<option value="Assistant Professor">Assistant Professor</option>
+					<option value="Lecturer">Lecturer</option>
+					<option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
+				</select>
+			</td>
 	      </tr>
 	      <tr>
 	        <td class="tdstyle">办公电话</td>
@@ -161,6 +181,8 @@ layui.use(['jquery','layer','upload','form'], function(){
 		$('#sex1').val('<%=user.sex1%>')
 		$('#jstype').val('<%=user.jstype%>')
 		$('#jstype1').val('<%=user.jstype1%>')
+		$('#zhicheng').val('<%=user.zhicheng%>')
+		$('#zhicheng1').val('<%=user.zhicheng1%>')
 		form.render('select')
 		//监听下拉框
 		form.on('select(sex)',function (data) {
@@ -198,6 +220,31 @@ layui.use(['jquery','layer','upload','form'], function(){
 			}
 			if(data.value == '博士后'){
 				$("#jstype1").find("option[value='Postdoctoral Researcher']").attr("selected",true);
+			}
+			form.render()
+		})
+		form.on('select(zhicheng)',function (data) {
+			console.log('select zhicheng',data)
+			if(data.value == '教授'){
+				$("#zhicheng1").find("option[value='Professor']").attr("selected",true);
+			}
+			if(data.value == '研究员'){
+				$("#zhicheng1").find("option[value='Researcher']").attr("selected",true);
+			}
+			if(data.value == '副教授'){
+				$("#zhicheng1").find("option[value='Associate Professor']").attr("selected",true);
+			}
+			if(data.value == '副研究员'){
+				$("#zhicheng1").find("option[value='Associate Researcher']").attr("selected",true);
+			}
+			if(data.value == '助理教授'){
+				$("#zhicheng1").find("option[value='Assistant Professor']").attr("selected",true);
+			}
+			if(data.value == '讲师'){
+				$("#zhicheng1").find("option[value='Lecturer']").attr("selected",true);
+			}
+			if(data.value == '博士后'){
+				$("#zhicheng1").find("option[value='Postdoctoral Researcher']").attr("selected",true);
 			}
 			form.render()
 		})
@@ -260,8 +307,8 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  data.field.sex1 =$('#sex1 option:selected').val()
 	  data.field.jstype=$('#jstype option:selected').val()
 	  data.field.jstype1=$('#jstype1 option:selected').val()
-	  data.field.zhicheng=$('#zhicheng').val()
-	  data.field.zhicheng1=$('#zhicheng1').val()
+	  data.field.zhicheng=$('#zhicheng option:selected').val()
+	  data.field.zhicheng1=$('#zhicheng1 option:selected').val()
 	  data.field.phoneOffice=$('#phoneOffice').val()
 	  data.field.email=$('#email').val()
 	  data.field.AddressOffice=$('#AddressOffice').val()
@@ -297,54 +344,6 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  	}
 	  })
 	});
-	// $('body').on('click', '#savebtn', function() {
-	// 	//console.log('savebtn',userName:$('#userName').val(),userName1:$('#userName1').val(),jstype1:$('#jstype1 option:selected').val(),)	
-		
-	// 	$.ajax({
-	// 		//本地与服务器
-	// 		//url:'/manage/userinfo',
-	// 		url:'/csse/manage/userinfo',
-	// 		type:'post',
-	// 		dataType : "json",
-	// 		data:{
-	// 			id:id,
-	// 			userName:$('#userName').val(),
-	// 			userName1:$('#userName1').val(),
-	// 			sex:$('#sex option:selected').val(),
-	// 			sex1:$('#sex option:selected').val(),
-	// 			jstype:$('#jstype option:selected').val(),
-	// 			jstype1:$('#jstype1 option:selected').val(),
-	// 			zhicheng:$('#zhicheng').val(),
-	// 			zhicheng1:$('#zhicheng1').val(),
-	// 			phoneOffice:$('#phoneOffice').val(),
-	// 			email:$('#email').val(),
-	// 			AddressOffice:$('#AddressOffice').val(),
-	// 			AddressOffice1:$('#AddressOffice1').val(),
-	// 			xuewei:$('#xuewei').val(),
-	// 			xuewei1:$('#xuewei1').val(),
-	// 			xueli:$('#xueli').val(),
-	// 			xueli1:$('#xueli1').val(),
-	// 			intro:ue1.getContent(),
-	// 			intro1:ue2.getContent(),
-	// 			avatar:$('#userimg').attr('src')
-	// 		},
-	// 		success:function(result){
-	// 			console.log('save success')
-	// 			layer.alert('保存成功', {
-	// 			  skin: 'layui-layer-molv' //样式类名
-	// 			  ,closeBtn: 0
-	// 			  ,time:2000
-	// 			}, function(){
-	// 			});
-	// 		},
-	// 		error:function(error){
-	// 			console.log('ajax error',error)
-	// 		}
-	// 	})
-	// })
-
-
-    
 });
 
 </script>

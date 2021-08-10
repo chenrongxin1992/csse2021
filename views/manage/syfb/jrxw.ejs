@@ -46,6 +46,7 @@ layui.use(['jquery','table','form'], function(){
 	      {field: 'id', title: '序号',width:90,align:'center'}
 	      ,{field: 'title', title: '标题',align:'center'}
           ,{field: 'pageContent', title: '内容',align:'center'}
+		  ,{field: 'fujianPath', title: '封面图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
 	      ,{field: 'timeAdd', title: '发布时间', align:'center'}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
@@ -173,6 +174,10 @@ layui.use(['jquery','table','form'], function(){
 			})
 	  	}
 	  	return false
+	  }else if(layEvent === 'preview'){
+	  	console.log('preview')
+	  	let src = ''+ data.fujianPath
+	  	layer.photos({ photos: {"data": [{"src": src}]} });
 	  }else if(layEvent === 'changetop'){//设置前台是否显示
 	  	console.log('changetop')
 	  	console.log('data------',data)
@@ -227,18 +232,22 @@ layui.use(['jquery','table','form'], function(){
 });
 </script>
 <script type="text/html" id="yjfxbar">
-  {{# if(d.isDisplay == 1){ }}
-  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='1'>隐藏</a>
-  {{# }else{ }}
-  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='0'>显示</a>
-  {{# } }}
+  
   {{# if(d.isTop == 1){ }}
   	<a class="layui-btn layui-btn-xs" lay-event="changetop" value='1'>取消置顶</a>
   {{# }else{ }}
   	<a class="layui-btn layui-btn-xs" lay-event="changetop" value='0'>置顶</a>
   {{# } }}
+  {{# if(d.isDisplay == 1){ }}
+  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='1'>隐藏</a>
+  {{# }else{ }}
+  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='0'>显示</a>
+  {{# } }}
   <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="sytpimg">
+	<img src="{{d.fujianPath}}" style="height: 100px;max-width: 100%;" class="previewimg" />
 </script>
 </body>
 </html>

@@ -18,6 +18,50 @@
 	    .layui-form-select dl{
 	        z-index: 99999;
 	    }
+		.uploader-list {
+            margin-left: -15px;
+        }
+ 
+        .uploader-list .info {
+            position: relative;
+            margin-top: -25px;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            width: 100px;
+            height: 25px;
+            text-align: center;
+            display: none;
+        }
+ 
+        .uploader-list .handle {
+            position: absolute;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            text-align: right;
+            display: none;
+			right: 0;
+        }
+ 
+        .uploader-list .handle i {
+            margin-right: 5px;
+        }
+ 
+        .uploader-list .handle i:hover {
+            cursor: pointer;
+        }
+ 
+        .uploader-list .file-iteme {
+            margin: 12px 0 0 15px;
+            padding: 1px;
+            float: left;
+			position: relative;
+        }
 	</style>
 </head>
 <body class="childrenBody">
@@ -48,13 +92,25 @@
 	      			</div>
 				</div>
 			</div>
+
 			<div class="layui-form-item">
 				<label class="layui-form-label">是否置顶</label>
 				<div class="layui-input-inline" style="width: 272px;">
 		           <input type="checkbox" name="isTop" title="是" lay-skin="primary" value="1" id="isTop">
 		        </div>
 			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">封面图</label>
+				<button type="button" class="layui-btn" id="test1">上传</button>
+			</div>
 
+			<div class="layui-form-item">
+				<label class="layui-form-label">预览图</label>
+				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">
+                                    
+				</div>
+				 <!-- <p style="margin-left: 105px;">(1100px * 240px)</p> -->
+			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">内容</label>
 				<div class="layui-input-block" id="intro_bk">
@@ -87,7 +143,7 @@
 <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
 <!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script type="text/javascript">
-
+		
 $(function(){
 	layui.use(['jquery','layer','form','layedit','upload','laydate'], function(){ 
     //let $ = layui.$, //重点处
@@ -95,7 +151,59 @@ $(function(){
     	upload = layui.upload,
         laydate = layui.laydate
     //日期
-    
+	$(document).on("mouseenter mouseleave", ".file-iteme", function(event){
+            if(event.type === "mouseenter"){
+                //鼠标悬浮
+                $(this).children(".handle").fadeIn("fast");
+            }else if(event.type === "mouseleave") {
+                //鼠标离开
+                $(this).children(".handle").hide();
+            }
+        });
+	// 删除图片
+    $(document).on("click", ".file-iteme .handle", function(event){
+		layer.confirm('确定要删除图片吗', {
+			btn: ['确定','取消'] //按钮
+			}, function(){
+				console.log('$(this).parent()-----',$(this).parent(),$(this).parent().parent())
+				$('#fmpic').parent().remove()
+				layer.msg('已删除', {icon: 1});
+			}, function(){
+				layer.msg('已取消', {
+					time: 1000, 
+				});
+		});
+    });
+    //图标上传
+	let uploadInst = upload.render({
+	    elem: '#test1'
+        //本地与服务器
+	    ,url: '/csse/manage/newsupload'
+        //,url: '/manage/newsupload'
+	    ,before: function(obj){
+			console.log('try......')
+			layer.msg('图片上传中...', {
+                icon: 16,
+                shade: 0.01,
+                time: 0
+            })
+	    }
+	    ,done: function(res){
+			layer.close(layer.msg());//关闭上传提示窗口
+	      console.log('upload success',res)
+		  $('#uploader-list').append(
+                    '<div id="" class="file-iteme">' +
+                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
+                    '<img style="height: 150px;" id="fmpic" src='+ res.data +'>' +
+                    '</div>'
+                );
+          layer.msg('图片上传成功')
+	      //上传成功
+	    }
+	    ,error: function(){
+	      layer.msg('上传失败，请联系CRX')
+	    }
+	  });
 	laydate.render({
 	    elem: '#timeEdit',
 		format:'yyyy/MM/dd HH:mm:ss',
@@ -141,6 +249,12 @@ $(function(){
         if('<%=data.isTop%>' == 1){
 			$("#isTop").prop("checked", true)
 		}
+		//初始化封面图
+		$('#uploader-list').append(
+                    '<div id="" class="file-iteme">' +
+                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
+                    '<img style="height: 150px;" id="fmpic" src=<%-data.fujianPath%> ></div>'
+                );
   		form.render()
 	}
     form.on('submit(update)', function(data){
@@ -164,6 +278,13 @@ $(function(){
 	  data.field.timeAdd = $('#timeAdd').val()
       data.field.timeEdit = $('#timeEdit').val()
       data.field.isTop = topstr.substring(0,topstr.length-1)
+	  if($('#fmpic').attr('src')){
+	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
+	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
+	  }else{
+		  layer.msg('请上传封面图')
+		  return false
+	  }
 
 	  console.log('提交数据',data.field)
      //return false

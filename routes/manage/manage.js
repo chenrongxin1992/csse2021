@@ -27,6 +27,7 @@ router.get('/login', function(req, res, next) {
     console.log('login')
 	res.type('html')
 	res.render('manage/login')
+	//res.render('manage/login')
 }).get('/vcode',function(req,res){
 	console.log(req.query)
 	let option = req.query;
@@ -67,36 +68,18 @@ router.get('/login', function(req, res, next) {
 						req.session.username = doc.userName
 						req.session.avatar = doc.avatar
 						req.session.power = doc.power
+						//在这里指定各类管理员类型，党群的目前张芯蕾
+						if(doc.power=='管理员'){
+							if(doc.userName == '张芯蕾'){
+								console.log('管理党建模块')
+								req.session.powerType = 'dangqun'
+							}
+							if(doc.userName == '陈荣鑫'){
+								req.session.powerType = 'all'
+							}
+						}
 						return res.json({'code':0})
 					}
-					// let searchuserrole = user_role.findOne({})
-					// 	searchuserrole.where('userid').equals(doc.id)
-					// 	searchuserrole.sort({'id':1})
-					// 	searchuserrole.limit(1)
-					// 	searchuserrole.exec(function(ee,dd){
-					// 		if(ee){
-					// 			console.log('search user_role error',ee)
-					// 			return res.json({'code':-1,msg:ee})
-					// 		}else{
-					// 			console.log('search user_role success',dd)
-					// 			let searchrole = role.findOne({})
-					// 			    searchrole.where('id').equals(dd.roleid)
-					// 			    searchrole.exec(function(eee,ddd){
-					// 			    	if(eee){
-					// 			    		console.log('search role eee',eee)
-					// 			    		return res.json({'code':-1,msg:eee})
-					// 			    	}else{
-					// 			    		console.log('search role success',ddd)
-					// 			    		req.session.account = req.body.username
-					// 			    		req.session.rolename = ddd.name
-					// 			    		req.session.userid = dd.userid
-					// 			    		req.session.username = doc.name
-					// 			    		req.session.photo = doc.photo
-					// 			    		return res.json({'code':0})
-					// 			    	}
-					// 			    })
-					// 		}
-					// 	})
 				}
 				if(!doc){
 					console.log('用户不存在')
@@ -114,7 +97,7 @@ router.get('/login', function(req, res, next) {
 			if(err){
 				res.send(err)
 			}
-			res.render('manage/index',{user:doc})
+			res.render('manage/index',{user:doc,powerType:req.session.powerType})
 		})	
 })
 router.get('/main',function(req,res){
@@ -737,14 +720,8 @@ router.get('/jsdw',function(req,res){
 						console.log('有姓名，角色',userName,power)
 						_filter = {
 							$and:[
-								{$or:[
-									{userName:{$regex:userName}},//忽略大小写
-									{power:power}
-								]},
-								{$or:[
-									{userName:{$regex:userName}},//忽略大小写
-									{power:power}
-								]}
+								{userName:{$regex:userName}},//忽略大小写
+								{power:power}
 							]
 						}
 					}
@@ -980,16 +957,30 @@ router.get('/jsdw',function(req,res){
 		return res.json({'code':'0','msg':'del jsdwdel success'})
 	})
 }).get('/userinfo',function(req,res){
+	//普通用户从session获取account
 	let id = req.query.id
-	console.log('个人信息 ID,',id)
-	let search = user.findOne({})
-		search.where('id').equals(id)
-		search.exec(function(err,doc){
-			if(err){
-				return res.send(err)
-			}
-			return res.render('manage/jsdw/userinfo',{user:doc})
-		})
+	if(id){
+		console.log('个人信息 ID,',id)
+		let search = user.findOne({})
+			search.where('id').equals(id)
+			search.exec(function(err,doc){
+				if(err){
+					return res.send(err)
+				}
+				return res.render('manage/jsdw/userinfo',{user:doc})
+			})
+	}else{
+		console.log('个人信息 account,',req.session.account)
+		let search = user.findOne({})
+			search.where('account').equals(req.session.account)
+			search.exec(function(err,doc){
+				if(err){
+					return res.send(err)
+				}
+				return res.render('manage/jsdw/userinfo',{user:doc})
+			})
+	}
+	
 }).post('/userimgupload',function(req,res){
 	console.log('userimgupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\userimg')
@@ -1287,6 +1278,52 @@ router.get('/slider',function(req,res){
 			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
 		})
 	}
+}).post('/newsupload',function(req,res){
+	console.log('newsupload')
+	console.log(attachmentuploaddir,attachmentuploaddir + '\\news')
+	
+	let newsimg = attachmentuploaddir + '\\news'//G:\newcsse\public\attachment\slider
+	fs.existsSync(newsimg) || fs.mkdirSync(newsimg)
+	console.log('newsimg img dir ',newsimg)
+	let form = new multiparty.Form();
+    //设置编码
+    form.encoding = 'utf-8';
+    //设置文件存储路径
+    form.uploadDir = newsimg
+    console.log('form.uploadDir-->',form.uploadDir)
+    let baseimgpath = newsimg.split('\\')
+    	// baseimgpath.shift()
+    	// baseimgpath.shift()
+    	// baseimgpath.shift()
+    	// baseimgpath = baseimgpath.join('/')
+    	let baseimgpathlength = baseimgpath.length
+    baseimgpath = baseimgpath[baseimgpathlength-2] + '/' + baseimgpath[baseimgpathlength-1]
+    	console.log('baseimgpath-----',baseimgpath)//attachment/sliderimg
+		//return false
+    form.parse(req, function(err, fields, files) {
+    	if(err){
+    		console.log('newsimg img parse err',err.stack)
+    	}
+    	console.log('fields->',fields)
+    	console.log('files->',files)
+    	let uploadfiles =  files.file
+    	let returnimgurl = [],
+    		returnfilename = []
+    	uploadfiles.forEach(function(item,index){
+    		console.log('读取文件路径-->',item.path,newsimg+'\\'+item.originalFilename)
+    		//returnimgurl.push('/'+baseimgpath+'/'+item.originalFilename)///images/attachment/news/84f1914cedd048ad90eeaaefc25c7be9.jpeg
+			//fs.renameSync(item.path,userimg+'\\'+item.originalFilename);
+			//returnfilename.push(item.originalFilename)
+			//1012更改，加入时间戳，防止同名文件覆盖
+			returnimgurl.push('/'+baseimgpath+'/'+ moment().unix() + '_' + item.originalFilename)
+    		fs.renameSync(item.path,newsimg+'\\'+ moment().unix() + '_' + item.originalFilename);
+    		returnfilename.push(moment().unix() + '_' + item.originalFilename)
+    	})
+    	console.log('returnimgurl',returnimgurl)
+		//现在有csse,加上路径，后续去除
+		returnimgurl = '/csse'+returnimgurl
+    	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
+    })
 }).get('/jrnews',function(req,res){
 	res.render('manage/syfb/jrxw')
 }).get('/news_data',function(req,res){
@@ -1325,6 +1362,7 @@ router.get('/slider',function(req,res){
 				}
 				console.log('_filter',_filter)
 				let search = cmsContent.find(_filter)
+					search.where('isDelete').equals(0)
 					search.sort({'id':-1})
 					search.sort({'timeAddStamp':-1})
 					search.sort({'timeAdd':-1})
@@ -1351,6 +1389,7 @@ router.get('/slider',function(req,res){
 			}else{
 				console.log('不带搜索参数')
 				let search = cmsContent.find({'trees':'179-181-'})
+					search.where('isDelete').equals(0)
 					search.sort({'id':-1})
 					search.sort({'isTop':-1})//正序
 					search.sort({'timeAdd':-1})
@@ -1433,7 +1472,8 @@ router.get('/slider',function(req,res){
 					timeAdd:req.body.timeAdd,
 					timeEdit:req.body.timeEdit,
 					trees:'179-181-',
-					tag2:'计软新闻'
+					tag2:'计软新闻',
+					fujianPath:req.body.fujianPath
 				})
 				cmsContentadd.save(function(error,doc){
 					if(error){
@@ -1463,7 +1503,8 @@ router.get('/slider',function(req,res){
 					pageContentEN:req.body.pageContentEN,
 					isTop:req.body.isTop,
 					timeAdd:req.body.timeAdd,
-					timeEdit:req.body.timeEdit
+					timeEdit:req.body.timeEdit,
+					fujianPath:req.body.fujianPath
 				}
 				cmsContent.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -1553,6 +1594,7 @@ router.get('/slider',function(req,res){
 				}
 				console.log('_filter',_filter)
 				let search = cmsContent.find(_filter)
+					search.where('isDelete').equals(0)
 					search.sort({'id':-1})
 					search.sort({'timeAddStamp':-1})
 					search.sort({'timeAdd':-1})
@@ -1579,6 +1621,7 @@ router.get('/slider',function(req,res){
 			}else{
 				console.log('不带搜索参数')
 				let search = cmsContent.find({'trees':'179-182-'})
+					search.where('isDelete').equals(0)
 					search.sort({'id':-1})
 					search.sort({'isTop':-1})//正序
 					search.sort({'timeAdd':-1})
@@ -1782,6 +1825,7 @@ router.get('/slider',function(req,res){
 				}
 				console.log('_filter',_filter)
 				let search = cmsContent.find(_filter)
+					search.where('isDelete').equals(0)
 					search.sort({'id':-1})
 					search.sort({'timeAddStamp':-1})
 					search.sort({'timeAdd':-1})
@@ -1808,6 +1852,7 @@ router.get('/slider',function(req,res){
 			}else{
 				console.log('不带搜索参数')
 				let search = cmsContent.find({'tag2':'计软风采'})
+					search.where('isDelete').equals(0)
 					search.sort({'id':-1})
 					search.sort({'isTop':-1})//正序
 					search.sort({'timeAdd':-1})
@@ -2341,6 +2386,29 @@ router.get('/changePassword',function(req,res){
 			console.log('req.session--------',req.session)
 			res.json({'code':0,'msg':'update success'})
 		})
+	})
+})
+//about facts and figures
+router.get('/figures',function(req,res){
+	console.log('in figures')
+	let search = cmsContent.findOne({})
+		search.where('tag2').equals('Facts and Figures')
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}	
+			res.render('manage/en/about/figures',{data:doc})
+		})
+}).post('/figures',function(req,res){
+	console.log('figures post')
+	//console.log('req.bdoy',req.body)
+	cmsContent.updateOne({'id':req.body.id},{'title':req.body.title,'titleEN':req.body.titleEN,'pageContent':req.body.pageContent,'pageContentEN':req.body.pageContentEN,'timeAdd':req.body.timeAdd,'timeEdit':req.body.timeEdit},function(error){
+		if(error){
+			console.log('figures error',error)
+			res.json({'code':-1,'msg':error})
+		}
+		console.log('figures success')
+		res.json({'code':0,'msg':'update success'})
 	})
 })
 module.exports = router;
