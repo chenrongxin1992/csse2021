@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>查看 | 编辑 计软风采</title>
+	<title>查看 | 编辑 通知公告</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -26,48 +26,6 @@
 		#fujian p {
 			margin:2px 0;
 		}
-		.uploader-list {
-            margin-left: -15px;
-        }
-        .uploader-list .info {
-            position: relative;
-            margin-top: -25px;
-            background-color: black;
-            color: white;
-            filter: alpha(Opacity=80);
-            -moz-opacity: 0.5;
-            opacity: 0.5;
-            width: 100px;
-            height: 25px;
-            text-align: center;
-            display: none;
-        }
-        .uploader-list .handle {
-			width: 100%;
-            position: absolute;
-            background-color: black;
-            color: white;
-            filter: alpha(Opacity=80);
-            -moz-opacity: 0.5;
-            opacity: 0.5;
-            /* text-align: right; */
-            display: none;
-			right: 0;
-        }
-        .uploader-list .handle i {
-			margin: 0 auto;
-    		display: block;
-			text-align: center;
-        }
-        .uploader-list .handle i:hover {
-            cursor: pointer;
-        }
-        .uploader-list .file-iteme {
-            margin: 12px 0 0 15px;
-            padding: 1px;
-            float: left;
-			position: relative;
-        }
 	</style>
 </head>
 <body class="childrenBody">
@@ -80,10 +38,10 @@
 					<div class="layui-input-inline" style="width: 450px;">
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
-				    <label class="layui-form-label" >标题(EN)</label>
+				    <!-- <label class="layui-form-label" >标题(EN)</label>
 				    <div class="layui-input-inline" style="width: 450px;">
 				      <input type="text" name="titleEN"  autocomplete="off" class="layui-input" id="titleEN">
-				    </div>
+				    </div> -->
 				</div>
 			</div>
             <div class="layui-form-item">
@@ -98,21 +56,19 @@
 	      			</div>
 				</div>
 			</div>
-            <div class="layui-form-item">
+            <!-- <div class="layui-form-item">
 				<label class="layui-form-label">照片</label>
 				<button type="button" class="layui-btn" id="test1">上传</button>
 			</div>
             <div class="layui-form-item">
-				<label class="layui-form-label">预览图</label>
-				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">     
-				</div>
-				<!-- <div class="layui-upload-list">
+				<label class="layui-form-label"></label>
+				<div class="layui-upload-list">
 				    <img class="layui-upload-img" id="demo1" style="max-height: 240px;">
 				    <p id="demoText"></p>
 				    
 				 </div>
-				 <p style="margin-left: 105px;">(1100px * 240px)</p> -->
-			</div>
+				 <p style="margin-left: 105px;">(1100px * 240px)</p>
+			</div> -->
 			<div class="layui-form-item">
 				<label class="layui-form-label">是否置顶</label>
 				<div class="layui-input-inline" style="width: 272px;">
@@ -128,13 +84,13 @@
 				</div>
 			</div>
 
-			<div class="layui-form-item">
+			<!-- <div class="layui-form-item">
 				<label class="layui-form-label">内容(EN)</label>
 				<div class="layui-input-block" id="eintro_bk">
 					<input id="pageContentEN"  value="<%=data.pageContentEN%>" type="hidden" />
 					<script id="eintro" type="text/plain" ></script>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="layui-form-item">
 				<hr class="layui-bg-gray" />
@@ -154,29 +110,6 @@
 <script type="text/javascript">
 
 $(function(){
-	$(document).on("mouseenter mouseleave", ".file-iteme", function(event){
-            if(event.type === "mouseenter"){
-                //鼠标悬浮
-                $(this).children(".handle").fadeIn("fast");
-            }else if(event.type === "mouseleave") {
-                //鼠标离开
-                $(this).children(".handle").hide();
-            }
-        });
-	// 删除图片
-    $(document).on("click", ".file-iteme .handle", function(event){
-		layer.confirm('确定要删除图片吗', {
-			btn: ['确定','取消'] //按钮
-			}, function(){
-				console.log('$(this).parent()-----',$(this).parent(),$(this).parent().parent())
-				$('#fmpic').parent().remove()
-				layer.msg('已删除', {icon: 1});
-			}, function(){
-				layer.msg('已取消', {
-					time: 1000, 
-				});
-		});
-    });
 	layui.use(['jquery','layer','form','layedit','upload','laydate'], function(){ 
     //let $ = layui.$, //重点处
     let	layedit = layui.layedit,
@@ -184,44 +117,32 @@ $(function(){
         laydate = layui.laydate
     //日期
     //图标上传
-	let uploadInst = upload.render({
-	    elem: '#test1'
-        //本地与服务器
-	    ,url: '/csse/manage/jrfcupload'
-        //,url: '/manage/jrfcupload'
-	    ,before: function(obj){
-	      //预读本地文件示例，不支持ie8
-	      console.log('try......')
-			layer.msg('图片上传中...', {
-                icon: 16,
-                shade: 0.01,
-                time: 0
-            })
-	    }
-	    ,done: function(res){
-			layer.close(layer.msg());//关闭上传提示窗口
-	      console.log('upload success',res)
-		  $('#uploader-list').append(
-                    '<div id="" class="file-iteme">' +
-                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-                    '<img style="height: 150px;" id="fmpic" src='+ res.data +'>' +
-                    '</div>'
-                );
-        //   layer.msg('图片上传成功')
-	    //   console.log('upload success',res)
-	    //   $('#demo1').attr('src', ''+(res.data))
-        //   layer.msg('图片上传成功')
-	      //上传成功
-	    }
-	    ,error: function(){
-	      //演示失败状态，并实现重传
-	      let demoText = $('#demoText');
-	      demoText.html('<span style="color: #FF5722;">上传失败</span> ');
-	      demoText.find('.demo-reload').on('click', function(){
-	        uploadInst.upload();
-	      });
-	    }
-	  });
+	// let uploadInst = upload.render({
+	//     elem: '#test1'
+    //     //本地与服务器
+	//     ,url: '/csse/manage/jrfcupload'
+    //     //,url: '/manage/jrfcupload'
+	//     ,before: function(obj){
+	//       //预读本地文件示例，不支持ie8
+	//       obj.preview(function(index, file, result){
+	//         $('#demo1').attr('src', result); //图片链接（base64）
+	//       });
+	//     }
+	//     ,done: function(res){
+	//       console.log('upload success',res)
+	//       $('#demo1').attr('src', ''+(res.data))
+    //       layer.msg('图片上传成功')
+	//       //上传成功
+	//     }
+	//     ,error: function(){
+	//       //演示失败状态，并实现重传
+	//       let demoText = $('#demoText');
+	//       demoText.html('<span style="color: #FF5722;">上传失败</span> ');
+	//       demoText.find('.demo-reload').on('click', function(){
+	//         uploadInst.upload();
+	//       });
+	//     }
+	//   });
 	laydate.render({
 	    elem: '#timeEdit',
 		format:'yyyy/MM/dd HH:mm:ss',
@@ -237,12 +158,12 @@ $(function(){
 	   		let htmlStr = $("#pageContent").val()
 	   		ue1.setContent(htmlStr,false)
 	    });
-		ue2 = UE.getEditor('eintro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
-		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#pageContentEN").val();
-	   		ue2.setContent(htmlStr,false)
-	    });
+	// 	ue2 = UE.getEditor('eintro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+	// 	ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	//    		console.log('pageContentEN...')
+	//    		let htmlStr = $("#pageContentEN").val();
+	//    		ue2.setContent(htmlStr,false)
+	//     });
 		
     if(id==''||id==null||typeof(id)=='undefined'){
 		console.log('新增',id)
@@ -259,21 +180,12 @@ $(function(){
          //初始化表单值
          console.log('编辑',id,'<%- data.timeAdd%>')
         $('#title').val('<%- data.title%>')
-        if('<%- data.titleEN%>'){
-    	    $('#titleEN').val('<%- data.titleEN%>')
-        }
+        
         $('#timeAdd').val('<%- data.timeAdd%>')
 	    $('#timeEdit').val('<%- data.timeEdit%>')
         if('<%=data.isTop%>' == 1){
 			$("#isTop").prop("checked", true)
 		}
-		//初始化封面图
-		$('#uploader-list').append(
-                    '<div id="" class="file-iteme">' +
-                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-                    '<img style="height: 150px;" id="fmpic" src=<%-data.fujianPath%> ></div>'
-                );
-        //$('#demo1').attr('src', ''+'<%-data.fujianPath%>')
   		form.render()
 	}
     form.on('submit(update)', function(data){
@@ -289,12 +201,12 @@ $(function(){
 	  //更新
 	  data.field.id = id
 	  data.field.pageContent =ue1.getContent()
-	  data.field.pageContentEN = ue2.getContent()
+	//   data.field.pageContentEN = ue2.getContent()
 	  //data.field.leaderintro = editor3.txt.html()
 	  //data.field.eleaderintro = editor4.txt.html()
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()
-      data.field.titleEN = $('#titleEN').val()
+      //data.field.titleEN = $('#titleEN').val()
 	  data.field.timeAdd = $('#timeAdd').val()
       data.field.timeEdit = $('#timeEdit').val()
       data.field.isTop = topstr.substring(0,topstr.length-1)
@@ -302,19 +214,12 @@ $(function(){
 	//   	console.log('ddddd---------------------------',$('#demo1').attr('src'))
 	//   	data.field.fujianPath = $('#demo1').attr('src')//.slice(8)//去掉
 	//   }
-	if($('#fmpic').attr('src')){
-	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
-	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
-	  }else{
-		  layer.msg('请上传封面图')
-		  return false
-	  }
 	  console.log('提交数据',data.field)
      //return false
 	  $.ajax({
           //本地与服务器
-        url:'/csse/manage/jrfcadd',
-        //url:'/manage/jrfcadd',
+        url:'/csse/manage/tzggadd',
+        //url:'/manage/tzggadd',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",

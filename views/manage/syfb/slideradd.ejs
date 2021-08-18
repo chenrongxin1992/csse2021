@@ -18,6 +18,48 @@
 	    .layui-form-select dl{
 	        z-index: 99999;
 	    }
+		.uploader-list {
+            margin-left: -15px;
+        }
+        .uploader-list .info {
+            position: relative;
+            margin-top: -25px;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            width: 100px;
+            height: 25px;
+            text-align: center;
+            display: none;
+        }
+        .uploader-list .handle {
+			width: 100%;
+            position: absolute;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            /* text-align: right; */
+            display: none;
+			right: 0;
+        }
+        .uploader-list .handle i {
+			margin: 0 auto;
+    		display: block;
+			text-align: center;
+        }
+        .uploader-list .handle i:hover {
+            cursor: pointer;
+        }
+        .uploader-list .file-iteme {
+            margin: 12px 0 0 15px;
+            padding: 1px;
+            float: left;
+			position: relative;
+        }
 	</style>
 </head>
 <body class="childrenBody">
@@ -49,13 +91,15 @@
 			</div>
 
 			<div class="layui-form-item">
-				<label class="layui-form-label"></label>
-				<div class="layui-upload-list">
+				<label class="layui-form-label">预览图</label>
+				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">     
+				</div>
+				<!-- <div class="layui-upload-list">
 				    <img class="layui-upload-img" id="demo1" style="max-height: 240px;">
 				    <p id="demoText"></p>
 				    
 				 </div>
-				 <p style="margin-left: 105px;">(1100px * 240px)</p>
+				 <p style="margin-left: 105px;">(1100px * 240px)</p> -->
 			</div>
 
 			<div class="layui-form-item">
@@ -93,6 +137,29 @@
 
 $(function(){
 	layui.use(['jquery','layer','form','layedit','upload'], function(){ 
+		$(document).on("mouseenter mouseleave", ".file-iteme", function(event){
+            if(event.type === "mouseenter"){
+                //鼠标悬浮
+                $(this).children(".handle").fadeIn("fast");
+            }else if(event.type === "mouseleave") {
+                //鼠标离开
+                $(this).children(".handle").hide();
+            }
+        });
+	// 删除图片
+    $(document).on("click", ".file-iteme .handle", function(event){
+		layer.confirm('确定要删除图片吗', {
+			btn: ['确定','取消'] //按钮
+			}, function(){
+				console.log('$(this).parent()-----',$(this).parent(),$(this).parent().parent())
+				$('#fmpic').parent().remove()
+				layer.msg('已删除', {icon: 1});
+			}, function(){
+				layer.msg('已取消', {
+					time: 1000, 
+				});
+		});
+    });
     //let $ = layui.$, //重点处
     let	layedit = layui.layedit,
     	upload = layui.upload
@@ -120,7 +187,13 @@ $(function(){
 		$('#title').val('<%-data.title%>')
 		$('#title1').val('<%-data.title1%>')
         $('#url').val('<%-data.url%>')
-		$('#demo1').attr('src', ''+'<%-data.pic%>')
+		// $('#demo1').attr('src', ''+'<%-data.pic%>')
+		//初始化封面图
+		$('#uploader-list').append(
+                    '<div id="" class="file-iteme">' +
+                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
+                    '<img style="height: 150px;" id="fmpic" src=<%-data.pic%> ></div>'
+                );
   		form.render()
 	}
 
@@ -132,14 +205,26 @@ $(function(){
         //,url: '/manage/ptlogoupload'
 	    ,before: function(obj){
 	      //预读本地文件示例，不支持ie8
-	      obj.preview(function(index, file, result){
-	        $('#demo1').attr('src', result); //图片链接（base64）
-	      });
+	      console.log('try......')
+			layer.msg('图片上传中...', {
+                icon: 16,
+                shade: 0.01,
+                time: 0
+            })
 	    }
 	    ,done: function(res){
+		  layer.close(layer.msg());//关闭上传提示窗口
 	      console.log('upload success',res)
-	      $('#demo1').attr('src', ''+(res.data))
+		  $('#uploader-list').append(
+                    '<div id="" class="file-iteme">' +
+                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
+                    '<img style="height: 150px;" id="fmpic" src='+ res.data +'>' +
+                    '</div>'
+                );
           layer.msg('图片上传成功')
+	    //   console.log('upload success',res)
+	    //   $('#demo1').attr('src', ''+(res.data))
+        //   layer.msg('图片上传成功')
 	      //上传成功
 	    }
 	    ,error: function(){
@@ -164,11 +249,17 @@ $(function(){
 	  data.field.title = $('#title').val()
       data.field.url = $('#url').val()
 	  data.field.title1 = $('#title1').val()
-
-	  if($('#demo1').attr('src')){
+	  if($('#fmpic').attr('src')){
 	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
-	  	data.field.pic = $('#demo1').attr('src')//.slice(8)//去掉
+	  	data.field.pic = $('#fmpic').attr('src')//.slice(8)//去掉
+	  }else{
+		  layer.msg('请上传封面图')
+		  return false
 	  }
+	//   if($('#demo1').attr('src')){
+	//   	console.log('ddddd---------------------------',$('#demo1').attr('src'))
+	//   	data.field.pic = $('#demo1').attr('src')//.slice(8)//去掉
+	//   }
 
 	  console.log('提交数据',data.field)
      // return false

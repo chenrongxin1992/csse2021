@@ -90,6 +90,8 @@ const userSchema = new Schema({
   ipAdd:{type:String},
   idAdd:{type:String},
   accountAdd:{type:String},
+  yjly:{type:String},//研究领域 新增
+  yjly1:{type:String},
   jstype1:{type:String},
   jstype:{type:String,default:'其他'}//教师队伍类别，新增
 },{collection:'allUser'})

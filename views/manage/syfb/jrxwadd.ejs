@@ -21,7 +21,6 @@
 		.uploader-list {
             margin-left: -15px;
         }
- 
         .uploader-list .info {
             position: relative;
             margin-top: -25px;
@@ -35,7 +34,6 @@
             text-align: center;
             display: none;
         }
- 
         .uploader-list .handle {
             position: absolute;
             background-color: black;
@@ -43,19 +41,19 @@
             filter: alpha(Opacity=80);
             -moz-opacity: 0.5;
             opacity: 0.5;
-            text-align: right;
+            /* text-align: right; */
             display: none;
 			right: 0;
+			width: 100%;
         }
- 
         .uploader-list .handle i {
-            margin-right: 5px;
+            margin: 0 auto;
+    		display: block;
+			text-align: center;
         }
- 
         .uploader-list .handle i:hover {
             cursor: pointer;
         }
- 
         .uploader-list .file-iteme {
             margin: 12px 0 0 15px;
             padding: 1px;
@@ -106,8 +104,7 @@
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">预览图</label>
-				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">
-                                    
+				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">     
 				</div>
 				 <!-- <p style="margin-left: 105px;">(1100px * 240px)</p> -->
 			</div>

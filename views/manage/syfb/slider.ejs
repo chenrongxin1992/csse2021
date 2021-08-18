@@ -86,13 +86,15 @@ layui.use(['jquery','table','form'], function(){
 	      layer.close(index);
 	      //向服务端发送删除指令
 	       $.ajax({
-			  	url:'/manage/ptgldel',
+				url:'/csse/manage/sliderdel',
+				//url:'/manage/sliderdel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
 			  	success:function(result){
 			  		if(result.code == 0){
-			  			console.log('del success')			
+			  			console.log('del success')		
+						  layer.msg('已删除')	
 			  		}
 			  	},
 			  	error:function(msg){
@@ -162,7 +164,7 @@ layui.use(['jquery','table','form'], function(){
   	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='0'>显示</a>
   {{# } }}
   <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-  <!-- <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a> -->
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 <script type="text/html" id="sytpimg">
 	<img src="{{d.pic}}" style="height: 100px;max-width: 100%;" class="previewimg" />

@@ -389,31 +389,31 @@
 	"enMenu": [
 		{
 			"title": "About",
-			"icon": "&#xe716;",
+			"icon": "&#xe614;",
 			"href": "",
-			"spread": true,
+			"spread": false,
 			"children": [	
 				{
 					"title": "General Information",
-					"icon": "&#xe612;",
+					"icon": "&#xe62a;",
 					"href": "/csse/manage/xyjj",
 					"spread": false
 				},
 				{
 					"title": "Dean’s Message",
-					"icon": "icon-vip",
+					"icon": "&#xe63c;",
 					"href": "/csse/manage/yzjy",
 					"spread": false
 				},
 				{
 					"title": "Facts and Figures",
-					"icon": "icon-vip",
+					"icon": "&#xe62d;",
 					"href": "/csse/manage/figures",
 					"spread": false
 				},
 				{
 					"title": "Current Leaders",
-					"icon": "icon-vip",
+					"icon": "&#xe770;",
 					"href": "/csse/manage/xrld",
 					"spread": false
 				}
@@ -421,37 +421,37 @@
 		},
 		{
 			"title": "Organization",
-			"icon": "&#xe716;",
+			"icon": "&#xe620;",
 			"href": "",
-			"spread": true,
+			"spread": false,
 			"children": [	
 				{
 					"title": "Departments",
-					"icon": "&#xe612;",
+					"icon": "&#xe620;",
 					"href": "/csse/manage/jxx",
 					"spread": false
 				},
 				{
 					"title": "Institutes",
-					"icon": "icon-vip",
+					"icon": "&#xe620;",
 					"href": "/csse/manage/yjs",
 					"spread": false
 				},
 				{
 					"title": "National Teaching Centers",
-					"icon": "icon-vip",
+					"icon": "&#xe620;",
 					"href": "/csse/manage/syzx",
 					"spread": false
 				},
 				{
 					"title": "National Laboratory",
-					"icon": "icon-vip",
+					"icon": "&#xe620;",
 					"href": "/csse/manage/bdsc",
 					"spread": false
 				},
 				{
 					"title": "IJMLC Office",
-					"icon": "icon-vip",
+					"icon": "&#xe620;",
 					"href": "/csse/manage/qkbjb",
 					"spread": false
 				}
@@ -459,9 +459,9 @@
 		},
 		{
 			"title": "People",
-			"icon": "&#xe716;",
+			"icon": "&#xe770;",
 			"href": "",
-			"spread": true,
+			"spread": false,
 			"children": [	
 				{
 					"title": "Outstanding Talent",
@@ -471,68 +471,68 @@
 				},
 				{
 					"title": "Professor",
-					"icon": "icon-vip",
+					"icon": "&#xe612;",
 					"href": "/csse/manage/jsdw?type=professor",
 					"spread": false
 				},
 				{
 					"title": "Researcher",
-					"icon": "icon-vip",
+					"icon": "&#xe612;",
 					"href": "/csse/manage/jsdw?type=yjy",
 					"spread": false
 				},
 				{
 					"title": "Associate Professor",
-					"icon": "icon-vip",
+					"icon": "&#xe612;",
 					"href": "/csse/manage/jsdw?type=fjs",
 					"spread": false
 				},
 				{
 					"title": "Associate Researcher",
-					"icon": "icon-vip",
+					"icon": "&#xe612;",
 					"href": "/csse/manage/jsdw?type=fyjy",
 					"spread": false
 				},
 				{
 					"title": "Assistant Professor",
-					"icon": "icon-vip",
+					"icon": "&#xe612;",
 					"href": "/csse/manage/jsdw?type=zljs",
 					"spread": false
 				},
 				{
 					"title": "Lecturer",
-					"icon": "icon-vip",
+					"icon": "&#xe612;",
 					"href": "/csse/manage/jsdw?type=jiangshi",
 					"spread": false
 				},
 				{
 					"title": "Postdoctoral Researcher",
-					"icon": "icon-vip",
+					"icon": "&#xe612;",
 					"href": "/csse/manage/jsdw?type=boshihou",
 					"spread": false
 				}
 			]
 		},{
 			"title": "Admissions",
-			"icon": "&#xe716;",
+			"icon": "&#xe60a;",
 			"href": "",
-			"spread": true,
+			"spread": false,
 			"children": [	
 				{
 					"title": "Undergraduates",
-					"icon": "&#xe612;",
+					"icon": "&#xe602;",
 					"href": "/csse/manage/bkszs",
 					"spread": false
 				},
 				{
 					"title": "Post-graduates",
-					"icon": "icon-vip",
+					"icon": "&#xe602;",
 					"href": "/csse/manage/ssszs",
 					"spread": false
 				},
 				{
 					"title": "Doctor Candidates",
-					"icon": "icon-vip",
+					"icon": "&#xe602;",
 					"href": "/csse/manage/bsszs",
 					"spread": false
 				}
@@ -540,13 +540,13 @@
 		},
 		{
 			"title": "Research",
-			"icon": "&#xe612;",
+			"icon": "&#xe63c;",
 			"href": "/csse/manage/research",
 			"spread": false
 		},
 		{
 			"title": "Join Us",
-			"icon": "&#xe612;",
+			"icon": "&#xe770;",
 			"href": "/csse/manage/zpxxen",
 			"spread": false
 		}

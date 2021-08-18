@@ -42,7 +42,7 @@
 	  </div>
 	  <button class="layui-btn" data-type="reload" id="kyxm_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
 	  <!-- <button class="layui-btn btnfloat" id="ptglsort" style="float: right;" >人员排序(教师系列)</button> -->
-	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增</button>
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增人员</button>
 	</div>
 
 	<table id="jsdw_table" lay-filter="jsdw_table"></table>
@@ -115,15 +115,16 @@ layui.use(['jquery','table','form'], function(){
     	let index = layui.layer.open({
             title : "新增账号",
             type : 2,
+			area: ['500px', '400px'],
             content : "jsdwadd",
             success : function(layero, index){
             }
         })
         console.log('index',index)
-        layui.layer.full(index);
-        $(window).on("resize",function(){
-            layui.layer.full(index);
-        })
+        // layui.layer.full(index);
+        // $(window).on("resize",function(){
+        //     layui.layer.full(index);
+        // })
     })
     
     //监听工具条
@@ -141,7 +142,7 @@ layui.use(['jquery','table','form'], function(){
             success : function(layero, index){
             }
         })
-        console.log('index',index)
+        console.log('index-------',index)
         layui.layer.full(index);
         //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
         $(window).on("resize",function(){

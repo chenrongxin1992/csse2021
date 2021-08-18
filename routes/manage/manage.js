@@ -515,47 +515,794 @@ router.get('/zzgk',function(req,res){
 			}
 			res.render('manage/dqgz/publictpl',{data:doc})
 		})
-}).get('/gzzd',function(req,res){
-	console.log('in gzzd')
-	let search = cmsContent.findOne({})
-		search.where('tag2').equals('规章制度')
-		search.exec(function(err,doc){
-			if(err){
-				return res.send(err)
-			}
-			res.render('manage/dqgz/publictpl',{data:doc})
-		})
 }).get('/tzgg',function(req,res){
+	//应该是列表
 	console.log('in tzgg')
-	let search = cmsContent.findOne({})
-		search.where('tag2').equals('通知公告')
+	res.render('manage/dqgz/tzgg',{title:'通知公告'})
+	// let search = cmsContent.findOne({})
+	// 	search.where('tag2').equals('通知公告')
+	// 	search.exec(function(err,doc){
+	// 		if(err){
+	// 			return res.send(err)
+	// 		}
+	// 		res.render('manage/dqgz/publictpl',{data:doc})
+	// 	})
+}).get('/tzgg_data',function(req,res){
+	console.log('router tzgg_data')
+	let page = req.query.page,
+		limit = req.query.limit,
+		search_txt = req.query.search_txt
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = cmsContent.find({'tag2':'通知公告'}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('tzgg get total err',err)
+						cb(err)
+					}
+					console.log('tzgg count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+			if(search_txt){
+				console.log('带搜索参数',search_txt)
+				let _filter = {
+					$and:[
+						{title:{$regex:search_txt,$options:'$i'}},//忽略大小写
+						{tag2:'通知公告'}
+					]
+				}
+				console.log('_filter',_filter)
+				let search = cmsContent.find(_filter)
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'timeAddStamp':-1})
+					search.sort({'timeAdd':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('tzgg_data error',error)
+							cb(error)
+						}
+						//获取搜索参数的记录总数
+						cmsContent.count(_filter,function(err,count_search){
+							if(err){
+								console.log('tzgg_data count_search err',err)
+								cb(err)
+							}
+							console.log('搜索到记录数',count_search)
+							total = count_search
+							cb(null,docs)
+						})
+					})
+			}else{
+				console.log('不带搜索参数')
+				let search = cmsContent.find({tag2:'通知公告'})
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'timeAdd':-1})
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('tzgg_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			}
+		}
+	],function(error,result){
+		if(error){
+			console.log('tzgg_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('tzgg_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).post('/tzggdel',function(req,res){
+	console.log('tzggdel',req.body.id)
+	//console.log('newsdel del',req.bdoy.id)
+	cmsContent.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('tzggdel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del tzggdel success'})
+	})
+}).post('/changetzggdisplay',function(req,res){
+	console.log(req.body.isDisplay)
+	let obj = {	isDisplay:req.body.isDisplay }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' changetzggdisplay hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' changetzggdisplay hide success')
+		return res.json({'code':0})		
+	})
+}).post('/changetzggtop',function(req,res){
+	console.log(req.body.isTop)
+	let obj = {	isTop:req.body.isTop }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log('changetzggtop isTop hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log('changetzggtop isTop hide success')
+		return res.json({'code':0})		
+	})
+}).get('/tzggadd',function(req,res){
+	let id = req.query.id
+	console.log('cmsContent ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let search = cmsContent.findOne({})
+		search.where('id').equals(id)
 		search.exec(function(err,doc){
 			if(err){
 				return res.send(err)
 			}
-			res.render('manage/dqgz/publictpl',{data:doc})
+			if(doc){
+				res.render('manage/dqgz/tzggadd',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/dqgz/tzggadd',{data:{}})
+			}
 		})
+	}else{
+		res.render('manage/dqgz/tzggadd',{data:{}})
+	}
+}).post('/tzggadd',function(req,res){
+	console.log('tzggadd------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 tzggadd')
+		async.waterfall([
+			function(cb){
+				let search = cmsContent.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let cmsContentadd = new cmsContent({
+					id:id,
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					timeEdit:req.body.timeEdit,
+					tag2:'通知公告',
+					tag1:'党群工作'
+				})
+				cmsContentadd.save(function(error,doc){
+					if(error){
+						console.log('tzggadd save error',error)
+						cb(error)
+					}
+					console.log('tzggadd save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('tzggadd async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('cmsContentadd',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					timeEdit:req.body.timeEdit
+				}
+				cmsContent.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('tzggadd update error',error)
+						cb(error)
+					}
+					console.log('tzggadd update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('tzggadd async error',error)
+				return res.end(error)
+			}
+			console.log('tzggadd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
 }).get('/djhd',function(req,res){
+	//应该是列表
 	console.log('in djhd')
-	let search = cmsContent.findOne({})
-		search.where('tag2').equals('党建活动')
+	res.render('manage/dqgz/djhd',{title:'党建活动'})
+	// console.log('in djhd')
+	// let search = cmsContent.findOne({})
+	// 	search.where('tag2').equals('党建活动')
+	// 	search.exec(function(err,doc){
+	// 		if(err){
+	// 			return res.send(err)
+	// 		}
+	// 		res.render('manage/dqgz/publictpl',{data:doc})
+	// 	})
+}).get('/djhd_data',function(req,res){
+	console.log('router djhd_data')
+	let page = req.query.page,
+		limit = req.query.limit,
+		search_txt = req.query.search_txt
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = cmsContent.find({'tag2':'党建活动'}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('djhd_data get total err',err)
+						cb(err)
+					}
+					console.log('djhd_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+			if(search_txt){
+				console.log('带搜索参数',search_txt)
+				let _filter = {
+					$and:[
+						{title:{$regex:search_txt,$options:'$i'}},//忽略大小写
+						{'tag2':'党建活动'}
+					]
+				}
+				console.log('_filter',_filter)
+				let search = cmsContent.find(_filter)
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'timeAddStamp':-1})
+					search.sort({'timeAdd':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('djhd_data error',error)
+							cb(error)
+						}
+						//获取搜索参数的记录总数
+						cmsContent.count(_filter,function(err,count_search){
+							if(err){
+								console.log('djhd_data count_search err',err)
+								cb(err)
+							}
+							console.log('搜索到记录数',count_search)
+							total = count_search
+							cb(null,docs)
+						})
+					})
+			}else{
+				console.log('不带搜索参数')
+				let search = cmsContent.find({tag2:'党建活动'})
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'timeAdd':-1})
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('djhd_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			}
+		}
+	],function(error,result){
+		if(error){
+			console.log('djhd_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('djhd_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).post('/djhddel',function(req,res){
+	console.log('djhddel',req.body.id)
+	cmsContent.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('djhddel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del djhddel success'})
+	})
+}).post('/changedjhddisplay',function(req,res){
+	console.log(req.body.isDisplay)
+	let obj = {	isDisplay:req.body.isDisplay }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' changedjhddisplay hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' changedjhddisplay hide success')
+		return res.json({'code':0})		
+	})
+}).post('/changedjhdtop',function(req,res){
+	console.log(req.body.isTop)
+	let obj = {	isTop:req.body.isTop }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log('changedjhdtop isTop hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log('changedjhdtop isTop hide success')
+		return res.json({'code':0})		
+	})
+}).get('/djhdadd',function(req,res){
+	let id = req.query.id
+	console.log('cmsContent ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let search = cmsContent.findOne({})
+		search.where('id').equals(id)
 		search.exec(function(err,doc){
 			if(err){
 				return res.send(err)
 			}
-			res.render('manage/dqgz/publictpl',{data:doc})
+			if(doc){
+				res.render('manage/dqgz/djhdadd',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/dqgz/djhdadd',{data:{}})
+			}
 		})
+	}else{
+		res.render('manage/dqgz/djhdadd',{data:{}})
+	}
+}).post('/djhdadd',function(req,res){
+	console.log('djhdadd------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 djhdadd')
+		async.waterfall([
+			function(cb){
+				let search = cmsContent.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let cmsContentadd = new cmsContent({
+					id:id,
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					timeEdit:req.body.timeEdit,
+					fujianPath:req.body.fujianPath,
+					tag2:'党建活动',
+					tag1:'党群工作'
+				})
+				cmsContentadd.save(function(error,doc){
+					if(error){
+						console.log('djhdadd save error',error)
+						cb(error)
+					}
+					console.log('djhdadd save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('djhdadd async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('djhdadd',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					fujianPath:req.body.fujianPath,
+					timeEdit:req.body.timeEdit
+				}
+				cmsContent.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('djhdadd update error',error)
+						cb(error)
+					}
+					console.log('djhdadd update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('djhdadd async error',error)
+				return res.end(error)
+			}
+			console.log('djhdadd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
+}).post('/djhdupload',function(req,res){
+	console.log('djhdupload')
+	console.log(attachmentuploaddir,attachmentuploaddir + '\\news')
+	
+	let djhdimg = attachmentuploaddir + '\\djhd'//G:\newcsse\public\attachment\slider
+	fs.existsSync(djhdimg) || fs.mkdirSync(djhdimg)
+	console.log('djhdimg img dir ',djhdimg)
+	let form = new multiparty.Form();
+    //设置编码
+    form.encoding = 'utf-8';
+    //设置文件存储路径
+    form.uploadDir = djhdimg
+    console.log('form.uploadDir-->',form.uploadDir)
+    let baseimgpath = djhdimg.split('\\')
+    	// baseimgpath.shift()
+    	// baseimgpath.shift()
+    	// baseimgpath.shift()
+    	// baseimgpath = baseimgpath.join('/')
+    	let baseimgpathlength = baseimgpath.length
+    baseimgpath = baseimgpath[baseimgpathlength-2] + '/' + baseimgpath[baseimgpathlength-1]
+    	console.log('baseimgpath-----',baseimgpath)//attachment/sliderimg
+		//return false
+    form.parse(req, function(err, fields, files) {
+    	if(err){
+    		console.log('djhdimg img parse err',err.stack)
+    	}
+    	console.log('fields->',fields)
+    	console.log('files->',files)
+    	let uploadfiles =  files.file
+    	let returnimgurl = [],
+    		returnfilename = []
+    	uploadfiles.forEach(function(item,index){
+    		console.log('读取文件路径-->',item.path,djhdimg+'\\'+item.originalFilename)
+			//1012更改，加入时间戳，防止同名文件覆盖
+			returnimgurl.push('/'+baseimgpath+'/'+ moment().unix() + '_' + item.originalFilename)
+    		fs.renameSync(item.path,djhdimg+'\\'+ moment().unix() + '_' + item.originalFilename);
+    		returnfilename.push(moment().unix() + '_' + item.originalFilename)
+    	})
+    	console.log('returnimgurl',returnimgurl)
+		//现在有csse,加上路径，后续去除
+		returnimgurl = '/csse'+returnimgurl
+    	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
+    })
 }).get('/xxyd',function(req,res){
 	console.log('in xxyd')
-	let search = cmsContent.findOne({})
-		search.where('tag2').equals('学“习”园地')
+	res.render('manage/dqgz/xxyd',{title:'学习园地'})
+}).get('/xxyd_data',function(req,res){
+	console.log('router xxyd_data')
+	let page = req.query.page,
+		limit = req.query.limit,
+		search_txt = req.query.search_txt
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = cmsContent.find({'tag2':'学习园地'}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('xxyd_data get total err',err)
+						cb(err)
+					}
+					console.log('xxyd_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+			if(search_txt){
+				console.log('带搜索参数',search_txt)
+				let _filter = {
+					$and:[
+						{title:{$regex:search_txt,$options:'$i'}},//忽略大小写
+						{'tag2':'学习园地'}
+					]
+				}
+				console.log('_filter',_filter)
+				let search = cmsContent.find(_filter)
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'timeAddStamp':-1})
+					search.sort({'timeAdd':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('xxyd_data error',error)
+							cb(error)
+						}
+						//获取搜索参数的记录总数
+						cmsContent.count(_filter,function(err,count_search){
+							if(err){
+								console.log('xxyd_data count_search err',err)
+								cb(err)
+							}
+							console.log('搜索到记录数',count_search)
+							total = count_search
+							cb(null,docs)
+						})
+					})
+			}else{
+				console.log('不带搜索参数')
+				let search = cmsContent.find({tag2:'学习园地'})
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'timeAdd':-1})
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('xxyd_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			}
+		}
+	],function(error,result){
+		if(error){
+			console.log('xxyd_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('xxyd_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).post('/xxyddel',function(req,res){
+	console.log('xxyddel',req.body.id)
+	cmsContent.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('xxyddel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del xxyddel success'})
+	})
+}).post('/changexxyddisplay',function(req,res){
+	console.log(req.body.isDisplay)
+	let obj = {	isDisplay:req.body.isDisplay }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' changexxyddisplay hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' changexxyddisplay hide success')
+		return res.json({'code':0})		
+	})
+}).post('/changexxydtop',function(req,res){
+	console.log(req.body.isTop)
+	let obj = {	isTop:req.body.isTop }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log('changexxydtop isTop hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log('changexxydtop isTop hide success')
+		return res.json({'code':0})		
+	})
+}).get('/xxydadd',function(req,res){
+	let id = req.query.id
+	console.log('cmsContent ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let search = cmsContent.findOne({})
+		search.where('id').equals(id)
 		search.exec(function(err,doc){
 			if(err){
 				return res.send(err)
 			}
-			console.log('doc',doc)
-			res.render('manage/dqgz/publictpl',{data:doc})
+			if(doc){
+				res.render('manage/dqgz/xxydadd',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/dqgz/xxydadd',{data:{}})
+			}
 		})
+	}else{
+		res.render('manage/dqgz/xxydadd',{data:{}})
+	}
+}).post('/xxydadd',function(req,res){
+	console.log('xxydadd------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 xxydadd')
+		async.waterfall([
+			function(cb){
+				let search = cmsContent.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let cmsContentadd = new cmsContent({
+					id:id,
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					timeEdit:req.body.timeEdit,
+					fujianPath:req.body.fujianPath,
+					tag2:'学习园地',
+					tag1:'党群工作'
+				})
+				cmsContentadd.save(function(error,doc){
+					if(error){
+						console.log('xxydadd save error',error)
+						cb(error)
+					}
+					console.log('xxydadd save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('xxydadd async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('xxydadd',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					fujianPath:req.body.fujianPath,
+					timeEdit:req.body.timeEdit
+				}
+				cmsContent.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('xxydadd update error',error)
+						cb(error)
+					}
+					console.log('xxydadd update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('xxydadd async error',error)
+				return res.end(error)
+			}
+			console.log('xxydadd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
+}).post('/xxydupload',function(req,res){
+	console.log('xxydupload')
+	console.log(attachmentuploaddir,attachmentuploaddir + '\\xxyd')
+	
+	let xxydimg = attachmentuploaddir + '\\xxyd'//G:\newcsse\public\attachment\slider
+	fs.existsSync(xxydimg) || fs.mkdirSync(xxydimg)
+	console.log('xxydimg img dir ',xxydimg)
+	let form = new multiparty.Form();
+    //设置编码
+    form.encoding = 'utf-8';
+    //设置文件存储路径
+    form.uploadDir = xxydimg
+    console.log('form.uploadDir-->',form.uploadDir)
+    let baseimgpath = xxydimg.split('\\')
+    	// baseimgpath.shift()
+    	// baseimgpath.shift()
+    	// baseimgpath.shift()
+    	// baseimgpath = baseimgpath.join('/')
+    	let baseimgpathlength = baseimgpath.length
+    baseimgpath = baseimgpath[baseimgpathlength-2] + '/' + baseimgpath[baseimgpathlength-1]
+    	console.log('baseimgpath-----',baseimgpath)//attachment/sliderimg
+		//return false
+    form.parse(req, function(err, fields, files) {
+    	if(err){
+    		console.log('xxydimg img parse err',err.stack)
+    	}
+    	console.log('fields->',fields)
+    	console.log('files->',files)
+    	let uploadfiles =  files.file
+    	let returnimgurl = [],
+    		returnfilename = []
+    	uploadfiles.forEach(function(item,index){
+    		console.log('读取文件路径-->',item.path,xxydimg+'\\'+item.originalFilename)
+			//1012更改，加入时间戳，防止同名文件覆盖
+			returnimgurl.push('/'+baseimgpath+'/'+ moment().unix() + '_' + item.originalFilename)
+    		fs.renameSync(item.path,xxydimg+'\\'+ moment().unix() + '_' + item.originalFilename);
+    		returnfilename.push(moment().unix() + '_' + item.originalFilename)
+    	})
+    	console.log('returnimgurl',returnimgurl)
+		//现在有csse,加上路径，后续去除
+		returnimgurl = '/csse'+returnimgurl
+    	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
+    })
 }).get('/ztjy',function(req,res){
 	console.log('in ztjy')
 	let search = cmsContent.findOne({})
@@ -577,6 +1324,235 @@ router.get('/zzgk',function(req,res){
 		console.log('dqgz success')
 		res.json({'code':0,'msg':'update success'})
 	})
+}).get('/gzzd',function(req,res){
+	//应该是列表
+	console.log('in gzzd')
+	res.render('manage/dqgz/gzzd',{title:'规章制度'})
+}).get('/gzzd_data',function(req,res){
+	console.log('router gzzd_data')
+	let page = req.query.page,
+		limit = req.query.limit,
+		search_txt = req.query.search_txt
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = cmsContent.find({'tag2':'规章制度'}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('gzzd_data get total err',err)
+						cb(err)
+					}
+					console.log('gzzd_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+			if(search_txt){
+				console.log('带搜索参数',search_txt)
+				let _filter = {
+					$and:[
+						{title:{$regex:search_txt,$options:'$i'}},//忽略大小写
+						{'tag2':'规章制度'}
+					]
+				}
+				console.log('_filter',_filter)
+				let search = cmsContent.find(_filter)
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'timeAddStamp':-1})
+					search.sort({'timeAdd':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('gzzd_data error',error)
+							cb(error)
+						}
+						//获取搜索参数的记录总数
+						cmsContent.count(_filter,function(err,count_search){
+							if(err){
+								console.log('gzzd_data count_search err',err)
+								cb(err)
+							}
+							console.log('搜索到记录数',count_search)
+							total = count_search
+							cb(null,docs)
+						})
+					})
+			}else{
+				console.log('不带搜索参数')
+				let search = cmsContent.find({tag2:'规章制度'})
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'timeAdd':-1})
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('gzzd_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			}
+		}
+	],function(error,result){
+		if(error){
+			console.log('gzzd_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('gzzd_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).post('/gzzddel',function(req,res){
+	console.log('gzzddel',req.body.id)
+	cmsContent.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('gzzddel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del gzzddel success'})
+	})
+}).post('/changegzzddisplay',function(req,res){
+	console.log(req.body.isDisplay)
+	let obj = {	isDisplay:req.body.isDisplay }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' changegzzddisplay hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' changegzzddisplay hide success')
+		return res.json({'code':0})		
+	})
+}).post('/changegzzdtop',function(req,res){
+	console.log(req.body.isTop)
+	let obj = {	isTop:req.body.isTop }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log('changegzzdtop isTop hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log('changegzzdtop isTop hide success')
+		return res.json({'code':0})		
+	})
+}).get('/gzzdadd',function(req,res){
+	let id = req.query.id
+	console.log('cmsContent ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let search = cmsContent.findOne({})
+		search.where('id').equals(id)
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			if(doc){
+				res.render('manage/dqgz/gzzdadd',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/dqgz/gzzdadd',{data:{}})
+			}
+		})
+	}else{
+		res.render('manage/dqgz/gzzdadd',{data:{}})
+	}
+}).post('/gzzdadd',function(req,res){
+	console.log('gzzdadd------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 gzzdadd')
+		async.waterfall([
+			function(cb){
+				let search = cmsContent.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let cmsContentadd = new cmsContent({
+					id:id,
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					timeEdit:req.body.timeEdit,
+					//fujianPath:req.body.fujianPath,
+					tag2:'规章制度',
+					tag1:'党群工作'
+				})
+				cmsContentadd.save(function(error,doc){
+					if(error){
+						console.log('gzzdadd save error',error)
+						cb(error)
+					}
+					console.log('gzzdadd save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('gzzdadd async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('gzzdadd',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					//fujianPath:req.body.fujianPath,
+					timeEdit:req.body.timeEdit
+				}
+				cmsContent.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('gzzdadd update error',error)
+						cb(error)
+					}
+					console.log('gzzdadd update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('gzzdadd async error',error)
+				return res.end(error)
+			}
+			console.log('gzzdadd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
 })
 //人才招聘
 router.get('/jszp',function(req,res){
@@ -1050,7 +2026,13 @@ router.get('/jsdw',function(req,res){
 		xueli1:req.body.xueli1,
 		intro:req.body.intro,
 		intro1:req.body.intro1,
-		avatar:req.body.avatar
+		avatar:req.body.avatar,
+		zhiwu:req.body.zhiwu,
+		zhiwu1:req.body.zhiwu1,
+		inDang:req.body.inDang,
+		inDang1:req.body.inDang1,
+		yjly:req.body.yjly,
+		yjly1:req.body.yjly1
 	}
 	console.log('obj',updateobj)
 	//return false
@@ -1278,6 +2260,16 @@ router.get('/slider',function(req,res){
 			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
 		})
 	}
+}).post('/sliderdel',function(req,res){
+	console.log('sliderdel',req.body.id)
+	//console.log('newsdel del',req.bdoy.id)
+	slider.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('sliderdel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del sliderdel success'})
+	})
 }).post('/newsupload',function(req,res){
 	console.log('newsupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\news')

@@ -27,6 +27,32 @@
 	    .layui-unselect{
 	    	margin-top: 10px;
 	    }
+		.handle {
+			width: 100%;
+            position: absolute;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            /* text-align: right; */
+            display: none;
+			top: 0;
+			margin-left: 0px;
+        }
+        .handle i {
+			margin: 0 auto;
+    		display: block;
+			text-align: center;
+        }
+         .handle i:hover {
+            cursor: pointer;
+        }
+        .file-iteme {
+			position: relative;
+			max-width: 150px;
+			margin: 0 auto;
+        }
 	</style>
 </head>
 <body class="childrenBody">
@@ -38,7 +64,19 @@
 	        <td><input type="text" id="userName" class="layui-input"  value="<%=user.userName%>"></td>
 	        <td class="tdstyle">(英文)姓名</td>
 	        <td><input type="text" id="userName1" class="layui-input" value="<%=user.userName1%>"></td>
-	        <td rowspan="5" style="text-align: center;"><img id="userimg" src="<%=user.avatar%>" style="width:auto;height:auto;max-width:150px;max-height:100%;margin:5px;"><div id="uploadarea"><div class="layui-upload-list"><p id="demoText"></p></div></div></td>
+	        <td rowspan="5" style="text-align: center;">
+				<div id="" class="file-iteme">
+					
+					<img id="userimg" src="<%=user.avatar%>" style="width:auto;height:auto;max-width:150px;max-height:100%;margin:5px;position: relative;margin: 0;">
+					<div class="handle" ><i class="layui-icon layui-icon-delete"></i></div>
+				</div>
+				
+				<div id="uploadarea">
+					<div class="layui-upload-list">
+						<p id="demoText"></p>
+					</div>
+				</div>
+			</td>
 	      </tr>
 	      <tr>
 	        <td class="tdstyle">性别</td>
@@ -60,6 +98,7 @@
 			<td class="tdstyle">类别</td>
 	        <td id="tddegree">
 				<select name="jstype" lay-filter="jstype" id="jstype">
+					<option value=""></option>
 					<option value="杰出人才">杰出人才</option>
 					<option value="教授">教授</option>
 					<option value="研究员">研究员</option>
@@ -73,6 +112,7 @@
 			<td class="tdstyle">(英文)类别</td>
 	        <td id="tddegree">
 				<select name="jstype1" lay-filter="jstype1" id="jstype1">
+					<option value=""></option>
 					<option value="Outstanding Talent">Outstanding Talent</option>
 					<option value="Professor">Professor</option>
 					<option value="Researcher">Researcher</option>
@@ -88,6 +128,7 @@
 	        <td class="tdstyle">职称</td>
 			<td>
 				<select name="zhicheng" lay-filter="zhicheng" id="zhicheng">
+					<option value=""></option>
 					<option value="教授">教授</option>
 					<option value="研究员">研究员</option>
 					<option value="副教授">副教授</option>
@@ -100,6 +141,7 @@
 	        <td class="tdstyle">(英文)职称</td>
 			<td>
 				<select name="zhicheng1" lay-filter="zhicheng1" id="zhicheng1">
+					<option value=""></option>
 					<option value="Professor">Professor</option>
 					<option value="Researcher">Researcher</option>
 					<option value="Associate Professor">Associate Professor</option>
@@ -110,11 +152,41 @@
 				</select>
 			</td>
 	      </tr>
+		  <tr>
+	        <td class="tdstyle">职位</td>
+	        <td ><input type="text" id="zhiwu" class="layui-input"  value="<%=user.zhiwu%>"></td>
+	        <td class="tdstyle">(英文)职位</td>
+	        <td ><input type="text" id="zhiwu1" class="layui-input"  value="<%=user.zhiwu1%>"></td>
+	      </tr>
+		  <tr>
+	        <td class="tdstyle">研究领域</td>
+	        <td ><input type="text" id="yjly" class="layui-input"  value="<%=user.yjly%>"></td>
+	        <td class="tdstyle">(英文)研究领域</td>
+	        <td colspan="2"><input type="text" id="yjly1" class="layui-input"  value="<%=user.yjly1%>"></td>
+	      </tr>
+		  <tr>
+	        <td class="tdstyle">政治面貌</td>
+	        <td >
+				<select name="inDang" lay-filter="inDang" id="inDang">
+					<option value="中共党员">中共党员</option>
+					<option value="团员">团员</option>
+					<option value="群众">群众</option>
+				</select>
+			</td>
+			<td class="tdstyle">(英文)政治面貌</td>
+	        <td  colspan="2">
+				<select name="inDang1" lay-filter="inDang1" id="inDang1">
+					<option value="Party Member">Party Member</option>
+					<option value="League Member">League Member</option>
+					<option value="The Masses">The Masses</option>
+				</select>
+			</td>
+		</tr>
 	      <tr>
 	        <td class="tdstyle">办公电话</td>
 	        <td ><input type="text" id="phoneOffice" class="layui-input"  value="<%=user.phoneOffice%>"></td>
 	        <td class="tdstyle">Email</td>
-	        <td ><input type="text" id="email" class="layui-input"  value="<%=user.email%>"></td>
+	        <td  colspan="2"><input type="text" id="email" class="layui-input"  value="<%=user.email%>"></td>
 	      </tr>
 	      <tr>
 	        <td class="tdstyle">办公地址</td>
@@ -171,8 +243,33 @@
 let ue1,ue2
 let id = '<%=user.id%>'
 layui.use(['jquery','layer','upload','form'], function(){ 
+	
     let $ = layui.$ //重点处
     let layer = layui.layer,upload=layui.upload,form=layui.form
+	$(document).on("mouseenter mouseleave", ".file-iteme", function(event){
+            if(event.type === "mouseenter"){
+                //鼠标悬浮
+                $(this).children(".handle").fadeIn("fast");
+            }else if(event.type === "mouseleave") {
+                //鼠标离开
+                $(this).children(".handle").hide();
+            }
+        });
+	// 删除图片
+    $(document).on("click", ".file-iteme .handle", function(event){
+		layer.confirm('确定要删除图片吗', {
+			btn: ['确定','取消'] //按钮
+			}, function(){
+				console.log('$(this).parent()-----',$(this).parent(),$(this).parent().parent())
+				//$('#fmpic').parent().remove()
+				$('#userimg').attr('src','')
+				layer.msg('已删除', {icon: 1});
+			}, function(){
+				layer.msg('已取消', {
+					time: 1000, 
+				});
+		});
+    });
     $(function(){  
 		//初始化select
 		console.log('user id---','<%=user.id%>')
@@ -183,6 +280,10 @@ layui.use(['jquery','layer','upload','form'], function(){
 		$('#jstype1').val('<%=user.jstype1%>')
 		$('#zhicheng').val('<%=user.zhicheng%>')
 		$('#zhicheng1').val('<%=user.zhicheng1%>')
+		$('#zhiwu').val('<%=user.zhiwu%>')
+		$('#zhiwu1').val('<%=user.zhiwu1%>')
+		$('#yjly').val('<%=user.yjly%>')
+		$('#yjly1').val('<%=user.yjly1%>')
 		form.render('select')
 		//监听下拉框
 		form.on('select(sex)',function (data) {
@@ -192,6 +293,25 @@ layui.use(['jquery','layer','upload','form'], function(){
 			}
 			if(data.value == '女'){
 				$("#sex1").find("option[value='Female']").attr("selected",true);
+			}
+			if(data.value == ''){
+				$("#sex1").find("option[value='']").attr("selected",true);
+			}
+			form.render()
+		})
+		form.on('select(inDang)',function (data) {
+			console.log('select inDang',data)
+			if(data.value == '中共党员'){
+				$("#inDang1").find("option[value='Party Member']").attr("selected",true);
+			}
+			if(data.value == '团员'){
+				$("#inDang1").find("option[value='League Member']").attr("selected",true);
+			}
+			if(data.value == '群众'){
+				$("#inDang1").find("option[value='The Masses']").attr("selected",true);
+			}
+			if(data.value == ''){
+				$("#inDang1").find("option[value='']").attr("selected",true);
 			}
 			form.render()
 		})
@@ -260,16 +380,21 @@ layui.use(['jquery','layer','upload','form'], function(){
 		    ,size: 2048 //限制文件大小，单位 KB
 		    ,before: function(obj){
 		      //预读本地文件示例，不支持ie8
-		      obj.preview(function(index, file, result){
-		        $('#demo1').attr('src', result); //图片链接（base64）
-		      });
+		      console.log('try......')
+				layer.msg('图片上传中...', {
+					icon: 16,
+					shade: 0.01,
+					time: 0
+				})
 		    }
 		    ,done: function(res){
 		      //如果上传失败
 		      if(res.errno != 0){
+				layer.close(layer.msg());
 		        return layer.msg('上传失败');
 		      }else{
 		      	console.log('userimg',res.data)
+				  layer.close(layer.msg());
 		      	$('#userimg').attr('src',''+res.data)
 		      }
 		      //上传成功
@@ -318,7 +443,13 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  data.field.xueli=$('#xueli').val()
 	  data.field.xueli1=$('#xueli1').val()
 	  data.field.avatar=$('#userimg').attr('src')
+	  data.field.zhiwu=$('#zhiwu').val()
+	  data.field.zhiwu1=$('#zhiwu1').val()
+	  data.field.yjly=$('#yjly').val()
+	  data.field.yjly1=$('#yjly1').val()
 	  console.log('update data field',data.field)
+	  data.field.inDang=$('#inDang option:selected').val()
+	  data.field.inDang1=$('#inDang1 option:selected').val()
 	  //return false
 	  $.ajax({
 	  	//本地与服务器
