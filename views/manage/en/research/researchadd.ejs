@@ -180,7 +180,7 @@ $(function(){
 	let uploadInst = upload.render({
 	    elem: '#test1'
         //本地与服务器
-	    ,url: '/csse/manage/researchupload'
+	    ,url: '<%=base_url%>researchupload'
         //,url: '/manage/researchupload'
 	    ,before: function(obj){
 			console.log('try......')
@@ -297,7 +297,7 @@ $(function(){
      //return false
 	  $.ajax({
           //本地与服务器
-        url:'/csse/manage/researchadd',
+        url:'<%=base_url%>researchadd',
         //url:'/manage/researchadd',
 	  	type:'POST',
 	  	data:data.field,

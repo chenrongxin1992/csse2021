@@ -28,10 +28,10 @@ layui.use(['jquery','table','form'], function(){
 	    ,id:'table_slider'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
         //,url: '/manage/slider_data' //数据接口
-	    ,url: '/csse/manage/slider_data' //数据接口
+	    ,url: '<%=base_url%>slider_data' //数据接口
 	    ,page: true //开启分页
 	    ,cols: [[ //表头
-	      {field: 'id', title: '序号',width:90,align:'center'}
+	      {type:'numbers', title: '序号',width:90,align:'center'}
 	      ,{field: 'title', title: '标题',align:'center'}
 	      ,{field: 'title1', title: '标题(EN)',align:'center'}
 	      ,{field: 'pic', title: '图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
@@ -50,7 +50,10 @@ layui.use(['jquery','table','form'], function(){
             type : 2,
             content : "slideradd",
             success : function(layero, index){
-            }
+            },
+			end:function(){
+				table.reload('table_slider')
+			}
         })
         layui.layer.full(index);
 	        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
@@ -71,7 +74,10 @@ layui.use(['jquery','table','form'], function(){
             type : 2,
             content : "slideradd?id="+data.id,
             success : function(layero, index){
-            }
+            },
+			end:function(){
+				table.reload('table_slider')
+			}
         })
         console.log('index',index)
         layui.layer.full(index);
@@ -86,7 +92,7 @@ layui.use(['jquery','table','form'], function(){
 	      layer.close(index);
 	      //向服务端发送删除指令
 	       $.ajax({
-				url:'/csse/manage/sliderdel',
+				url:'<%=base_url%>sliderdel',
 				//url:'/manage/sliderdel',
 			  	type:'POST',
 			  	data:data,
@@ -116,7 +122,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
                 //本地与服务器
                 //url:'/manage/hidept',
-			  	url:'/csse/manage/changedisplay',
+			  	url:'<%=base_url%>changedisplay',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -137,7 +143,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
 			  	//本地与服务器
                 //url:'/manage/hidept',
-                url:'/csse/manage/changedisplay',
+                url:'<%=base_url%>changedisplay',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",

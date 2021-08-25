@@ -37,7 +37,7 @@ layui.use(['jquery','table','form'], function(){
 	    ,id:'table_research'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
-        ,url: '/csse/manage/research_data' //数据接口
+        ,url: '<%=base_url%>research_data' //数据接口
         //,url: '/manage/research_data' //数据接口
 	    ,page: true //开启分页
         ,limits: [15,30,45]
@@ -116,7 +116,7 @@ layui.use(['jquery','table','form'], function(){
 	       $.ajax({
                //本地与服务器
                 //url:'/manage/researchdel',
-			  	url:'/csse/manage/researchdel',
+			  	url:'<%=base_url%>researchdel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -141,7 +141,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
                 //本地与服务器
                 //url:'/manage/changeresearchdisplay',
-			  	url:'/csse/manage/changeresearchdisplay',
+			  	url:'<%=base_url%>changeresearchdisplay',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -163,7 +163,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
 			  	//本地与服务器
                 //url:'/manage/changeresearchdisplay',
-                url:'/csse/manage/changeresearchdisplay',
+                url:'<%=base_url%>changeresearchdisplay',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -190,7 +190,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
                 //本地与服务器
                 //url:'/manage/changeresearchtop',
-			  	url:'/csse/manage/changeresearchtop',
+			  	url:'<%=base_url%>changeresearchtop',
                 	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -212,7 +212,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
 			  	//本地与服务器
                 //url:'/manage/changeresearchtop',
-                url:'/csse/manage/changeresearchtop',
+                url:'<%=base_url%>changeresearchtop',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",

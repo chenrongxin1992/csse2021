@@ -95,7 +95,7 @@
 			</td>
 	      </tr>
 		  <tr>
-			<td class="tdstyle">类别</td>
+			<td class="tdstyle">人员类别</td>
 	        <td id="tddegree">
 				<select name="jstype" lay-filter="jstype" id="jstype">
 					<option value=""></option>
@@ -107,9 +107,10 @@
 					<option value="助理教授">助理教授</option>
 					<option value="讲师">讲师</option>
 					<option value="博士后">博士后</option>
+					<option value="研究/管理助理">研究/管理助理</option>
 				</select>
 			</td>
-			<td class="tdstyle">(英文)类别</td>
+			<td class="tdstyle">(英文)人员类别</td>
 	        <td id="tddegree">
 				<select name="jstype1" lay-filter="jstype1" id="jstype1">
 					<option value=""></option>
@@ -121,6 +122,7 @@
 					<option value="Assistant Professor">Assistant Professor</option>
 					<option value="Lecturer">Lecturer</option>
 					<option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
+					<option value="RM Assistant">Research/Manage Assistant</option>
 				</select>
 			</td>
 	     </tr>
@@ -153,10 +155,16 @@
 			</td>
 	      </tr>
 		  <tr>
+	        <td class="tdstyle">所/系</td>
+	        <td ><input type="text" id="suoxi" class="layui-input"  value="<%=user.suoxi%>"></td>
+	        <td class="tdstyle">(英文)所/系</td>
+	        <td ><input type="text" id="suoxi1" class="layui-input"  value="<%=user.suoxi1%>"></td>
+	      </tr>
+		  <tr>
 	        <td class="tdstyle">职位</td>
 	        <td ><input type="text" id="zhiwu" class="layui-input"  value="<%=user.zhiwu%>"></td>
 	        <td class="tdstyle">(英文)职位</td>
-	        <td ><input type="text" id="zhiwu1" class="layui-input"  value="<%=user.zhiwu1%>"></td>
+	        <td colspan="2"><input type="text" id="zhiwu1" class="layui-input"  value="<%=user.zhiwu1%>"></td>
 	      </tr>
 		  <tr>
 	        <td class="tdstyle">研究领域</td>
@@ -164,10 +172,19 @@
 	        <td class="tdstyle">(英文)研究领域</td>
 	        <td colspan="2"><input type="text" id="yjly1" class="layui-input"  value="<%=user.yjly1%>"></td>
 	      </tr>
+		  
+	        <td class="tdstyle">教育背景</td>
+	        <td >
+				<textarea placeholder="教育背景" class="layui-textarea" id="jybj" ><%=user.jybj%></textarea>
+				</td>
+	        <td class="tdstyle">(英文)教育背景</td>
+	        <td colspan="2"><textarea placeholder="教育背景" class="layui-textarea" id="jybj1" ><%=user.jybj1%></textarea></td>
+	      </tr>
 		  <tr>
 	        <td class="tdstyle">政治面貌</td>
 	        <td >
 				<select name="inDang" lay-filter="inDang" id="inDang">
+					<option value=""></option>
 					<option value="中共党员">中共党员</option>
 					<option value="团员">团员</option>
 					<option value="群众">群众</option>
@@ -176,6 +193,7 @@
 			<td class="tdstyle">(英文)政治面貌</td>
 	        <td  colspan="2">
 				<select name="inDang1" lay-filter="inDang1" id="inDang1">
+					<option value=""></option>
 					<option value="Party Member">Party Member</option>
 					<option value="League Member">League Member</option>
 					<option value="The Masses">The Masses</option>
@@ -194,18 +212,11 @@
 			<td class="tdstyle">(英文)办公地址</td>
 	        <td  colspan="2"><input type="text" id="AddressOffice1" class="layui-input"  value="<%=user.AddressOffice1%>"></td>
 		</tr>
-	      <tr>
-	        <td class="tdstyle">学位</td>
-	        <td ><input type="text" id="xuewei" class="layui-input"  value="<%=user.xuewei%>"></td>
-	        <td class="tdstyle">(英文)学位</td>
-	        <td colspan="2"><input type="text" id="xuewei1" class="layui-input"  value="<%=user.xuewei1%>"></td>
-	      </tr>
-	      <tr>
-	        <td class="tdstyle">学历</td>
-	        <td ><input type="text" id="xueli" class="layui-input"  value="<%=user.xueli%>"></td>
-	        <td class="tdstyle">(英文)学历</td>
-	        <td colspan="2"><input type="text" id="xueli1" class="layui-input"  value="<%=user.xueli%>"></td>
-	      </tr>
+		<tr>
+			<td class="tdstyle">个人主页</td>
+			<td colspan="4"><input type="text" id="personalLink" class="layui-input"  value="<%=user.personalLink%>"></td>
+		  </tr>
+		  <tr>
 	      <tr>
 	        <td class="tdstyle">个人介绍</td>
 	        <!-- <td colspan="4"><span id="introduce"></span></td> -->
@@ -341,6 +352,9 @@ layui.use(['jquery','layer','upload','form'], function(){
 			if(data.value == '博士后'){
 				$("#jstype1").find("option[value='Postdoctoral Researcher']").attr("selected",true);
 			}
+			if(data.value == '研究/管理助理'){
+				$("#jstype1").find("option[value='RM Assistant']").attr("selected",true);
+			}
 			form.render()
 		})
 		form.on('select(zhicheng)',function (data) {
@@ -373,11 +387,9 @@ layui.use(['jquery','layer','upload','form'], function(){
     	$('#uploadarea').append(uploadbtn)	
 		let uploadInst  = upload.render({
 		    elem: '#uploadbtn'
-			//本地与服务器
-		   // ,url: '/manage/userimgupload'
-			,url: '/csse/manage/userimgupload'
+			,url: '<%=base_url%>userimgupload'
 		    , accept: 'images'
-		    ,size: 2048 //限制文件大小，单位 KB
+		    ,size: 10240 //限制文件大小，单位 KB
 		    ,before: function(obj){
 		      //预读本地文件示例，不支持ie8
 		      console.log('try......')
@@ -436,13 +448,18 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  data.field.zhicheng1=$('#zhicheng1 option:selected').val()
 	  data.field.phoneOffice=$('#phoneOffice').val()
 	  data.field.email=$('#email').val()
+	  data.field.personalLink=$('#personalLink').val()
 	  data.field.AddressOffice=$('#AddressOffice').val()
 	  data.field.AddressOffice1=$('#AddressOffice1').val()
-	  data.field.xuewei=$('#xuewei').val()
-	  data.field.xuewei1=$('#xuewei1').val()
-	  data.field.xueli=$('#xueli').val()
-	  data.field.xueli1=$('#xueli1').val()
+	//   data.field.xuewei=$('#xuewei').val()
+	//   data.field.xuewei1=$('#xuewei1').val()
+	//   data.field.xueli=$('#xueli').val()
+	//   data.field.xueli1=$('#xueli1').val()
 	  data.field.avatar=$('#userimg').attr('src')
+	  data.field.suoxi=$('#suoxi').val()
+	  data.field.suoxi1=$('#suoxi1').val()
+	  data.field.jybj=$('#jybj').val()
+	  data.field.jybj1=$('#jybj1').val()
 	  data.field.zhiwu=$('#zhiwu').val()
 	  data.field.zhiwu1=$('#zhiwu1').val()
 	  data.field.yjly=$('#yjly').val()
@@ -453,8 +470,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  //return false
 	  $.ajax({
 	  	//本地与服务器
-		//url:'/manage/userinfo',
-		url:'/csse/manage/userinfo',
+		url:'<%=base_url%>userinfo',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",

@@ -120,7 +120,7 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	  console.log('update data field',data.field);
 	  $.ajax({
 	  	//本地与服务器
-	  	url:'/csse/manage/figures',
+	  	url:'<%=base_url%>figures',
 	  	//url:'/manage/figures',
 	  	type:'POST',
 	  	data:data.field,

@@ -175,8 +175,9 @@ $(function(){
 	let uploadInst = upload.render({
 	    elem: '#test1'
         //本地与服务器
-	    ,url: '/csse/manage/newsupload'
-        //,url: '/manage/newsupload'
+	    ,url: '<%=base_url%>newsupload'
+		,accept:"file"
+        ,exts: 'jpg|jpeg|gif|png'
 	    ,before: function(obj){
 			console.log('try......')
 			layer.msg('图片上传中...', {
@@ -287,7 +288,7 @@ $(function(){
      //return false
 	  $.ajax({
           //本地与服务器
-        url:'/csse/manage/jrxwadd',
+        url:'<%=base_url%>jrxwadd',
         //url:'/manage/jrxwadd',
 	  	type:'POST',
 	  	data:data.field,

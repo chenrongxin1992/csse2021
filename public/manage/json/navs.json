@@ -45,9 +45,9 @@
 			"spread": false,
 			"children": [
 				{
-					"title": "行政办公室",
+					"title": "研究所",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/xzbgs",
+					"href": "/csse/manage/yjs",
 					"spread": false
 				},
 				{
@@ -57,27 +57,27 @@
 					"spread": false
 				},
 				{
-					"title": "研究所",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/yjs",
-					"spread": false
-				},
-				{
 					"title": "实验中心",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/syzx",
 					"spread": false
 				},
 				{
-					"title": "国家工程实验室",
+					"title": "行政办公室",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/bdsc",
+					"href": "/csse/manage/xzbgs",
 					"spread": false
 				},
 				{
 					"title": "期刊编辑部",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/qkbjb",
+					"spread": false
+				},
+				{
+					"title": "国家工程实验室",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/bdsc",
 					"spread": false
 				}
 			]
@@ -139,7 +139,7 @@
 					"spread": false
 				},
 				{
-					"title": "其他",
+					"title": "研究/管理助理",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/jsdw?type=qita",
 					"spread": false
@@ -147,7 +147,7 @@
 			]
 		},
 		{
-			"title": "招生就业",
+			"title": "招生招聘",
 			"icon": "&#xe615;",
 			"href": "",
 			"spread": false,
@@ -173,21 +173,27 @@
 					"target": ""
 				},
 				{
-					"title": "成教/自考招生",
+					"title": "成教招生",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/cjzkzs",
 					"spread": false
 				},
 				{
-					"title": "就业服务",
+					"title": "自考招生",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jyfw",
+					"href": "/csse/manage/cjzkzs",
+					"spread": false
+				},
+				{
+					"title": "人才招聘",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jszp",
 					"spread": false
 				}
 			]
 		},
 		{
-			"title": "科学研究",
+			"title": "科研成果",
 			"icon": "&#xe705;",
 			"href": "",
 			"spread": false,
@@ -315,34 +321,6 @@
 			]
 		},
 		{
-			"title": "人才招聘",
-			"icon": "&#xe612;",
-			"href": "",
-			"spread": false,
-			"children": [
-				{
-					"title": "教师",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jszp",
-					"spread": false
-				},
-				{
-					"title": "专职研究人员",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/zzyjry",
-					"spread": false,
-					"target": ""
-				},
-				{
-					"title": "博士后",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/bsh",
-					"spread": false,
-					"target": ""
-				}
-			]
-		},
-		{
 			"title": "首页发布",
 			"icon": "&#xe609;",
 			"href": "",
@@ -426,15 +404,15 @@
 			"spread": false,
 			"children": [	
 				{
-					"title": "Departments",
-					"icon": "&#xe620;",
-					"href": "/csse/manage/jxx",
-					"spread": false
-				},
-				{
 					"title": "Institutes",
 					"icon": "&#xe620;",
 					"href": "/csse/manage/yjs",
+					"spread": false
+				},
+				{
+					"title": "Departments",
+					"icon": "&#xe620;",
+					"href": "/csse/manage/jxx",
 					"spread": false
 				},
 				{
@@ -444,9 +422,9 @@
 					"spread": false
 				},
 				{
-					"title": "National Laboratory",
-					"icon": "&#xe620;",
-					"href": "/csse/manage/bdsc",
+					"title": "Admin Office",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xzbgs",
 					"spread": false
 				},
 				{
@@ -454,7 +432,13 @@
 					"icon": "&#xe620;",
 					"href": "/csse/manage/qkbjb",
 					"spread": false
-				}
+				},
+				{
+					"title": "National Laboratory",
+					"icon": "&#xe620;",
+					"href": "/csse/manage/bdsc",
+					"spread": false
+				}				
 			]
 		},
 		{
@@ -509,6 +493,12 @@
 					"title": "Postdoctoral Researcher",
 					"icon": "&#xe612;",
 					"href": "/csse/manage/jsdw?type=boshihou",
+					"spread": false
+				},
+				{
+					"title": "Research/Admin Assistant",
+					"icon": "&#xe612;",
+					"href": "/csse/manage/jsdw?type=qita",
 					"spread": false
 				}
 			]
@@ -600,59 +590,354 @@
 			]
 		}
 	],
-	"memberCenter": [
+	"ftMenu":[
 		{
-			"title": "用户中心",
+			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "page/user/userList.html",
-			"spread": false
+			"href": "/csse/manage/userinfo"
 		},
 		{
-			"title": "会员等级",
-			"icon": "icon-vip",
-			"href": "page/user/userGrade.html",
-			"spread": false
+			"title": "学院概况",
+			"icon": "&#xe716;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "学院简介",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xyjj",
+					"spread": false
+				},
+				{
+					"title": "院长寄语",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/yzjy",
+					"spread": false
+				},
+				{
+					"title": "发展沿革",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/fzyg",
+					"spread": false
+				},
+				{
+					"title": "现任领导",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xrld",
+					"spread": false
+				},
+				{
+					"title": "学院标识",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xybs",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "国际合作",
+			"icon": "&#xe63c;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "合作伙伴",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/hzhb",
+					"spread": false
+				},
+				{
+					"title": "联合培养",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/lhpy",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "科研合作",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/kyhz",
+					"spread": false,
+					"target": ""
+				}
+			]
 		}
 	],
-	"systemeSttings": [
+	"xxcMenu":[
 		{
-			"title": "系统基本参数",
-			"icon": "&#xe631;",
-			"href": "page/systemSetting/basicParameter.html",
-			"spread": false
-		},{
-			"title": "系统日志",
-			"icon": "icon-log",
-			"href": "page/systemSetting/logs.html",
-			"spread": false
-		},{
-			"title": "友情链接",
-			"icon": "&#xe64c;",
-			"href": "page/systemSetting/linkList.html",
-			"spread": false
-		},{
-			"title": "图标管理",
-			"icon": "&#xe857;",
-			"href": "page/systemSetting/icons.html",
-			"spread": false
+			"title":"个人信息",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/userinfo"
+		},
+		{
+			"title": "机构设置",
+			"icon": "&#xe609;",
+			"href": "",
+			"spread": false,
+			"children": [				
+				{
+					"title": "教学系",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jxx",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "招生信息",
+			"icon": "&#xe615;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "本科生招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/bkszs",
+					"spread": false
+				}
+			]
 		}
 	],
-	"seraphApi": [
+	"wjdMenu":[
 		{
-			"title": "三级联动模块",
-			"icon": "icon-mokuai",
-			"href": "page/doc/addressDoc.html",
-			"spread": false
-		},{
-			"title": "bodyTab模块",
-			"icon": "icon-mokuai",
-			"href": "page/doc/bodyTabDoc.html",
-			"spread": false
-		},{
-			"title": "三级菜单",
-			"icon": "icon-mokuai",
-			"href": "page/doc/navDoc.html",
-			"spread": false
+			"title":"个人信息",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/userinfo"
+		},
+		{
+			"title": "教师队伍",
+			"icon": "&#xe613;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "杰出人才",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=jcrc",
+					"spread": false
+				},
+				{
+					"title": "教授",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=professor",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "研究员",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=yjy",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "副教授",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=fjs",
+					"spread": false
+				},
+				{
+					"title": "副研究员",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=fyjy",
+					"spread": false
+				},
+				{
+					"title": "助理教授",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=zljs",
+					"spread": false
+				},
+				{
+					"title": "讲师",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=jiangshi",
+					"spread": false
+				},
+				{
+					"title": "研究/管理助理",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=qita",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "招生招聘",
+			"icon": "&#xe615;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "人才招聘",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jszp",
+					"spread": false
+				}
+			]
+		}
+	],
+	"hljMenu":[
+		{
+			"title":"个人信息",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/userinfo"
+		},
+		{
+			"title": "教师队伍",
+			"icon": "&#xe613;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "博士后",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=boshihou",
+					"spread": false
+				}
+			]
+		}
+	],
+	"lyMenu":[
+		{
+			"title":"个人信息",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/userinfo"
+		},
+		{
+			"title": "机构设置",
+			"icon": "&#xe609;",
+			"href": "",
+			"spread": false,
+			"children": [				
+				{
+					"title": "行政办公室",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xzbgs",
+					"spread": false
+				}
+			]
+		}
+	],
+	"xdrMenu":[
+		{
+			"title":"个人信息",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/userinfo"
+		},
+		{
+			"title": "招生信息",
+			"icon": "&#xe615;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "硕士生招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/ssszs",
+					"spread": false
+				}
+			]
+		}
+	],
+	"jxtMenu":[
+		{
+			"title":"个人信息",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/userinfo"
+		},
+		{
+			"title": "机构设置",
+			"icon": "&#xe609;",
+			"href": "",
+			"spread": false,
+			"children": [				
+				{
+					"title": "期刊编辑部",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/qkbjb",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "招生信息",
+			"icon": "&#xe615;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "博士生招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/bsszs",
+					"spread": false
+				}
+			]
+		}
+	],
+	"hwfMenu":[
+		{
+			"title":"个人信息",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/userinfo"
+		},
+		{
+			"title": "科学研究",
+			"icon": "&#xe705;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "高性能计算研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/gxn",
+					"spread": false
+				},
+				{
+					"title": "大数据技术与应用研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/dsj",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "未来媒体技术与计算研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/wlmt",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "网络与信息安全研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/wls",
+					"spread": false
+				},
+				{
+					"title": "计算机视觉研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/sjs",
+					"spread": false
+				},
+				{
+					"title": "智能技术与系统集成研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xtjc",
+					"spread": false
+				},
+				{
+					"title": "物联网研究中心",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/wlw",
+					"spread": false
+				},
+				{
+					"title": "可视计算研究中心",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/vcc",
+					"spread": false
+				}
+			]
 		}
 	]
 }

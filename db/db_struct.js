@@ -90,10 +90,16 @@ const userSchema = new Schema({
   ipAdd:{type:String},
   idAdd:{type:String},
   accountAdd:{type:String},
+  personalLink:{type:String},//个人主页，新增
+  personalLink_switch:{type:Number,default:1},//是否展示个人主页
+  suoxi:{type:String},//所/系，新增
+  suoxi1:{type:String},
+  jybj:{type:String},//教育背景，新增
+  jybj1:{type:String},
   yjly:{type:String},//研究领域 新增
   yjly1:{type:String},
   jstype1:{type:String},
-  jstype:{type:String,default:'其他'}//教师队伍类别，新增
+  jstype:{type:String,default:''}//教师队伍类别，新增
 },{collection:'allUser'})
 const cmsContentSchema = new Schema({
     id:{type:Number},

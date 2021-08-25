@@ -37,7 +37,7 @@ layui.use(['jquery','table','form'], function(){
 	    ,id:'table_news'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
-        ,url: '/csse/manage/djhd_data' //数据接口
+        ,url: '<%=base_url%>djhd_data' //数据接口
         //,url: '/manage/djhd_data' //数据接口
 	    ,page: true //开启分页
         ,limits: [15,30,45]
@@ -66,6 +66,13 @@ layui.use(['jquery','table','form'], function(){
             type : 2,
             content : "djhdadd",
             success : function(layero, index){
+            },
+			end:function(){
+                table.reload('table_news', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
             }
         })
         layui.layer.full(index);
@@ -87,6 +94,13 @@ layui.use(['jquery','table','form'], function(){
             type : 2,
             content : "djhdadd?id="+data.id,
             success : function(layero, index){
+            },
+			end:function(){
+                table.reload('table_news', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
             }
         })
         console.log('index',index)
@@ -110,7 +124,7 @@ layui.use(['jquery','table','form'], function(){
 	       $.ajax({
                //本地与服务器
                 //url:'/manage/djhddel',
-			  	url:'/csse/manage/djhddel',
+			  	url:'<%=base_url%>djhddel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -135,7 +149,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
                 //本地与服务器
                 //url:'/manage/changedjhddisplay',
-			  	url:'/csse/manage/changedjhddisplay',
+			  	url:'<%=base_url%>changedjhddisplay',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -157,7 +171,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
 			  	//本地与服务器
                 //url:'/manage/changedjhddisplay',
-                url:'/csse/manage/changedjhddisplay',
+                url:'<%=base_url%>changedjhddisplay',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -188,7 +202,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
                 //本地与服务器
                 //url:'/manage/changedjhdtop',
-			  	url:'/csse/manage/changedjhdtop',
+			  	url:'<%=base_url%>changedjhdtop',
                 	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -210,7 +224,7 @@ layui.use(['jquery','table','form'], function(){
 	  		$.ajax({
 			  	//本地与服务器
                 //url:'/manage/changedjhdtop',
-                url:'/csse/manage/changedjhdtop',
+                url:'<%=base_url%>changedjhdtop',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",

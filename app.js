@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
 
 //路由
 var indexRouter = require('./routes/index');
@@ -15,14 +16,63 @@ const ueditor = require('./routes/ueditor/ueditor');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 
+//20210818
+var fs = require('fs')
+var FileStreamRotator = require('file-stream-rotator')
+var logDirectory = path.join(__dirname, 'logs')
+console.log('logs path------>',logDirectory)
+// ensure log directory exists
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+console.log('logs path------>',logDirectory)
+//log4js
+const log4js = require('log4js')
+//通过configure()配置log4js
+log4js.configure({
+    'appenders': {
+      //设置控制台输出 （默认日志级别是关闭的（即不会输出日志））
+      //console: {  type: 'stdout' },
+      'fileLog': { 
+        type: 'file', 
+        filename: './logs/error-',
+        pattern: ".yyyy-MM-dd.log",
+        maxLogSize: 100000000,
+        encoding: "utf-8",
+        alwaysIncludePattern: true
+      }
+    },'categories':{
+      //'fileLog': { appenders: ['fileLog'], level: 'INFO' },
+      default: { appenders: ['fileLog'], level: 'ALL' }
+    }
+});
+//manage route
+const base_url = '/csse/manage/'//'/manage/'
+const logger1 = log4js.getLogger('default');
+const logger2 = log4js.getLogger('default');
+//console.log = logger2.info.bind(logger2)
+
 var app = express();
+
+//20210818
+// create a rotating write stream
+var accessLogStream = FileStreamRotator.getStream({
+  date_format: 'YYYYMMDD',
+  filename: path.join(logDirectory, 'access-%DATE%.log'),
+  frequency: 'daily',
+  verbose: false
+})
+
+// setup the logger //两个记录
+app.use(logger('short', {stream: accessLogStream}))
+app.use(log4js.connectLogger(logger1, {level: log4js.levels.INFO,format:':method :url'}));//error log
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
+app.use(bodyParser.json({limit:'50mb'}));
+app.use(bodyParser.urlencoded({ limit:'50mb',extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -54,6 +104,15 @@ app.use(function(req,res,next){
     }
     next()
 })
+//check ip
+app.use(function(req,res,next){
+  let ip = req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
+  req.connection.remoteAddress || // 判断 connection 的远程 IP
+  req.socket.remoteAddress || // 判断后端的 socket 的 IP
+  req.connection.socket.remoteAddress;
+  console.log('ip ----->' ,ip)
+  next()
+})
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -62,7 +121,8 @@ app.use('/manage',function(req,res,next){
   console.log('check login',req.url)
   console.log()
   console.log(req.session)
-
+  res.locals.base_url = base_url
+  console.log('check baseurl----->',base_url)
   if(req.url == '/login' || (req.url).indexOf("/vcode") != -1){
     next()
   }else{
@@ -94,7 +154,6 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');

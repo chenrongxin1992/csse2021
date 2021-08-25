@@ -72,10 +72,45 @@ router.get('/login', function(req, res, next) {
 						if(doc.power=='管理员'){
 							if(doc.userName == '张芯蕾'){
 								console.log('管理党建模块')
-								req.session.powerType = 'dangqun'
+								req.session.powerType = 'dangqMenu'
+								req.session.menu = 'dangqMenu'
+							}
+							if(doc.userName == '樊婷'){
+								console.log('樊婷')
+								req.session.powerType = 'ftMenu'
+								req.session.menu = 'ftMenu'
+							}
+							if(doc.userName == '许小楚'){
+								req.session.powerType = 'xxcMenu'
+								req.session.menu = 'xxcMenu'
+							}
+							if(doc.userName == '姜欣彤'){
+								req.session.powerType = 'jxtMenu'
+								req.session.menu = 'jxtMenu'
+							}
+							if(doc.userName == '王佳岱'){
+								req.session.powerType = 'wjdMenu'
+								req.session.menu = 'wjdMenu'
+							}
+							if(doc.userName == '洪岚军'){
+								req.session.powerType = 'hljMenu'
+								req.session.menu = 'hljMenu'
+							}
+							if(doc.userName == '何文锋'){
+								req.session.powerType = 'hwfMenu'
+								req.session.menu = 'hwfMenu'
+							}
+							if(doc.userName == '刘晔'){
+								req.session.powerType = 'lyMenu'
+								req.session.menu = 'lyMenu'
+							}
+							if(doc.userName == '熊大容'){
+								req.session.powerType = 'xdrMenu'
+								req.session.menu = 'xdrMenu'
 							}
 							if(doc.userName == '陈荣鑫'){
 								req.session.powerType = 'all'
+								req.session.menu = 'shiyanshiManagement'
 							}
 						}
 						return res.json({'code':0})
@@ -97,7 +132,7 @@ router.get('/login', function(req, res, next) {
 			if(err){
 				res.send(err)
 			}
-			res.render('manage/index',{user:doc,powerType:req.session.powerType})
+			res.render('manage/index',{user:doc,powerType:req.session.powerType,menu:req.session.menu})
 		})	
 })
 router.get('/main',function(req,res){
@@ -1557,14 +1592,17 @@ router.get('/zzgk',function(req,res){
 //人才招聘
 router.get('/jszp',function(req,res){
 	console.log('in jszp')
-	let search = cmsContent.findOne({})
-		search.where('tag2').equals('教师')
-		search.exec(function(err,doc){
-			if(err){
-				return res.send(err)
-			}
-			res.render('manage/rczp/publictpl',{data:doc})
-		})
+	//应该是列表
+	console.log('in gzzd')
+	res.render('manage/rczp/rczp',{title:'人才招聘'})
+	// let search = cmsContent.findOne({})
+	// 	search.where('tag2').equals('教师')
+	// 	search.exec(function(err,doc){
+	// 		if(err){
+	// 			return res.send(err)
+	// 		}
+	// 		res.render('manage/rczp/publictpl',{data:doc})
+	// 	})
 }).get('/zzyjry',function(req,res){
 	console.log('in zzyjry')
 	let search = cmsContent.findOne({})
@@ -1596,6 +1634,231 @@ router.get('/jszp',function(req,res){
 		console.log('rczp success')
 		res.json({'code':0,'msg':'update success'})
 	})
+}).get('/rczp_data',function(req,res){
+	console.log('router rczp_data')
+	let page = req.query.page,
+		limit = req.query.limit,
+		search_txt = req.query.search_txt
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = cmsContent.find({'tag2':'人才招聘'}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('rczp_data get total err',err)
+						cb(err)
+					}
+					console.log('rczp_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+			if(search_txt){
+				console.log('带搜索参数',search_txt)
+				let _filter = {
+					$and:[
+						{title:{$regex:search_txt,$options:'$i'}},//忽略大小写
+						{'tag2':'人才招聘'}
+					]
+				}
+				console.log('_filter',_filter)
+				let search = cmsContent.find(_filter)
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'timeAddStamp':-1})
+					search.sort({'timeAdd':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('rczp_data error',error)
+							cb(error)
+						}
+						//获取搜索参数的记录总数
+						cmsContent.count(_filter,function(err,count_search){
+							if(err){
+								console.log('rczp_data count_search err',err)
+								cb(err)
+							}
+							console.log('搜索到记录数',count_search)
+							total = count_search
+							cb(null,docs)
+						})
+					})
+			}else{
+				console.log('不带搜索参数')
+				let search = cmsContent.find({tag2:'人才招聘'})
+					search.where('isDelete').equals(0)
+					search.sort({'id':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'timeAdd':-1})
+					search.sort({'isDisplay':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('rczp_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			}
+		}
+	],function(error,result){
+		if(error){
+			console.log('rczp_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('rczp_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).post('/rczpdel',function(req,res){
+	console.log('rczpdel',req.body.id)
+	cmsContent.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('rczpdel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del rczpdel success'})
+	})
+}).post('/changerczpdisplay',function(req,res){
+	console.log(req.body.isDisplay)
+	let obj = {	isDisplay:req.body.isDisplay }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' changerczpdisplay hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' changerczpdisplay hide success')
+		return res.json({'code':0})		
+	})
+}).post('/changerczptop',function(req,res){
+	console.log(req.body.isTop)
+	let obj = {	isTop:req.body.isTop }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log('changerczptop isTop hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log('changerczptop isTop hide success')
+		return res.json({'code':0})		
+	})
+}).get('/rczpadd',function(req,res){
+	let id = req.query.id
+	console.log('cmsContent ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let search = cmsContent.findOne({})
+		search.where('id').equals(id)
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			if(doc){
+				res.render('manage/rczp/rczpadd',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/rczp/rczpadd',{data:{}})
+			}
+		})
+	}else{
+		res.render('manage/rczp/rczpadd',{data:{}})
+	}
+}).post('/rczpadd',function(req,res){
+	console.log('rczpadd------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 rczpadd')
+		async.waterfall([
+			function(cb){
+				let search = cmsContent.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let cmsContentadd = new cmsContent({
+					id:id,
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					timeEdit:req.body.timeEdit,
+					//fujianPath:req.body.fujianPath,
+					tag2:'人才招聘',
+					tag1:'招生招聘'
+				})
+				cmsContentadd.save(function(error,doc){
+					if(error){
+						console.log('rczpadd save error',error)
+						cb(error)
+					}
+					console.log('rczpadd save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('rczpadd async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('rczpadd',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					title:req.body.title,//加入权限后需要更新
+					pageContent:req.body.pageContent,
+					isTop:req.body.isTop,
+					timeAdd:req.body.timeAdd,
+					//fujianPath:req.body.fujianPath,
+					timeEdit:req.body.timeEdit
+				}
+				cmsContent.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('rczpadd update error',error)
+						cb(error)
+					}
+					console.log('rczpadd update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('rczpadd async error',error)
+				return res.end(error)
+			}
+			console.log('rczpadd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
 })
 //教师队伍
 function checkType(str){
@@ -2020,10 +2283,15 @@ router.get('/jsdw',function(req,res){
 		email:req.body.email,
 		AddressOffice:req.body.AddressOffice,
 		AddressOffice1:req.body.AddressOffice1,
-		xuewei:req.body.xuewei,
-		xuewei1:req.body.xuewei1,
-		xueli:req.body.xueli,
-		xueli1:req.body.xueli1,
+		personalLink:req.body.personalLink,
+		// xuewei:req.body.xuewei,
+		// xuewei1:req.body.xuewei1,
+		// xueli:req.body.xueli,
+		// xueli1:req.body.xueli1,
+		suoxi:req.body.suoxi,
+		suoxi1:req.body.suoxi1,
+		jybj:req.body.jybj,
+		jybj1:req.body.jybj1,
 		intro:req.body.intro,
 		intro1:req.body.intro1,
 		avatar:req.body.avatar,
@@ -2044,6 +2312,17 @@ router.get('/jsdw',function(req,res){
 			console.log('update success')
 			return res.json({'code':0})
 		}
+	})
+}).post('/changejsdwdis',function(req,res){
+	console.log(req.body)
+	let obj = {	personalLink_switch:req.body.personalLink_switch }
+	user.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log('isDisplay hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log('isDisplay hide success')
+		return res.json({'code':0})		
 	})
 })
 //首页发布

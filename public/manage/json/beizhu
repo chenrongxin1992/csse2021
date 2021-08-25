@@ -1,0 +1,16 @@
+navs.json
+shiyanshiManagement和enMenu属于超级管理员
+
+普通用户只有设置个人信息的菜单normalMenu
+
+党群管理当前是张芯蕾，dangqMenu
+樊婷ftMenu
+许小楚xxcMenu
+姜欣彤jxtMenu
+王佳岱wjdMenu
+洪岚军hljMenu
+何文锋hwfMenu
+刘晔lyMenu
+
+powerType字段对顶部菜单进行控制
+menu字段对左侧菜单进行控制

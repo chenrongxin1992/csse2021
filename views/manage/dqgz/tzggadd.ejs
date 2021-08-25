@@ -120,7 +120,7 @@ $(function(){
 	// let uploadInst = upload.render({
 	//     elem: '#test1'
     //     //本地与服务器
-	//     ,url: '/csse/manage/jrfcupload'
+	//     ,url: '<%=base_url%>jrfcupload'
     //     //,url: '/manage/jrfcupload'
 	//     ,before: function(obj){
 	//       //预读本地文件示例，不支持ie8
@@ -218,7 +218,7 @@ $(function(){
      //return false
 	  $.ajax({
           //本地与服务器
-        url:'/csse/manage/tzggadd',
+        url:'<%=base_url%>tzggadd',
         //url:'/manage/tzggadd',
 	  	type:'POST',
 	  	data:data.field,

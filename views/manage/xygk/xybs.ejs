@@ -121,9 +121,7 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	  data.field.timeEdit = $('#timeEdit').val()
 	  console.log('update data field',data.field);
 	  $.ajax({
-	  	//本地与服务器
-	  	//url:'/manage/xybs',
-	  	url:'/csse/manage/xybs',
+	  	url:'<%=base_url%>xybs',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",

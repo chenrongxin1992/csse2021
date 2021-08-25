@@ -19,7 +19,7 @@
 	  </div>
 	  <div class="layui-input-inline">
           <select name="power" id="power" lay-filter="power" lay-verify="required">
-          		<option value=""></option>
+          		<option value="">用户角色</option>
 		        <option value="管理员">管理员</option>
 		        <option value="教职工">教职工</option>
 		              <!-- 动态获取 -->
@@ -27,7 +27,7 @@
        </div>
        <div class="layui-inline">
 	    	<select name="jstype" id="jstype" lay-filter="jstype" >
-          		<option value="">类别</option>
+          		<option value="">人员类别</option>
 		        <option value="杰出人才">杰出人才</option>
 		        <option value="教授">教授</option>
 		        <option value="研究员">研究员</option>
@@ -36,7 +36,7 @@
 		        <option value="助理教授">助理教授</option>
 		        <option value="讲师">讲师</option>
 		        <option value="博士后">博士后</option>
-				<option value="其他">其他</option>
+				<option value="研究/管理助理">研究/管理助理</option>
 		              <!-- 动态获取 -->
 		   </select>
 	  </div>
@@ -59,20 +59,19 @@ layui.use(['jquery','table','form'], function(){
 	    elem: '#jsdw_table'
 	    ,id:'table_jsdw'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-		//本地与服务器
-		//,url: '/manage/jsdw_data' //数据接口
-	    ,url: '/csse/manage/jsdw_data' //数据接口
+	    ,url: '<%=base_url%>jsdw_data' //数据接口
 	    ,page: true //开启分页
         ,limits: [30,50,70]
         ,limit: 30 //每页默认显示的数量
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:90,align:'center'}
-	      ,{field: 'userName', title: '姓名',align:'center'}
+	      ,{field: 'userName', title: '姓名',width:120,align:'center'}
+		  ,{field: 'suoxi', title: '所/系',align:'center'}
 		  ,{field: 'jstype', title: '类别',align:'center'}
 		  ,{field: 'zhicheng', title: '职称',align:'center'}
 	      ,{field: 'account', title: '登录账号', align:'center'}
-	      ,{field: 'power', title: '角色', align:'center'}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+	      ,{field: 'power', title: '角色',width:140, align:'center'}
+	      ,{title:'操作', align:'center',width:350, toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
 	
@@ -88,28 +87,18 @@ layui.use(['jquery','table','form'], function(){
 					jstype: $('#jstype option:selected').val()
 				}
 			});
-		
     })
-    $('#ptglsort').on('click', function(){
-    	//do somehing
-    	if(rolename!='管理员'){
-    		return false
-    	}
-    	console.log('人员排序')
-	    let index = layui.layer.open({
-            title : "人员排序",
-            type : 2,
-            area: ['500px', '750px'],
-            content : "yjtdsortchoose",
-            success : function(layero, index){
-            }
-        })
-        // layui.layer.full(index);
-	       //  //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-	       //  $(window).on("resize",function(){
-	       //      layui.layer.full(index);
-	       //  })
-    })
+	$(function(){
+		console.log('done get data')
+		table.reload('table_jsdw', {
+				where: {
+					userName: $('#userName').val(),
+					power: $('#power option:selected').val(),
+					jstype: $('#jstype option:selected').val()
+				}
+			});
+	})
+    
     $('#addkyxm').on('click', function(){
     	console.log('新增账号')
     	let index = layui.layer.open({
@@ -118,13 +107,19 @@ layui.use(['jquery','table','form'], function(){
 			area: ['500px', '400px'],
             content : "jsdwadd",
             success : function(layero, index){
+            },
+			end:function(){
+                table.reload('table_jsdw', {
+					where: {
+						userName: $('#userName').val(),
+						power: $('#power option:selected').val(),
+						jstype: $('#jstype option:selected').val()
+					}
+				});
             }
         })
         console.log('index',index)
-        // layui.layer.full(index);
-        // $(window).on("resize",function(){
-        //     layui.layer.full(index);
-        // })
+        
     })
     
     //监听工具条
@@ -140,6 +135,15 @@ layui.use(['jquery','table','form'], function(){
             type : 2,
             content : "userinfo?id="+data.id,
             success : function(layero, index){
+            },
+			end:function(){
+                table.reload('table_jsdw', {
+					where: {
+						userName: $('#userName').val(),
+						power: $('#power option:selected').val(),
+						jstype: $('#jstype option:selected').val()
+					}
+				});
             }
         })
         console.log('index-------',index)
@@ -158,8 +162,7 @@ layui.use(['jquery','table','form'], function(){
 	      		//向服务端发送删除指令
 				$.ajax({
 					//本地与服务器
-						url:'/csse/manage/jsdwdel',
-						//url:'/manage/jsdwdel',
+						url:'<%=base_url%>jsdwdel',
 						type:'POST',
 						data:data,
 						dataType : "json",
@@ -180,26 +183,79 @@ layui.use(['jquery','table','form'], function(){
 	    var index = layui.layer.open({
             title : "修改账号",
             type : 2,
+			area: ['500px', '400px'],
             content : "jsdwadd?id="+data.id,
             success : function(layero, index){
             }
         })
         console.log('index',index)
-        layui.layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-        $(window).on("resize",function(){
-            layui.layer.full(index);
-        })
+        // layui.layer.full(index);
+        // //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        // $(window).on("resize",function(){
+        //     layui.layer.full(index);
+        // })
+	  }
+	  else if(layEvent === 'per_dis'){
+		console.log('per_dis')
+	  	console.log('data------',data)
+	  	if($(this).text()=='不显示'){
+	  		console.log('不显示')
+	  		data.personalLink_switch=0
+	  		let _this = $(this)
+	  		$.ajax({
+                //本地与服务器
+			  	url:'<%=base_url%>changejsdwdis',
+                	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('hide success',_this)
+			  			_this.text('显示')	
+                          layer.msg('已设置不显示此人')	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax hide error msg',msg)
+			  	}
+			})
+	  	}else{
+	  		console.log('显示')
+	  		data.personalLink_switch=1
+	  		let _this = $(this)
+	  		$.ajax({
+			  	//本地与服务器
+                url:'<%=base_url%>changejsdwdis',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('view success',_this)		
+			  			_this.text('不显示')	
+                          layer.msg('已设置显示此人')
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax view error msg',msg)
+			  	}
+			})
+	  	}
+	  	return false
 	  }
 	});
 });
 </script>
 <script type="text/html" id="yjfxbar">
- 
 		<a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑个人信息</a>
 		<a class="layui-btn layui-btn-xs" lay-event="editzh">设置账号</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 		
+		{{# if(d.personalLink_switch == 1){ }}
+			<a class="layui-btn layui-btn-xs" lay-event="per_dis" value='0'>不显示</a>
+		{{# }else{ }}
+			<a class="layui-btn layui-btn-xs" lay-event="per_dis" value='1'>显示</a>
+		{{# } }}
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 
 </body>

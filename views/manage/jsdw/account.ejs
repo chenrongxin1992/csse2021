@@ -125,8 +125,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 	     //console.log('submit data',data)
 	     $.ajax({
 			 	//本地与服务器
-				url:'/csse/manage/jsdwadd',
-			  	//url:'/manage/jsdwadd',
+				url:'<%=base_url%>jsdwadd',
 			  	type:'POST',
 			  	data:data.field,
 			  	dataType : "json",

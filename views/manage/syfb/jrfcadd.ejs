@@ -187,8 +187,9 @@ $(function(){
 	let uploadInst = upload.render({
 	    elem: '#test1'
         //本地与服务器
-	    ,url: '/csse/manage/jrfcupload'
-        //,url: '/manage/jrfcupload'
+	    ,url: '<%=base_url%>jrfcupload'
+		,accept:"file"
+        ,exts: 'jpg|jpeg|gif|mp4|png'
 	    ,before: function(obj){
 	      //预读本地文件示例，不支持ie8
 	      console.log('try......')
@@ -313,8 +314,7 @@ $(function(){
      //return false
 	  $.ajax({
           //本地与服务器
-        url:'/csse/manage/jrfcadd',
-        //url:'/manage/jrfcadd',
+        url:'<%=base_url%>jrfcadd',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",

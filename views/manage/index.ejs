@@ -28,22 +28,26 @@
 				<a href="javascript:;" class="seraph hideMenu icon-caidan"></a>
 				<!-- 顶级菜单 -->
 				<ul class="layui-nav mobileTopLevelMenus" mobile>
-					<li class="layui-nav-item" data-menu="shiyanshiManagement">
+					<li class="layui-nav-item" data-menu="<%=menu%>">
 						<a href="javascript:;"><i class="seraph icon-caidan"></i><cite>菜单</cite></a>
 						<dl class="layui-nav-child">
 							<!-- 原spatial菜单 -->
-							<dd class="layui-this" data-menu="shiyanshiManagement"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>中文</cite></a></dd>
+							<dd class="layui-this" data-menu="<%=menu%>"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>中文</cite></a></dd>
+							<%if((user.power=='管理员'&&powerType=='ftMenu')||(powerType=='all')){%>
 							<dd class="layui-this" data-menu="enMenu"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>英文</cite></a></dd>
+							<%}%>
 						</dl>
 					</li>
 				</ul>
 				<ul class="layui-nav topLevelMenus" pc>
-					<li class="layui-nav-item layui-this" data-menu="shiyanshiManagement">
+					<li class="layui-nav-item layui-this" data-menu="<%=menu%>" >
 						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>中文</cite></a>
 					</li>
+					<%if((user.power=='管理员'&&powerType=='ftMenu')||(powerType=='all')){%>
 					<li class="layui-nav-item layui-this" data-menu="enMenu">
 						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>英文</cite></a>
 					</li>
+					<%}%>
 				</ul>
 			    <!-- 顶部右侧菜单 -->
 			    <ul class="layui-nav top_menu">
@@ -98,14 +102,14 @@
 					<div class="layui-tab-item layui-show">
 						<!-- 服务器与本地 -->
 						<!-- <iframe src="/manage/main"></iframe> -->
-						<iframe src="/csse/manage/main"></iframe>
+						<iframe src="<%=base_url%>main"></iframe>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 底部 -->
 		<div class="layui-footer footer">
-			<p><span>Copyright @2021</span></p>
+			<p><span>CSSE 2021</span></p>
 		</div>
 	</div>
 
@@ -140,23 +144,7 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
 			console.log('tab.tabConfig.url',tab.tabConfig.url)
 			console.log('json----?',json)
 			console.log('nav.json---getData data',data)
-			if(json == "contentManagement"){
-				dataStr = data.contentManagement;
-				//重新渲染左侧菜单
-				tab.render();
-			}else if(json == "memberCenter"){
-				dataStr = data.memberCenter;
-				//重新渲染左侧菜单
-				tab.render();
-			}else if(json == "systemeSttings"){
-				dataStr = data.systemeSttings;
-				//重新渲染左侧菜单
-				tab.render();
-			}else if(json == "seraphApi"){
-                dataStr = data.seraphApi;
-                //重新渲染左侧菜单
-                tab.render();
-            }else if(json == 'shiyanshiManagement'){
+			if(json == 'shiyanshiManagement'){
             	dataStr = data.shiyanshiManagement
             	tab.render()
             }else if(json == 'enMenu'){
@@ -165,7 +153,37 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
             }else if(json == 'normalMenu'){
             	dataStr = data.normalMenu
             	tab.render()
+            }else if(json == 'ftMenu'){
+            	dataStr = data.ftMenu
+            	tab.render()
+            }else if(json == 'xxcMenu'){
+            	dataStr = data.xxcMenu
+            	tab.render()
             }
+			else if(json == 'jxtMenu'){
+            	dataStr = data.jxtMenu
+            	tab.render()
+            }else if(json == 'wjdMenu'){
+            	dataStr = data.wjdMenu
+            	tab.render()
+            }else if(json == 'hljMenu'){
+            	dataStr = data.hljMenu
+            	tab.render()
+            }
+			else if(json == 'hwfMenu'){
+            	dataStr = data.hwfMenu
+            	tab.render()
+            }else if(json == 'lyMenu'){
+            	dataStr = data.lyMenu
+            	tab.render()
+            }else if(json == 'dangqMenu'){
+            	dataStr = data.dangqMenu
+            	tab.render()
+			}
+			else if(json == 'xdrMenu'){
+            	dataStr = data.xdrMenu
+            	tab.render()
+			}
 		})
 	}
 	//页面加载时判断左侧菜单是否显示
@@ -200,14 +218,7 @@ layui.use(['bodyTab','form','element','layer','jquery'],function(){
 		console.log('111')
 		getData("normalMenu");//后续在此添加普通用户菜单
 	}else{
-		if('<%=powerType%>'=='all'){
-			getData("shiyanshiManagement");
-		}
-		if('<%=powerType%>'=='dangqun'){
-			getData("dangqMenu");
-		}
-		console.log('222')
-		
+		getData("<%=menu%>");
 	}
 	//getData("shiyanshiManagement");
 	//getData("contentManagement");

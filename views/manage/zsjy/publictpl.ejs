@@ -122,8 +122,7 @@ layui.use(['jquery','layer','form','laydate'], function(){
 	  console.log('update data field',data.field);
 	  $.ajax({
 	  	//本地与服务器
-	  	url:'/csse/manage/zsjy',
-	  	//url:'/manage/xyjj',
+	  	url:'<%=base_url%>zsjy',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",

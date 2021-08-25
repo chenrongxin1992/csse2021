@@ -176,7 +176,7 @@ $(function(){
 	let uploadInst = upload.render({
 	    elem: '#test1'
         //本地与服务器
-	    ,url: '/csse/manage/xxydupload'
+	    ,url: '<%=base_url%>xxydupload'
         //,url: '/manage/xxydupload'
 	    ,before: function(obj){
 			console.log('try......')
@@ -286,7 +286,7 @@ $(function(){
      //return false
 	  $.ajax({
           //本地与服务器
-        url:'/csse/manage/xxydadd',
+        url:'<%=base_url%>xxydadd',
         //url:'/manage/xxydadd',
 	  	type:'POST',
 	  	data:data.field,
