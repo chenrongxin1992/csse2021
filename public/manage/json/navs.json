@@ -817,6 +817,64 @@
 					"spread": false
 				}
 			]
+		},
+		{
+			"title": "教师队伍",
+			"icon": "&#xe613;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "杰出人才",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=jcrc",
+					"spread": false
+				},
+				{
+					"title": "教授",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=professor",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "研究员",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=yjy",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "副教授",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=fjs",
+					"spread": false
+				},
+				{
+					"title": "副研究员",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=fyjy",
+					"spread": false
+				},
+				{
+					"title": "助理教授",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=zljs",
+					"spread": false
+				},
+				{
+					"title": "讲师",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=jiangshi",
+					"spread": false
+				},
+				{
+					"title": "研究/管理助理",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=qita",
+					"spread": false
+				}
+			]
 		}
 	],
 	"xdrMenu":[

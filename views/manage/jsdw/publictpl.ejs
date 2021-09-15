@@ -67,11 +67,11 @@ layui.use(['jquery','table','form'], function(){
 	      {type:'numbers', title: '序号',width:90,align:'center'}
 	      ,{field: 'userName', title: '姓名',width:120,align:'center'}
 		  ,{field: 'suoxi', title: '所/系',align:'center'}
-		  ,{field: 'jstype', title: '类别',align:'center'}
-		  ,{field: 'zhicheng', title: '职称',align:'center'}
-	      ,{field: 'account', title: '登录账号', align:'center'}
+		  ,{field: 'jstype', title: '类别',width:150,align:'center'}
+		  ,{field: 'zhicheng', title: '职称',width:140,align:'center'}
+	      ,{field: 'account', title: '登录账号', width:140,align:'center'}
 	      ,{field: 'power', title: '角色',width:140, align:'center'}
-	      ,{title:'操作', align:'center',width:350, toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+	      ,{title:'操作', align:'center',width:450, toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
 	
@@ -194,6 +194,18 @@ layui.use(['jquery','table','form'], function(){
         // $(window).on("resize",function(){
         //     layui.layer.full(index);
         // })
+	  } else if(layEvent === 'dis_menu'){
+		//do somehing
+	    var index = layui.layer.open({
+            title : "分配菜单",
+            type : 2,
+			area: ['500px', '400px'],
+            content : "dis_menu?id="+data.id,
+            success : function(layero, index){
+            }
+        })
+        console.log('index',index)
+        
 	  }
 	  else if(layEvent === 'per_dis'){
 		console.log('per_dis')
@@ -247,14 +259,17 @@ layui.use(['jquery','table','form'], function(){
 });
 </script>
 <script type="text/html" id="yjfxbar">
-		<a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑个人信息</a>
-		<a class="layui-btn layui-btn-xs" lay-event="editzh">设置账号</a>
+		<a class="layui-btn layui-btn-xs" lay-event="edit" title="编辑个人信息"><i class="layui-icon">&#xe642;</i></a>
+		<a class="layui-btn layui-btn-xs" lay-event="editzh" title="账号设置"><i class="layui-icon">&#xe612;</i></a>
 		
 		{{# if(d.personalLink_switch == 1){ }}
 			<a class="layui-btn layui-btn-xs" lay-event="per_dis" value='0'>不显示</a>
 		{{# }else{ }}
 			<a class="layui-btn layui-btn-xs" lay-event="per_dis" value='1'>显示</a>
 		{{# } }}
+		{{# if(d.power == '管理员' && '<%=username%>' == '陈荣鑫'){ }}
+			<a class="layui-btn layui-btn-xs" lay-event="dis_menu">分配菜单</a>
+		{{# } }}	
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 

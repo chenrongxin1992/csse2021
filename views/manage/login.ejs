@@ -31,15 +31,15 @@
                 <div class="layui-form-item">
                     <div class="layui-input-inline input-item">
                         <label for="username">账号</label>
-                        <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="账号" class="layui-input">
+                        <input type="text" name="username" lay-verify="username" autocomplete="off" placeholder="账号" class="layui-input">
                     </div>
                     <div class="layui-input-inline input-item">
                         <label for="password">密码</label>
-                        <input type="password" name="password" lay-verify="required" autocomplete="off" placeholder="密码" class="layui-input">
+                        <input type="password" name="password" lay-verify="password" autocomplete="off" placeholder="密码" class="layui-input">
                     </div>
                     <div class="layui-input-inline input-item verify-box">
                         <label for="verify"></label>
-                        <input type="text" name="verify" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
+                        <input type="text" name="verify" lay-verify="verify" placeholder="验证码" autocomplete="off" class="layui-input">
                         <div id="verify" style="display: inline-block;height: 38px;vertical-align: middle;">
                             
                         </div>
@@ -57,7 +57,23 @@
         var form = layui.form,
             layer = layui.layer,
             $ = layui.jquery;
-
+        form.verify({
+            username:function(val){
+                if(!val){
+                    return '请输入账号'
+                }
+            },
+            password:function(val){
+                if(!val){
+                    return '请输入密码'
+                }
+            },
+            verify:function(val){
+                if(!val){
+                    return '请输入验证码'
+                }
+            }
+        })
 
             $.ajax({
                 type:"get",
@@ -71,7 +87,7 @@
                     background: "none",//干扰线条数
                     //noise: 2,
                     fontSize: 40,
-                    ignoreChars: '0o1i',   //验证码字符中排除'0o1i'
+                    ignoreChars: '0o1il',   //验证码字符中排除'0o1i'
                     color: false // 验证码的字符是否有颜色，默认没有，如果设定了背景，则默认有           
                 },
                 dataType: 'json'

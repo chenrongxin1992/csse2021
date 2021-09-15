@@ -1998,14 +1998,14 @@ router.get('/jsdw',function(req,res){
 					if(power && jstype){
 						_filter = {
 							$and:[
-								{$or:[{power:power},{jstype:{$regex:jstype}}]},
-								{$or:[{zhicheng:jstype},{jstype:{$regex:jstype}}]}
+								{$or:[{power:power},{jstype:jstype}]},
+								{$or:[{zhicheng:jstype},{jstype:jstype}]}
 							]
 						}
 					}
 					if(!power && jstype){
 						_filter = {
-							$or:[{zhicheng:jstype},{jstype:{$regex:jstype}}]
+							$or:[{zhicheng:jstype},{jstype:jstype}]
 						}
 					}
 					if(power && !jstype){
@@ -2324,6 +2324,8 @@ router.get('/jsdw',function(req,res){
 		console.log('isDisplay hide success')
 		return res.json({'code':0})		
 	})
+}).get('/dis_menu',function(req,res){
+	res.render('manage/jsdw/dis_menu',{title:'分配菜单'})
 })
 //首页发布
 router.get('/slider',function(req,res){
