@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>现任领导</title>
+	<title>本科生招生</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,16 +11,20 @@
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
-    <style>
-        .layui-table-cell{
-            height: auto !important;
-        }
-    </style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote">当前位置：学院概况 > 现任领导 <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
+	<blockquote class="layui-elem-quote">当前位置：招生招聘 > 本科生招生</blockquote>
 
-	<table id="xrld_table" lay-filter="xrld_table"></table>
+	<div class="demoTable">
+	  搜索：
+	  <div class="layui-inline">
+	    <input class="layui-input" name="search" id="search_txt" autocomplete="off">
+	  </div>
+	  <button class="layui-btn" data-type="reload" id="news_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button>
+	</div>
+
+	<table id="bkzs_table" lay-filter="bkzs_table"></table>
 
 <script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
@@ -29,33 +33,40 @@ layui.use(['jquery','table','form'], function(){
     let table = layui.table,
     	form = layui.form
     table.render({
-	    elem: '#xrld_table'
-	    ,id:'table_xrld'//重载需要
+	    elem: '#bkzs_table'
+	    ,id:'table_bkzs'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
-        ,url: '<%=base_url%>xrld_data' //数据接口
+        ,url: '<%=base_url%>bkzs_data' //数据接口
 	    ,page: true //开启分页
         ,limits: [15,30,45]
         ,limit: 15 //每页默认显示的数量
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:90,align:'center'}
-	      ,{field: 'name', title: '姓名',align:'center'}
-          ,{field: 'title', title: '职务',align:'center'}
-          ,{field: 'work', title: '分管工作',align:'center'}
-		  ,{field: 'pic', title: '照片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
+	      ,{field: 'zhuanye', title: '专业',align:'center'}
+          ,{field: 'neirong', title: '内容',align:'center'}
+	      ,{field: 'timeAdd', title: '发布时间', align:'center'}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
+    //数据重载
+    $('#news_btn').on('click', function(){
+    	table.reload('table_bkzs', {
+	        where: {
+	            search_txt: $('#search_txt').val()
+	        }
+	    });
+    })
     $('#newsadd').on('click', function(){
     	//do somehing
 	    let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
-            content : "xrldadd",
+            content : "bkzsadd",
             success : function(layero, index){
             },
 			end:function(){
-				table.reload('table_xrld', {
+				table.reload('table_bkzs', {
 					where: {
 						search_txt: $('#search_txt').val()
 					}
@@ -69,7 +80,7 @@ layui.use(['jquery','table','form'], function(){
 	        })
     })
     //监听工具条
-	table.on('tool(xrld_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	table.on('tool(bkzs_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 	  var data = obj.data; //获得当前行数据
 	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
@@ -79,11 +90,11 @@ layui.use(['jquery','table','form'], function(){
 	    let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
-            content : "xrldadd?id="+data.id,
+            content : "bkzsadd?id="+data.id,
             success : function(layero, index){
             },
 			end:function(){
-				table.reload('table_xrld', {
+				table.reload('table_ssszs', {
 					where: {
 						search_txt: $('#search_txt').val()
 					}
@@ -110,15 +121,14 @@ layui.use(['jquery','table','form'], function(){
 	      //向服务端发送删除指令
 	       $.ajax({
                //本地与服务器
-                //url:'/manage/newsdel',
-			  	url:'<%=base_url%>xrlddel',
+			  	url:'<%=base_url%>bkzsdel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
 			  	success:function(result){
 			  		if(result.code == 0){
 			  			console.log('del success')		
-                          layer.msg('ok')	
+                          layer.msg('已删除')	
 			  		}
 			  	},
 			  	error:function(msg){
@@ -126,21 +136,21 @@ layui.use(['jquery','table','form'], function(){
 			  	}
 			})
 	    });
-	  }else if(layEvent === 'preview'){
+	  } else if(layEvent === 'preview'){
 	  	console.log('preview')
-	  	let src = ''+ data.pic
+	  	let src = ''+ data.fujianPath
 	  	layer.photos({ photos: {"data": [{"src": src}]} });
 	  }
 	});
 });
 </script>
 <script type="text/html" id="yjfxbar">
-
+  
   <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 <script type="text/html" id="sytpimg">
-	<img src="{{d.pic}}" style="height: 100px;max-width: 100%;" class="previewimg" />
+	<img src="{{d.fujianPath}}" style="height: 100px;max-width: 100%;" class="previewimg" />
 </script>
 </body>
 </html>

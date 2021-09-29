@@ -36,6 +36,15 @@
 				    </div>
 				</div>
 			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">类别</label>
+					<div class="layui-input-inline" style="width: 450px;">
+						<input type="radio" name="leixing1" value="学术讲座" title="学术讲座" checked>
+						<input type="radio" name="leixing1" value="教务教学" title="教务教学">
+				    </div>
+				</div>
+			</div>
             <div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">发布时间<b style="color: red;">*</b></label>
@@ -141,6 +150,7 @@ $(function(){
         if('<%=data.isTop%>' == 1){
 			$("#isTop").prop("checked", true)
 		}
+		$("input[name=leixing1][value=<%-data.leixing1-%>]").prop("checked","true");
   		form.render()
 	}
     form.on('submit(update)', function(data){
@@ -156,7 +166,7 @@ $(function(){
 	  data.field.id = id
 	  data.field.pageContent =ue1.getContent()
 	  data.field.pageContentEN = ue2.getContent()
-	  //data.field.leaderintro = editor3.txt.html()
+	  data.field.leixing1 = $("input[name='leixing1']:checked").val();
 	  //data.field.eleaderintro = editor4.txt.html()
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()

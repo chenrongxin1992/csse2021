@@ -31,6 +31,7 @@
     "multiparty": "^4.2.2",
     "node-xlsx": "^0.17.1",
     "path": "^0.12.7",
+    "pinyin": "^2.10.2",
     "svg-captcha": "^1.4.0",
     "ueditor": "^1.2.3",
     "urlencode": "^1.1.0"

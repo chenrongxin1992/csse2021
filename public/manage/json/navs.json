@@ -95,29 +95,16 @@
 					"spread": false
 				},
 				{
-					"title": "教授",
+					"title": "教授/研究员",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=professor",
+					"href": "/csse/manage/jsdw?type=proyjy",
 					"spread": false,
 					"target": ""
 				},
 				{
-					"title": "研究员",
+					"title": "副教授/副研究员",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=yjy",
-					"spread": false,
-					"target": ""
-				},
-				{
-					"title": "副教授",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=fjs",
-					"spread": false
-				},
-				{
-					"title": "副研究员",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=fyjy",
+					"href": "/csse/manage/jsdw?type=fjsfyjy",
 					"spread": false
 				},
 				{
@@ -199,53 +186,9 @@
 			"spread": false,
 			"children": [
 				{
-					"title": "高性能计算研究所",
+					"title": "成果录入",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/gxn",
-					"spread": false
-				},
-				{
-					"title": "大数据技术与应用研究所",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/dsj",
-					"spread": false,
-					"target": ""
-				},
-				{
-					"title": "未来媒体技术与计算研究所",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/wlmt",
-					"spread": false,
-					"target": ""
-				},
-				{
-					"title": "网络与信息安全研究所",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/wls",
-					"spread": false
-				},
-				{
-					"title": "计算机视觉研究所",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/sjs",
-					"spread": false
-				},
-				{
-					"title": "智能技术与系统集成研究所",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/xtjc",
-					"spread": false
-				},
-				{
-					"title": "物联网研究中心",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/wlw",
-					"spread": false
-				},
-				{
-					"title": "可视计算研究中心",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/vcc",
+					"href": "/csse/manage/cglr",
 					"spread": false
 				}
 			]
@@ -345,12 +288,18 @@
 					"href": "/csse/manage/notice",
 					"spread": false,
 					"target": ""
-				}
-				,
+				},
 				{
 					"title": "计软风采",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/jrfc",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "highlights",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/highlights",
 					"spread": false,
 					"target": ""
 				}

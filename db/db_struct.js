@@ -99,7 +99,8 @@ const userSchema = new Schema({
   yjly:{type:String},//研究领域 新增
   yjly1:{type:String},
   jstype1:{type:String},
-  jstype:{type:String,default:''}//教师队伍类别，新增
+  jstype:{type:String,default:''},//教师队伍类别，新增
+  userName_py:{type:String}
 },{collection:'allUser'})
 const cmsContentSchema = new Schema({
     id:{type:Number},
@@ -127,6 +128,15 @@ const cmsContentSchema = new Schema({
     accountAdd:{type:String},
     fujianName:{type:String},//附件
     fujianPath:{type:String},
+    leixing :{type:String,default:'党务行政'},//21年 新闻类型，通知公告类型
+    leixing1 :{type:String,default:'学术讲座'},//21年 新闻类型，通知公告类型
+    year:{type:String},//21年 成果年份
+    kanwu:{type:String},//21年，刊物
+    zuozhe:{type:String},//21年，作者
+    belongsto:{type:String},//所属研究所
+    zhur:{type:String},//21主任,用于教学系
+    fuzhur:{type:String},//21副主任，用于教学系
+    zplx:{type:String},//21新增，招聘类型
     timeAddStamp:{type:String,default:moment().format('X')},//主要用于排序
     tag1:{type:String},//2021新增字段，标识所属一级菜单
     tag2:{type:String}//2021新增字段，标识当前菜单
@@ -150,28 +160,50 @@ const cmsSliderSchema = new Schema({
     jianjie:{type:String,default:'无'},
     jianjie1:{type:String,}
 },{collection:'cmsSlider'})
-var meetingSchema = new Schema({ 
-    room_name :{type:String},//会议室编号
-    title : {type:String},//会议主题
-    num : {type:Number},//人数
-    start : {type:String},//开始时间
-    alldaystart : {type:String},//api开始时间 2019-12-18 08:30
-    end : {type:String},//结束时间
-    endtimestamp:{type:String},
-    alldayend : {type:String},//api结束时间 2019-12-18 20:30
-    date : {type:String},//日期
-    fuzeren : {type:String},//负责人
-    phone : {type:String},//联系方式
-    applyname : {type:String},//申请人
-    applytime : {type:String,default:moment(new Date()).format('YYYY-MM-DD HH:mm')},//申请时间
-    applytimestamp : {type:String,default:moment().format('X')},
-    date_timestamp : {type:String},//日期时间戳
-    allDay : {type:Boolean,default:false},
-    judgedate : {type:String},//全天申请的时候使用，用于判断是否过期变灰，默认等于req.body.end
-    isok : {type:Number,default:0}//是否批准 0否 1准
-},{collection:'meeting'})
+const xrldSchema = new Schema({ 
+    id:{type:Number},
+    name :{type:String},//
+    title : {type:String},//职务
+    work : {type:String},//分管工作
+    pic : {type:String},
+    paixu : {type:String},//排序
+    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
+},{collection:'xrld'})
+const highlightSchema = new Schema({ 
+    ruanke :{type:String},//软科
+    usnews : {type:String},//USNEWS
+    csrankings : {type:String},//CSRANKINGS
+    taiws : {type:String},//泰晤士
+    qs : {type:String},//qs排名
+    esc : {type:String},//esc排名
+    zhuanzjs : {type:String},//专职教师
+    benks : {type:String},//本科生
+    yanjs : {type:String},//研究所
+    guojjxm : {type:String},//国家级项目
+    guojjpt : {type:String},//国家级平台
+    guojjrc : {type:String},//国家级人才
+    xueymj : {type:String},//总面积
+    shebjz : {type:String},//设备价值
+    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
+},{collection:'highlight'})
+const bkzsSchema = new Schema({ 
+    id:{type:Number},
+    zhuanye :{type:String},//
+    neirong :{type:String},//
+    xuefei : {type:String},//
+    jxj : {type:String},//
+    jiuye : {type:String},
+    xyhj : {type:String},//
+    lxfs : {type:String},//
+    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
+},{collection:'bkzs'})
 
-exports.meeting = mongoose.model('meeting',meetingSchema)
+exports.bkzs = mongoose.model('bkzs',bkzsSchema)//本科招生
+exports.highlight = mongoose.model('highlight',highlightSchema)//highlight
+exports.xrld = mongoose.model('xrld',xrldSchema)//现任领导
 exports.user = mongoose.model('allUser',userSchema)
 exports.cmsContent = mongoose.model('cmsContent',cmsContentSchema)
 exports.cmsSlider = mongoose.model('cmsSlider',cmsSliderSchema)

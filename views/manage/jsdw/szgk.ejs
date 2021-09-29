@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>师资概况</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+	.layui-table td, .layui-table th {
+		text-align: center;
+		min-width: 120px;
+	}
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">师资概况</label>
+				<div class="layui-input-inline" style="width: 340px;">
+                    <textarea placeholder="师资概况" class="layui-textarea" id="cggk" style="height: 200px;"><%=data.pageContent%></textarea>
+		       </div>
+			</div>
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<label class="layui-form-label"></label>
+				<div class="layui-input-inline" style="width: 272px;">
+					<button class="layui-btn layui-btn-sm" lay-filter="update" lay-submit id="btnsave"><i class="layui-icon">&#xe609;</i>保存</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form','upload','layer','laydate'], function(){ 
+    let $ = layui.$ //重点处
+    let form = layui.form,
+    	layer = layui.layer
+
+	let id = '<%=data.id%>'
+    
+	$('#resetbtn').on('click',function(){
+		console.log('reset password')
+		//checkclick++
+		$('#password').val('111111')
+		return false
+	})
+    form.on('submit(update)', function(data){
+    	//checkbox
+
+		 data.field.id = id
+		 data.field.pageContent = $('#cggk').val()//
+	     console.log('data.field',data.field)
+		 //return false
+	     //console.log('submit data',data)
+	     $.ajax({
+			 	//本地与服务器
+				url:'<%=base_url%>szgkadd',
+			  	type:'POST',
+			  	data:data.field,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('update success')
+			  			//墨绿深蓝风
+						  layer.msg('保存成功')			
+			  		}else{
+			  			let frameindex = layer.alert(result.msg, {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						  ,time : 3000
+						}, function(){
+							layer.close(frameindex);
+						});	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax error msg',msg)
+			  	}
+			  })
+	     return false
+    })
+});
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>计软新闻</title>
+	<title>合作伙伴</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,7 +19,7 @@
     </style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote">当前位置：首页发布 > 计软新闻</blockquote>
+	<blockquote class="layui-elem-quote">当前位置：国际合作 > 合作伙伴</blockquote>
 
 	<div class="demoTable">
 	  搜索：
@@ -30,7 +30,7 @@
 	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button>
 	</div>
 
-	<table id="news_table" lay-filter="news_table"></table>
+	<table id="hzhb_table" lay-filter="hzhb_table"></table>
 
 <script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
@@ -39,27 +39,26 @@ layui.use(['jquery','table','form'], function(){
     let table = layui.table,
     	form = layui.form
     table.render({
-	    elem: '#news_table'
-	    ,id:'table_news'//重载需要
+	    elem: '#hzhb_table'
+	    ,id:'table_hzhb'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
-        ,url: '<%=base_url%>news_data' //数据接口
+        ,url: '<%=base_url%>hzhb_data' //数据接口
 	    ,page: true //开启分页
         ,limits: [15,30,45]
         ,limit: 15 //每页默认显示的数量
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:60,align:'center'}
-	      ,{field: 'title', title: '标题',align:'center',width:350}
-		  ,{field: 'leixing', title: '类别',align:'center'}
-          ,{field: 'pageContent', title: '内容',align:'center'}
-		  ,{field: 'fujianPath', title: '封面图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
-	      ,{field: 'timeAdd', title: '发布时间', align:'center',width:180,}
+	      ,{field: 'title', title: '伙伴名称',align:'center',width:350}
+          ,{field: 'url', title: '伙伴链接',align:'center'}
+		  ,{field: 'fujianPath', title: '伙伴logo', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
+	      ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载
     $('#news_btn').on('click', function(){
-    	table.reload('table_news', {
+    	table.reload('table_hzhb', {
 	        where: {
 	            search_txt: $('#search_txt').val()
 	        }
@@ -70,11 +69,11 @@ layui.use(['jquery','table','form'], function(){
 	    let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
-            content : "jrxwadd",
+            content : "hzhbadd",
             success : function(layero, index){
             },
 			end:function(){
-				table.reload('table_news', {
+				table.reload('table_hzhb', {
 					where: {
 						search_txt: $('#search_txt').val()
 					}
@@ -88,7 +87,7 @@ layui.use(['jquery','table','form'], function(){
 	        })
     })
     //监听工具条
-	table.on('tool(news_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	table.on('tool(hzhb_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 	  var data = obj.data; //获得当前行数据
 	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
@@ -98,11 +97,11 @@ layui.use(['jquery','table','form'], function(){
 	    let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
-            content : "jrxwadd?id="+data.id,
+            content : "hzhbadd?id="+data.id,
             success : function(layero, index){
             },
 			end:function(){
-				table.reload('table_news', {
+				table.reload('table_yjs', {
 					where: {
 						search_txt: $('#search_txt').val()
 					}
@@ -130,7 +129,7 @@ layui.use(['jquery','table','form'], function(){
 	       $.ajax({
                //本地与服务器
                 //url:'/manage/newsdel',
-			  	url:'<%=base_url%>newsdel',
+			  	url:'<%=base_url%>yjsdel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -145,124 +144,15 @@ layui.use(['jquery','table','form'], function(){
 			  	}
 			})
 	    });
-	  } else if(layEvent === 'inuse'){//设置前台是否显示
-	  	console.log('inuse')
-	  	console.log('data------',data)
-	  	if($(this).text()=='隐藏'){
-	  		console.log('不显示')
-	  		data.isDisplay=0
-	  		let _this = $(this)
-	  		$.ajax({
-                //本地与服务器
-                //url:'/manage/changenewsdisplay',
-			  	url:'<%=base_url%>changenewsdisplay',
-			  	type:'POST',
-			  	data:data,
-			  	dataType : "json",
-			  	success:function(result){
-			  		if(result.code == 0){
-			  			console.log('hide success',_this)
-			  			_this.text('显示')
-                          layer.msg('ok')		
-			  		}
-			  	},
-			  	error:function(msg){
-			  		console.log('ajax hide error msg',msg)
-			  	}
-			})
-	  	}else{
-	  		console.log('显示平台')
-	  		data.isDisplay=1
-	  		let _this = $(this)
-	  		$.ajax({
-			  	//本地与服务器
-                //url:'/manage/hidept',
-                url:'<%=base_url%>changenewsdisplay',
-			  	type:'POST',
-			  	data:data,
-			  	dataType : "json",
-			  	success:function(result){
-			  		if(result.code == 0){
-			  			console.log('view success',_this)		
-			  			_this.text('隐藏')	
-                          layer.msg('ok')
-			  		}
-			  	},
-			  	error:function(msg){
-			  		console.log('ajax view error msg',msg)
-			  	}
-			})
-	  	}
-	  	return false
-	  }else if(layEvent === 'preview'){
+	  } else if(layEvent === 'preview'){
 	  	console.log('preview')
 	  	let src = ''+ data.fujianPath
 	  	layer.photos({ photos: {"data": [{"src": src}]} });
-	  }else if(layEvent === 'changetop'){//设置前台是否显示
-	  	console.log('changetop')
-	  	console.log('data------',data)
-	  	if($(this).text()=='取消置顶'){
-	  		console.log('取消置顶')
-	  		data.isTop=0
-	  		let _this = $(this)
-	  		$.ajax({
-                //本地与服务器
-                //url:'/manage/changenewstop',
-			  	url:'<%=base_url%>changenewstop',
-                	type:'POST',
-			  	data:data,
-			  	dataType : "json",
-			  	success:function(result){
-			  		if(result.code == 0){
-			  			console.log('hide success',_this)
-			  			_this.text('置顶')	
-                          layer.msg('ok')	
-			  		}
-			  	},
-			  	error:function(msg){
-			  		console.log('ajax hide error msg',msg)
-			  	}
-			})
-	  	}else{
-	  		console.log('置顶')
-	  		data.isTop=1
-	  		let _this = $(this)
-	  		$.ajax({
-			  	//本地与服务器
-                //url:'/manage/changenewstop',
-                url:'<%=base_url%>changenewstop',
-			  	type:'POST',
-			  	data:data,
-			  	dataType : "json",
-			  	success:function(result){
-			  		if(result.code == 0){
-			  			console.log('view success',_this)		
-			  			_this.text('取消置顶')	
-                          layer.msg('ok')
-			  		}
-			  	},
-			  	error:function(msg){
-			  		console.log('ajax view error msg',msg)
-			  	}
-			})
-	  	}
-	  	return false
 	  }
 	});
 });
 </script>
 <script type="text/html" id="yjfxbar">
-  
-  {{# if(d.isTop == 1){ }}
-  	<a class="layui-btn layui-btn-xs" lay-event="changetop" value='1'>取消置顶</a>
-  {{# }else{ }}
-  	<a class="layui-btn layui-btn-xs" lay-event="changetop" value='0'>置顶</a>
-  {{# } }}
-  {{# if(d.isDisplay == 1){ }}
-  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='1'>隐藏</a>
-  {{# }else{ }}
-  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='0'>显示</a>
-  {{# } }}
   <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>

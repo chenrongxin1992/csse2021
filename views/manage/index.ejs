@@ -52,13 +52,13 @@
 			    <!-- 顶部右侧菜单 -->
 			    <ul class="layui-nav top_menu">
 					<li class="layui-nav-item" pc>
-						<a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
+						<!-- <a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a> -->
 					</li>
 					<!-- <li class="layui-nav-item lockcms" pc>
 						<a href="javascript:;"><i class="seraph icon-lock"></i><cite>锁屏</cite></a>
 					</li> -->
 					<li class="layui-nav-item" id="userInfo">
-						<a href="javascript:;"><img src="<%=user.avatar%>" class="layui-nav-img userAvatar" width="35" height="35"><cite class="adminName"><%= username %></cite></a>
+						<a href="javascript:;"><img src="<%=user.avatar%>" class="layui-nav-img userAvatar" width="35" height="35"><cite class="adminName"><%= user.username %></cite></a>
 						<dl class="layui-nav-child">
 							
 							<dd><a href="javascript:;" id="changepassword"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
@@ -72,7 +72,7 @@
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
 				<a class="img" title="我的头像" ><img src="<%=user.avatar%>" class="userAvatar"></a>
-				<p>你好！<span class="userName"><%=user.userName%></span>, 欢迎登录</p>
+				<p><span class="userName"><%=user.userName%></span></p>
 			</div>
 			<div class="navBar layui-side-scroll" id="navBar">
 				<ul class="layui-nav layui-nav-tree">

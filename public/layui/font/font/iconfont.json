@@ -1,0 +1,37 @@
+{
+  "id": "2814472",
+  "name": "myicon",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4829935",
+      "name": "account-ID",
+      "font_class": "APPiconxinban-",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "21573767",
+      "name": "Account unfreezing",
+      "font_class": "Accountunfreezing",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "2033507",
+      "name": "eye",
+      "font_class": "eye",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "6694981",
+      "name": "eye",
+      "font_class": "eye1",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}

@@ -29,10 +29,8 @@
 	    	<select name="jstype" id="jstype" lay-filter="jstype" >
           		<option value="">人员类别</option>
 		        <option value="杰出人才">杰出人才</option>
-		        <option value="教授">教授</option>
-		        <option value="研究员">研究员</option>
-		        <option value="副教授">副教授</option>
-		        <option value="副研究员">副研究员</option>
+		        <option value="教授/研究员">教授/研究员</option>
+		        <option value="副教授/副研究员">副教授/副研究员</option>
 		        <option value="助理教授">助理教授</option>
 		        <option value="讲师">讲师</option>
 		        <option value="博士后">博士后</option>
@@ -42,6 +40,7 @@
 	  </div>
 	  <button class="layui-btn" data-type="reload" id="kyxm_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
 	  <!-- <button class="layui-btn btnfloat" id="ptglsort" style="float: right;" >人员排序(教师系列)</button> -->
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="szgk">师资概况</button>
 	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增人员</button>
 	</div>
 
@@ -53,6 +52,7 @@ layui.use(['jquery','table','form'], function(){
     let $ = layui.$ //重点处
     let table = layui.table,
     	form = layui.form
+	console.log('--------','<%=info.typeName%>')
 	$('#jstype').val('<%=info.typeName%>')
     form.render('select')
     table.render({
@@ -120,6 +120,17 @@ layui.use(['jquery','table','form'], function(){
         })
         console.log('index',index)
         
+    })
+	$('#szgk').on('click', function(){
+    	//do somehing
+        let index = layui.layer.open({
+					title : "师资概况",
+					type : 2,
+					area: ['500px', '350px'],
+					content : "szgk",
+					success : function(layero, index){
+					}
+				})
     })
     
     //监听工具条
@@ -263,14 +274,14 @@ layui.use(['jquery','table','form'], function(){
 		<a class="layui-btn layui-btn-xs" lay-event="editzh" title="账号设置"><i class="layui-icon">&#xe612;</i></a>
 		
 		{{# if(d.personalLink_switch == 1){ }}
-			<a class="layui-btn layui-btn-xs" lay-event="per_dis" value='0'>不显示</a>
+			<a class="layui-btn layui-btn-xs" lay-event="per_dis" value='0' title="不显示">不显示</a>
 		{{# }else{ }}
-			<a class="layui-btn layui-btn-xs" lay-event="per_dis" value='1'>显示</a>
+			<a class="layui-btn layui-btn-xs" lay-event="per_dis" value='1' title="显示">显示</a>
 		{{# } }}
 		{{# if(d.power == '管理员' && '<%=username%>' == '陈荣鑫'){ }}
 			<a class="layui-btn layui-btn-xs" lay-event="dis_menu">分配菜单</a>
 		{{# } }}	
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除"><i class="layui-icon">&#xe640;</i></a>
 </script>
 
 </body>

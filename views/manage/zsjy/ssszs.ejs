@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>计软风采</title>
+	<title>硕士招生</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,15 +11,9 @@
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
-	<style>
-        .layui-table-cell{
-            height: auto !important;
-			max-height: 100px !important;
-        }
-    </style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote">当前位置：首页发布 > 计软风采</blockquote>
+	<blockquote class="layui-elem-quote">当前位置：首页发布 > 硕士招生</blockquote>
 
 	<div class="demoTable">
 	  搜索：
@@ -27,10 +21,10 @@
 	    <input class="layui-input" name="search" id="search_txt" autocomplete="off">
 	  </div>
 	  <button class="layui-btn" data-type="reload" id="news_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
-	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="noticeadd"><i class="layui-icon">&#xe654;</i>新增</button>
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button>
 	</div>
 
-	<table id="jrfc_table" lay-filter="jrfc_table"></table>
+	<table id="ssszs_table" lay-filter="ssszs_table"></table>
 
 <script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
@@ -39,42 +33,40 @@ layui.use(['jquery','table','form'], function(){
     let table = layui.table,
     	form = layui.form
     table.render({
-	    elem: '#jrfc_table'
-	    ,id:'table_jrfc'//重载需要
+	    elem: '#ssszs_table'
+	    ,id:'table_ssszs'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
-        ,url: '<%=base_url%>jrfc_data' //数据接口
-        //,url: '/manage/jrfc_data' //数据接口
+        ,url: '<%=base_url%>ssszs_data' //数据接口
 	    ,page: true //开启分页
         ,limits: [15,30,45]
         ,limit: 15 //每页默认显示的数量
 	    ,cols: [[ //表头
-	      {type:'numbers',title: '序号',width:90,align:'center'}
+	      {type:'numbers', title: '序号',width:90,align:'center'}
 	      ,{field: 'title', title: '标题',align:'center'}
           ,{field: 'pageContent', title: '内容',align:'center'}
-		  ,{field: 'fujianPath', title: '封面图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
 	      ,{field: 'timeAdd', title: '发布时间', align:'center'}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载
     $('#news_btn').on('click', function(){
-    	table.reload('table_jrfc', {
+    	table.reload('table_ssszs', {
 	        where: {
 	            search_txt: $('#search_txt').val()
 	        }
 	    });
     })
-    $('#noticeadd').on('click', function(){
+    $('#newsadd').on('click', function(){
     	//do somehing
 	    let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
-            content : "jrfcadd",
+            content : "ssszsadd",
             success : function(layero, index){
             },
 			end:function(){
-				table.reload('table_jrfc', {
+				table.reload('table_ssszs', {
 					where: {
 						search_txt: $('#search_txt').val()
 					}
@@ -88,7 +80,7 @@ layui.use(['jquery','table','form'], function(){
 	        })
     })
     //监听工具条
-	table.on('tool(jrfc_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	table.on('tool(ssszs_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 	  var data = obj.data; //获得当前行数据
 	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
@@ -98,11 +90,11 @@ layui.use(['jquery','table','form'], function(){
 	    let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
-            content : "jrfcadd?id="+data.id,
+            content : "ssszsadd?id="+data.id,
             success : function(layero, index){
             },
 			end:function(){
-				table.reload('table_jrfc', {
+				table.reload('table_ssszs', {
 					where: {
 						search_txt: $('#search_txt').val()
 					}
@@ -122,19 +114,22 @@ layui.use(['jquery','table','form'], function(){
 	    //   ,title: 'xxx'
 	    // });
 	  } else if(layEvent === 'del'){ //删除
-	    layer.confirm('确定删除吗?',{skin: 'layui-layer-molv' //样式类名
-				                     ,closeBtn: 0}, function(index){
+        console.log('data-----',data)
+	    layer.confirm('确定删除吗?',{closeBtn: 0}, function(index){
 	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
 	      layer.close(index);
 	      //向服务端发送删除指令
 	       $.ajax({
-			  	url:'<%=base_url%>jrfcdel',
+               //本地与服务器
+                //url:'/manage/newsdel',
+			  	url:'<%=base_url%>ssszsdel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
 			  	success:function(result){
 			  		if(result.code == 0){
-			  			console.log('del success')			
+			  			console.log('del success')		
+                          layer.msg('已删除')	
 			  		}
 			  	},
 			  	error:function(msg){
@@ -142,11 +137,7 @@ layui.use(['jquery','table','form'], function(){
 			  	}
 			})
 	    });
-	  }else if(layEvent === 'preview'){
-	  	console.log('preview')
-	  	let src = ''+ data.fujianPath
-	  	layer.photos({ photos: {"data": [{"src": src}]} });
-	  }  else if(layEvent === 'inuse'){//设置前台是否显示
+	  } else if(layEvent === 'inuse'){//设置前台是否显示
 	  	console.log('inuse')
 	  	console.log('data------',data)
 	  	if($(this).text()=='隐藏'){
@@ -154,7 +145,9 @@ layui.use(['jquery','table','form'], function(){
 	  		data.isDisplay=0
 	  		let _this = $(this)
 	  		$.ajax({
-			  	url:'<%=base_url%>changejrfcdisplay',
+                //本地与服务器
+                //url:'/manage/changenewsdisplay',
+			  	url:'<%=base_url%>changessszsdisplay',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -162,7 +155,7 @@ layui.use(['jquery','table','form'], function(){
 			  		if(result.code == 0){
 			  			console.log('hide success',_this)
 			  			_this.text('显示')
-                          layer.msg('ok')		
+                          layer.msg('已隐藏')		
 			  		}
 			  	},
 			  	error:function(msg){
@@ -174,7 +167,9 @@ layui.use(['jquery','table','form'], function(){
 	  		data.isDisplay=1
 	  		let _this = $(this)
 	  		$.ajax({
-                url:'<%=base_url%>changejrfcdisplay',
+			  	//本地与服务器
+                //url:'/manage/hidept',
+                url:'<%=base_url%>changessszsdisplay',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -182,7 +177,7 @@ layui.use(['jquery','table','form'], function(){
 			  		if(result.code == 0){
 			  			console.log('view success',_this)		
 			  			_this.text('隐藏')	
-                          layer.msg('ok')
+                          layer.msg('已设置显示')
 			  		}
 			  	},
 			  	error:function(msg){
@@ -191,6 +186,10 @@ layui.use(['jquery','table','form'], function(){
 			})
 	  	}
 	  	return false
+	  }else if(layEvent === 'preview'){
+	  	console.log('preview')
+	  	let src = ''+ data.fujianPath
+	  	layer.photos({ photos: {"data": [{"src": src}]} });
 	  }else if(layEvent === 'changetop'){//设置前台是否显示
 	  	console.log('changetop')
 	  	console.log('data------',data)
@@ -199,7 +198,9 @@ layui.use(['jquery','table','form'], function(){
 	  		data.isTop=0
 	  		let _this = $(this)
 	  		$.ajax({
-			  	url:'<%=base_url%>changejrfctop',
+                //本地与服务器
+                //url:'/manage/changenewstop',
+			  	url:'<%=base_url%>changessszstop',
                 	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -207,7 +208,7 @@ layui.use(['jquery','table','form'], function(){
 			  		if(result.code == 0){
 			  			console.log('hide success',_this)
 			  			_this.text('置顶')	
-                          layer.msg('ok')	
+                          layer.msg('已取消置顶')	
 			  		}
 			  	},
 			  	error:function(msg){
@@ -219,7 +220,9 @@ layui.use(['jquery','table','form'], function(){
 	  		data.isTop=1
 	  		let _this = $(this)
 	  		$.ajax({
-                url:'<%=base_url%>changejrfctop',
+			  	//本地与服务器
+                //url:'/manage/changenewstop',
+                url:'<%=base_url%>changessszstop',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -227,7 +230,7 @@ layui.use(['jquery','table','form'], function(){
 			  		if(result.code == 0){
 			  			console.log('view success',_this)		
 			  			_this.text('取消置顶')	
-                          layer.msg('ok')
+                          layer.msg('已置顶')
 			  		}
 			  	},
 			  	error:function(msg){
@@ -241,15 +244,16 @@ layui.use(['jquery','table','form'], function(){
 });
 </script>
 <script type="text/html" id="yjfxbar">
-  {{# if(d.isDisplay == 1){ }}
-  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='1'>隐藏</a>
-  {{# }else{ }}
-  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='0'>显示</a>
-  {{# } }}
+  
   {{# if(d.isTop == 1){ }}
   	<a class="layui-btn layui-btn-xs" lay-event="changetop" value='1'>取消置顶</a>
   {{# }else{ }}
   	<a class="layui-btn layui-btn-xs" lay-event="changetop" value='0'>置顶</a>
+  {{# } }}
+  {{# if(d.isDisplay == 1){ }}
+  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='1'>隐藏</a>
+  {{# }else{ }}
+  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='0'>显示</a>
   {{# } }}
   <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
