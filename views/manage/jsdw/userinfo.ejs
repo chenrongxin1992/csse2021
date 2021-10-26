@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 	<style type="text/css">
 		.tdstyle{
-			width:120px;
+			/* width:120px; */
 			background-color: #009688;
 			color:#fff;
 			text-align: center;
@@ -53,17 +53,22 @@
 			max-width: 150px;
 			margin: 0 auto;
         }
+		@media screen and (max-width: 376px) {
+			.tdform {
+				width: 100px;;
+			}
+		}
 	</style>
 </head>
 <body class="childrenBody">
 	<form class="layui-form" action="">
-	<table class="layui-table" id="shiyanshizhuren">
+	<table class="layui-table" id="shiyanshizhuren" >
 	    <tbody>
 	      <tr>
 	        <td class="tdstyle">姓名</td>
-	        <td><input type="text" id="userName" class="layui-input"  value="<%=user.userName%>"></td>
+	        <td class="tdform"><input type="text" id="userName" class="layui-input"  value="<%=user.userName%>"></td>
 	        <td class="tdstyle">(英文)姓名</td>
-	        <td><input type="text" id="userName1" class="layui-input" value="<%=user.userName1%>"></td>
+	        <td  class="tdform"><input type="text" id="userName1" class="layui-input" value="<%=user.userName1%>"></td>
 	        <td rowspan="5" style="text-align: center;">
 				<div id="" class="file-iteme">
 					
@@ -80,14 +85,14 @@
 	      </tr>
 	      <tr>
 	        <td class="tdstyle">性别</td>
-	        <td id="tdgender">
+	        <td id="tdgender"  class="tdform">
 				<select name="sex" lay-filter="sex" id="sex">
 					<option value="男">男</option>
 					<option value="女">女</option>
 				</select>
 			</td>
 	        <td class="tdstyle">(英文)性别</td>
-	        <td id="tddegree">
+	        <td id="tddegree"  class="tdform">
 				<select name="sex1" lay-filter="sex1" id="sex1">
 					<option value="Male">Male</option>
 					<option value="Female">Female</option>
@@ -96,7 +101,7 @@
 	      </tr>
 		  <tr>
 			<td class="tdstyle">人员类别</td>
-	        <td id="tddegree">
+	        <td id="tddegree"  class="tdform">
 				<select name="jstype" lay-filter="jstype" id="jstype">
 					<option value=""></option>
 					<option value="杰出人才">杰出人才</option>
@@ -111,7 +116,7 @@
 				</select>
 			</td>
 			<td class="tdstyle">(英文)人员类别</td>
-	        <td id="tddegree">
+	        <td id="tddegree" class="tdform">
 				<select name="jstype1" lay-filter="jstype1" id="jstype1">
 					<option value=""></option>
 					<option value="Outstanding Talent">Outstanding Talent</option>
@@ -128,7 +133,7 @@
 	     </tr>
 	      <tr>
 	        <td class="tdstyle">职称</td>
-			<td>
+			<td  class="tdform">
 				<select name="zhicheng" lay-filter="zhicheng" id="zhicheng">
 					<option value=""></option>
 					<option value="教授">教授</option>
@@ -141,7 +146,7 @@
 				</select>
 			</td>
 	        <td class="tdstyle">(英文)职称</td>
-			<td>
+			<td class="tdform">
 				<select name="zhicheng1" lay-filter="zhicheng1" id="zhicheng1">
 					<option value=""></option>
 					<option value="Professor">Professor</option>
@@ -156,33 +161,33 @@
 	      </tr>
 		  <tr>
 	        <td class="tdstyle">所/系</td>
-	        <td ><input type="text" id="suoxi" class="layui-input"  value="<%=user.suoxi%>"></td>
+	        <td  class="tdform"><input type="text" id="suoxi" class="layui-input"  value="<%=user.suoxi%>"></td>
 	        <td class="tdstyle">(英文)所/系</td>
-	        <td ><input type="text" id="suoxi1" class="layui-input"  value="<%=user.suoxi1%>"></td>
+	        <td  class="tdform"><input type="text" id="suoxi1" class="layui-input"  value="<%=user.suoxi1%>"></td>
 	      </tr>
 		  <tr>
 	        <td class="tdstyle">职位</td>
-	        <td ><input type="text" id="zhiwu" class="layui-input"  value="<%=user.zhiwu%>"></td>
+	        <td  class="tdform"><input type="text" id="zhiwu" class="layui-input"  value="<%=user.zhiwu%>"></td>
 	        <td class="tdstyle">(英文)职位</td>
-	        <td colspan="2"><input type="text" id="zhiwu1" class="layui-input"  value="<%=user.zhiwu1%>"></td>
+	        <td colspan="2"  class="tdform"><input type="text" id="zhiwu1" class="layui-input"  value="<%=user.zhiwu1%>"></td>
 	      </tr>
 		  <tr>
 	        <td class="tdstyle">研究领域</td>
-	        <td ><input type="text" id="yjly" class="layui-input"  value="<%=user.yjly%>"></td>
+	        <td  class="tdform"><input type="text" id="yjly" class="layui-input"  value="<%=user.yjly%>"></td>
 	        <td class="tdstyle">(英文)研究领域</td>
-	        <td colspan="2"><input type="text" id="yjly1" class="layui-input"  value="<%=user.yjly1%>"></td>
+	        <td colspan="2" class="tdform"><input type="text" id="yjly1" class="layui-input"  value="<%=user.yjly1%>"></td>
 	      </tr>
 		  
 	        <td class="tdstyle">教育背景</td>
-	        <td >
+	        <td  class="tdform">
 				<textarea placeholder="教育背景" class="layui-textarea" id="jybj" ><%=user.jybj%></textarea>
 				</td>
 	        <td class="tdstyle">(英文)教育背景</td>
-	        <td colspan="2"><textarea placeholder="教育背景" class="layui-textarea" id="jybj1" ><%=user.jybj1%></textarea></td>
+	        <td colspan="2" class="tdform"><textarea placeholder="教育背景" class="layui-textarea" id="jybj1" ><%=user.jybj1%></textarea></td>
 	      </tr>
 		  <tr>
 	        <td class="tdstyle">政治面貌</td>
-	        <td >
+	        <td  class="tdform">
 				<select name="inDang" lay-filter="inDang" id="inDang">
 					<option value=""></option>
 					<option value="中共党员">中共党员</option>
@@ -191,7 +196,7 @@
 				</select>
 			</td>
 			<td class="tdstyle">(英文)政治面貌</td>
-	        <td  colspan="2">
+	        <td  colspan="2" class="tdform">
 				<select name="inDang1" lay-filter="inDang1" id="inDang1">
 					<option value=""></option>
 					<option value="Party Member">Party Member</option>
@@ -202,15 +207,15 @@
 		</tr>
 	      <tr>
 	        <td class="tdstyle">办公电话</td>
-	        <td ><input type="text" id="phoneOffice" class="layui-input"  value="<%=user.phoneOffice%>"></td>
+	        <td  class="tdform"><input type="text" id="phoneOffice" class="layui-input"  value="<%=user.phoneOffice%>"></td>
 	        <td class="tdstyle">Email</td>
-	        <td  colspan="2"><input type="text" id="email" class="layui-input"  value="<%=user.email%>"></td>
+	        <td  colspan="2" class="tdform"><input type="text" id="email" class="layui-input"  value="<%=user.email%>"></td>
 	      </tr>
 	      <tr>
 	        <td class="tdstyle">办公地址</td>
-	        <td ><input type="text" id="AddressOffice" class="layui-input"  value="<%=user.AddressOffice%>"></td>
+	        <td  class="tdform"><input type="text" id="AddressOffice" class="layui-input"  value="<%=user.AddressOffice%>"></td>
 			<td class="tdstyle">(英文)办公地址</td>
-	        <td  colspan="2"><input type="text" id="AddressOffice1" class="layui-input"  value="<%=user.AddressOffice1%>"></td>
+	        <td  colspan="2" class="tdform"><input type="text" id="AddressOffice1" class="layui-input"  value="<%=user.AddressOffice1%>"></td>
 		</tr>
 		<tr>
 			<td class="tdstyle">个人主页</td>

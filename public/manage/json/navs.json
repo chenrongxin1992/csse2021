@@ -304,6 +304,12 @@
 					"target": ""
 				}
 			]
+		},
+		{
+			"title": "OfficeHour",
+			"icon": "&#xe609;",
+			"href": "/csse/manage/officehour",
+			"spread": false
 		}
 	],
 	"normalMenu":[

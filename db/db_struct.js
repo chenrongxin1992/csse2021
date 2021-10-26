@@ -200,7 +200,25 @@ const bkzsSchema = new Schema({
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
     timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'bkzs'})
+const officehourSchema = new Schema({ 
+    id:{type:Number},
+    account :{type:String},//
+    userName :{type:String},//
+    term : {type:String},//
+    address : {type:String},//
+    phone : {type:String},
+    cellphone : {type:String},//
+    email : {type:String},//
+    week : {type:String},//
+    timeStart : {type:String},//
+    timeEnd : {type:String},//
+    timeStart1 : {type:String},//
+    timeEnd1 : {type:String},//
+    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
+},{collection:'officehour'})
 
+exports.officehour = mongoose.model('officehour',officehourSchema)//本科招生
 exports.bkzs = mongoose.model('bkzs',bkzsSchema)//本科招生
 exports.highlight = mongoose.model('highlight',highlightSchema)//highlight
 exports.xrld = mongoose.model('xrld',xrldSchema)//现任领导

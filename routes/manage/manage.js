@@ -12,6 +12,7 @@ const slider = require('../../db/db_struct').cmsSlider
 const xrld = require('../../db/db_struct').xrld
 const highlight = require('../../db/db_struct').highlight
 const bkzs = require('../../db/db_struct').bkzs
+const officehour = require('../../db/db_struct').officehour
 
 const path = require('path')
 const multiparty = require('multiparty')
@@ -5784,4 +5785,184 @@ router.get('/get_py',function(req,res){
 		return res.json({'code':0,'msg':'done'})
 	})
 })
+router.get('/officehour',function(req,res){
+	res.render('manage/personal/officehour')
+}).get('/oh_data',function(req,res){
+	console.log('router oh_data',req.session)
+	let page = req.query.page,
+		limit = req.query.limit,
+		search_txt = req.query.search_txt
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = officehour.find({'account':req.session.account}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('oh_data get total err',err)
+						cb(err)
+					}
+					console.log('oh_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let _obj = {}
+			if(!req.session.power=='管理员'){
+				_obj = {
+					'account':req.session.account
+				}
+			}
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)			
+				let search = officehour.find(_obj)
+					search.sort({'id':-1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('oh_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})	
+		}
+	],function(error,result){
+		if(error){
+			console.log('oh_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('oh_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).get('/ohadd',function(req,res){
+	let id = req.query.id
+	console.log('officehour ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let search = officehour.findOne({})
+		search.where('id').equals(id)
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			if(doc){
+				res.render('manage/personal/ohadd',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/personal/ohadd',{data:{}})
+			}
+		})
+	}else{
+		res.render('manage/personal/ohadd',{data:{}})
+	}
+}).post('/ohadd',function(req,res){
+	console.log('ohadd------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 ohadd')
+		async.waterfall([
+			function(cb){
+				let search = officehour.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let officehourAdd = new officehour({
+					id:id,
+					address:req.body.address,//加入权限后需要更新
+					email:req.body.email,
+					phone:req.body.phone,
+					cellphone:req.body.cellphone,
+					term:req.body.term,
+					timeEnd:req.body.timeEnd,
+					timeStart:req.body.timeStart,
+					timeEnd1:req.body.timeEnd1,
+					timeStart1:req.body.timeStart1,
+					account:req.session.account,
+					userName:req.session.username,
+					week:req.body.week
+				})
+				officehourAdd.save(function(error,doc){
+					if(error){
+						console.log('officehourAdd save error',error)
+						cb(error)
+					}
+					console.log('officehourAdd save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('officehourAdd async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('officehourAdd',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					address:req.body.address,//加入权限后需要更新
+					email:req.body.email,
+					phone:req.body.phone,
+					cellphone:req.body.cellphone,
+					term:req.body.term,
+					timeEnd:req.body.timeEnd,
+					timeStart:req.body.timeStart,
+					timeEnd1:req.body.timeEnd1,
+					timeStart1:req.body.timeStart1,
+					week:req.body.week,
+				}
+				officehourAdd.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('officehourAdd update error',error)
+						cb(error)
+					}
+					console.log('officehourAdd update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('officehourAdd async error',error)
+				return res.end(error)
+			}
+			console.log('officehourAdd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
+}).post('/ohdel',function(req,res){
+	console.log('ohdel',req.body.id)
+	officehour.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('ohdel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del ohdel success'})
+	})
+})
+
 module.exports = router;

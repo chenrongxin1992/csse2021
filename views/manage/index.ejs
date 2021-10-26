@@ -17,6 +17,18 @@
 	<link rel="stylesheet" href="/csse/stylesheets/iconfont1.css" media="all" />
 	<!-- <link rel="stylesheet" href="/layui/css/layui.css" media="all" /> -->
 	<!-- <link rel="stylesheet" href="/stylesheets/index.css" media="all" /> -->
+	<style type="text/css">
+		@media screen and (max-width: 376px) {
+			.logo {
+				display:none;
+			}
+		}
+		@media screen and (min-width: 376px) {
+			.logo1 {
+				display:none;
+			}
+		}
+	</style>
 </head>
 <body class="main_body">
 	<div class="layui-layout layui-layout-admin">
@@ -24,6 +36,7 @@
 		<div class="layui-header header">
 			<div class="layui-main mag0">
 				<a href="#" class="logo" style="font-size: 18px;">计算机与软件学院</a>
+				<a href="#" class="logo1" style="font-size: 18px;">计软</a>
 				<!-- 显示/隐藏菜单 -->
 				<a href="javascript:;" class="seraph hideMenu icon-caidan"></a>
 				<!-- 顶级菜单 -->
@@ -309,6 +322,15 @@ function showImg(){
         });
     });
 }
+function screen(){
+	let width = $(window).width()
+	if(width>376){//iphone x
+		return 1
+	}
+	else{
+		return 2
+	}
+}
 
 		layui.use(['layer'], function(){ 
 			let layer = layui.layer,
@@ -318,7 +340,7 @@ function showImg(){
 				let index = layui.layer.open({
 					title : "修改密码",
 					type : 2,
-					area: ['500px', '250px'],
+					area: screen() == 2 ? ['90%','40%']:['500px', '250px'],
 					content : "changePassword",
 					success : function(layero, index){
 					},
