@@ -1,0 +1,444 @@
+.university{
+    background-color: #352C84;
+}
+.university .contain{
+    overflow: hidden;
+}
+/* banner */
+.banner{
+    position: relative;
+}
+.banner .b_bg{
+    width: 100%;
+}
+.banner .b_txt{
+    position: absolute;
+    left: 10%;
+    top: 44%;
+    height: 37%;
+}
+.banner .mimg{
+    display: none;
+}
+
+
+.contain-area{
+    background-color: #f3f3f3;
+}
+.contain-area .nav-list{
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    color: #433b95;
+    justify-content: center;
+    padding: 20px 0;
+}
+.contain-area .nav-list .nav{
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    color: #433b95;
+    font-size: 18px;
+    margin: 0 30px;
+    word-break: keep-all;
+}
+.contain-area .nav-list .active,.contain-area .nav-list .nav:hover{
+    color: #CCA84D;
+    border-bottom-color: #CCA84D;
+}
+
+.area1 .pic-list{
+    width: 83%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 0;
+}
+.area1 .pic-list .row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 27.5%;
+}
+.area1 .pic-list .row .img{
+    /* height: 160px; */
+}
+.area1 .pic-list .row .txt{
+    background-color: #fff;
+    height: 70%;
+    width: 290px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    color: #121212;
+    font-size: 18px;
+    word-break: keep-all;
+}
+
+.area1 .process{
+    text-align: center;
+    position: relative;
+    background-color: #fff;
+    line-height: 1.3em;
+    padding: 40px 0;
+}
+.area1 .process .start{
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    flex-flow: column;
+    color: #fff;
+    background: linear-gradient(to bottom,#7a6fc4,#cba74f);
+    font-size: 30px;
+    line-height: 24px;
+    padding-bottom: 3px;
+    box-sizing: border-box;
+    
+}
+.area1 .process .start .small{
+    font-size: 21.6px;
+    color: #fff;
+    padding-bottom: 5px;
+    font-weight: normal;
+}
+.area1 .process .center{
+    position: relative;
+    padding: 1px 0;
+}
+.area1 .process .line-out{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: #ddd;
+    z-index: 1;
+}
+.area1 .process .row{
+    position: relative;
+    z-index: 10;
+}
+.area1 .process .block{
+    color: #fff;
+    width: 82px;
+    height: 82px;
+    margin: 60px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom,#7a6fc4,#cba74f);
+    z-index: 100;
+    position: relative;
+    font-size: 30px;
+}
+
+.area1 .process .txt-right{
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(100%, -50%);
+    width: 400px;
+}
+.line-2{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 120px;
+    height: 2px;
+    background: #CCA84D;
+}
+.area1 .process .txt-right .txt{
+    margin-left: 120px;
+    text-align: left;
+    padding-left: 10px;
+    position: relative;
+    color:#121212;
+    top: 10px;
+    line-height: 24px;
+}
+.area1 .process .txt-right .txt.txt1{
+    top: 34px;
+}
+
+.area1 .process .m10{
+    margin-bottom: 10px;
+}
+.area1 .process .line-dot{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 94px;
+    border-right: 2px dotted #CCA84D;
+    transform: translateY(-50%);
+}
+.area1 .process .ball{
+    background: #CCA84D;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.area1 .process .b1{
+    top: -50px;
+    right: -5px;
+}
+.area1 .process .b2{
+    bottom: -50px;
+    right: -5px;
+}
+.area1 .process .b3{
+    bottom: -4px;
+    right: -5px;
+}
+.area1 .process .txt-left{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-100%, -50%);
+    /* width: 450px; */
+}
+.area1 .process .txt-left .txt{
+    text-align: right;
+    padding-right: 130px;
+    position: relative;
+    top: 10px;
+    line-height: 24px;
+}
+.area1 .process .txt-left .txt.txt1{
+    top: 25px;
+}
+.area1 .process .txt-left .line-2{
+    right: 0;
+    left: initial;
+}
+.area1 .process .txt-left .b1,
+.area1 .process .txt-left .b2,
+.area1 .process .txt-left .b3{
+ left: -4px;
+}
+.area1 .process .txt-left .line-dot{
+    border-left:  2px dotted #CCA84D;
+    border-right: none;
+}
+
+.area1 .process .txt-left .line-3 .line-dot{
+    height: 207px;
+}
+.area1 .process .txt-left .line-3 .b2{
+    bottom: -107px;
+}
+.area1 .process .txt-left .line-3 .b1{
+    top: -107px;
+}
+
+.area1 .process .b.c_cca84d{
+    font-size: 30px;
+    padding-bottom: 11px;
+}
+.area1 .process .small{
+    font-size: 18px;
+    color:#121212;
+}
+.area1 .process .m29{
+    margin-bottom: 29px;
+}
+.area1 .process .m46{
+    margin-bottom: 46px;
+}
+.area1 .process .m40{
+    margin-bottom: 40px;
+}
+.img_star{
+    width: 15px;
+    vertical-align: inherit;
+}
+
+.p-area .line-2{
+    width: 136px;
+}
+.p-area .process .txt-left .txt{
+    padding-right: 146px;
+}
+.p-area .process .txt-right .txt{
+    margin-left: 136px;
+}
+
+
+.m-area{
+    display: none;
+}
+.m-area .pic-list .row{
+    display: block;
+}
+.m-area .pic-list{
+    width: 91.44%;
+}
+.m-area .pic-list .row1{
+    width: 21.3%;
+}
+.m-area .pic-list .row2{
+    width: 22.66%;
+}
+.m-area .pic-list .row3{
+    width: 43.7%;
+}
+.m-area .pic-list .row .img{
+    width: 100%;
+    height: auto;
+}
+.m-area .pic-list .row .txt{
+    width: 100%;
+    box-sizing: border-box;
+    height: 147px;
+    padding: 12%;
+    font-size: 18px;
+    justify-content: flex-start;
+}
+.m-area .pic-list .row2 .txt{
+    padding: 11.38%;
+}
+.m-area .pic-list .row3 .txt{
+    padding: 5.94%;
+    text-align: center;
+}
+.m-area .process .now .img{
+    opacity: 0.9;
+}
+.m-area .process .txt-left .line-4 .line-dot{
+    height: 129px;
+}
+.m-area .process .txt-left .line-4 .b1{
+    top: -70px;
+}
+.m-area .process .txt-left .line-4 .b2{
+    bottom: -70px;
+}
+.m-area .process .m54{
+    margin-bottom: 54px;
+}
+.m-area .process .block{
+    margin: 56px auto;
+}
+.m-area .process .txt-left .txt{
+    top: 18px;
+}
+.m-area .process .txt-left .txt.txt1{
+    top: 0;
+}
+.m-area .process .txt-left .txt3{
+    top: 27px;
+}
+.m-area .process .txt-right .txt{
+    top: 18px;
+}
+
+@media only screen and (max-width:1200px){
+    .p-area{
+        display: none;
+    }
+    .m-area{
+        display: block;
+    }
+    /* university */
+	.university .contain-area .nav-list {
+		display: none;
+	}
+    .area1 .pic-list .row .txt{
+        word-break: break-all;
+    }
+}
+@media only screen and (max-width: 767px){
+    .banner .pimg{
+        display: none;
+    }
+    .banner .mimg{
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 680px){
+    .area1 .process .b.c_cca84d{
+        font-size: 25px;
+    }
+}
+
+@media only screen and (max-width: 580px){
+    .area1 .process .b.c_cca84d{
+        font-size: 20px;
+    }
+    .area1 .process .txt-left .txt{
+        padding-right: 90px;
+    }
+    .area1 .process .txt-right .txt{
+        margin-left: 90px;
+    }
+    .line-2{
+        width: 80px;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .m-area .pic-list .row .txt{
+        font-size: 15px;
+        height: 120px;
+    }
+}
+@media only screen and (max-width:480px){
+    .m-area .pic-list{
+        padding: 20px 0;
+    }
+    .m-area .pic-list .row .txt{
+        font-size: 12px;
+        height: 120px;
+    }
+    .m-area .process .now .img{
+        width: 50px;
+        height: 50px;
+    }
+    .m-area .process .block{
+        width: 50px;
+        height: 50px;
+        font-size: 17px;
+        margin: 30px auto;
+    }
+    .line-2{
+        width: 60px;
+    }
+    .area1 .process .txt-left .txt{
+        padding-right: 70px;
+    }
+    .area1 .process .txt-right .txt{
+        margin-left: 60px;
+    }
+    .area1 .process .b.c_cca84d{
+        font-size: 20px;
+    }
+    .area1 .process .small{
+        font-size: 13px;
+    }
+    .area1 .process .start{
+        width: 50px;
+        height: 50px;
+        font-size: 16px;
+    }
+    .area1 .process .start .small{
+        font-size: 14px;
+        padding-bottom: 0;
+    }
+}
+
+@media only screen and (max-width:350px){
+
+    .area1 .process{
+        transform: scale(.75);
+    width: 140%;
+    transform-origin: left
+    }
+}

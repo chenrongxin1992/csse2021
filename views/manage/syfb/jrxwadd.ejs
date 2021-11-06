@@ -111,6 +111,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">封面图</label>
 				<button type="button" class="layui-btn" id="test1">上传</button>
+				<span>513*344</span>
 			</div>
 
 			<div class="layui-form-item">
@@ -288,13 +289,14 @@ $(function(){
 	  data.field.timeAdd = $('#timeAdd').val()
       data.field.timeEdit = $('#timeEdit').val()
       data.field.isTop = topstr.substring(0,topstr.length-1)
-	  if($('#fmpic').attr('src')){
-	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
-	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
-	  }else{
-		  layer.msg('请上传封面图')
-		  return false
-	  }
+	  data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
+	//   if($('#fmpic').attr('src')){
+	//   	console.log('ddddd---------------------------',$('#demo1').attr('src'))
+	//   	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
+	//   }else{
+	// 	  layer.msg('请上传封面图')
+	// 	  return false
+	//   }
 
 	  console.log('提交数据',data.field)
      //return false
@@ -313,6 +315,9 @@ $(function(){
 				  ,closeBtn: 0
 				}, function(){
 					layer.close(frameindex);
+					let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						parent.layer.close(index); 
+						console.log('father -----',index)
 				});	  			
 	  		}
 	  	},

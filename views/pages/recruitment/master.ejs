@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>深圳大学计算机与软件学院</title>
+	<link rel="stylesheet" href="../../stylesheets/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/css/recruitment_css/master.css" />
+	<script src="../../javascripts/js/jquery.min.js"></script>
+</head>
+<body class="recruitment">
+<%if(L=='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+
+	<div class="banner">
+		<img src="../../image/recruitment_image/banner.png" class="b_bg lazy_img pimg" />
+		<img src="../../image/recruitment_image/m-banner.png" class="b_bg lazy_img mimg" />
+	</div>
+	<div class="contain">
+		<div class="contain-area clearfix">
+			<div class="info">
+				<div class="r-list clearfix">
+					<div class="r-row">
+						<a href="index">
+							<img src="../../image/recruitment_image/img1.png" class="img" />
+							<span class="txt">本科生招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row active">
+						<a href="#">
+							<img src="../../image/recruitment_image/img2.png" class="img" />
+							<span class="txt">硕士生招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row">
+						<a href="doctor">
+							<img src="../../image/recruitment_image/img3.png" class="img" />
+							<span class="txt">博士生招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row">
+						<a href="">
+							<img src="../../image/recruitment_image/img4.png" class="img" />
+							<span class="txt">成考招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row">
+						<a href="">
+							<img src="../../image/recruitment_image/img5.png" class="img" />
+							<span class="txt">自考招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row">
+						<a href="talents">
+							<img src="../../image/recruitment_image/img6.png" class="img" />
+							<span class="txt">人才招聘</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+				</div>
+				<div class="bread-crumbs">当前位置：首页 > 招生招聘 > 硕士招生</div>
+				<div class="m-info-tit c_cca84d b">硕士招聘</div>
+				<div class="cont">
+					<div class="area">
+						<div class="area-right">
+							<div class="area-list">
+								<div class="pic-area">
+									<div class="bg">
+										<img class="img img3" src="../../image/recruitment_image/master/master_bg.png" />
+										<img class="img img4" src="../../image/recruitment_image/img_left.png" />
+										<img class="img img2" src="../../image/recruitment_image/img_right.png" />
+										<img class="img img1" src="../../image/recruitment_image/vector_img2.png" />
+									</div>
+								</div>
+								<div class="mess-list">
+									<div class="details">
+										<div class="talents-tit c_cca84d bb">硕士招聘</div>
+										<!-- <div class="tit c_cca84d b">资料下载</div> -->
+										<%data.ssszs.forEach(function(item,index){%>
+										<div class="mess">
+											<span class="ball">● </span>
+											<a class="txt" href="details?id=<%=item.id%>"><%=item.title%></a>
+											<span class="time c_999"><%=item.timeAdd%></span>
+										</div>
+										<%})%>
+										<div class="page-num">
+											<% for(var i=0;i < totalpage ;i++){%>
+												<span class="num"><%=i+1%></span>
+											 <%}%>
+										</div>
+										<script type="text/javascript"> 
+											$('.num').each(function(index,obj){
+												if('<%=page%>' == $(obj).text()){
+												console.log('找到page,点中状态',$(obj).text())
+												$(obj).addClass('active')
+												}
+											})
+											$('.num').click(function(){
+												console.log('点击页面---->',$(this).text(),'构造url')        
+												let reg = new RegExp("master", "g"); 
+												let url = "master"; 
+												console.log(url.replace(reg, "master?page=" + $(this).text()))
+												window.location.href = url.replace(reg, "master?p=" + $(this).text() ); 
+											})
+											</script>
+										<div class="contact_way">
+											<div class="content">
+												<div class="way_list">
+													<div class="contact-title">
+														联系方式
+													</div>
+													<p>深圳大学研招办新浪官方微博：http://weibo.com/szuyzb</p>
+													<p>深圳大学研究生招生网：https://yz.szu.edu.cn</p>
+													<p>咨询电话：0755-26534301</p>
+													<p>咨询邮箱：xiongdr@szu.edu.cn</p>
+													<p>2022年推免生QQ群：638984459</p>
+												</div>
+												<div class="QR-code">
+													<img src="../../image/recruitment_image/master/master_img1.png">
+													<div>研招办官方微信</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<%if(L=='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+	<%if(L!='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+  <script src="../../javascripts/js/common.js"></script>
+  
+  <script src="../../javascripts/js/brcheck.js"></script>
+  
+  </body>
+  </html>

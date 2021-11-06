@@ -1,0 +1,24 @@
+.area-list .pic-area .img3{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 70%;
+    z-index: 30;
+}
+
+.area-list .pic-area .img4{
+	position: absolute;
+	top: 30%;
+	left: 20%;
+	transform: translate(-50%, -50%);
+}
+
+.area-list .pic-area {
+	margin: 0 100px 0 60px;
+	width: 40%;
+}
+
+.pic-area {
+	transform: translateY(20%) !important;
+}

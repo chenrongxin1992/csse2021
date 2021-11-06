@@ -11,6 +11,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<link rel="stylesheet" href="https://www.jq22.com/demo/cropper-master20160830/dist/cropper.min.css" media="all" />
 	<style type="text/css">
 		.tdstyle{
 			/* width:120px; */
@@ -70,9 +71,9 @@
 	        <td class="tdstyle">(英文)姓名</td>
 	        <td  class="tdform"><input type="text" id="userName1" class="layui-input" value="<%=user.userName1%>"></td>
 	        <td rowspan="5" style="text-align: center;">
-				<div id="" class="file-iteme">
+				<div id="mycontainer" class="file-iteme">
 					
-					<img id="userimg" src="<%=user.avatar%>" style="width:auto;height:auto;max-width:150px;max-height:100%;margin:5px;position: relative;margin: 0;">
+					<img alt="头像宽高比1:1" id="userimg" src="<%=user.avatar%>" style="width:auto;height:auto;max-width:150px;max-height:100%;margin:5px;position: relative;margin: 0;">
 					<div class="handle" ><i class="layui-icon layui-icon-delete"></i></div>
 				</div>
 				
@@ -99,77 +100,73 @@
 				</select>
 			</td>
 	      </tr>
-		  <tr>
-			<td class="tdstyle">人员类别</td>
-	        <td id="tddegree"  class="tdform">
-				<select name="jstype" lay-filter="jstype" id="jstype">
-					<option value=""></option>
-					<option value="杰出人才">杰出人才</option>
-					<option value="教授">教授</option>
-					<option value="研究员">研究员</option>
-					<option value="副教授">副教授</option>
-					<option value="副研究员">副研究员</option>
-					<option value="助理教授">助理教授</option>
-					<option value="讲师">讲师</option>
-					<option value="博士后">博士后</option>
-					<option value="研究/管理助理">研究/管理助理</option>
-				</select>
-			</td>
-			<td class="tdstyle">(英文)人员类别</td>
-	        <td id="tddegree" class="tdform">
-				<select name="jstype1" lay-filter="jstype1" id="jstype1">
-					<option value=""></option>
-					<option value="Outstanding Talent">Outstanding Talent</option>
-					<option value="Professor">Professor</option>
-					<option value="Researcher">Researcher</option>
-					<option value="Associate Professor">Associate Professor</option>
-					<option value="Associate Researcher">Associate Researcher</option>
-					<option value="Assistant Professor">Assistant Professor</option>
-					<option value="Lecturer">Lecturer</option>
-					<option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
-					<option value="RM Assistant">Research/Manage Assistant</option>
-				</select>
-			</td>
-	     </tr>
 	      <tr>
 	        <td class="tdstyle">职称</td>
 			<td  class="tdform">
 				<select name="zhicheng" lay-filter="zhicheng" id="zhicheng">
-					<option value=""></option>
-					<option value="教授">教授</option>
-					<option value="研究员">研究员</option>
-					<option value="副教授">副教授</option>
-					<option value="副研究员">副研究员</option>
-					<option value="助理教授">助理教授</option>
-					<option value="讲师">讲师</option>
-					<option value="博士后">博士后</option>
+					<option value="杰出人才" peopleid="1">杰出人才</option>
+					<option value="教授" peopleid="2">教授</option>
+					<option value="副教授" peopleid="3">副教授</option>
+					<option value="讲师" peopleid="4">讲师</option>
+					<option value="助理教授" peopleid="5">助理教授</option>
+					<option value="研究员" peopleid="6">专职研究人员</option>
+					<option value="博士后" peopleid="7">博士后</option>
+					<option value="技术/管理人员" peopleid="8">技术/管理人员</option>
+					<option value="研究/辅助管理" peopleid="9">研究/辅助管理</option>
 				</select>
 			</td>
 	        <td class="tdstyle">(英文)职称</td>
 			<td class="tdform">
 				<select name="zhicheng1" lay-filter="zhicheng1" id="zhicheng1">
-					<option value=""></option>
+					<option value="Outstanding talent">Outstanding talent</option>
 					<option value="Professor">Professor</option>
-					<option value="Researcher">Researcher</option>
 					<option value="Associate Professor">Associate Professor</option>
-					<option value="Associate Researcher">Associate Researcher</option>
-					<option value="Assistant Professor">Assistant Professor</option>
 					<option value="Lecturer">Lecturer</option>
+					<option value="Assistant Professor">Assistant Professor</option>
+					<option value="Researcher">Researcher</option>
 					<option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
+					<option value="Technical / management personnel">Technical/management personnel</option>
+					<option value="Assistant">Assistant</option>
 				</select>
 			</td>
 	      </tr>
 		  <tr>
-	        <td class="tdstyle">所/系</td>
-	        <td  class="tdform"><input type="text" id="suoxi" class="layui-input"  value="<%=user.suoxi%>"></td>
-	        <td class="tdstyle">(英文)所/系</td>
-	        <td  class="tdform"><input type="text" id="suoxi1" class="layui-input"  value="<%=user.suoxi1%>"></td>
+	        <td class="tdstyle">所/中心</td>
+	        <td  class="tdform">
+				<select name="suoxi" lay-filter="suoxi" id="suoxi">
+					<option value="其它" suoxiid="10">其它</option>
+					<option value="高性能计算研究所" suoxiid="1">高性能计算研究所</option>
+					<option value="大数据技术与应用研究所" suoxiid="2">大数据技术与应用研究所</option>
+					<option value="未来媒体技术与计算研究所" suoxiid="3">未来媒体技术与计算研究所</option>
+					<option value="网络与信息安全研究所" suoxiid="4">网络与信息安全研究所</option>
+					<option value="计算机视觉研究所" suoxiid="5">计算机视觉研究所</option>
+					<option value="智能技术与系统集成研究所" suoxiid="6">智能技术与系统集成研究所</option>
+					<option value="物联网研究中心" suoxiid="7">物联网研究中心</option>
+					<option value="可视计算研究中心" suoxiid="8">可视计算研究中心</option>
+					<option value="教学系" suoxiid="9">教学系</option>
+				</select>
+			</td>
+	        <td class="tdstyle">(英文)所/中心</td>
+	        <td  class="tdform">
+				<select name="suoxi1" lay-filter="suoxi1" id="suoxi1">
+					<option value="other">other</option>
+					<option value="National High Performance Computing Center at Shenzhen" suoxiid="1">National High Performance Computing Center at Shenzhen</option>
+					<option value="Big Data Institute" suoxiid="2">Big Data Institute</option>
+					<option value="Research Institute for Future Media Computing" suoxiid="3">Research Institute for Future Media Computing</option>
+					<option value="Research Institute of Network and Information Security" suoxiid="4">Research Institute of Network and Information Security</option>
+					<option value="Computer Vision Institute" suoxiid="5">Computer Vision Institute</option>
+					<option value="Research Institute of Intelligence Technology and System Integration" suoxiid="6">Research Institute of Intelligence Technology and System Integration</option>
+					<option value="Internet of things Research Center" suoxiid="7">Internet of things Research Center</option>
+					<option value="Visual Computing Research Center (VCC)" suoxiid="8">Visual Computing Research Center (VCC)</option>
+					<option value="Teaching Department">Teaching Department</option>
+				</select>
+			</td>
 	      </tr>
 		  <tr>
 	        <td class="tdstyle">职位</td>
 	        <td  class="tdform"><input type="text" id="zhiwu" class="layui-input"  value="<%=user.zhiwu%>"></td>
 	        <td class="tdstyle">(英文)职位</td>
-	        <td colspan="2"  class="tdform"><input type="text" id="zhiwu1" class="layui-input"  value="<%=user.zhiwu1%>"></td>
+	        <td colspan="tdform"  class="tdform"><input type="text" id="zhiwu1" class="layui-input"  value="<%=user.zhiwu1%>"></td>
 	      </tr>
 		  <tr>
 	        <td class="tdstyle">研究领域</td>
@@ -253,7 +250,7 @@
 	<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
     <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
-
+	<script type="text/javascript" charset="utf-8" src="https://www.jq22.com/demo/cropper-master20160830/dist/cropper.min.js"> </script>
 <script type="text/javascript">
 
 let ue1,ue2
@@ -262,6 +259,13 @@ layui.use(['jquery','layer','upload','form'], function(){
 	
     let $ = layui.$ //重点处
     let layer = layui.layer,upload=layui.upload,form=layui.form
+	//图片
+	// $('#mycontainer > img').cropper({
+	// 	aspectRatio: 16 / 9,
+	// 	crop: function(data) {
+	// 		// 出来裁切后的图片数据.
+	// 	}
+	// });
 	$(document).on("mouseenter mouseleave", ".file-iteme", function(event){
             if(event.type === "mouseenter"){
                 //鼠标悬浮
@@ -292,14 +296,14 @@ layui.use(['jquery','layer','upload','form'], function(){
 		
 		$('#sex').val('<%=user.sex%>')
 		$('#sex1').val('<%=user.sex1%>')
-		$('#jstype').val('<%=user.jstype%>')
-		$('#jstype1').val('<%=user.jstype1%>')
 		$('#zhicheng').val('<%=user.zhicheng%>')
 		$('#zhicheng1').val('<%=user.zhicheng1%>')
 		$('#zhiwu').val('<%=user.zhiwu%>')
 		$('#zhiwu1').val('<%=user.zhiwu1%>')
 		$('#yjly').val('<%=user.yjly%>')
 		$('#yjly1').val('<%=user.yjly1%>')
+		$('#suoxi').val('<%=user.suoxi%>')
+		$('#suoxi1').val('<%=user.suoxi1%>')
 		form.render('select')
 		//监听下拉框
 		form.on('select(sex)',function (data) {
@@ -331,65 +335,32 @@ layui.use(['jquery','layer','upload','form'], function(){
 			}
 			form.render()
 		})
-		form.on('select(jstype)',function (data) {
-			console.log('select jstype',data)
-			if(data.value == '杰出人才'){
-				$("#jstype1").find("option[value='Outstanding Talent']").attr("selected",true);
-			}
-			if(data.value == '教授'){
-				$("#jstype1").find("option[value='Professor']").attr("selected",true);
-			}
-			if(data.value == '研究员'){
-				$("#jstype1").find("option[value='Researcher']").attr("selected",true);
-			}
-			if(data.value == '副教授'){
-				$("#jstype1").find("option[value='Associate Professor']").attr("selected",true);
-			}
-			if(data.value == '副研究员'){
-				$("#jstype1").find("option[value='Associate Researcher']").attr("selected",true);
-			}
-			if(data.value == '助理教授'){
-				$("#jstype1").find("option[value='Assistant Professor']").attr("selected",true);
-			}
-			if(data.value == '讲师'){
-				$("#jstype1").find("option[value='Lecturer']").attr("selected",true);
-			}
-			if(data.value == '博士后'){
-				$("#jstype1").find("option[value='Postdoctoral Researcher']").attr("selected",true);
-			}
-			if(data.value == '研究/管理助理'){
-				$("#jstype1").find("option[value='RM Assistant']").attr("selected",true);
-			}
-			form.render()
-		})
-		form.on('select(zhicheng)',function (data) {
-			console.log('select zhicheng',data)
-			if(data.value == '教授'){
-				$("#zhicheng1").find("option[value='Professor']").attr("selected",true);
-			}
-			if(data.value == '研究员'){
-				$("#zhicheng1").find("option[value='Researcher']").attr("selected",true);
-			}
-			if(data.value == '副教授'){
-				$("#zhicheng1").find("option[value='Associate Professor']").attr("selected",true);
-			}
-			if(data.value == '副研究员'){
-				$("#zhicheng1").find("option[value='Associate Researcher']").attr("selected",true);
-			}
-			if(data.value == '助理教授'){
-				$("#zhicheng1").find("option[value='Assistant Professor']").attr("selected",true);
-			}
-			if(data.value == '讲师'){
-				$("#zhicheng1").find("option[value='Lecturer']").attr("selected",true);
-			}
-			if(data.value == '博士后'){
-				$("#zhicheng1").find("option[value='Postdoctoral Researcher']").attr("selected",true);
-			}
-			form.render()
-		})
+		
 		//初始化上传按钮  
+		//let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button><button type="button" class="layui-btn" id="editbtn">编辑头像</button>'
 		let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button>'
     	$('#uploadarea').append(uploadbtn)	
+		$('#editbtn').click(function(){
+			console.log(	$('#userimg').attr('src'))
+			if(!$('#userimg').attr('src')){
+				layui.layer.msg('请先上传图片')
+				return
+			}
+			let index = layui.layer.open({
+				title : "编辑头像",
+				type : 2,
+				area: ['40%', '65%'],
+				content : "usertx?userid=<%=user.id%>&imgsrc="+	$('#userimg').attr('src'),
+				success : function(layero, index){
+				},
+				end:function(){
+					//layui.layer.closeAll()
+					console.log('结束，更新',$('#userimg').attr('src'))
+					let imgsrc = $('#userimg').attr('src')
+					$('#userimg').attr('src',imgsrc+"?t="+Math.random())
+				}
+			})
+		})
 		let uploadInst  = upload.render({
 		    elem: '#uploadbtn'
 			,url: '<%=base_url%>userimgupload'
@@ -447,8 +418,9 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  data.field.intro1 = ue2.getContent()
 	  data.field.sex =$('#sex option:selected').val()
 	  data.field.sex1 =$('#sex1 option:selected').val()
-	  data.field.jstype=$('#jstype option:selected').val()
-	  data.field.jstype1=$('#jstype1 option:selected').val()
+	  //20211030
+	  data.field.peopleid = $('#zhicheng option:selected').attr("peopleid");
+	  data.field.suoxiid = $('#suoxi option:selected').attr("suoxiid");
 	  data.field.zhicheng=$('#zhicheng option:selected').val()
 	  data.field.zhicheng1=$('#zhicheng1 option:selected').val()
 	  data.field.phoneOffice=$('#phoneOffice').val()
@@ -461,8 +433,8 @@ layui.use(['jquery','layer','upload','form'], function(){
 	//   data.field.xueli=$('#xueli').val()
 	//   data.field.xueli1=$('#xueli1').val()
 	  data.field.avatar=$('#userimg').attr('src')
-	  data.field.suoxi=$('#suoxi').val()
-	  data.field.suoxi1=$('#suoxi1').val()
+	  data.field.suoxi=$('#suoxi option:selected').val()
+	  data.field.suoxi1=$('#suoxi1 option:selected').val()
 	  data.field.jybj=$('#jybj').val()
 	  data.field.jybj1=$('#jybj1').val()
 	  data.field.zhiwu=$('#zhiwu').val()

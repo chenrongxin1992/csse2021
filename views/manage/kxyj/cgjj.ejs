@@ -25,7 +25,13 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">成果概况</label>
 				<div class="layui-input-inline" style="width: 340px;">
-                    <textarea placeholder="成果概况" class="layui-textarea" id="cggk" style="height: 200px;"><%=data.pageContent%></textarea>
+                    <textarea placeholder="成果概况" class="layui-textarea" id="cggk" style="height: 150px;"><%=data.pageContent%></textarea>
+		       </div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">成果概况</label>
+				<div class="layui-input-inline" style="width: 340px;">
+                    <textarea placeholder="成果概况" class="layui-textarea" id="csrankings" style="height: 50px;"><%=data.csrankings%></textarea>
 		       </div>
 			</div>
 			<div class="layui-form-item">
@@ -58,6 +64,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 
 		 data.field.id = id
 		 data.field.pageContent = $('#cggk').val()//
+		 data.field.csrankings = $('#csrankings').val()
 	     console.log('data.field',data.field)
 		 //return false
 	     //console.log('submit data',data)

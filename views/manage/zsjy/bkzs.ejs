@@ -63,6 +63,7 @@ layui.use(['jquery','table','form'], function(){
             title : "查看 | 编辑",
             type : 2,
             content : "bkzsadd",
+			area:['90%','90%'],
             success : function(layero, index){
             },
 			end:function(){
@@ -73,11 +74,11 @@ layui.use(['jquery','table','form'], function(){
 				});
 			}
         })
-        layui.layer.full(index);
-	        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-	        $(window).on("resize",function(){
-	            layui.layer.full(index);
-	        })
+        // layui.layer.full(index);
+	    //     //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+	    //     $(window).on("resize",function(){
+	    //         layui.layer.full(index);
+	    //     })
     })
     //监听工具条
 	table.on('tool(bkzs_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -90,6 +91,7 @@ layui.use(['jquery','table','form'], function(){
 	    let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
+			area:['90%','90%'],
             content : "bkzsadd?id="+data.id,
             success : function(layero, index){
             },
@@ -101,12 +103,12 @@ layui.use(['jquery','table','form'], function(){
 				});
 			}
         })
-        console.log('index',index)
-        layui.layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-        $(window).on("resize",function(){
-            layui.layer.full(index);
-        })
+        // console.log('index',index)
+        // layui.layer.full(index);
+        // //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        // $(window).on("resize",function(){
+        //     layui.layer.full(index);
+        // })
 
         //同步更新缓存对应的值
 	    // obj.update({

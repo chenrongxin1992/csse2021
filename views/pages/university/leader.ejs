@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+  <link rel="stylesheet" href="../../stylesheets/css/university_css/leader.css">
+  <link rel="stylesheet" href="../../stylesheets/css/animate.min.css">
+</head>
+<body class="university">
+<%if(L=='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+
+  <div class="banner">
+    <img src="../../image/university_image/banner.png" class="b_bg lazy_img pimg" />
+    <img src="../../image/university_image/m-banner.png" class="b_bg lazy_img mimg" />
+  </div>
+  <div class="contain">
+    <div class="contain-area clearfix">
+      <div class="nav-list">
+        <a href="index" class="nav ">学院简介</a>
+        <a href="message" class="nav">院长寄语</a>
+        <a href="develop" class="nav">发展沿革</a>
+        <a href="leader" class="nav active">现任领导</a>
+        <a href="logo" class="nav">学院标识</a>
+      </div>
+      <div class="cont">
+        <img class="img-file" src="../../image/university_image/leader/file.png" />
+        <div class="leader-list">
+          <div class="row row1">
+            <%data.xrld.forEach(function(item,index){ if(index<=1){%>
+              <div class="col">
+                <img class="img" src="<%=item.pic%>" />
+                <div class="c_cca84d b name"><%=item.name%></div>
+                <div class="identity"><%=item.title%></div>
+                <div><%=item.work%></div>
+              </div>
+             <%}})%>
+          </div>
+          <div class="row">
+            <%data.xrld.forEach(function(item,index){ if(index>1){%>
+            <div class="col">
+              <img class="img" src="<%=item.pic%>" />
+              <div class="c_cca84d b name"><%=item.name%></div>
+              <div class="identity"><%=item.title%></div>
+              <div><%=item.work%></div>
+              <img class="img-bg" src="../../image/university_image/leader/p-bg.png" />
+            </div>
+            <%}})%>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <%if(L=='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <%if(L!='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+<script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+<script src="../../javascripts/js/common.js"></script>
+
+<script src="../../javascripts/js/brcheck.js"></script>
+<script src="../../javascripts/js/slick.min.js"></script>
+<script src="../../javascripts/js/scrollreveal.js"></script>
+<script src="../../javascripts/js/anime.min.js"></script>
+
+<script>
+  
+</script>
+</body>
+</html>

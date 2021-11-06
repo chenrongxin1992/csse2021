@@ -68,13 +68,20 @@
 
 			<div class="layui-form-item">
 				<div class="layui-inline">
-					<label class="layui-form-label">联合培养名称</label>
+					<label class="layui-form-label">学校</label>
 					<div class="layui-input-inline" style="width: 450px;">
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
 				</div>
 			</div>
-
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">项目</label>
+					<div class="layui-input-inline" style="width: 450px;">
+				      <input type="text" name="pyxm" lay-verify="required" autocomplete="off" class="layui-input" id="pyxm">
+				    </div>
+				</div>
+			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">封面图</label>
 				<button type="button" class="layui-btn" id="test1">上传</button>
@@ -137,11 +144,13 @@ $(function(){
         });
 	// 删除图片
     $(document).on("click", ".file-iteme .handle", function(event){
+		console.log('check----',$(this))
+		let _self = $(this)
 		layer.confirm('确定要删除图片吗', {
 			btn: ['确定','取消'] //按钮
 			}, function(){
-				console.log('$(this).parent()-----',$(this).parent(),$(this).parent().parent())
-				$('#fmpic').parent().remove()
+				console.log('$(this).parent()-----',$(this),$(this).parent().parent())
+				_self.parent().remove()
 				layer.msg('已删除', {icon: 1});
 			}, function(){
 				layer.msg('已取消', {
@@ -154,6 +163,7 @@ $(function(){
 	    elem: '#test1'
         //本地与服务器
 	    ,url: '<%=base_url%>lhpyupload'
+		,multiple: true
 		,accept:"file"
         ,exts: 'jpg|jpeg|gif|png'
 	    ,before: function(obj){
@@ -170,7 +180,7 @@ $(function(){
 		  $('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
                     '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-                    '<img style="height: 150px;" id="fmpic" src='+ res.data +'>' +
+                    '<img style="height: 150px;" class="fmpic" src='+ res.data +'>' +
                     '</div>'
                 );
           layer.msg('图片上传成功')
@@ -203,13 +213,17 @@ $(function(){
 	}else{
          //初始化表单值
         $('#title').val('<%- data.title%>')
+		$('#pyxm').val('<%- data.pyxm%>')
      
 		//初始化封面图
-		$('#uploader-list').append(
+		let fujianarr = ('<%=data.fujianPath%>').split(';')
+		fujianarr.forEach(function(item,index){
+			$('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
                     '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-                    '<img style="height: 150px;" id="fmpic" src=<%-data.fujianPath%> ></div>'
+                    '<img style="height: 150px;" class="fmpic" src='+item+' ></div>'
                 );
+		})
   		form.render()
 	}
     form.on('submit(update)', function(data){
@@ -229,9 +243,15 @@ $(function(){
 	  //data.field.eleaderintro = editor4.txt.html()
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()
-	  if($('#fmpic').attr('src')){
-	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
-	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
+	  data.field.pyxm = $('#pyxm').val()
+	  if($('.fmpic').length!=0){
+	  	//20211030
+		let fujianstr = ''
+		$('.fmpic').each(function(index,obj){
+			console.log('ddddd---------------------------',$(obj))
+			fujianstr += $(obj).attr('src') + ';'
+		})
+	  	data.field.fujianPath = fujianstr//.slice(8)//去掉
 	  }else{
 		  layer.msg('请上传封面图')
 		  return false

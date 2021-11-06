@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/css/teacher_css/teacherTeam.css" />
+	<script src="../../javascripts/js/jquery.min.js"></script>
+    <style>
+        .choose_i{
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body class="teacherTeam">
+<%if(L=='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+
+  <div class="banner">
+    <img src="../../image/teacher_image/banner.png" class="b_bg lazy_img pimg" />
+    <img src="../../image/teacher_image/m-banner.png" class="b_bg lazy_img mimg" />
+  </div>
+  <div class="contain">
+    <div class="p-area contain-area clearfix">
+        <div class="info">
+            <div class="info-cont">
+                <img class="img" src="../../image/teacher_image/infoPerson.png" />
+                <div class="txt">
+                    <%-data.szgk.pageContent-%>
+                </div>
+            </div>
+        </div>
+        <div class="cont">
+            <div class="top-nav">
+                <div class="tit">师资队伍</div>
+                <div class="search-input">
+                    <input type="text" placeholder="输入姓名" class="search" id="search">
+                    <img src="../../image/teacher_image/search.png" class="search-img" />
+                </div>
+                <div class="list">
+                    <div>按字母筛选：</div>
+                    <i class="choose_i">A</i>
+                    <i class="choose_i">B</i>
+                    <i class="choose_i">C</i>
+                    <i class="choose_i">D</i>
+                    <i class="choose_i">E</i>
+                    <i class="choose_i">F</i>
+                    <i class="choose_i">G</i>
+                    <i class="choose_i">H</i>
+                    <i class="choose_i">I</i>
+                    <i class="choose_i">J</i>
+                    <i class="choose_i">K</i>
+                    <i class="choose_i">L</i>
+                    <i class="choose_i">M</i>
+                    <i class="choose_i">N</i>
+                    <i class="choose_i">O</i>
+                    <i class="choose_i">P</i>
+                    <i class="choose_i">Q</i>
+                    <i class="choose_i">R</i>
+                    <i class="choose_i">S</i>
+                    <i class="choose_i">T</i>
+                    <i class="choose_i">U</i>
+                    <i class="choose_i">V</i>
+                    <i class="choose_i">W</i>
+                    <i class="choose_i">X</i>
+                    <i class="choose_i">Y</i>
+                    <i class="choose_i">Z</i>
+                    <i id="clear_choose" style="cursor:pointer;">清空筛选</i>
+                </div>
+            </div>
+            <div class="area">
+                <div class="area-left">
+                    <div class=" area-nav">
+                        <div class="tit b">职称</div>
+                        <ul id="zc_ul">
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[0]._id%>">杰出人才(<%=data.zhichengNum[0].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[1]._id%>">教授(<%=data.zhichengNum[1].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[2]._id%>">副教授(<%=data.zhichengNum[2].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[3]._id%>">讲师(<%=data.zhichengNum[3].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[4]._id%>">助理教授(<%=data.zhichengNum[4].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[5]._id%>">专职研人员(<%=data.zhichengNum[5].num%>)</a></li>                            
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[6]._id%>">博士后(<%=data.zhichengNum[6].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[7]._id%>">技术/管理人员(<%=data.zhichengNum[7].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[8]._id%>">研究/辅助管理(<%=data.zhichengNum[8].num%>)</a></li>
+                        </ul>
+                    </div>
+                    <div class=" area-nav">
+                        <div class="tit b">研究所/中心</div>
+                        <ul id="sx_ul">
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[0]._id%>">高性能计算研究所(<%=data.suoxiNum[0].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[1]._id%>">大数据技术与应用研究所(<%=data.suoxiNum[1].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[2]._id%>">未来媒体技术与计算研究所(<%=data.suoxiNum[2].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[3]._id%>">网络与信息安全研究所(<%=data.suoxiNum[3].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[4]._id%>">计算机视觉研究所(<%=data.suoxiNum[4].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[5]._id%>">智能技术与系统集成研究所(<%=data.suoxiNum[5].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[6]._id%>">物联网研究中心(<%=data.suoxiNum[6].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[7]._id%>">可视计算研究中心(<%=data.suoxiNum[7].num%>)</a></li> 
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[8]._id%>">教学系(<%=data.suoxiNum[8].num%>)</a></li>                      
+                        </ul>
+                    </div>
+                </div>
+                <div class="area-right">
+                    <div class="page-list clearfix">
+                        <%data.jsdw.forEach(function(item,index){%>
+                            <%if(index==1||index==4||index==7){%>
+                                <div class="page l page2">
+                            <%}else{%>
+                                <div class="page l">
+                            <%}%>
+                                    <div class="row">
+                                        <div class="name"><%=item.userName%></div>
+                                        <img class="avatar" src="<%=item.avatar%>" style="height: 171px;width: 171px;border-radius:50%;"/>
+                                        <div class="txt">
+                                            <p class="c_333"><%=item.zhiwu%> <%=item.zhicheng%></p>
+                                            <p class="c_666"><%=item.suoxi%></p>
+                                        </div>
+                                        <div class="skill"><%if(!item.yjly){%>无
+                                            <%}else{%><%=item.yjly%><%}%></div>
+                                    </div>
+                                    <div class="row row2">
+                                        <div class="name"></div>
+                                        <img class="avatar" src="<%=item.avatar%>" style="height: 171px;width: 171px;border-radius:50%;"/>
+                                        <a class="btn" href="../user/index?id=<%=item.id%>">
+                                            <span class="s-txt">HOMEPAGE</span>
+                                        </a>
+                                        <div class="email">
+                                            <%=item.email%> <img class="img" src="../../image/teacher_image/documents@2x.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                        <%})%>
+                    </div>
+                    <div class="page-num">
+                        <% for(var i=0;i < totalpage ;i++){%>
+                            <span class="num"><%=i+1%></span>
+                         <%}%>
+                    </div>
+                    <script type="text/javascript"> 
+                        $().ready(function() {   
+                            $('#search').bind('keydown',function(event){
+                                if(event.keyCode == "13") {
+                                    console.log('回车搜索',$('#search').val())
+                                    let reg = new RegExp("index", "g"); 
+                                    let url = "index"; 
+                                    window.location.href = url.replace(reg, 'index?p=<%=page%>&zc=<%=zhicheng%>&sx=<%suoxi%>&s='+$('#search').val()); 
+                                }
+                            }); 
+                            $('.search-img').click(function(){
+                                console.log('search')
+                                if(!$('#search').val())
+                                return
+                                let reg = new RegExp("index", "g"); 
+                                let url = "index"; 
+                                window.location.href = url.replace(reg, 'index?p=<%=page%>&zc=<%=zhicheng%>&sx=<%suoxi%>&s='+$('#search').val());  
+                            })
+                            if('<%=search_txt%>'){
+                             $('#search').val('<%=search_txt%>')
+                            }  
+                            $('.choose_i').click(function(){
+                                console.log('dddddddddddddd')
+                                let reg = new RegExp("index", "g"); 
+                                let url = "index"; 
+                                window.location.href = url.replace(reg, 'index?p=<%=page%>&zc=<%=zhicheng%>&sx=<%suoxi%>&i='+$(this).text());
+                            })
+                            $('.choose_i').each(function(index,obj){
+                                if('<%=zimu%>' == $(obj).text()){
+                                    console.log('找到page,点中状态',$(obj).text())
+                                $(obj).css({'color':'#cca84d'})
+                              }
+                            })
+                            $('#clear_choose').click(function(){
+                                let reg = new RegExp("index", "g"); 
+                                let url = "index"; 
+                                window.location.href = url.replace(reg, "index"); 
+                            })    
+                            $('.num').each(function(index,obj){
+                              if('<%=page%>' == $(obj).text()){
+                                console.log('找到page,点中状态',$(obj).text())
+                                $(obj).addClass('active')
+                              }
+                            })
+                            $('.num').click(function(){
+                                console.log('点击页面---->',$(this).text(),'构造url')        
+                                let reg = new RegExp("index", "g"); 
+                                let url = "index"; 
+                                console.log(url.replace(reg, "index?p=" + $(this).text()))
+                                window.location.href = url.replace(reg, "index?p=" + $(this).text() +'&zc=<%=zhicheng%>&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 
+                            })
+                            $('.a_zc').click(function(){
+                                console.log('点击zhicheng---->',$(this),'点中状态，前端更新结果') 
+                                let reg = new RegExp("index", "g"); 
+                                let url = "index";                                 
+                                window.location.href = url.replace(reg, 'index?p=<%=page%>&zc='+$(this).attr('id')+'&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 
+                                $(this).parent().siblings().removeClass('active')
+                                $(this).parent().addClass('active')
+                                return false
+                            })
+                            $('.a_zc').each(function(index,obj){
+                                console.log('传回来的职称----><%=zhicheng%>')
+                                if('<%=zhicheng%>' == $(obj).attr('id')){
+                                    console.log('找到,点中状态',$(obj).text())
+                                    $(obj).parent().addClass('active')
+                                }
+                            })
+                            $('.a_sx').click(function(){
+                                console.log('点击suoxi---->',$(this),'点中状态，前端更新结果') 
+                                let reg = new RegExp("index", "g"); 
+                                let url = "index";                                 
+                                window.location.href = url.replace(reg, 'index?p=<%=page%>&zc=<%=zhicheng%>&sx='+$(this).attr('id')+'&s=<%=search_txt%>&i=<%=zimu%>'); 
+                                $(this).parent().siblings().removeClass('active')
+                                $(this).parent().addClass('active')
+                                return false
+                            })
+                            $('.a_sx').each(function(index,obj){
+                                console.log($(obj).attr('id'))
+                                if('<%=suoxi%>' == $(obj).attr('id')){
+                                    console.log('找到,点中状态',$(obj).text())
+                                    $(obj).parent().addClass('active')
+                                }
+                            })
+                        })
+                    </script>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+  </div>
+  
+  <%if(L=='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <%if(L!='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+  <script src="../../javascripts/js/common.js"></script>
+
+  <script src="../../javascripts/js/brcheck.js"></script>
+
+</body>
+</html>

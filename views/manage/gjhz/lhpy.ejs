@@ -27,6 +27,7 @@
 	    <input class="layui-input" name="search" id="search_txt" autocomplete="off">
 	  </div>
 	  <button class="layui-btn" data-type="reload" id="news_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="hbpx">伙伴排序</button>
 	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button>
 	</div>
 
@@ -51,6 +52,7 @@ layui.use(['jquery','table','form'], function(){
 	      {type:'numbers', title: '序号',width:60,align:'center'}
 	      ,{field: 'title', title: '名称',align:'center',width:350}
           ,{field: 'pageContent', title: '简介',align:'center'}
+		  ,{field: 'hbsort', title: '排序',align:'center'}
 		  ,{field: 'fujianPath', title: '缩略图', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
 	      ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
@@ -63,6 +65,26 @@ layui.use(['jquery','table','form'], function(){
 	            search_txt: $('#search_txt').val()
 	        }
 	    });
+    })
+	//平台排序
+    $('#hbpx').on('click', function(){
+    	//do somehing
+    	console.log('联合培养排序')
+	    let index = layui.layer.open({
+            title : "联合培养排序",
+            type : 2,
+            area: ['800px', '500px'],
+            content : "lhpysort",
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_lhpy', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
     })
     $('#newsadd').on('click', function(){
     	//do somehing

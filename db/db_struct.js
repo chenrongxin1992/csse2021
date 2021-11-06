@@ -100,7 +100,10 @@ const userSchema = new Schema({
   yjly1:{type:String},
   jstype1:{type:String},
   jstype:{type:String,default:''},//教师队伍类别，新增
-  userName_py:{type:String}
+  userName_py:{type:String},
+  display:{type:Number,default:1},//默认显示
+  peopleid:{type:Number,default:15},//人员类别，用来排序 10为其它
+  suoxiid:{type:Number}//所系id，排序
 },{collection:'allUser'})
 const cmsContentSchema = new Schema({
     id:{type:Number},
@@ -128,16 +131,20 @@ const cmsContentSchema = new Schema({
     accountAdd:{type:String},
     fujianName:{type:String},//附件
     fujianPath:{type:String},
-    leixing :{type:String,default:'党务行政'},//21年 新闻类型，通知公告类型
+    leixing :{type:String,default:'科研动态'},//21年 新闻类型，新闻类型
     leixing1 :{type:String,default:'学术讲座'},//21年 新闻类型，通知公告类型
-    year:{type:String},//21年 成果年份
+    year:{type:Number},//21年 成果年份
     kanwu:{type:String},//21年，刊物
     zuozhe:{type:String},//21年，作者
+    danwei:{type:String},//21年，论文单位
     belongsto:{type:String},//所属研究所
     zhur:{type:String},//21主任,用于教学系
     fuzhur:{type:String},//21副主任，用于教学系
     zplx:{type:String},//21新增，招聘类型
     timeAddStamp:{type:String,default:moment().format('X')},//主要用于排序
+    csrankings:{type:String},
+    pyxm:{type:String},//国际合作培养项目
+    hbsort:{type:Number},//合作伙伴排序
     tag1:{type:String},//2021新增字段，标识所属一级菜单
     tag2:{type:String}//2021新增字段，标识当前菜单
 },{collection:'cmsContent'})
@@ -166,7 +173,7 @@ const xrldSchema = new Schema({
     title : {type:String},//职务
     work : {type:String},//分管工作
     pic : {type:String},
-    paixu : {type:String},//排序
+    paixu : {type:Number},//排序
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
     timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'xrld'})
@@ -197,6 +204,8 @@ const bkzsSchema = new Schema({
     jiuye : {type:String},
     xyhj : {type:String},//
     lxfs : {type:String},//
+    patharr:{type:String,default:null},//附件路径，用，隔开
+    namearr:{type:String,default:null},//附件名，用，隔开
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
     timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'bkzs'})
@@ -218,6 +227,26 @@ const officehourSchema = new Schema({
     timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'officehour'})
 
+const cglrSchema = new Schema({ 
+    id:{type:Number},
+    title :{type:String},//
+    year :{type:Number},//
+    yearid:{type:String},
+    kanwu : {type:String},//
+    zuozhe : {type:String},//
+    belongsto : {type:String},
+    belongstoid : {type:Number},//
+    danwei : {type:String},//
+    fujianPath : {type:String},//
+    pageContent:{type:String},
+    pageContentEN:{type:String},
+    patharr:{type:String,default:null},//附件路径，用，隔开
+    namearr:{type:String,default:null},//附件名，用，隔开
+    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
+},{collection:'cglr'})
+
+exports.cglr = mongoose.model('cglr',cglrSchema)//成果录入
 exports.officehour = mongoose.model('officehour',officehourSchema)//本科招生
 exports.bkzs = mongoose.model('bkzs',bkzsSchema)//本科招生
 exports.highlight = mongoose.model('highlight',highlightSchema)//highlight

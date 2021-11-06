@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+  <link rel="stylesheet" href="../../stylesheets/css/globalCooperation_css/globalCooperation.css">
+</head>
+<body class="globalCooperation">
+<%if(L=='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+
+  <div class="banner">
+    <img src="../../image/globalCooperation_image/banner.png" class="b_bg lazy_img pimg" />
+    <img src="../../image/globalCooperation_image/m-banner.png" class="b_bg lazy_img mimg" />
+  </div>
+  <div class="contain">
+    <div class="bread-crumbs">当前位置：首页 > 国际合作 > 科研合作</div>
+    <div class="contain-area clearfix">
+      <div class="l area-nav">
+        <div class="tit b">国际合作</div>
+        <ul>
+          <li><a href="partner">合作伙伴</a></li>
+          <li><a href="jointTraining">联合培养</a></li>
+          <li class="active"><a href="javascript:;">科研合作</a></li>
+        </ul>
+      </div>
+      <div class="area-cont area1">
+        <div class="area-tit b c_cca84d">
+          科研合作
+        </div>
+        <div class="area-list">
+          <%data.forEach(function(item,index){%>
+          <div class="area-row">
+            <img class="img lazy_img" src="<%=item.fujianPath%>" />
+            <div class="txt">
+              <div class="c_cca84d b"><%=item.title%></div>
+              <div>
+                <%-item.pageContent-%>
+              </div>
+            </div>
+          </div>
+          <%})%>
+
+        </div>
+
+        <div class="line"></div>
+      </div>
+    </div>
+  </div>
+
+  <%if(L=='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <%if(L!='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+  <script src="../../javascripts/js/common.js"></script>
+
+  <script src="../../javascripts/js/brcheck.js"></script>
+
+</body>
+</html>

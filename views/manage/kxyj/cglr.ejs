@@ -16,6 +16,7 @@
             height: auto !important;
 			max-height: 100px !important;
         }
+		
     </style>
 </head>
 <body class="childrenBody">
@@ -50,11 +51,11 @@ layui.use(['jquery','table','form'], function(){
         ,limit: 10 //每页默认显示的数量
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:60,align:'center'}
-	      ,{field: 'title', title: '名称',align:'center',width:350}
+	      ,{field: 'title', title: '名称',align:'center'}
           ,{field: 'year', title: '年份',align:'center',width:100}
-          ,{field: 'kanwu', title: '刊物',align:'center',width:100}
-          ,{field: 'zuozhe', title: '作者',align:'center',width:100}
-          ,{field: 'pageContent', title: '简介',align:'center'}
+          ,{field: 'kanwu', title: '刊物',align:'center'}
+          ,{field: 'zuozhe', title: '作者',align:'center'}
+        //   ,{field: 'pageContent', title: '简介',align:'center'}
 		  ,{field: 'fujianPath', title: '封面图', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
 	      ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
@@ -73,10 +74,13 @@ layui.use(['jquery','table','form'], function(){
 	    let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
+			area : ['90%','90%'],
             content : "cglradd",
             success : function(layero, index){
             },
 			end:function(){
+				console.log('1111111index-------------',index)
+				layui.layer.close(index)
 				table.reload('table_cglr', {
 					where: {
 						search_txt: $('#search_txt').val()
@@ -84,11 +88,12 @@ layui.use(['jquery','table','form'], function(){
 				});
 			}
         })
-        layui.layer.full(index);
-	        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-	        $(window).on("resize",function(){
-	            layui.layer.full(index);
-	        })
+		console.log('1111111index-------------',index)
+        // layui.layer.full(index);
+	    //     //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+	    //     $(window).on("resize",function(){
+	    //         layui.layer.full(index);
+	    //     })
     })
     //成果简介
     $('#jianjie').on('click', function(){
@@ -113,10 +118,14 @@ layui.use(['jquery','table','form'], function(){
 	    let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
+			area : ['90%','90%'],
             content : "cglradd?id="+data.id,
             success : function(layero, index){
+				console.log('22222关闭时的 index',index)
+				//layui.layer.closeAll()
             },
 			end:function(){
+				console.log('进来了吗--------------')
 				table.reload('table_cglr', {
 					where: {
 						search_txt: $('#search_txt').val()
@@ -124,12 +133,12 @@ layui.use(['jquery','table','form'], function(){
 				});
 			}
         })
-        console.log('index',index)
-        layui.layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-        $(window).on("resize",function(){
-            layui.layer.full(index);
-        })
+        console.log('22222点击时的 index',index)
+        // layui.layer.full(index);
+        // //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        // $(window).on("resize",function(){
+        //     layui.layer.full(index);
+        // })
 
         //同步更新缓存对应的值
 	    // obj.update({
@@ -169,6 +178,7 @@ layui.use(['jquery','table','form'], function(){
 });
 </script>
 <script type="text/html" id="yjfxbar">
+  <a class="layui-btn layui-btn-xs" href="/csse/pages/research/index" target="_blank">预览</a>
   <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>

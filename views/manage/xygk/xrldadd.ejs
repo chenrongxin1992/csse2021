@@ -102,6 +102,14 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">排序</label>
+					<div class="layui-input-inline" style="width: 272px;">
+	        			<input type="text" id="paixu" class="layui-input"  value="">
+	      			</div>					
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">照片</label>
 				<button type="button" class="layui-btn" id="test1">上传</button>
 			</div>
@@ -203,6 +211,7 @@ $(function(){
         $('#name').val('<%- data.name%>')
         $('#title').val('<%- data.title%>')
         $('#work').val('<%- data.work%>')
+		$('#paixu').val('<%- data.paixu%>')
         
 		//初始化封面图
 		$('#uploader-list').append(
@@ -218,6 +227,7 @@ $(function(){
 	  data.field.title = $('#title option:selected').val()
       data.field.name = $('#name option:selected').val()
 	  data.field.work = $('#work').val()
+	  data.field.paixu = $('#paixu').val()
 	  if($('#fmpic').attr('src')){
 	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
 	  	data.field.pic = $('#fmpic').attr('src')//.slice(8)//去掉

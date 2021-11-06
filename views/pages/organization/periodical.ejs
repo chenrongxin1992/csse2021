@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/css/organization_css/organization.css" />
+  <script src="../../javascripts/js/jquery.min.js"></script>
+</head>
+<body class="organization">
+<%if(L=='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+
+  <div class="banner">
+    <img src="../../image/organization_image/banner.png" class="b_bg lazy_img pimg" />
+    <img src="../../image/organization_image/m-banner.png" class="b_bg lazy_img mimg" />
+  </div>
+  <div class="contain">
+    <div class="contain-area clearfix">
+      <div class="l area-nav">
+        <div class="tit b">机构设置</div>
+        <ul>
+          <li>
+            <a href="graduateSchool">研究所/中心</a>
+          </li>
+          <li ><a href="index">教学系</a></li>
+          <li><a href="executive">行政办公室</a></li>
+          <li class="active"><a href="javascript:;">期刊编辑部</a></li>
+          <li><a href="">实验中心</a></li>
+          <li><a href="https://bdsc.szu.edu.cn">国家工程实验室</a></li>
+        </ul>
+      </div>
+      <div class="area-cont area1">
+        <div class="ress_nav">
+          当前位置：<a href="">首页</a>
+          >
+          <a href="">组织机构</a>
+          >
+          <a href="">教学系</a>
+          >
+          <a href="">软件工程系</a>
+        </div>
+        <div class="area-tit b c_cca84d">
+          期刊编辑部
+        </div>
+
+        <div class="area-desc">
+          <%-data.pageContent-%>
+        </div>
+
+        <div class="line"></div>
+      </div>
+    </div>
+  </div>
+  <!-- <div id="footer"></div> -->
+	<%if(L=='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+	<%if(L!='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+<script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+<script src="../../javascripts/js/common.js"></script>
+
+<script src="../../javascripts/js/brcheck.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+  <link rel="stylesheet" href="../../stylesheets/css/research_css/research.css">
+  <script src="../../javascripts/js/jquery.min.js"></script>
+</head>
+<body class="research">
+<%if(L=='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+      
+  <div class="banner">
+    <img  src="../../image/research_image/banner.png" class="b_bg"/>
+    <!-- <img  src="image/bannerText.png" class="b_txt"/> -->
+  </div>
+  <div class="contain">
+    <div class="contain-area clearfix">
+        <div class="info">
+            <div class="info-cont">
+                <img class="img" src="../../image/research_image/infoComputer.png" />
+                <div class="txt">	
+					<div class="txt-title">
+						<p><%-data.cggk.csrankings-%>
+							<a href="" class="csr">
+								了解 CSRankings
+								<img src="../../image/research_image/icon_right.png" />
+							</a>
+						</p>	
+					</div>
+                    <p><%-data.cggk.pageContent-%></p>
+                </div>
+            </div>
+        </div>
+        <div class="cont">
+            <div class="top-nav">
+                <div class="tit">科研成果</div>
+                <div class="search-input">
+                    <input type="text" placeholder="输入关键字" class="search" id="search">
+                    <img src="../../image/research_image/search.png" class="search-img" />
+                </div>
+            </div>
+            <div class="area">
+                <div class="area-left">
+                    <div class=" area-nav">
+                        <div class="tit b">年份</div>
+                        <ul id='year_ul'>
+                          <%data.yearNum.forEach(function(item,index){%>
+                            <%if(item._id>=data.beforeyear){%>
+                            <li><a href="" class="a_year" id="<%=item._id%>"><%=item._id%> (<%=item.num%>)</a></li>
+                          <%}})%>
+                          <li><a href="" class="a_year"  id="Before">Before (<%=data.beforeyearNum%>)</a></li>
+                        </ul>
+                    </div>
+                    <div class=" area-nav">
+                        <div class="tit b">研究所/中心</div>
+                        <ul>
+                          <%data.belongstoNum.forEach(function(item,index){%>
+                            <li><a href="" class="a_belongsto" id="<%=item._id%>"><%=item._id%>(<%=item.num%>)</a></li>
+                          <%})%>  
+                        </ul>
+                    </div>
+                </div>
+                <div class="area-right">
+                    <div class="page-list clearfix" id="page_list">
+                      <%if(data.kycg.length == 0){%>暂无结果<%}%>
+                      <%data.kycg.forEach(function(item,index){%>
+                        <div class="page">
+                          <a href="details?id=<%=item.id%>">
+                          <div class="row">
+                              <img class="img" src="<%=item.fujianPath%>" />
+                              <div class="row-right">
+                                  <div class="row-tit"><%=item.title%></div>
+                                  <p class="c_666 small"><%=item.kanwu%></p>
+                                  <p class="c_666 small"><%=item.belongsto%></p>
+                                  <div class="more">
+                                      Project page <img class="more_img" src="../../image/index/right.png" />
+                                  </div>
+                              </div>
+                          </div>
+                          </a>
+                        </div>
+                       <%})%>
+                    </div>
+                    <div class="page-num">
+                      <% for(var i=0;i < totalpage ;i++){%>
+                        <span class="num"><%=i+1%></span>
+                     <%}%>
+                    </div>
+                    <script type="text/javascript"> 
+                      function getQueryString(name) {
+                          var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                          var r = window.location.search.substr(1).match(reg);
+                          if (r != null) {
+                              return unescape(r[2]);
+                          }
+                          return '';
+                      }
+                      $().ready(function() {   
+                        $('#search').bind('keydown',function(event){
+                            if(event.keyCode == "13") {
+                                console.log('回车搜索',$('#search').val())
+                                let reg = new RegExp("index", "g"); 
+                                let url = "index"; 
+                                window.location.href = url.replace(reg, 'index?p=<%=page%>&y=<%=year%>&b=<%belongsto%>&s='+$('#search').val()); 
+                            }
+                        }); 
+                        if('<%=search_txt%>'){
+                          $('#search').val('<%=search_txt%>')
+                        }                       
+                          $('.num').each(function(index,obj){
+                            if('<%=page%>' == $(obj).text()){
+                              console.log('找到page,点中状态',$(obj).text())
+                              $(obj).addClass('active')
+                            }
+                          })
+                          $('.a_year').each(function(index,obj){
+                            console.log(parseInt($(obj).attr('id')))
+                            if('<%=year%>' == parseInt($(obj).attr('id'))){
+                              console.log('找到year,点中状态',$(obj).text())
+                              $(obj).parent().addClass('active')
+                            }
+                            if('<%=year%>' == 'Before'&& '<%=year%>'==$(obj).attr('id')){
+                              $(obj).parent().addClass('active')
+                            }
+                          })
+                          $('.a_belongsto').each(function(index,obj){
+                            console.log($(obj).attr('id'))
+                            if('<%=belongsto%>' == $(obj).attr('id')){
+                              $(obj).parent().addClass('active')
+                            }
+                          })
+                        $('.num').click(function(){
+                          console.log('点击页面---->',$(this).text(),'构造url')        
+                          let reg = new RegExp("index", "g"); 
+                          let url = "index"; 
+                          console.log(url.replace(reg, "index?page=" + $(this).text()))
+                          window.location.href = url.replace(reg, "index?p=" + $(this).text() +'&y=<%=year%>&b=<%=belongsto%>&s=<%=search_txt%>'); 
+                        })
+                        $('.a_year').click(function(){
+                          console.log('点击year---->',$(this),'点中状态，前端更新结果') 
+                          let reg = new RegExp("index", "g"); 
+                          let url = "index"; 
+                          console.log(url.replace(reg, "index?page=" + $(this).text()))
+                          window.location.href = url.replace(reg, 'index?p=<%=page%>&y='+$(this).attr('id')+'&b=<%=belongsto%>&s=<%=search_txt%>'); 
+                          $(this).parent().siblings().removeClass('active')
+                          $(this).parent().addClass('active')
+                          return false
+                        })
+                        $('.a_belongsto').click(function(){
+                          console.log('点击belongsto---->',$(this).attr('id'),'点中状态，前端更新结果') 
+                          let reg = new RegExp("index", "g"); 
+                          let url = "index"; 
+                          window.location.href = url.replace(reg, 'index?p=<%=page%>&y=<%=year%>&b='+$(this).attr('id')+'&s=<%=search_txt%>'); 
+                          $(this).parent().siblings().removeClass('active')
+                          $(this).parent().addClass('active')
+                          return false
+                        })
+                      })
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <%if(L=='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <%if(L!='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+  <script src="../../javascripts/js/common.js"></script>
+
+  <script src="../../javascripts/js/brcheck.js"></script>
+</body>
+</html>

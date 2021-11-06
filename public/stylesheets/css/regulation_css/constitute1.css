@@ -1,0 +1,87 @@
+.area-right .area-list .txt {
+	text-indent: 2em;
+	font-size: 18px;
+	font-family: Microsoft YaHei;
+	font-weight: 400;
+	color: #333333;
+	line-height: 30px;
+}
+
+.area-right .area-list .txt p {
+	margin-bottom: 20px;
+}
+
+.area-right .img {
+	display: flex;
+	justify-content: center;
+	padding: 40px 0;
+}
+
+.area-right .img img {
+	width: 62.5%;
+}
+
+.area-right {
+	background-color: #FFFFFF !important;
+}
+
+
+@media screen and (max-width: 767px) {
+	.area-right {
+		padding: 0 3%;
+	}
+
+	.area-right .area-list .txt p {
+		font-size: 20px;
+	}
+
+	.area-right .area-list .txt p:first-child {
+		margin-top: 20px;
+	}
+
+	.area-right .img img {
+		width: 80%;
+	}
+}
+
+@media only screen and (max-width:700px) {
+	.details .details_nav {
+		font-size: 20px;
+	}
+}
+
+@media only screen and (max-width:560px) {
+	.details .details_nav {
+		font-size: 16px;
+	}
+
+	.area-right .area-list .txt p {
+		font-size: 16px;
+	}
+
+}
+
+@media only screen and (max-width:479px) {
+	.details .details_nav {
+		font-size: 14px;
+	}
+
+	.area-right .area-list .txt p {
+		font-size: 14px;
+	}
+
+	.bread-crumbs {
+		font-size: 18px;
+	}
+}
+
+@media only screen and (max-width:400px) {
+	.details .details_nav {
+		font-size: 12px;
+	}
+
+	.mess .txt {
+		width: 55%;
+	}
+}
+

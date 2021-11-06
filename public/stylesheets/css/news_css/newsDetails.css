@@ -1,0 +1,56 @@
+.news-title {
+	width: 100%;
+	padding: 0 2%;
+}
+
+.news-title .time {
+	text-align: center;
+	font-size: 16px;
+}
+
+.news-title .img {
+	width: 55.6%;
+	display: flex;
+	justify-content: center;
+	margin: 70px auto;
+}
+
+.news-title .img img {
+	width: 100%;
+}
+
+.news-title .content {
+	font-size: 16px;
+	font-family: Microsoft YaHei;
+	font-weight: 400;
+	color: #333333;
+	line-height: 27px;
+}
+.banner .mimg{
+	display: none;
+}
+
+.news-title .content p {
+	margin-bottom: 23px;
+}
+
+@media screen and (max-width: 767px) {
+	.news-title {
+		margin-top: 30px;
+	}
+	.banner .pimg{
+        display: none;
+    }
+    .banner .mimg{
+        display: block;
+    }
+	.area-tit {
+		font-size: 24px;
+	}
+}
+
+@media (max-width: 550px) {
+	.area-tit {
+		font-size: 20px;
+	}
+}

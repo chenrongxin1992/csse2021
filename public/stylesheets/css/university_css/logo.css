@@ -1,0 +1,153 @@
+.university{
+    background-color: #352C84;
+}
+.university .contain{
+    overflow: hidden;
+}
+/* banner */
+.banner{
+    position: relative;
+}
+.banner .b_bg{
+    width: 100%;
+}
+.banner .b_txt{
+    position: absolute;
+    left: 10%;
+    top: 44%;
+    height: 37%;
+}
+.banner .mimg{
+    display: none;
+}
+
+
+.contain-area{
+    background-color: #f3f3f3;
+}
+.contain-area .nav-list{
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    color: #433b95;
+    justify-content: center;
+    padding: 20px 0;
+}
+.contain-area .nav-list .nav{
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    color: #433b95;
+    font-size: 18px;
+    margin: 0 30px;
+}
+.contain-area .nav-list .active,.contain-area .nav-list .nav:hover{
+    color: #CCA84D;
+    border-bottom-color: #CCA84D;
+}
+
+.cont{
+    position: relative;
+    text-align: center;
+}
+
+.cont .logo-u{
+    padding: 40px 0;
+}
+.cont .logo-u .img{
+    width:36.93%;
+}
+.cont .logo-l{
+    background-color: #fff;
+    color:#333;
+    padding-bottom: 62px;
+}
+.cont .logo-l .txt{
+    padding: 27px 0 53px 0;
+    font-size: 18px;
+    line-height: 27px;
+}
+.cont .logo-l .row1{
+    padding-bottom: 75px;
+}
+.cont .logo-l .img1{
+    width:48.6%
+}
+.cont .logo-l .img2{
+    width:51.88%
+}
+
+.cont .logo{
+    display: flex;
+    justify-content: center;
+}
+.cont .logo .row{
+    width: 28.65%;
+    padding-bottom: 80px;
+}
+.cont .logo .row .txt{
+    padding: 106px 0 34px 0;
+    font-size: 18px;
+    line-height: 27px;
+}
+.cont .logo .row .img{
+    width: 100%;
+}
+.cont .logo .row1{
+    margin-right:5.57%
+}
+.courtyard-flag{
+    background-color: #fff;
+    padding-bottom: 200px;
+}
+.courtyard-flag .txt{
+    padding: 36px 0 40px 0;
+    font-size: 18px;
+    line-height: 27px;
+}
+.courtyard-flag .img{
+    width: 55.36%
+}
+@media only screen and (max-width:1200px){
+    /* university */
+	.university .contain-area .nav-list {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 767px){
+    .banner .pimg{
+        display: none;
+    }
+    .banner .mimg{
+        display: block;
+    }
+}
+@media only screen and (max-width:479px){
+    .cont .logo-l .txt{
+        font-size: 16px;
+        padding: 20px 0 30px 0;
+    }
+    .cont .logo-l .row1{
+        padding-bottom: 50px;
+    }
+    .cont .logo .row .txt {
+        padding: 70px 0 20px 0;
+        font-size: 16px;
+    }
+    .courtyard-flag .txt {
+        padding: 16px 0 20px 0;
+        font-size: 16px;
+    }
+    .courtyard-flag{
+        padding-bottom: 50px;
+    }
+    .cont .logo .row{
+        width: 40%;
+    }
+}
+@media only screen and (max-width:350px){
+    .cont .logo .row .txt{
+        font-size: 12px;
+    }
+}

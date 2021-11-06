@@ -13,6 +13,7 @@ const xrld = require('../../db/db_struct').xrld
 const highlight = require('../../db/db_struct').highlight
 const bkzs = require('../../db/db_struct').bkzs
 const officehour = require('../../db/db_struct').officehour
+const cglr = require('../../db/db_struct').cglr
 
 const path = require('path')
 const multiparty = require('multiparty')
@@ -279,7 +280,7 @@ router.get('/xrld',function(req,res){
 			let numSkip = (page-1)*limit
 			limit = parseInt(limit)
 			let search = xrld.find({})
-				search.sort({'paixu':-1})
+				search.sort({'paixu':1})
 				search.sort({'timeAdd':-1})
 				search.limit(limit)
 				search.skip(numSkip)
@@ -405,6 +406,7 @@ router.get('/xrld',function(req,res){
 					title:req.body.title,//加入权限后需要更新
 					name:req.body.name,
 					work:req.body.work,
+					paixu:req.body.paixu,
 					pic:req.body.pic
 				})
 				xrldadd.save(function(error,doc){
@@ -432,6 +434,7 @@ router.get('/xrld',function(req,res){
 					title:req.body.title,//加入权限后需要更新
 					name:req.body.name,
 					work:req.body.work,
+					paixu:req.body.paixu,
 					pic:req.body.pic
 				}
 				xrld.updateOne({id:req.body.id},obj,function(error){
@@ -875,6 +878,9 @@ router.get('/xzbgs',function(req,res){
 			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 		}
 		console.log('yjs_data async waterfall success')
+		result.forEach(function(item,index){
+			item.fujianPath = (item.fujianPath).split(';')[0]
+		})
 		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
 	})
 }).get('/yjsadd',function(req,res){
@@ -933,7 +939,8 @@ router.get('/xzbgs',function(req,res){
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					tag2:'研究所',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					url:req.body.url
 				})
 				cmsContentadd.save(function(error,doc){
 					if(error){
@@ -962,7 +969,8 @@ router.get('/xzbgs',function(req,res){
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					tag2:'研究所',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					url:req.body.url
 				}
 				cmsContent.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -1158,7 +1166,9 @@ router.get('/bkszs',function(req,res){
 					timeAdd:req.body.timeAdd,
 					timeEdit:req.body.timeEdit,
 					xyhj:req.body.xyhj,
-					lxfs:req.body.lxfs
+					lxfs:req.body.lxfs,
+					patharr:req.body.patharr,
+					namearr:req.body.namearr
 				})
 				newbkzsadd.save(function(error,doc){
 					if(error){
@@ -1190,7 +1200,9 @@ router.get('/bkszs',function(req,res){
 					timeAdd:req.body.timeAdd,
 					timeEdit:req.body.timeEdit,
 					xyhj:req.body.xyhj,
-					lxfs:req.body.lxfs
+					lxfs:req.body.lxfs,
+					patharr:req.body.patharr,
+					namearr:req.body.namearr
 				}
 				bkzs.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -1210,6 +1222,33 @@ router.get('/bkszs',function(req,res){
 			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
 		})
 	}
+}).post('/bkzsupload',function(req,res){
+	let bkzs = attachmentuploaddir + '\\bkzs' //替换 //G:\newcsse\public\attachment\xrld 
+	fs.existsSync(bkzs) || fs.mkdirSync(bkzs) //替换
+	let form = new multiparty.Form();
+    form.encoding = 'utf-8';
+    form.uploadDir = bkzs //替换
+    let baseimgpath = bkzs.split('\\') //替换
+    	let baseimgpathlength = baseimgpath.length
+    baseimgpath = baseimgpath[baseimgpathlength-2] + '/' + baseimgpath[baseimgpathlength-1]
+    form.parse(req, function(err, fields, files) {
+    	if(err){
+    		console.log('bkzs  parse err',err.stack)
+    	}
+
+    	let uploadfiles =  files.file
+    	let returnimgurl = [],
+    		returnfilename = []
+    	uploadfiles.forEach(function(item,index){
+			//1012更改，加入时间戳，防止同名文件覆盖
+			returnimgurl.push('/'+baseimgpath+'/'+ moment().unix() + '_' + item.originalFilename)
+    		fs.renameSync(item.path,bkzs+'\\'+ moment().unix() + '_' + item.originalFilename);//替换
+    		returnfilename.push(moment().unix() + '_' + item.originalFilename)
+    	})
+		//现在有csse,加上路径，后续去除
+		returnimgurl = '/csse'+returnimgurl
+    	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
+    })
 }).get('/ssszs',function(req,res){
 	console.log('in ssszs')
 	res.render('manage/zsjy/ssszs')
@@ -1486,14 +1525,15 @@ router.get('/bkszs',function(req,res){
 //科研成果-成果录入
 router.get('/cglr',function(req,res){
 	console.log('in gxn')
-	let search = cmsContent.findOne({})
-		search.where('tag2').equals('成果录入')
-		search.exec(function(err,doc){
-			if(err){
-				return res.send(err)
-			}
-			res.render('manage/kxyj/cglr',{data:doc})
-		})
+	res.render('manage/kxyj/cglr')
+	// let search = cmsContent.findOne({})
+	// 	search.where('tag2').equals('成果录入')
+	// 	search.exec(function(err,doc){
+	// 		if(err){
+	// 			return res.send(err)
+	// 		}
+			
+	// 	})
 }).get('/cglr_data',function(req,res){
 	console.log('router cglr_data')
 	let page = req.query.page,
@@ -1506,7 +1546,7 @@ router.get('/cglr',function(req,res){
 	async.waterfall([
 		function(cb){
 			//get count
-			let search = cmsContent.find({'tag2':'成果录入'}).count()
+			let search = cglr.find({}).count()
 				search.exec(function(err,count){
 					if(err){
 						console.log('cglr_data get total err',err)
@@ -1524,18 +1564,13 @@ router.get('/cglr',function(req,res){
 				console.log('带搜索参数',search_txt)
 				let _filter = {
 					$and:[
-						{title:{$regex:search_txt,$options:'$i'}},//忽略大小写
-						{tag2:'成果录入'}
+						{title:{$regex:search_txt,$options:'$i'}}
 					]
 				}
 				console.log('_filter',_filter)
-				let search = cmsContent.find(_filter)
-					search.where('isDelete').equals(0)
+				let search = cglr.find(_filter)
 					search.sort({'year':-1})
-					search.sort({'timeAddStamp':-1})
 					search.sort({'timeAdd':-1})
-					search.sort({'isTop':-1})//正序
-					search.sort({'isDisplay':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -1544,7 +1579,7 @@ router.get('/cglr',function(req,res){
 							cb(error)
 						}
 						//获取搜索参数的记录总数
-						cmsContent.count(_filter,function(err,count_search){
+						cglr.count(_filter,function(err,count_search){
 							if(err){
 								console.log('cglr_data count_search err',err)
 								cb(err)
@@ -1556,12 +1591,9 @@ router.get('/cglr',function(req,res){
 					})
 			}else{
 				console.log('不带搜索参数')
-				let search = cmsContent.find({'tag2':'成果录入'})
-					search.where('isDelete').equals(0)
+				let search = cglr.find({})
 					search.sort({'year':-1})
-					search.sort({'isTop':-1})//正序
 					search.sort({'timeAdd':-1})
-					search.sort({'isDisplay':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -1583,9 +1615,9 @@ router.get('/cglr',function(req,res){
 	})
 }).get('/cglradd',function(req,res){
 	let id = req.query.id
-	console.log('cmsContent ID,',id)
+	console.log('cglr ID,',id)
 	if(id&&typeof(id)!='undefined'){
-		let search = cmsContent.findOne({})
+		let search = cglr.findOne({})
 		search.where('id').equals(id)
 		search.exec(function(err,doc){
 			if(err){
@@ -1607,7 +1639,7 @@ router.get('/cglr',function(req,res){
 		console.log('新增 cglradd')
 		async.waterfall([
 			function(cb){
-				let search = cmsContent.findOne({})
+				let search = cglr.findOne({})
 					search.sort({'id':-1})//倒序，取最大值
 					search.limit(1)
 					search.exec(function(err,doc){
@@ -1630,17 +1662,26 @@ router.get('/cglr',function(req,res){
 				if(docid){
 					id = parseInt(docid) + 1
 				}
-				let cmsContentadd = new cmsContent({
+				let yearid = req.body.year
+				if(parseInt(req.body.year)<=parseInt(moment().format('YYYY')-5)){
+					console.log('属于前5年记录')
+					yearid = 'Before'
+				}
+				let cmsContentadd = new cglr({
 					id:id,
 					title:req.body.title,
 					year:req.body.year,
 					kanwu:req.body.kanwu,
 					zuozhe:req.body.zuozhe,
+					danwei:req.body.danwei,
 					belongsto:req.body.belongsto,
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
-					tag2:'成果录入',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					belongstoid:req.body.belongstoid,
+					yearid : yearid,
+					patharr : req.body.patharr,
+					namearr : req.body.namearr
 				})
 				cmsContentadd.save(function(error,doc){
 					if(error){
@@ -1663,18 +1704,27 @@ router.get('/cglr',function(req,res){
 		//return false
 		async.waterfall([
 			function(cb){
+				let yearid = req.body.year
+				if(parseInt(req.body.year)<=parseInt(moment().format('YYYY')-5)){
+					console.log('属于前5年记录')
+					yearid = 'Before'
+				}
 				let obj = {
 					title:req.body.title,
 					year:req.body.year,
 					kanwu:req.body.kanwu,
 					zuozhe:req.body.zuozhe,
+					danwei:req.body.danwei,
 					belongsto:req.body.belongsto,
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
-					tag2:'成果录入',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					belongstoid:req.body.belongstoid,
+					yearid:yearid,
+					patharr : req.body.patharr,
+					namearr : req.body.namearr
 				}
-				cmsContent.updateOne({id:req.body.id},obj,function(error){
+				cglr.updateOne({id:req.body.id},obj,function(error){
 					if(error){
 						console.log('cmsContent update error',error)
 						cb(error)
@@ -1711,6 +1761,7 @@ router.get('/cglr',function(req,res){
     	let returnimgurl = [],
     		returnfilename = []
     	uploadfiles.forEach(function(item,index){
+			console.log('item------',item)
 			//1012更改，加入时间戳，防止同名文件覆盖
 			returnimgurl.push('/'+baseimgpath+'/'+ moment().unix() + '_' + item.originalFilename)
     		fs.renameSync(item.path,imgpath+'\\'+ moment().unix() + '_' + item.originalFilename);
@@ -1720,9 +1771,43 @@ router.get('/cglr',function(req,res){
 		returnimgurl = '/csse'+returnimgurl
     	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
     })
+}).post('/cglrupload1',function(req,res){
+	//G:\newcsse\public\attachment\hzhb 
+	console.log(req.body,req.query)
+
+	let imgpath = attachmentuploaddir + '\\cglr_fujian' //替换 
+	fs.existsSync(imgpath) || fs.mkdirSync(imgpath) 
+	let form = new multiparty.Form();
+    form.encoding = 'utf-8';
+    form.uploadDir = imgpath 
+    let baseimgpath = imgpath.split('\\') 
+    	let baseimgpathlength = baseimgpath.length
+    baseimgpath = baseimgpath[baseimgpathlength-2] + '/' + baseimgpath[baseimgpathlength-1]
+    form.parse(req, function(err, fields, files) { ///fields:{ filename: [ '工作整理.docx' ] } 
+    	if(err){
+    		console.log('imgpath  parse err',err.stack)
+    	}
+		 
+		console.log('文件名----->',(fields.filename)[0])
+    	let uploadfiles =  files.file
+    	let returnimgurl = [],
+    		returnfilename = []
+		returnimgurl.push('/'+baseimgpath+'/'+ moment().unix() + '_' + (fields.filename)[0])
+		returnfilename.push(moment().unix() + '_' + (fields.filename)[0])
+		//fs.renameSync(item.path,imgpath+'\\'+ moment().unix() + '_' + item.originalFilename);
+    	// uploadfiles.forEach(function(item,index){
+		// 	//1012更改，加入时间戳，防止同名文件覆盖
+		// 	returnimgurl.push('/'+baseimgpath+'/'+ moment().unix() + '_' + item.originalFilename)
+    	// 	fs.renameSync(item.path,imgpath+'\\'+ moment().unix() + '_' + item.originalFilename);
+    	// 	returnfilename.push(moment().unix() + '_' + item.originalFilename)
+    	// })
+		//现在有csse,加上路径，后续去除
+		returnimgurl = '/csse'+returnimgurl
+    	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
+    })
 }).post('/cglrdel',function(req,res){
-	console.log('cglrdel',req.body.id)
-	cmsContent.deleteOne({'id':req.body.id},function(error){
+	console.log('cglrdel----------------------',req.body.id)
+	cglr.deleteOne({'id':req.body.id},function(error){
 		if(error){
 			console.log('cglrdel del error',error)
 			return res.json({'code':'-1','msg':error})
@@ -1741,7 +1826,8 @@ router.get('/cglr',function(req,res){
 }).post('/cgjjadd',function(req,res){
 	console.log('id------------------',req.body.id,req.body.pageContent)
 	let obj = {
-		pageContent:req.body.pageContent
+		pageContent:req.body.pageContent,
+		csrankings:req.body.csrankings
 	}
 	cmsContent.updateOne({id:req.body.id},obj,function(error){
 		if(error){
@@ -1799,12 +1885,7 @@ router.get('/hzhb',function(req,res){
 				}
 				console.log('_filter',_filter)
 				let search = cmsContent.find(_filter)
-					search.where('isDelete').equals(0)
-					search.sort({'id':-1})
-					search.sort({'timeAddStamp':-1})
-					search.sort({'timeAdd':-1})
-					search.sort({'isTop':-1})//正序
-					search.sort({'isDisplay':1})
+					search.sort({'hbsort':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -1826,11 +1907,7 @@ router.get('/hzhb',function(req,res){
 			}else{
 				console.log('不带搜索参数')
 				let search = cmsContent.find({'tag2':'合作伙伴'})
-					search.where('isDelete').equals(0)
-					search.sort({'id':-1})
-					search.sort({'isTop':-1})//正序
-					search.sort({'timeAdd':-1})
-					search.sort({'isDisplay':1})
+					search.sort({'hbsort':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -1904,7 +1981,8 @@ router.get('/hzhb',function(req,res){
 					title:req.body.title,//加入权限后需要更新
 					url:req.body.url,
 					tag2:'合作伙伴',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					hbsort:id
 				})
 				cmsContentadd.save(function(error,doc){
 					if(error){
@@ -1931,7 +2009,8 @@ router.get('/hzhb',function(req,res){
 					title:req.body.title,//加入权限后需要更新
 					url:req.body.url,
 					tag2:'合作伙伴',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					hbsort:req.body.id
 				}
 				cmsContent.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -1988,6 +2067,43 @@ router.get('/hzhb',function(req,res){
 		returnimgurl = '/csse'+returnimgurl
     	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
     })
+}).get('/hzhbsort',function(req,res){
+	console.log('伙伴排序')
+	let search = cmsContent.find({'tag2':'合作伙伴'})
+		search.sort({'hbsort':1})
+		search.exec(function(error,docs){
+			if(error){
+				console.log('伙伴排序 error',error)
+				return error
+			}
+			res.render('manage/gjhz/hzhbsort',{'data':docs})
+		})
+}).post('/hzhbsort',function(req,res){
+	console.log('排序信息',req.body.sortarr)
+	async.eachLimit(req.body.sortarr,1,function(item,callback){
+		console.log('item',item,item.split(','))
+		let temp = item.split(',')
+		let tempid = temp[1],
+			tempsort = parseInt(temp[2])
+		let obj = {
+			hbsort : tempsort
+		}
+		console.log(tempid,tempsort)
+		cmsContent.updateOne({_id:tempid},obj,function(error){
+			if(error){
+				console.log('ptgl sort update error',error)
+				callback(error)
+			}
+			console.log('ptgl sort update success')
+			callback(null)
+		})
+	},function(error){
+		if(error){
+			onsole.log('eachLimit update sort error',error)
+			return res.json({'code':-1,'msg':error})
+		}
+		return res.json({'code':0})
+	})
 }).get('/lhpy',function(req,res){
 	console.log('in lhpy')
 	let search = cmsContent.findOne({})
@@ -2034,12 +2150,7 @@ router.get('/hzhb',function(req,res){
 				}
 				console.log('_filter',_filter)
 				let search = cmsContent.find(_filter)
-					search.where('isDelete').equals(0)
-					search.sort({'id':-1})
-					search.sort({'timeAddStamp':-1})
-					search.sort({'timeAdd':-1})
-					search.sort({'isTop':-1})//正序
-					search.sort({'isDisplay':1})
+					search.sort({'hbsort':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -2061,11 +2172,7 @@ router.get('/hzhb',function(req,res){
 			}else{
 				console.log('不带搜索参数')
 				let search = cmsContent.find({'tag2':'联合培养'})
-					search.where('isDelete').equals(0)
-					search.sort({'id':-1})
-					search.sort({'isTop':-1})//正序
-					search.sort({'timeAdd':-1})
-					search.sort({'isDisplay':1})
+					search.sort({'hbsort':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -2083,6 +2190,9 @@ router.get('/hzhb',function(req,res){
 			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 		}
 		console.log('lhpy_data async waterfall success')
+		result.forEach(function(item,index){
+			item.fujianPath = (item.fujianPath).split(';')[0]
+		})
 		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
 	})
 }).get('/lhpyadd',function(req,res){
@@ -2140,7 +2250,8 @@ router.get('/hzhb',function(req,res){
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					tag2:'联合培养',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					pyxm:req.body.pyxm
 				})
 				cmsContentadd.save(function(error,doc){
 					if(error){
@@ -2168,7 +2279,8 @@ router.get('/hzhb',function(req,res){
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					tag2:'联合培养',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					pyxm:req.body.pyxm
 				}
 				cmsContent.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -2225,6 +2337,43 @@ router.get('/hzhb',function(req,res){
 		}
 		return res.json({'code':'0','msg':'del lhpydel success'})
 	})
+}).get('/lhpysort',function(req,res){
+	console.log('联合培养')
+	let search = cmsContent.find({'tag2':'联合培养'})
+		search.sort({'hbsort':1})
+		search.exec(function(error,docs){
+			if(error){
+				console.log('伙伴排序 error',error)
+				return error
+			}
+			res.render('manage/gjhz/lhpysort',{'data':docs})
+		})
+}).post('/lhpysort',function(req,res){
+	console.log('排序信息',req.body.sortarr)
+	async.eachLimit(req.body.sortarr,1,function(item,callback){
+		console.log('item',item,item.split(','))
+		let temp = item.split(',')
+		let tempid = temp[1],
+			tempsort = parseInt(temp[2])
+		let obj = {
+			hbsort : tempsort
+		}
+		console.log(tempid,tempsort)
+		cmsContent.updateOne({_id:tempid},obj,function(error){
+			if(error){
+				console.log('ptgl sort update error',error)
+				callback(error)
+			}
+			console.log('ptgl sort update success')
+			callback(null)
+		})
+	},function(error){
+		if(error){
+			onsole.log('eachLimit update sort error',error)
+			return res.json({'code':-1,'msg':error})
+		}
+		return res.json({'code':0})
+	})
 }).get('/kyhz',function(req,res){
 	console.log('in kyhz')
 	let search = cmsContent.findOne({})
@@ -2271,12 +2420,7 @@ router.get('/hzhb',function(req,res){
 				}
 				console.log('_filter',_filter)
 				let search = cmsContent.find(_filter)
-					search.where('isDelete').equals(0)
-					search.sort({'id':-1})
-					search.sort({'timeAddStamp':-1})
-					search.sort({'timeAdd':-1})
-					search.sort({'isTop':-1})//正序
-					search.sort({'isDisplay':1})
+					search.sort({'hbsort':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -2298,11 +2442,7 @@ router.get('/hzhb',function(req,res){
 			}else{
 				console.log('不带搜索参数')
 				let search = cmsContent.find({'tag2':'科研合作'})
-					search.where('isDelete').equals(0)
-					search.sort({'id':-1})
-					search.sort({'isTop':-1})//正序
-					search.sort({'timeAdd':-1})
-					search.sort({'isDisplay':1})
+				search.sort({'hbsort':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -3800,32 +3940,194 @@ router.get('/jszp',function(req,res){
 	}
 })
 //教师队伍
-function checkType(str){
+function checkType(peopleid){
 	let info = {}
-	info.type = str
-	if(str=='jcrc')
+	info.peopleid = peopleid
+	if(peopleid =='1')
 		info.typeName = '杰出人才'
-	else if(str=='proyjy')
-		info.typeName = '教授/研究员'
-	else if(str=='fjsfyjy')
-		info.typeName = '副教授/副研究员'
-	else if(str=='zljs')
-		info.typeName = '助理教授'
-	else if(str=='jiangshi')
+	else if(peopleid=='2')
+		info.typeName = '教授'
+	else if(peopleid =='3')
+		info.typeName = '副教授'
+	else if(peopleid =='4')
 		info.typeName = '讲师'
-	else if(str=='boshihou')
+	else if(peopleid =='5')
+		info.typeName = '助理教授'
+	else if(peopleid =='6')
+		info.typeName = '专职研究人员'
+	else if(peopleid =='7')
 		info.typeName = '博士后'
+	else if(peopleid =='8')
+		info.typeName = '技术管理人员'
 	else
-		info.typeName = '其他'
+		info.typeName = '研究/辅助管理'
 	return info
 }
 router.get('/jsdw',function(req,res){
-	let type = req.query.type
-	console.log('type',type)
-	let info = checkType(type)
+	let peopleid = req.query.peopleid
+	console.log('peopleid',peopleid)
+	let info = checkType(peopleid)
 	console.log('info',info)
 	res.render('manage/jsdw/publictpl',{info:info})
 }).get('/jsdw_data',function(req,res){
+	console.log('router jsdw_data',req.query.power,req.query.jstype,typeof(req.query.jstype))
+	//return false
+	let page = req.query.page,
+		limit = req.query.limit,
+		userName = req.query.userName,
+		power = req.query.power,
+		peopleid = req.query.peopleid
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit,power,peopleid)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = user.find({}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('jsdw get total err',err)
+						cb(err)
+					}
+					console.log('jsdw count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){//$or:[{year:2018},{year:/2018/}]//{$or:[{name:name},{principal:principal},{year:year},{year:{$regex:year}}]}
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+			console.log('userName ------',userName)
+			if(userName || power || peopleid){//20191024增加 搜姓名的时候，找出id进行关联搜索
+				let _filter = {}
+				if(userName){
+					if(power && peopleid){
+						console.log('三个参数都有',userName,peopleid,power)
+						_filter = {
+							$and:[
+								{userName:{$regex:userName}},//忽略大小写
+								{peopleid:peopleid},
+								{power:power}
+							]
+						}
+					}
+					if(!power && peopleid){
+						console.log('有姓名，peopleid',userName,peopleid)
+						let check = new RegExp('\/'),arr = []
+						_filter = {
+							$and:[
+								{userName:{$regex:userName}},//忽略大小写
+								{peopleid:peopleid}
+							]
+						}
+					}
+					if(power && !jstype){
+						console.log('有姓名，角色',userName,power)
+						_filter = {
+							$and:[
+								{userName:{$regex:userName}},//忽略大小写
+								{power:power}
+							]
+						}
+					}
+					if(!power && !jstype){
+						console.log('只有姓名',userName,power)
+						_filter = {
+							userName:{$regex:userName}
+						}
+					}
+				}
+				if(userName){
+					console.log('userName,_filter',userName,_filter)
+					//let search = user.find(_filter)
+					let search = user.find(_filter)
+						search.sort({'zhicheng':-1})
+						search.sort({'userName_py':-1})//正序
+						search.limit(limit)
+						search.skip(numSkip)
+						search.exec(function(error,docs){
+							if(error){
+								console.log('jsdw_data error',error)
+								cb(error)
+							}
+										//获取搜索参数的记录总数
+							user.count(_filter,function(err,count_search){
+								if(err){
+									console.log('jsdw_data count_search err',err)
+									cb(err)
+								}
+								console.log('搜索到记录数',count_search)
+								total = count_search
+								cb(null,docs)
+							})
+						})
+				}else{//ok
+					if(power && peopleid){
+						_filter = {
+							$and:[{power:power},{peopleid:peopleid}]
+						}
+					}
+					if(!power && peopleid){
+						console.log('peopleid----->',peopleid)
+						_filter = {
+							peopleid:peopleid
+						}
+					}
+					if(power && !jstype){
+						_filter = {
+							power:{$regex:power}
+						}
+					}
+					console.log('_filter',_filter)
+						let search = user.find(_filter)
+							search.sort({'zhicheng':-1})
+							search.sort({'userName_py':1})//正序
+							search.limit(limit)
+							search.skip(numSkip)
+							search.exec(function(error,docs){
+								if(error){
+									console.log('jsdw_data error',error)
+									cb(error)
+								}
+								//获取搜索参数的记录总数
+								user.count(_filter,function(err,count_search){
+									if(err){
+										console.log('jsdw_data count_search err',err)
+										cb(err)
+									}
+									console.log('搜索到记录数',count_search)
+									total = count_search
+									cb(null,docs)
+								})
+							})
+				}				
+			}else{
+				console.log('不带搜索参数')
+				let search = user.find({})
+					search.sort({'jstype':-1})
+					search.sort({'userName_py':-1})//正序
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('jsdw_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			}
+		}
+	],function(error,result){
+		if(error){
+			console.log('jsdw_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('jsdw_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).get('/jsdw_data1',function(req,res){
+	//20211106 备份，按原人员分类使用的接口
 	console.log('router jsdw_data',req.query.power,req.query.jstype,typeof(req.query.jstype))
 	//return false
 	let page = req.query.page,
@@ -4212,6 +4514,34 @@ router.get('/jsdw',function(req,res){
 			})
 	}
 	
+}).get('/usertx',function(req,res){
+	console.log(req.query.imgsrc)
+	return res.render('manage/jsdw/usertx',{imgsrc:req.query.imgsrc,userid:req.query.userid})
+})
+const jimp = require('jimp')
+router.post('/usertx',function(req,res){
+	let search = user.findOne({'id':req.body.id})
+		search.exec(function(err,doc){
+			if(err){
+				return res.json({'code':-1,'msg':err})
+			}
+			console.log('img src ------>',doc.avatar)// /csse/attachment/userimg/1635602692_1628310982_bbhu.jpg
+			let temparr = doc.avatar.split('/')
+			console.log('temparr---->',temparr)
+			temparr.shift()
+			temparr.shift()
+			console.log('temparr---->',temparr)
+			let tempstr = temparr.join('/')
+			console.log('tempstr---->',tempstr)
+			let imgpath = 'G:/newcsse-master/public/' + tempstr
+			console.log('imgpath-----',imgpath)
+			jimp.read(imgpath, function (err, img) {
+				if (err) throw err
+				img.crop(parseInt(req.body.xzuobiao), parseInt(req.body.yzuobiao), parseInt(req.body.width), parseInt(req.body.height))
+				.write(imgpath)
+				return res.json({'code':0,'msg':'success'})
+			})
+		})
 }).post('/userimgupload',function(req,res){
 	console.log('userimgupload')
 	console.log(attachmentuploaddir,attachmentuploaddir + '\\userimg')
@@ -4267,10 +4597,10 @@ router.get('/jsdw',function(req,res){
 		userName1:req.body.userName,
 		sex:req.body.sex,
 		sex1:req.body.sex1,
-		jstype:req.body.jstype,
-		jstype1:req.body.jstype1,
+		// jstype:req.body.jstype,
+		// jstype1:req.body.jstype1,
 		zhicheng:req.body.zhicheng,
-		zhicheng1:req.body.zhicheng,
+		zhicheng1:req.body.zhicheng1,
 		phoneOffice:req.body.phoneOffice,
 		email:req.body.email,
 		AddressOffice:req.body.AddressOffice,
@@ -4292,7 +4622,9 @@ router.get('/jsdw',function(req,res){
 		inDang:req.body.inDang,
 		inDang1:req.body.inDang1,
 		yjly:req.body.yjly,
-		yjly1:req.body.yjly1
+		yjly1:req.body.yjly1,
+		peopleid:req.body.peopleid,
+		suoxiid:req.body.suoxiid
 	}
 	console.log('obj',updateobj)
 	//return false
@@ -4307,7 +4639,7 @@ router.get('/jsdw',function(req,res){
 	})
 }).post('/changejsdwdis',function(req,res){
 	console.log(req.body)
-	let obj = {	personalLink_switch:req.body.personalLink_switch }
+	let obj = {	display:req.body.display }
 	user.updateOne({id:req.body.id},obj,function(error){
 		if(error){
 			console.log('isDisplay hide error',error)
@@ -4793,7 +5125,8 @@ router.get('/slider',function(req,res){
 					timeAdd:req.body.timeAdd,
 					timeEdit:req.body.timeEdit,
 					fujianPath:req.body.fujianPath,
-					leixing:req.body.leixing
+					leixing:req.body.leixing,
+					tag2:'计软新闻',
 				}
 				cmsContent.updateOne({id:req.body.id},obj,function(error){
 					if(error){

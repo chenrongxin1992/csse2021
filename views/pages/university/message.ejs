@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+  <link rel="stylesheet" href="../../stylesheets/css/university_css/message.css">
+  <link rel="stylesheet" href="../../stylesheets/css/animate.min.css">
+</head>
+<body class="university">
+<%if(L=='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+
+  <div class="banner">
+    <img src="../../image/university_image/banner.png" class="b_bg lazy_img pimg" />
+    <img src="../../image/university_image/m-banner.png" class="b_bg lazy_img mimg" />
+  </div>
+  <div class="contain">
+    <div class="contain-area clearfix">
+            <div class="nav-list">
+              <a href="index" class="nav ">学院简介</a>
+              <a href="message" class="nav active">院长寄语</a>
+              <a href="develop" class="nav">发展沿革</a>
+              <a href="leader" class="nav">现任领导</a>
+              <a href="logo" class="nav">学院标识</a>
+            </div>
+        <div class="cont">
+          <div class="area-img animated bounceIn">
+            <img src="../../image/university_image/message/img1.png" class="img1" />
+            <img src="../../image/university_image/message/img2.png" class="img2" />
+            <img src="../../image/university_image/message/img3.png" class="img3" />
+            <img src="../../image/university_image/message/ellipse_left.png" class="img4" />
+            <img src="../../image/university_image/message/huanghui.png" class="img5" />
+          </div>
+          <div class="area-desc">
+            <div class="tit b c_cca84d">黄惠</div>
+            <div class="desc">
+              <img src="../../image/university_image/message/left.png" class="img-left"/>
+              <div class="txt txt1">
+                <%-data.yzjy.pageContent-%>
+              </div>
+              <img src="../../image/university_image/message/right.png" class="img-right"/>
+            </div>
+          </div>
+        </div>
+            
+    </div>
+  </div>
+  <!-- <div id="footer"></div> -->
+  <%if(L=='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <%if(L!='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+<script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+<script src="../../javascripts/js/common.js"></script>
+
+<script src="../../javascripts/js/brcheck.js"></script>
+<script src="../../javascripts/js/slick.min.js"></script>
+<script src="../../javascripts/js/scrollreveal.js"></script>
+<script src="../../javascripts/js/anime.min.js"></script>
+
+<script>
+  
+</script>
+</body>
+</html>

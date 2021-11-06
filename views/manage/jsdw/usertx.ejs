@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>上传头像</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+    <link rel="stylesheet" href="../stylesheets/jquery.Jcrop.css" media="all" />
+	<style>
+        img {
+            border: 0px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .head {
+            width: 500px;
+            height: 500px;
+            background-color: gray;
+        }
+        #target{
+            max-width: 500px;
+            max-height: 500px;
+        }
+
+        #preview-pane {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            border: 1px solid purple;
+        }
+        #preview-pane .preview-container {
+            width: 100%;
+            height: 100%;
+
+        }
+        canvas {
+            position: fixed;
+            top: 10px;
+            left: 510px;
+            border: 1px solid red;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body class="childrenBody">
+    <!-- 头像 -->
+    <div class="head" >
+        <img src=""  id="target"  userid="<%=userid%>"/>
+        <input type="file" id="file" onchange="changeFile()" style="display: none;"/>
+    </div>
+    <!-- <button onClick="openBrowse()">上传图片</button> -->
+    <!-- <button onClick="myupload()">确认</button> -->
+    <button class="layui-btn" data-type="getCheckData" id="mybtn">确认</button>
+
+    <!-- 预览盒子 -->
+    <!-- <div id="preview-pane">
+        <div class="preview-container">
+            <img src="" class="jcrop-preview" alt="Preview"  id="Preview"/>
+        </div>
+    </div> -->
+      <!-- 画板 -->
+    <canvas id="myCan" width="200" height="200"></canvas>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="../javascripts/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="../javascripts/jquery.Jcrop.min.js"></script>
+<script type="text/javascript">
+//1、打开浏览器
+function openBrowse(){
+    var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+    if(ie){
+         document.getElementById("file").click();
+    }else{
+         var a=document.createEvent("MouseEvents");
+        a.initEvent("click", true, true);
+        document.getElementById("file").dispatchEvent(a);
+    }
+}
+//选择文件事件
+function changeFile() {
+    var url = getFileUrl("file");//根据id获取文件路径
+        preImg(url);
+        return false;
+}
+
+//3、将本地图片 显示到浏览器上
+function preImg(url) {
+    console.log('url===' + url);
+    //图片裁剪逻辑
+    if(jcrop_api)//判断jcrop_api是否被初始化过
+    {
+        jcrop_api.destroy();
+    }
+    //初始化预览div内容
+    initPreview();
+    // var p = document.getElementById('Preview');
+    //     p.src = url;
+
+    //初始化图片
+    initTarget();
+    var image = document.getElementById('target');
+        image.onload=function(){
+            //图片加载是一个异步的过程
+            //获取图片文件真实宽度和大小
+            var img = new Image();
+            img.onload=function(){
+                realWidth = img.width;
+                realHeight = img.height;
+                //获取图片真实高度之后
+                initJcrop();//初始化Jcrop插件
+                //initCanvas();//初始化Canvas内容
+            };
+            img.src = url;
+        };
+    image.src = url;
+}
+//初始化Jcrop插件
+function initJcrop(){
+    console.log('init',[xsize,ysize]);
+    $target.removeAttr("style");//清空上一次初始化设置的样式
+    $target.Jcrop({
+        onChange: updatePreview,
+        onSelect: updatePreview,
+        // aspectRatio: xsize / ysize
+        aspectRatio: 1
+    },function(){
+            //初始化后回调函数
+            // 获取图片实际显示的大小
+    var bounds = this.getBounds();
+        boundx = bounds[0];//图片实际显示宽度
+        boundy = bounds[1];//图片实际显示高度
+        // 保存jcrop_api变量
+        jcrop_api = this;
+  });
+}
+//坐标，宽高
+var xzuobiao,yzuobiao,kuan,gao
+//更新显示预览内容
+function updatePreview(c){
+    if (parseInt(c.w) > 0)
+    {
+        console.log('c------',c)
+        console.log('x y 宽，高-----',c.x,c.y,c.w,c.h)
+        xzuobiao = c.x
+        yzuobiao = c.y
+        kuan = c.w
+        gao = c.h
+        var rx = xsize / c.w;
+        var ry = ysize / c.h;
+        $pimg.css({
+            maxWidth:  Math.round(rx * boundx) + 'px',
+            maxHeight: Math.round(ry * boundy) + 'px',
+            width: Math.round(rx * boundx) + 'px',
+            height: Math.round(ry * boundy) + 'px',
+            marginLeft: '-' + Math.round(rx * c.x) + 'px',
+            marginTop: '-' + Math.round(ry * c.y) + 'px'
+        });
+        //更新canvas画板内容
+        var img=document.getElementById("target");
+        var ct=document.getElementById("myCan");
+        var ctx=ct.getContext("2d");
+        //清空画板
+        ctx.clearRect(0,0, ct.width, ct.height);
+        //ctx.drawImage(图像对象,原图像截取的起始X坐标,原图像截取的起始Y坐标,原图像截取的宽度,原图像截取的高度，绘制图像的起始X坐标,绘制图像的起始Y坐标,绘制图像所需要的宽度,绘制图像所需要的高度);
+        ctx.drawImage(img, c.x/boundx * realWidth,c.y/boundy * realHeight, c.w/boundx * realWidth, c.h/boundy * realHeight,0,0, ct.width, ct.height);
+    }
+}
+
+//初始化预览div内容
+function initTarget(){
+    $target.removeAttr("style");//清空上一次初始化设置的样式
+        $target.css({
+            maxWidth:  '100%',
+            maxHeight: '100%'
+        });
+}
+//初始化预览div内容
+function initPreview(){
+    $pimg.removeAttr("style");//清空上一次初始化设置的样式
+    $pimg.css({
+        maxWidth:  xsize + 'px',
+        maxHeight: ysize + 'px'
+    });
+}
+//上传
+var data={}
+function myupload(){
+}
+//文件上传
+function uploadFile(){
+    //
+    console.log('canvas---',document.getElementById("myCan"))
+    return 
+            //获取裁剪完后的base64图片url,转换为blob
+            var data=document.getElementById("myCan").toDataURL();
+            var formData=new FormData();
+            formData.append("imageName",dataURLtoBlob(data));
+            var httprequest= null;
+            console.log('check---->',dataURLtoBlob(data))
+            return 
+            if (window.XMLHttpRequest) {
+                httprequest = new XMLHttpRequest();
+            } else {
+                httprequest = new ActiveXObject('MicroSoft.XMLHTTP');
+            }
+            var apiurl= ""; //上传图片的api接口，自行填写
+            httprequest.open('POST',apiurl,true);
+            httprequest.send(formData);
+            httprequest.onreadystatechange= function () {
+
+                if(httprequest.readyState == 4 ){
+
+                    if(httprequest.status == 200)
+                    {
+                        var json=JSON.parse(httprequest.responseText);
+                        console.log(json);
+
+                    }else
+                    {
+                        alert('获取数据错误,错误代码：' + httprequest.status + '错误信息：' + httprequest.statusText);
+                    }
+                }
+            };
+}
+
+//把base64位的toDataURL图片转换成blob
+function dataURLtoBlob(dataurl) {
+    console.log(dataurl)
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+}
+
+window.onload = function () {
+            //初始化图片
+    preImg('<%=imgsrc%>'); //图片src////////////////////////////////////////////////////////
+};
+var     jcrop_api,//jcrop对象
+        boundx,//图片实际显示宽度
+        boundy,//图片实际显示高度
+        realWidth,// 真实图片宽度
+        realHeight, //真实图片高度
+
+        // 使用的jquery对象
+        $target = $('#target'),
+        $preview = $('#preview-pane'),
+        $pcnt = $('#preview-pane .preview-container'),
+        $pimg = $('#preview-pane .preview-container img'),
+
+        xsize = $pcnt.width(),
+        ysize = $pcnt.height();
+
+//2、从 file 域获取 本地图片 url
+function getFileUrl(sourceId) {
+            var url;
+            if (navigator.userAgent.indexOf("MSIE")>=1) { // IE
+            url = document.getElementById(sourceId).value;
+            } else if(navigator.userAgent.indexOf("Firefox")>0) { // Firefox
+            url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+            } else if(navigator.userAgent.indexOf("Chrome")>0) { // Chrome
+            url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+            } else if(navigator.userAgent.indexOf("Safari")>0) { // Chrome
+            url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+            }
+            return url;
+        }
+layui.use(['jquery','table','form'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form
+         // 定义一些使用的变量
+    $('#mybtn').click(function(){
+        data.xzuobiao = xzuobiao
+        data.yzuobiao = yzuobiao
+        data.width = kuan
+        data.height = gao
+        data.id='<%=userid%>'
+        console.log('data----',data)
+        $.ajax({
+            url:'<%=base_url%>usertx',
+            type:'POST',
+            data:data,
+            dataType : "json",
+            success:function(result){
+                if(result.code==0){
+                    layui.layer.msg('已保存')
+                    parent.layer.close()
+                }
+            },
+            error:function(msg){
+                console.log('ajax delete error msg',msg)
+            }
+        })
+    })
+        
+});
+</script>
+<script type="text/html" id="yjfxbar">
+  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="sytpimg">
+	<img src="{{d.fujianPath}}" style="height: 100px;max-width: 100%;" class="previewimg" />
+</script>
+</body>
+</html>

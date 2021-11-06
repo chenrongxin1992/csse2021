@@ -1,0 +1,337 @@
+.teacherTeam{
+    background-color: #352C84;
+}
+.teacherTeam .contain{
+    overflow: hidden;
+}
+/* banner */
+.banner{
+    position: relative;
+    text-align: right;
+}
+.banner .b_bg{
+    width: 100%;
+}
+.banner .b_txt{
+    position: absolute;
+    left: 10%;
+    top: 44%;
+    height: 37%;
+}
+.banner .mimg{
+	display: none;
+}
+
+/*info*/
+.info{
+    background-color: #f3f3f3;
+
+}
+.info .info-cont{
+    width: 83%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 50px 0;
+    font-size: 18px;
+    line-height: 36px;
+}
+.info .info-cont .txt{
+    padding-left: 40px;
+    color:#333333;
+}
+.info .info-cont .img{
+    margin-left: 40px;
+}
+
+.cont{
+    width: 83%;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
+.cont .top-nav{
+    padding: 40px 0;
+    color: #333;
+    display: flex;
+    align-items: center
+}
+.cont .top-nav .tit{
+    font-size: 36px;
+    margin-right: 40px;
+    margin-left: 50px;
+}
+.cont .top-nav .list{
+    display: flex;
+    align-content: center;
+    font-size: 12px;
+    color: rgba(153,153,153,46%);
+    margin-left: 30px;
+}
+.cont .top-nav .list i{
+    font-style: normal;
+    margin-left: 5px;
+}
+.search-input{
+    border: 1px solid #ddd;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    margin-left: 74px;
+}
+.search-input .search{
+    border:none;
+    padding-left: 10px;
+}
+.search-input .search:hover,.search-input .search:focus{
+    border: none;
+    outline: none;
+}
+.search-input .search-img{
+    cursor: pointer;
+}
+.area{
+    display: flex;
+}
+.area-left{
+    width: 280px;
+    margin-right: 30px;
+}
+.area-nav{
+    text-align: center;
+    width: 230px;
+    margin-right: 49px;
+    box-shadow: 0px 0px 4px 0px rgba(204, 168, 77, 0.35);
+    background-color: #f3f3f3;
+}
+.area-nav .tit{
+    background-color: #cca84d;
+    color:#fff;
+    padding: 19px 0;
+    width: 100%;
+    font-size: 24px;
+
+}
+.area-nav ul li{
+    color: #333;
+    cursor: pointer;
+    margin-bottom: 1px;
+    font-size: 16px;
+}
+.area-nav ul li a{
+    display: block;
+    padding: 19px 0;
+    width: 100%;
+}
+.area-nav ul li.active,.area-nav ul li:hover{
+    background-color: #fff;
+}
+
+.area-right .page-list .page{
+    width: 30%;
+    margin-bottom: 40px;
+    background-color: #EDEFF1;
+    text-align: center;
+    position: relative;
+}
+.area-right .page-list .page.page2{
+    margin: 0 5% 40px 5%;
+}
+.area-right .page-list .page .name{
+    color: #000;
+    font-weight: 700;
+    height: 66px;
+    box-sizing: border-box;
+    font-size: 21px;
+    padding: 23px 0 16px 0;
+}
+.area-right .page-list .page .avatar{
+    margin-bottom: 19px;
+}
+.area-right .page-list .page .skill{
+    color: #000;
+    padding: 22px 0;
+    
+    font-weight: 400;
+    font-size: 21px;
+}
+.area-right .page-list .page .txt{
+    font-size: 16px;
+}
+.area-right .page-list .page .txt .c_333{
+    padding-bottom: 15px;
+    font-size: 18px;
+
+}
+
+.area-right .row2{
+    display: none;
+    background: url(../../../image/teacher_image/teamBg.png) 100% 100% no-repeat;
+    background-size: contain;
+    background-position: 0 100%;
+    background-color: #3a24a1;
+
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.area-right .page:hover .row2{
+    display: block;
+}
+
+.area-right .page .email{
+    position: absolute;
+    bottom: 10px;
+    font-size: 16px;
+    color: #CCA84D;
+    width: 100%;
+}
+.area-right .page .email .img{
+    margin-left: 4px;
+}
+.area-right .page .btn{
+    margin: 11.25px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 152px;
+    height: 43px;
+    background: #CCA84D;
+    box-shadow: 0px 5px 6px 1px rgb(0 158 249 / 35%);
+    border-radius: 19px;
+}
+.area-right .page .btn .s-txt{
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.m-area{
+    display: none;
+}
+.m-area .info{
+    margin-bottom: 26px;
+}
+.m-area .info .info-cont{
+    width: 90%;
+    padding-top: 61px;
+    padding-bottom: 40px;
+}
+.m-area .info .info-cont .txt{
+    width: 456px;
+    font-size: 18px;
+    line-height: 36px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    padding-left: 65px;
+}
+.m-area .cont{
+    padding: 1.86%;
+    box-sizing: border-box;
+    width: 100%;
+}
+.m-area .area-right .page-list .page{
+    width: 48.27%;
+    margin-bottom: 57px;
+}
+.m-area .area-right .page-list .page3{
+    margin-left:2.35%
+}
+.m-area .area-right .page-list .page .name{
+    font-size: 19.12px;
+    padding: 18px 0;
+    height: 61px;
+}
+.m-area .area-right .page-list .page .avatar{
+    width: 44.59%;
+    margin-bottom: 15px;
+}
+.m-area .area-right .page-list .page .txt .c_333{
+    font-size: 16px;
+    padding: 0 0 9px 0;
+}
+.m-area .area-right .page-list .page .skill{
+    padding: 25px 0 19px 0;
+}
+@media only screen and (max-width:1440px){
+    .p-area .area-right .page-list .page{
+        width: 48%;
+    }
+    .p-area .area-right .page-list .page.page2{
+        margin: 0 0 40px 0;
+    }
+    .p-area .area-right .page-list .page:nth-child(2n){
+        margin-left: 4%;
+    }
+}
+@media only screen and (max-width:1200px){
+    .p-area{
+        display: none;
+    }
+    .m-area{
+        display: block;
+    }
+}
+@media only screen and (max-width: 767px){
+    .banner .pimg{
+        display: none;
+    }
+    .banner .mimg{
+        display: block;
+    }
+}
+@media only screen and (max-width:480px){
+    .m-area .info .info-cont{
+        display: block;
+        text-align: center;
+        width: 96%;
+    }
+    .m-area .info .info-cont .txt{
+        text-align: left;
+        padding-top: 20px;
+        padding-left: 0;
+        font-size: 16px;
+        line-height: 30px;
+        width: inherit;
+    }
+    .info-cont .img{
+        width: 30%;
+    }
+    .m-area .area-right .page-list .page .name{
+        font-size: 16px;
+        height: 42px;
+        padding: 12px 0;
+    }
+    .m-area .area-right .page-list .page .skill{
+        font-size: 15px;
+        padding: 20px 0 12px 0;
+    }
+    .m-area .area-right .page-list .page .avatar{
+        margin-bottom: 10px;
+    }
+    .area-right .page-list .page .txt{
+        font-size: 14px;
+    }
+    .m-area .area-right .page-list .page{
+        margin-bottom: 20px;
+    }
+    .area-right .page .btn{
+        width: 100px;
+        height: 30px;
+    }
+    .area-right .page .btn .s-txt{
+        font-size: 12px;
+    }
+    .area-right .page .email{
+        font-size: 12px;
+    }
+}
+@media only screen and (max-width:350px){
+    .m-area .area-right .page-list .page{
+        width: 96%;
+        margin: 0 2% 20px 2%; 
+    }
+}

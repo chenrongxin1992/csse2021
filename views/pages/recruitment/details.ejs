@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>深圳大学计算机与软件学院</title>
+	<link rel="stylesheet" href="../../stylesheets/css/common.css">
+	<link rel="stylesheet" href="../../stylesheets/css/recruitment_css/news.css">
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/css/recruitment_css/newsDetails.css" />
+
+</head>
+<body class="recruitment">
+<%if(L=='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+
+	<div class="banner">
+		<img src="../../image/recruitment_image/banner.png" class="b_bg lazy_img pimg" />
+		<img src="../../image/recruitment_image/m-banner.png" class="b_bg lazy_img mimg" />
+	</div>
+	<div class="contain">
+		<div class="contain-area clearfix">
+			<div class="cont">
+				<div class="area">
+					<div class="news-title">
+						<div class="area-tit c_cca84d bb"><%=data.title%></div>
+						<div class="time c_999"><%=data.timeAdd%></div>
+						<div>
+							<div class="content">
+								<%-data.pageContent-%>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%if(L=='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+	<%if(L!='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+  <script src="../../javascripts/js/common.js"></script>
+  
+  <script src="../../javascripts/js/brcheck.js"></script>
+  
+  </body>
+  </html>

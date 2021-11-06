@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>深圳大学计算机与软件学院</title>
+	<link rel="stylesheet" href="../../stylesheets/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/css/recruitment_css/talents.css" />
+	<script src="../../javascripts/js/jquery.min.js"></script>
+</head>
+<body class="recruitment">
+<%if(L=='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+
+	<div class="banner">
+		<img src="../../image/recruitment_image/banner.png" class="b_bg lazy_img pimg" />
+		<img src="../../image/recruitment_image/m-banner.png" class="b_bg lazy_img mimg" />
+	</div>
+	<div class="contain">
+		<div class="contain-area clearfix">
+			<div class="info">
+				<div class="r-list clearfix">
+					<div class="r-row">
+						<a href="index">
+							<img src="../../image/recruitment_image/img1.png" class="img" />
+							<span class="txt">本科生招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row">
+						<a href="master">
+							<img src="../../image/recruitment_image/img2.png" class="img" />
+							<span class="txt">硕士生招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row">
+						<a href="doctor">
+							<img src="../../image/recruitment_image/img3.png" class="img" />
+							<span class="txt">博士生招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row">
+						<a href="">
+							<img src="../../image/recruitment_image/img4.png" class="img" />
+							<span class="txt">成考招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row">
+						<a href="">
+							<img src="../../image/recruitment_image/img5.png" class="img" />
+							<span class="txt">自考招生</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+					<div class="r-row active">
+						<a href="#">
+							<img src="../../image/recruitment_image/img6.png" class="img" />
+							<span class="txt">人才招聘</span>
+							<div class="img-mask"></div>
+							<img class="icon" src="../../image/recruitment_image/icon.png">
+						</a>
+					</div>
+				</div>
+				<div class="bread-crumbs">当前位置：首页 > 招生招聘 > 人才招聘</div>
+				<div class="m-info-tit c_cca84d b">人才招聘</div>
+				<div class="cont">
+					<div class="area">
+						<div class="area-right">
+							<div class="area-list">
+								<div class="pic-area">
+									<div class="bg">
+										<img class="img img3" src="../../image/recruitment_image/details_bg.png" />
+										<img class="img img4" src="../../image/recruitment_image/img_left.png" />
+										<img class="img img2" src="../../image/recruitment_image/img_right.png" />
+										<img class="img img1" src="../../image/recruitment_image/vector_img2.png" />
+									</div>
+								</div>
+								<div class="mess-list">
+									<div class="details">
+										<div class="talents-tit c_cca84d bb">人才招聘</div>
+										<div class="details_nav">
+											<%data.rczpNum.forEach(function(item,index){%>
+											<div class="nav1" id="<%=item._id%>">
+												<div><%=item._id%>（<%=item.num%>）</div>
+											</div>
+											<%})%>
+										</div>
+										<!-- <div class="tit c_cca84d b">资料下载</div> -->
+										<%data.rczp.forEach(function(item,index){%>
+										<div class="mess">
+											<span class="ball">● </span>
+											<a class="txt" href="details?id=<%=item.id%>"><%=item.title%></a>
+											<span class="time c_999"><%=item.timeAdd%></span>
+										</div>
+										<%})%>
+										<div class="page-num">
+											<% for(var i=0;i < totalpage ;i++){%>
+												<span class="num"><%=i+1%></span>
+											 <%}%>
+										</div>
+										<script type="text/javascript"> 
+											$('.num').each(function(index,obj){
+												if('<%=page%>' == $(obj).text()){
+												console.log('找到page,点中状态',$(obj).text())
+												$(obj).addClass('active')
+												}
+											})
+											$('.num').click(function(){
+												console.log('点击页面---->',$(this).text(),'构造url')        
+												let reg = new RegExp("talents", "g"); 
+												let url = "talents"; 
+												console.log(url.replace(reg, "talents?page=" + $(this).text()))
+												window.location.href = url.replace(reg, "talents?p=" + $(this).text() + '&t=<%=type%>'); 
+											})
+											$('.nav1').each(function(index,obj){
+												console.log($(obj).attr('id'))
+												if('<%=type%>' == $(obj).attr('id')){
+													console.log('找到type1,点中状态',$(obj).text())
+													$(obj).addClass('active')
+												}
+											})
+											$('.nav1').click(function(){
+												console.log('点击页面---->',$(this).text(),'构造url')        
+												let reg = new RegExp("talents", "g"); 
+												let url = "talents"; 
+												console.log(url.replace(reg, "talents?page=<%=page%>&t=<%=type%>" ))
+												console.log(encodeURIComponent($(this).attr('id')))
+												console.log(url.replace(reg, "talents?page=<%=page%>&t=" +  encodeURIComponent($(this).attr('id'))))
+												//return
+												window.location.href = url.replace(reg, "talents?p=<%=page%>&t="+encodeURIComponent($(this).attr('id'))); 
+											})
+											</script>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<%if(L=='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+	<%if(L!='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+  <script src="../../javascripts/js/common.js"></script>
+  
+  <script src="../../javascripts/js/brcheck.js"></script>
+  
+  </body>
+  </html>

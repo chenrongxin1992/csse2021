@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>深圳大学计算机与软件学院</title>
+		<link rel="stylesheet" href="../../stylesheets/css/common.css">
+		<link rel="stylesheet" href="../../stylesheets/css/regulation_css/regulation.css">
+		<script src="../../javascripts/js/jquery.min.js"></script>
+	</head>
+	<body class="news">
+	<%if(L=='1'){%>
+		<%include ../../headcom.ejs%>
+	  <%}%>
+	  <%if(L!='1'){%>
+		<%include ../../headcom.ejs%>
+	  <%}%>
+
+		<div class="banner">
+			<img src="../../image/regulation_image/banner.png" class="b_bg lazy_img pimg" />
+			<img src="../../image/regulation_image/m-banner.png" class="b_bg lazy_img mimg" />
+		</div>
+		<div class="contain">
+			<div class="contain-area clearfix">
+				<div class="cont">
+					<div class="area">
+						<div class="area-left">
+							<div class=" area-nav">
+								<div class="tit b">党群工作</div>
+								<ul>
+									<li>
+										<a href="constitute">组织概况</a>
+									</li>
+									<li>
+										<a href="rules">
+											规章制度
+										</a>
+									</li>
+									<li class="active"><a href="javascript:;">党建活动</a></li>
+									<li>
+										<a href="study">
+											学“习”园地
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="area-right">
+							<div class="area-tit c_cca84d bb">党建活动</div>
+							<div class="area-list">
+								<div class="pic-area">
+									<img class="img img1" src="../../image/regulation_image/round.png" />
+									<img class="img img2" src="../../image/regulation_image/round1.png" />
+									<img class="img img3" src="../../image/regulation_image/semicircle.png" />
+
+									<img class="img img4" src="../../image/regulation_image/img1.png" />
+									<img class="img img5" src="../../image/regulation_image/img2.png" />
+									<img class="img img6" src="../../image/regulation_image/img3.png" />
+
+								</div>
+								<div class="mess-list">
+									<%data.djhd.forEach(function(item,index){%>
+										<a href="details?id=<%=item.id%>"><div class="mess">
+										<span class="ball">● </span>
+										<span class="txt"> <%=item.title%> </span>
+										<span class="time c_999"><%=item.timeAdd%></span>
+									</div></a>
+									<%})%>
+									
+									<div class="page-num">
+										<% for(var i=0;i < totalpage ;i++){%>
+											<span class="num"><%=i+1%></span>
+										 <%}%>
+									</div>
+								</div>
+								<script type="text/javascript"> 
+								$('.num').each(function(index,obj){
+									if('<%=page%>' == $(obj).text()){
+									console.log('找到page,点中状态',$(obj).text())
+									$(obj).addClass('active')
+									}
+								})
+								$('.num').click(function(){
+									console.log('点击页面---->',$(this).text(),'构造url')        
+									let reg = new RegExp("index", "g"); 
+									let url = "index"; 
+									console.log(url.replace(reg, "index?page=" + $(this).text()))
+									window.location.href = url.replace(reg, "index?p=" + $(this).text() ); 
+								})
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div>
+			</div>
+		</div>
+		
+		<%if(L=='1'){%>
+			<%include ../../footercom.ejs%>
+		  <%}%>
+		  <%if(L!='1'){%>
+			<%include ../../footercom.ejs%>
+		  <%}%>
+		  <script src="../../javascripts/js/jquery.min.js"></script>
+		  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+		  <script src="../../javascripts/js/common.js"></script>
+		  
+		  <script src="../../javascripts/js/brcheck.js"></script>
+		  
+		  <script type="text/javascript">
+		  $(window).resize(function() {
+			  if (window.innerWidth > 767) {
+				  $('.pic-area').height(((window.innerWidth) / 4) + ((window.innerWidth) / 100))
+			  } else {
+				  $('.pic-area').height((window.innerWidth) * 0.52)
+			  }
+		  })
+		  
+		  $(function (){
+			  if (window.innerWidth > 767) {
+				  $('.pic-area').height(((window.innerWidth) / 4) + ((window.innerWidth) / 100))
+			  } else {
+				  $('.pic-area').height((window.innerWidth) * 0.52)
+			  }
+		  })
+		  </script>
+		  
+		  </body>
+		  </html>
+		  

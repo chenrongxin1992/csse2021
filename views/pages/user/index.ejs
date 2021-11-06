@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>深圳大学计算机与软件学院</title>
+	<link rel="stylesheet" href="../../stylesheets/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/css/user_css/user.css" />
+</head>
+<body class="user">
+<%if(L=='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+
+	<div class="banner">
+		<img src="../../image/user_image/banner.png" class="b_bg lazy_img" />
+		<img src="../../image/user_image/bannerText.png" class="b_txt lazy_img" />
+	</div>
+	<div class="contain">
+		<div class="contain-area clearfix">
+			<div class="cont">
+				<div class="area">
+					<div class="area-left">
+						<div class="area-list">
+							<div class="pic-area">
+								<img class="img img1" src="../../image/user_image/vector.png" />
+								<img class="img img3" src="<%=data.avatar%>" style="width: 300px;height: 300px;border-radius:50%;" />
+								<img class="img img4" src="../../image/user_image/img_left.png" />
+							</div>
+							<div class="details c_333">
+								<div class="tit c_cca84d b"><%=data.userName%></div>
+								<p class="p1 c_cca84d"><%=data.zhiwu%> <%=data.zhicheng%></p>
+								<p class="p2 c_cca84d"><%=data.suoxi%></p>
+								<p><%=data.phone%></p>
+								<p><%=data.email%></p>
+							</div>
+						</div>
+					</div>
+					<div class="area-right">
+						<div class="area-tit c_cca84d bb"><%=data.userName%></div>
+						<div class="area-txt">
+							<%-data.intro-%>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<%if(L=='1'){%>
+		<%include ../../footercom.ejs%>
+	  <%}%>
+	  <%if(L!='1'){%>
+		<%include ../../footercom.ejs%>
+	  <%}%>
+	  <script src="../../javascripts/js/jquery.min.js"></script>
+	  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+	  <script src="../../javascripts/js/common.js"></script>
+	  
+	  <script src="../../javascripts/js/brcheck.js"></script>
+	</body>
+</html>
+	  

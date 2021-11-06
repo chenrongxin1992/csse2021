@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+  <link rel="stylesheet" href="../../stylesheets/css/university_css/logo.css">
+</head>
+<body class="university">
+<%if(L=='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+
+  <div class="banner">
+    <img src="../../image/university_image/banner.png" class="b_bg lazy_img pimg" />
+    <img src="../../image/university_image/m-banner.png" class="b_bg lazy_img mimg" />
+  </div>
+  <div class="contain">
+    <div class="contain-area clearfix">
+            <div class="nav-list">
+              <a href="index" class="nav ">学院简介</a>
+              <a href="message" class="nav">院长寄语</a>
+              <a href="develop" class="nav">发展沿革</a>
+              <a href="leader" class="nav">现任领导</a>
+              <a href="logo" class="nav active">学院标识</a>
+            </div>
+        <div class="cont">
+            <div class="logo-u">
+                <img class="img" src="../../image/university_image/logo/university-logo.png" />
+            </div>
+            <div class="logo-l">
+                <div class="row row1">
+                    <div class="txt">学院标识-深大红(透明背景)</div>
+                    <img class="img img1" src="../../image/university_image/logo/logo-l-red.png" />
+                </div>
+                <div class="row">
+                    <div class="txt">学院标识-学院蓝(透明背景)</div>
+                    <img class="img img2" src="../../image/university_image/logo/logo-l-blue.png" />
+                </div>
+            </div>
+            <div class="logo">
+                <div class="row row1">
+                    <div class="txt">院徽-深大红(透明背景)</div>
+                    <img class="img" src="../../image/university_image/logo/logo-red.png" />
+                </div>
+                <div class="row">
+                    <div class="txt">院徽-学院蓝(透明背景)</div>
+                    <img class="img" src="../../image/university_image/logo/logo-blue.png" />
+                </div>
+            </div>
+            <div class="courtyard-flag">
+                <div class="txt">院旗</div>
+                <img class="img" src="../../image/university_image/logo/courtyard-flag.png" />
+            </div>
+        </div>
+            
+    </div>
+  </div>
+  
+  <%if(L=='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <%if(L!='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+<script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+<script src="../../javascripts/js/common.js"></script>
+
+<script src="../../javascripts/js/brcheck.js"></script>
+<script src="../../javascripts/js/slick.min.js"></script>
+<script src="../../javascripts/js/scrollreveal.js"></script>
+<script src="../../javascripts/js/anime.min.js"></script>
+
+<script>
+  
+</script>
+</body>
+</html>

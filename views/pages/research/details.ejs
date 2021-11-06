@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+  <link rel="stylesheet" href="../../stylesheets/css/research_css/detail.css">
+  <script src="../../javascripts/js/jquery.min.js"></script>
+
+</head>
+<body class="research">
+<%if(L=='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+  <%include ../../headcom.ejs%>
+<%}%>
+  <div class="banner">
+    <img  src="../../image/research_image/banner.png" class="b_bg"/>
+    <!-- <img  src="image/bannerText.png" class="b_txt"/> -->
+  </div>
+  <div class="contain">
+    <div class="contain-area clearfix">
+        <div class="cont">
+            <div class="area">
+                <div class="title">
+                  <%-data.title-%>
+				        </div>
+                <div class="title-2">
+                  <%-data.kanwu-%>
+                </div>
+                <div class="title-3">
+                  <%data.zuozhe_arr.forEach(function(item,index){%>
+                  <div><%=item%></div>    
+                  <%})%>
+                </div>
+                <div class="title-4">
+                    <%data.danwei_arr.forEach(function(item,index){%>
+                    <div><%=item%></div>    
+                    <%})%>
+                </div>
+				<div class="img">
+					<img src="<%=data.fujianPath%>" >
+				</div>
+				<%-data.pageContent-%>
+				<!-- <p>Fig. 1. Given an unknown large-scale urban site with arbitrary boundary shape (red polygon shown on left), our algorithm designs an aerial flight trajectory in real-time, which guides a single-camera UAV to both explore the site (trajectory shown in yellow) and observe all buildings (trajectory shown in blue). 9,148 images were captured, which support high-quality reconstruction of this 1.35km2 area through available multi-view stereo matching techniques (right).</p>
+				<p class="b c_cca84d">Abstract</p>
+				<p>Existing approaches have shown that, through carefully planning flight trajectories, images captured by Unmanned Aerial Vehicles (UAVs) can be used to reconstruct high-quality 3D models for real environments. These approaches greatly simplify and cut the cost of large-scale urban scene reconstruction. However, to properly capture height discontinuities in urban scenes, all state-of-the-art methods require prior knowledge on scene geometry and hence, additional prepossessing steps are needed before performing the actual image acquisition flights. To address this limitation and to make urban modeling techniques even more accessible, we present a real-time explore-and-reconstruct planning algorithm that does not require any prior knowledge for the scenes. Using only captured 2D images, we estimate 3D bounding boxes for buildings on-the-fly and use them to guide online path planning for both scene exploration and building observation. Experimental results demonstrate that the aerial paths planned by our algorithm in real-time for unknown environments support reconstructing 3D models with comparable qualities and lead to shorter flight air time.</p>
+				<p class="b c_cca84d">Acknowledgements</p>
+				<p>We thank all reviewers for their valuable comments. This work was supported in parts by NSFC (U2001206), Guangdong Talent Program (2019JC05X328), Guangdong Science and Technology Program (2020A0505100064), DEGP Key Project (2018KZDXM058), Shenzhen Science and Technology Program (RCJC20200714114435012, JCYJ20210324120213036), NSERC (293127), National Engineering Laboratory for Big Data System Computing Technology, and Guangdong Laboratory of Artificial Intelligence and Digital Economy (SZ).</p>
+				<p class="b c_cca84d">Bibtex</p>
+				<p>@article{DroneFly21,
+				<br/>
+				title={Aerial Path Planning for Online Real-Time Exploration and Offline High-Quality Reconstruction of Large-Scale Urban Scenes},
+				<br/>
+				author={Yilin Liu and Ruiqi Cui and Ke Xie and Minglun Gong and Hui Huang},
+				<br/>
+				journal={ACM Transactions on Graphics (Proceedings of SIGGRAPH ASIA)},
+				<br/>
+				year={2021},
+				<br/>
+				}</p> -->
+				<p class="b c_cca84d">Downloads</p>
+				
+				<div class="downlonds">
+          <%namearr.forEach(function(item,index){%>
+            <a href="<%=patharr[index]%>" class="pdf" download>
+              <span><%=item.slice(11)%></span>
+            </a>
+          <%})%>
+        </div>
+			</div>
+    </div>
+            
+    </div>
+  </div>
+  
+  <%if(L=='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <%if(L!='1'){%>
+    <%include ../../footercom.ejs%>
+  <%}%>
+  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+  <script src="../../javascripts/js/common.js"></script>
+
+  <script src="../../javascripts/js/brcheck.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>深圳大学计算机与软件学院</title>
+		<link rel="stylesheet" href="../../stylesheets/css/common.css">
+		<link rel="stylesheet" href="../../stylesheets/css/regulation_css/constitute.css">
+		<link rel="stylesheet" type="text/css" href="../../stylesheets/css/regulation_css/common.css" />
+	</head>
+	<body class="news">
+	 <%if(L=='1'){%>
+		<%include ../../headcom.ejs%>
+	  <%}%>
+	  <%if(L!='1'){%>
+		<%include ../../headcom.ejs%>
+	  <%}%>
+
+		<div class="banner">
+			<img src="../../image/regulation_image/banner.png" class="b_bg lazy_img pimg" />
+			<img src="../../image/regulation_image/m-banner.png" class="b_bg lazy_img mimg" />
+		</div>
+		<div class="contain">
+			<div class="contain-area clearfix">
+				<div class="cont">
+					<div class="area">
+						<div class="area-left">
+							<div class=" area-nav">
+								<div class="tit b">党群工作</div>
+								<ul>
+									<li class="active"><a href="javascript:;">组织概况</a></li>
+									<li>
+										<a href="rules">规章制度</a>
+									</li>
+									<li>
+										<a href="index">党建活动</a>
+									</li>
+									<li>
+										<a href="study">学“习”园地</a>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+						<div class="area-right">
+							<!-- <div class="area-tit c_cca84d bb">组织概况</div> -->
+							<div class="area-list">
+								<div class="txt">
+									<%-data.pageContent-%>
+								</div>
+							</div>
+							<!-- <div class="img">
+								<img src="../../image/regulation_image/constitute/img1.png" >
+							</div> -->
+						</div>
+					</div>
+				</div>
+				<div class="line"></div>
+			</div>
+		</div>
+		
+		<%if(L=='1'){%>
+			<%include ../../footercom.ejs%>
+		  <%}%>
+		  <%if(L!='1'){%>
+			<%include ../../footercom.ejs%>
+		  <%}%>
+		  <script src="../../javascripts/js/jquery.min.js"></script>
+		  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+		  <script src="../../javascripts/js/common.js"></script>
+		  
+		  <script src="../../javascripts/js/brcheck.js"></script>
+		  
+		  <script type="text/javascript">
+		  $(window).resize(function() {
+			  if (window.innerWidth > 767) {
+				  $('.pic-area').height(((window.innerWidth) / 4) + ((window.innerWidth) / 100))
+			  } else {
+				  $('.pic-area').height((window.innerWidth) * 0.52)
+			  }
+		  })
+		  
+		  $(function (){
+			  if (window.innerWidth > 767) {
+				  $('.pic-area').height(((window.innerWidth) / 4) + ((window.innerWidth) / 100))
+			  } else {
+				  $('.pic-area').height((window.innerWidth) * 0.52)
+			  }
+		  })
+		  </script>
+		  
+		  </body>
+		  </html>
