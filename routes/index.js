@@ -1476,6 +1476,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			})
 		}
 		if(!zhicheng&&!suoxi&!search_txt){
+			console.log('nothing')
 			async.waterfall([
 				function(cb){
 					//get count
@@ -1513,10 +1514,22 @@ router.get('/pages/teacherTeam/index',function(req,res){
 						}
 						console.log('check -------',docs)
 						docs.forEach(function(item,index){
+							console.log('1    ----------------------------')
+							console.log(item._id)
 							item.zc = checkjstype(item._id)
 						})
 						data.zhichengNum = docs
 						console.log(data.zhichengNum)
+						console.log('----------------------------')
+						console.log(data.zhichengNum[0]._id)
+						console.log(data.zhichengNum[1]._id)
+						console.log(data.zhichengNum[2]._id)
+						console.log(data.zhichengNum[3]._id)
+						console.log(data.zhichengNum[4]._id)
+						console.log(data.zhichengNum[5]._id)
+						console.log(data.zhichengNum[6]._id)
+						console.log(data.zhichengNum[7]._id)
+						console.log(data.zhichengNum[8]._id)
 						cb()
 					})
 				},
@@ -1777,22 +1790,28 @@ function checkjstype(arg){
 		return '杰出人才'
 	}
 	else if (arg==2){
-		return '教授/研究员'
+		return '教授'
 	}
 	else if (arg==3){
-		return '副教授/副研究员'
+		return '副教授'
 	}
 	else if (arg==4){
-		return '助理教授'
-	}
-	else if (arg==5){
 		return '讲师'
 	}
+	else if (arg==5){
+		return '助理教授'
+	}
 	else if (arg==6){
-		return '博士后'
+		return '专职研究人员'
 	}
 	else if (arg==7){
-		return '研究/管理助理'
+		return '博士后'
+	}
+	else if (arg==8){
+		return '技术/管理人员'
+	}
+	else{
+		return '研究/辅助管理'
 	}
 }
 //临时用，更新人员peopleid
@@ -2112,27 +2131,27 @@ router.get('/pages/news/index',function(req,res){
 	if(!page){page = 1}
 	if(!limit){limit = 15 }//8
 	if(!leixing){leixing = 1 }
-	if(leixing==1){
+	if(leixing==1||leixing=='科研动态'){
 		leixing='科研动态'
 		obj = {leixing:leixing,$or:[{tag2:'计软新闻'},{trees:'179-181-'}]}
 	}
-	if(leixing==2){
+	if(leixing==2||leixing=='国际交流'){
 		leixing='国际交流'
 		obj = {leixing:leixing,$or:[{tag2:'计软新闻'},{trees:'179-181-'}]}
 	}
-	if(leixing==3){
+	if(leixing==3||leixing=='学生工作'){
 		leixing='学生工作'
 		obj = {leixing:leixing,$or:[{tag2:'计软新闻'},{trees:'179-181-'}]}
 	}
-	if(leixing==4){
+	if(leixing==4||leixing=='党务行政'){
 		leixing='党务行政'
 		obj = {leixing:leixing,$or:[{tag2:'计软新闻'},{trees:'179-181-'}]}
 	}
-	if(leixing==5){
+	if(leixing==5||leixing=='学术讲座'){
 		leixing='学术讲座'
 		obj = {leixing1:leixing,$or:[{tag2:'通知公告'},{trees:'179-182-'}]}
 	}
-	if(leixing==6){
+	if(leixing==6||leixing=='教务教学'){
 		leixing='教务教学'
 		obj = {leixing1:leixing,$or:[{tag2:'通知公告'},{trees:'179-182-'}]}
 	}
@@ -2457,6 +2476,7 @@ router.get('/pages/recruitment/doctor',function(req,res){
 						cb(error)
 					}
 					data = docs
+					console.log(data)
 					cb(null,docs)
 				})
 		}
@@ -2474,9 +2494,11 @@ router.get('/pages/recruitment/doctor',function(req,res){
 		console.log(data.info,info)
 		let patharr,namearr
 			if(result.patharr){
+				console.log('dddd')
 				patharr = (result.patharr).split(',')
 				namearr = (result.namearr).split(',')
 			}
+			//console.log(result.namearr.length)
 		res.render('pages/recruitment/index',{L:req.query['L'],data:data,zhuanye:zhuanye,z:z,info:info,patharr:patharr,namearr:namearr})
 	})
 })

@@ -738,44 +738,56 @@
 				{
 					"title": "杰出人才",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=jcrc",
+					"href": "/csse/manage/jsdw?peopleid=1",
 					"spread": false
 				},
 				{
-					"title": "教授/研究员",
+					"title": "教授",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=proyjy",
+					"href": "/csse/manage/jsdw?peopleid=2",
 					"spread": false,
 					"target": ""
 				},
 				{
-					"title": "副教授/副研究员",
+					"title": "副教授",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=fjsfyjy",
-					"spread": false
-				},
-				{
-					"title": "助理教授",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=zljs",
+					"href": "/csse/manage/jsdw?peopleid=3",
 					"spread": false
 				},
 				{
 					"title": "讲师",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=jiangshi",
+					"href": "/csse/manage/jsdw?peopleid=4",
+					"spread": false
+				},
+				{
+					"title": "助理教授",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?peopleid=5",
+					"spread": false
+				},
+				{
+					"title": "专职研究人员",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=6",
 					"spread": false
 				},
 				{
 					"title": "博士后",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=boshihou",
+					"href": "/csse/manage/jsdw?peopleid=7",
 					"spread": false
 				},
 				{
-					"title": "研究/管理助理",
+					"title": "技术/管理人员",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=qita",
+					"href": "/csse/manage/jsdw?peopleid=8",
+					"spread": false
+				},
+				{
+					"title": "研究/辅助管理",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?peopleid=9",
 					"spread": false
 				}
 			]
@@ -845,51 +857,56 @@
 				{
 					"title": "杰出人才",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=jcrc",
+					"href": "/csse/manage/jsdw?peopleid=1",
 					"spread": false
 				},
 				{
 					"title": "教授",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=professor",
-					"spread": false,
-					"target": ""
-				},
-				{
-					"title": "研究员",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=yjy",
+					"href": "/csse/manage/jsdw?peopleid=2",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "副教授",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=fjs",
-					"spread": false
-				},
-				{
-					"title": "副研究员",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=fyjy",
-					"spread": false
-				},
-				{
-					"title": "助理教授",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=zljs",
+					"href": "/csse/manage/jsdw?peopleid=3",
 					"spread": false
 				},
 				{
 					"title": "讲师",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=jiangshi",
+					"href": "/csse/manage/jsdw?peopleid=4",
 					"spread": false
 				},
 				{
-					"title": "研究/管理助理",
+					"title": "助理教授",
 					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=qita",
+					"href": "/csse/manage/jsdw?peopleid=5",
+					"spread": false
+				},
+				{
+					"title": "专职研究人员",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?type=6",
+					"spread": false
+				},
+				{
+					"title": "博士后",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?peopleid=7",
+					"spread": false
+				},
+				{
+					"title": "技术/管理人员",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?peopleid=8",
+					"spread": false
+				},
+				{
+					"title": "研究/辅助管理",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jsdw?peopleid=9",
 					"spread": false
 				}
 			]

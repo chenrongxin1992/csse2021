@@ -3970,7 +3970,7 @@ router.get('/jsdw',function(req,res){
 	console.log('info',info)
 	res.render('manage/jsdw/publictpl',{info:info})
 }).get('/jsdw_data',function(req,res){
-	console.log('router jsdw_data',req.query.power,req.query.jstype,typeof(req.query.jstype))
+	console.log('router jsdw_data',req.query.power,req.query.peopleid,typeof(req.query.peopleid))
 	//return false
 	let page = req.query.page,
 		limit = req.query.limit,
@@ -4022,7 +4022,7 @@ router.get('/jsdw',function(req,res){
 							]
 						}
 					}
-					if(power && !jstype){
+					if(power && !peopleid){
 						console.log('有姓名，角色',userName,power)
 						_filter = {
 							$and:[
@@ -4031,7 +4031,7 @@ router.get('/jsdw',function(req,res){
 							]
 						}
 					}
-					if(!power && !jstype){
+					if(!power && !peopleid){
 						console.log('只有姓名',userName,power)
 						_filter = {
 							userName:{$regex:userName}

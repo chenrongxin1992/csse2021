@@ -28,15 +28,15 @@
        <div class="layui-inline">
 	    	<select name="jstype" id="jstype" lay-filter="jstype" >
           		<option value="">人员类别</option>
-		        <option value="杰出人才" peopleid="1">杰出人才</option>
-		        <option value="教授" peopleid="2">教授</option>
-		        <option value="副教授" peopleid="3">副教授</option>
-				<option value="讲师" peopleid="4">讲师</option>
-		        <option value="助理教授" peopleid="5">助理教授</option>
-		        <option value="专职研究人员" peopleid="6">专职研究人员</option>
-		        <option value="博士后" peopleid="7">博士后</option>
-				<option value="技术/管理人员" peopleid="8">技术/管理人员</option>
-				<option value="研究/管理助理" peopleid="9">研究/管理助理</option>
+		        <option value="1" peopleid="1">杰出人才</option>
+		        <option value="2" peopleid="2">教授</option>
+		        <option value="3" peopleid="3">副教授</option>
+				<option value="4" peopleid="4">讲师</option>
+		        <option value="5" peopleid="5">助理教授</option>
+		        <option value="6" peopleid="6">专职研究人员</option>
+		        <option value="7" peopleid="7">博士后</option>
+				<option value="8" peopleid="8">技术/管理人员</option>
+				<option value="9" peopleid="9">研究/管理助理</option>
 		              <!-- 动态获取 -->
 		   </select>
 	  </div>
@@ -79,7 +79,7 @@ layui.use(['jquery','table','form'], function(){
     //数据重载
     $('#kyxm_btn').on('click', function(){
     	console.log('power',$('#power option:selected').val())
-		console.log('peopleid',$('#jstype option:selected').attr('peopleid'))
+		console.log('peopleid',$('#jstype option:selected').val())
 			table.reload('table_jsdw', {
 				where: {
 					userName: $('#userName').val(),
