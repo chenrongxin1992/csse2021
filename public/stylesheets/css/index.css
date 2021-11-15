@@ -49,17 +49,6 @@
 }
 .banner .slick-dots li.slick-active button{background-color: #352C84;border-color: #fff;}
 
-.banner-video {
-    padding-top: 38.5417%;
-    position: relative;
-}
-.banner-video video{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-}
 
 .banner .banner-txt{
     position: absolute;
@@ -74,6 +63,18 @@
     align-items: center;
     background-color: #352C84;
     font-size: 30px;
+}
+
+.banner-video {
+    padding-top: 38.5417%;
+    position: relative;
+}
+.banner-video video{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .research_banner .slick-next,.research_banner .slick-prev{font-size: 0;position:absolute;
@@ -462,7 +463,6 @@
     margin-left: 20%;
 }
 .internationality_cont .img{
-    float: left;
     width: 33.3%;
     margin-bottom: 30px;
     height: 70px;
@@ -470,24 +470,11 @@
     align-items: center;
     justify-content: center;
 }
-.p-area .internationality_cont .img img{
-    height: 40px;
+.internationality_cont .img img{
+    width: 50%;
+    max-height: 80%;
 }
-.p-area .internationality_cont .img:nth-child(1) img{
-    height: 50px;
-}
-.p-area .internationality_cont .img:nth-child(2) img{
-    height: 30px;
-}
-.p-area .internationality_cont .img:nth-child(3) img{
-    height: 55px;
-}
-.p-area .internationality_cont .img:nth-child(4) img{
-    height: 35px;
-}
-.p-area .internationality_cont .img:nth-child(7) img{
-    height: 55px;
-}
+
 .internationality_cont .more{
     width: 80%;
     margin-left: 20%;
@@ -506,6 +493,8 @@
 .internationality_logo{
     width: 80%;
     margin-left: 20%;
+    display: flex;
+    flex-wrap: wrap;
 }
 .internationality_img{
     width: 45%;
@@ -873,59 +862,10 @@
     top: 0;
 }
 .m-area .internationality_cont .img-bg img{
-    width: 100%;
+    width: 50%;
+    max-height: 80%;
 }
 
-.internationality_cont .img1{
-    width: 61.13%;
-}
-.internationality_cont .img2{
-    width: 96.16%;
-}
-.internationality_cont .img3{
-    width: 23.03%;
-}
-
-
-.internationality_cont .img4{
-    width: 80%;
-}
-.internationality_cont .img5{
-    width: 76.8%;
-}
-.internationality_cont .img6{
-    width: 32.8%;
-}
-
-.internationality_cont .img7{
-    width: 73.2%;
-}
-.internationality_cont .img8{
-    width: 86.4%;
-}
-.internationality_cont .img9{
-    width: 54%;
-}
-
-.internationality_cont .img10{
-    width: 71.6%;
-}
-.internationality_cont .img11{
-    width: 104.8%;
-}
-.internationality_cont .img12{
-    width:51.2%
-}
-
-.internationality_cont .img13{
-    width: 68%;
-}
-.internationality_cont .img14{
-    width: 74.8%;
-}
-.internationality_cont .img15{
-    width: 55.2%;
-}
 @media only screen and (min-width:1920px){
     .high-list .high-left .num{
         font-size: 72px;
@@ -1035,6 +975,10 @@
 	.high-lights .high-list>div {
 		width: 100%;
 	}
+    .internationality_logo .img{
+        width: 50%;
+        margin-bottom: 15px;
+    }
 }
 @media only screen and (max-width:959px){
     .m-area .research .research_txt{

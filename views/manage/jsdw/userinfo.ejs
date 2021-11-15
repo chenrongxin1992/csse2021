@@ -432,7 +432,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 	//   data.field.xuewei1=$('#xuewei1').val()
 	//   data.field.xueli=$('#xueli').val()
 	//   data.field.xueli1=$('#xueli1').val()
-	  data.field.avatar=$('#userimg').attr('src')
+	  data.field.avatar=($('#userimg').attr('src')).split('?')[0]
 	  data.field.suoxi=$('#suoxi option:selected').val()
 	  data.field.suoxi1=$('#suoxi1 option:selected').val()
 	  data.field.jybj=$('#jybj').val()

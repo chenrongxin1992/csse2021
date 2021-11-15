@@ -24,8 +24,14 @@
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">师资概况</label>
-				<div class="layui-input-inline" style="width: 340px;">
+				<div class="layui-input-inline" style="width: 540px;">
                     <textarea placeholder="师资概况" class="layui-textarea" id="cggk" style="height: 200px;"><%=data.pageContent%></textarea>
+		       </div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">师资概况(EN)</label>
+				<div class="layui-input-inline" style="width: 540px;">
+                    <textarea placeholder="英文" class="layui-textarea" id="cggk1" style="height: 200px;"><%=data.pageContentEN%></textarea>
 		       </div>
 			</div>
 			<div class="layui-form-item">
@@ -58,6 +64,7 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 
 		 data.field.id = id
 		 data.field.pageContent = $('#cggk').val()//
+		 data.field.pageContentEN = $('#cggk1').val()//
 	     console.log('data.field',data.field)
 		 //return false
 	     //console.log('submit data',data)

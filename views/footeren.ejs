@@ -1,0 +1,187 @@
+<div class="footer">
+    <div class="pc_footer">
+        <div class="foot_cont">
+            <div class="foot-top clearfix">
+                <div class="foot-row">
+                    <div class="tit b">LINKS</div>
+                    <ul class="p-foot-list foot-list">
+                        <li>
+                            <a href="https://www.szu.edu.cn/">
+                                <img class="foot_img foot_img1" src="image/common/logo_school.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://bdsc.szu.edu.cn/">
+                                <img class="foot_img foot_img2" src="image/common/BD.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://ailab.szu.edu.cn/">
+                                <span class="b txt">省实验室</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <span class="b txt">省实验中心</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.tencent.com/">
+                                <img class="foot_img foot_img3" src="image/common/tencent-logo.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.huawei.com/">
+                                <img class="foot_img foot_img4" src="image/common/huawei-logo.png" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="foot-row">
+                    <div class="tit b">CONTACT US</div>
+                    <ul class="foot-info">
+                        <li>
+                            <img class="icon_img" src="image/common/ress-icon.png" />
+                            <div class="txt-right">
+                                <div class="txt b">ADDRESS</div>
+                                <div class="txt1">
+                                    Zhiteng Building, Canghai Campus of Shenzhen University,
+                                    Nanshan District, Shenzhen, Guangdong Province,
+                                    <br>China 518060
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <img class="icon_img" src="image/common/phone-icon.png" />
+                            <div class="txt-right">
+                                <div class="txt b">Tel & FAX</div>
+                                <div class="txt1">+86 0755 26534078</div>
+                            </div>
+                        </li>
+                        <li>
+                            <img class="icon_img" src="image/common/email-icon.png" />
+                            <div class="txt-right">
+                                <div class="txt b">E-mail</div>
+                                <div class="txt1">csse@szu.edu.cn</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="foot-row">
+                    <div class="tit b">SUBSCRIPTION</div>
+                    <ul class="foot-code">
+                        <li>
+                            <div class="txt b">CSSE</div>
+                            <img class="code_img lazy_img" src="image/common/csse.png" />
+                            <div class="txt">计软公众号</div>
+                        </li>
+                        <li>
+                            <div class="txt b">Party-masses</div>
+                            <img class="code_img lazy_img" src="image/common/party-messes.png" />
+                            <div class="txt">党群公众号</div>
+                        </li>
+                        <li>
+                            <div class="txt b">SZU</div>
+                            <img class="code_img lazy_img" src="image/common/szu.png" />
+                            <div class="txt">深圳大学</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="foot-bot line">
+                粤ICP备11018045号<span class="txt"><img class="ga_img" src="image/common/ga_img.png" />粤公网安备
+                    ***************号</span><span class="location">Copyright © 2021 College of Computer Science and
+                    Software Engineering, SZU</span>
+                <span class="to_top"><i></i>TOP</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer_wrap"></div>
+    <img src="image/common/bot.png" class="bot_img p-bg" />
+    <img src="image/mobile/m-bot-bg.png" class="bot_img m-bg" />
+</div>
+
+<script src="javascripts/js/jquery.min.js"></script>
+<script src="javascripts/js/jquery.lazyload.min.js"></script>
+<script src="javascripts/js/common.js"></script>
+
+<script src="javascripts/js/brcheck.js"></script>
+<script src="javascripts/js/slick.min.js"></script>
+<script src="javascripts/js/scrollreveal.js"></script>
+<script src="javascripts/js/jquery.waypoints.min.js"></script>
+<script src="javascripts/js/jquery.countup.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#changeL').click(function(){
+            console.log('change to en')
+            $.get('/csse/setLanguage', {
+                language:'1'
+            }, function(data){
+                if(data.success){
+                //return 1
+                return window.location.reload();
+                }
+            }, 'json');
+            })
+        $('.banner .slider').slick({
+            dots: true,
+            arrows: true,
+            autoplay: false,
+            slidesToShow: 1,
+            autoplaySpeed: 5000,
+            pauseOnHover: true,
+            lazyLoad: 'ondemand',
+            customPaging: function (slider, i) {
+                var thumb = $(slider.$slides[i]).data();
+                return '<button></button>';
+            },
+        });
+        // 科研成果切换事件
+        $('.research_banner .slider').slick({
+            arrows: true,
+            autoplay: true,
+            slidesToShow: 1,
+            autoplaySpeed: 5000,
+            pauseOnHover: true,
+            lazyLoad: 'ondemand'
+        });
+        $('.research_banner .slider').on('afterChange', function (event, slick, currentSlide) {
+            // currentSlide 为当前显示的slider下标
+            console.log(currentSlide);
+            $('.research_desc .c_cca84d').html(
+                'A distributed data management system to support large-scale data analysis -- ' +
+                currentSlide)
+            $('.research_desc .c_666 span').html('The Journal of Systems & Software -- ' +
+                currentSlide)
+            $('.research_desc .c_999').html('大数据技术与应用研究所 -- ' + currentSlide)
+        });
+    });
+    // 屏幕滚动到当前元素时，显示动画
+    ScrollReveal().reveal('.p-area .news-tit', {
+        reset: true,
+        duration: 800,
+        distance: '-100px',
+        origin: 'bottom',
+    });
+    ScrollReveal().reveal([
+        document.querySelector('.p-area .recruitment_cont .tit'),
+        document.querySelector('.p-area .research_cont .research_tit')
+    ], {
+        reset: true,
+        duration: 1500,
+        distance: '-300px',
+        origin: 'left',
+    });
+    ScrollReveal().reveal('.p-area .internationality_cont .tit', {
+        reset: true,
+        duration: 1500,
+        distance: '-300px',
+        origin: 'right',
+    });
+    $('.mynum').countUp()
+    // 统计数据自增动画
+    // $('.countUp').countUp();
+</script>
+</body>
+</html>

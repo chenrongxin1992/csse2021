@@ -1,0 +1,275 @@
+.news{
+    background-color: #352C84;
+}
+.news .contain{
+    overflow: hidden;
+}
+/* banner */
+.banner{
+    position: relative;
+}
+.banner .b_bg{
+    width: 100%;
+}
+.banner .b_txt{
+    position: absolute;
+    left: 10%;
+    top: 44%;
+    height: 37%;
+}
+.banner .mimg{
+	display: none;
+}
+
+.cont{
+    width: 83.3333%;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
+
+.area{
+    display: flex;
+    margin-top: 60px;
+}
+.area-left{
+	width: 14.6%;
+	margin-right: 49px;
+	min-width: 230px;
+}
+.area-nav{
+    text-align: center;
+    width: 229px;
+    box-shadow: 0px 0px 4px 0px rgba(204, 168, 77, 0.35);
+    background-color: #f3f3f3;
+}
+.area-nav .tit{
+    background-color: #cca84d;
+    color:#fff;
+    padding: 19px 0;
+    width: 100%;
+    font-size: 24px;
+}
+.area-nav ul li{
+    color: #333;
+    cursor: pointer;
+    margin-bottom: 1px;
+    font-size: 16px;
+}
+.area-nav ul li a{
+    display: block;
+    padding: 19px 0;
+    width: 100%;
+}
+.area-nav ul li.active,.area-nav ul li:hover{
+    background-color: #fff;
+}
+
+.area-right{
+    background-color:#F9F9F9;
+    color: #333;
+    padding-bottom: 60px;
+    border-bottom: 2px solid #CCA84D;
+    width: 83%;
+}
+.area-tit{
+    font-size:30px;
+    width: 100%;
+	font-weight: bold;
+    text-align: center;
+    padding: 40px 0;
+}
+.area-right .area-txt{
+    line-height: 1.5em;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+.area-right .area-txt .b{
+    font-size: 18px;
+    padding-bottom: 5px;
+}
+.area-right .m20{
+    margin-bottom: 20px;
+}
+.area-right .mess-list .tit{
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+.area-right .mess-list{
+    padding: 0 20px 10px 20px;
+    flex: 1;
+	width: 60%;
+}
+.area-right .mess-list .ball{
+    color: #cca84d;
+    margin-right: 20px;
+}
+.area-right .mess-list .mess{
+    border-bottom: 1px solid #E5E5E5;
+    display: flex;
+    height: 48px;
+    align-items: center;
+    font-size: 16px;
+	font-weight: 400;
+    width: 100%;
+    position: relative;
+}
+
+.mess a{
+    width: 70%;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mess .time{
+    position: absolute;
+    right: 10px;
+}
+
+.area-list{
+    display: flex;
+}
+.area-list .pic-area{
+    position: relative;
+    width: 40%;
+    height: 433px;
+    transform: translateY(30%);
+}
+.area-list .pic-area .img1{
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    width: 50%;
+    z-index: 10;
+}
+.area-list .pic-area .img2{
+    position: absolute;
+    top: 7%;
+    right: 10%;
+    transform: translateY(-50%);
+    width: 28.9%;
+    z-index: 20;
+}
+.area-list .pic-area .img3{
+    position: absolute;
+    top: 23%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 63%;
+    z-index: 30;
+
+}
+@media only screen and (max-width:1200px){
+	.p-area .area-nav{
+        display: none;
+	}
+	.area-left{
+		display:none;
+	}
+    .cont{
+        width: 90%;
+        margin: 0 5%;
+    }
+    .area-cont{
+        margin-left: 0;
+	}
+	.area-right{
+		width: 100%;
+        padding-top: 30px;
+	}
+}
+@media screen and (max-width: 767px) {
+	.contain {
+		border-top-right-radius: 0 !important;
+		border-bottom-left-radius: 0 !important;
+		margin: 0;
+	}
+	
+	.cont {
+		width: 100%;
+		margin: 0;
+	}
+	
+	.area {
+		margin: 0;
+	}
+	
+	.area-left {
+		display: none;
+	}
+	
+	.area-right {
+		width: 100%;
+		border-bottom: 0 !important;
+	}
+	
+	.area-list {
+		flex-direction: column-reverse;
+		align-items: center;
+	}
+	
+	.area-right .mess-list {
+		width: 95%;
+		margin: 0 auto;
+	}
+	
+	.area-list .pic-area {
+		width: 80%;
+	}
+	.area-right .mess-list {
+		margin-top: 100px;
+        padding: 0 2% 10px;
+	}
+	
+	.area-tit {
+		padding: 15px 0 25px 0;
+	}
+	
+	.contain-area {
+		position: relative;
+	}
+	
+	.contain-area .line {
+		position: absolute;
+		height: 5px;
+		width: 100%;
+		background-color: #cca84d;
+		bottom: 0;
+		left: 0;
+	}
+
+	.area-right .mess-list .ball {
+		margin: 0 2% !important;
+		width: 2%;
+	}
+	.area-right .mess-list .mess {
+		font-size: 20px;
+	}
+	.banner .pimg{
+        display: none;
+    }
+    .banner .mimg{
+        display: block;
+    }
+}
+
+@media only screen and (max-width:700px){
+
+}
+@media only screen and (max-width:560px){
+
+	.area-right .mess-list .mess {
+		font-size: 18px;
+	}
+
+}
+@media only screen and (max-width:480px) {
+
+	.area-right .mess-list .mess {
+		height: 50px;
+		font-size: 16px;
+	}
+	.bread-crumbs{
+		font-size: 18px;
+	}
+}

@@ -81,15 +81,36 @@
         <div class="nav-row">
           <div class="nav-tit c_cca84d b">专业介绍</div>
           <div class="nav-cont">
-            <span class="btn active">计算机科学与技术</span><span class="btn">软件工程</span>
+            <span class="btn"><a href="index?z=1">计算机科学与技术</a></span>
+            <span class="btn"><a href="index?z=2">软件工程</a></span>
+            <span class="btn"><a href="index?z=3">软件工程（腾班）</a></span>
           </div>
+          <script type="text/javascript"> 
+            $('.btn').each(function(index,obj){
+              if('<%=zhuanye%>' == $(obj).text()){
+              console.log('找到page,点中状态',$(obj).text())
+              $(obj).addClass('active')
+              }
+            })
+            </script>
         </div>
         <div class="nav-row">
           <div class="nav-tit c_cca84d b">相关信息</div>
           <div class="nav-cont">
-            <span class="btn">学费与住宿</span><span class="btn">奖学金</span><span class="btn">校园环境</span><span
-              class="btn">就业情况</span><span class="btn">联系方式</span>
+            <span class="btn"><a href="index?z=<%=z%>&info=1">学费与住宿</a></span>
+            <span class="btn"><a href="index?z=<%=z%>&info=2">奖学金</a></span>
+            <span class="btn"><a href="index?z=<%=z%>&info=3">就业情况</a></span>
+            <span class="btn"><a href="index?z=<%=z%>&info=4">校园环境</a></span>
+            <span class="btn"><a href="index?z=<%=z%>&info=5">联系方式</a></span>
           </div>
+          <script type="text/javascript"> 
+            $('.btn').each(function(index,obj){
+              if('<%=info%>' == $(obj).text()){
+              console.log('找到page,点中状态',$(obj).text())
+              $(obj).addClass('active')
+              }
+            })
+            </script>
         </div>
       </div>
       <div class="cont">
@@ -100,6 +121,7 @@
               <ul>
                 <li class="li_zhuanye"><a href="index?z=1">计算机科学与技术</a></li>
                 <li class="li_zhuanye"><a href="index?z=2">软件工程</a></li>
+                <li class="li_zhuanye"><a href="index?z=3">软件工程（腾班）</a></li>
               </ul>
                 <script type="text/javascript"> 
                   $('.li_zhuanye').each(function(index,obj){
@@ -108,7 +130,7 @@
                     $(obj).addClass('active')
                     }
                   })
-                  </script>
+                </script>
             </div>
             <div class=" area-nav">
               <div class="tit b">相关信息</div>
@@ -122,7 +144,11 @@
             </div>
           </div>
           <div class="area-right">
-            <div class="area-tit c_cca84d bb"><%=data.zhuanye%></div>
+            <%if(info){%>
+              
+            <%}else{%>
+              <div class="area-tit c_cca84d bb"><%=data.zhuanye%></div>
+              <%}%>
             <div class="area-txt">
               <%if(!info){%>
                 <%-data.neirong-%>
@@ -142,17 +168,22 @@
                     }
                   })
               </script>
-              <%if(namearr){%>
-              <div class="mess-down">
-                <div class="tit c_cca84d b">资料下载</div>
-                <%namearr.forEach(function(item,index){%>
-                <a class="mess" href="<%=patharr[index]%>" download="">
-                  <span class="ball">● </span>
-                  <%=item.slice(11)%>
-                </a>
-                <%})%>
-              </div>
+              <%if(info){%>
+                
+              <%}else{%>
+                <%if(namearr){%>
+                  <div class="mess-down">
+                    <div class="tit c_cca84d b">资料下载</div>
+                    <%namearr.forEach(function(item,index){%>
+                    <a class="mess" href="<%=patharr[index]%>" download="">
+                      <span class="ball">● </span>
+                      <%=item.slice(11)%>
+                    </a>
+                    <%})%>
+                  </div>
+                  <%}%>
               <%}%>
+              
             <div class="line"></div>
           </div>
         </div>

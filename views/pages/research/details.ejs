@@ -25,25 +25,7 @@
     <div class="contain-area clearfix">
         <div class="cont">
             <div class="area">
-                <div class="title">
-                  <%-data.title-%>
-				        </div>
-                <div class="title-2">
-                  <%-data.kanwu-%>
-                </div>
-                <div class="title-3">
-                  <%data.zuozhe_arr.forEach(function(item,index){%>
-                  <div><%=item%></div>    
-                  <%})%>
-                </div>
-                <div class="title-4">
-                    <%data.danwei_arr.forEach(function(item,index){%>
-                    <div><%=item%></div>    
-                    <%})%>
-                </div>
-				<div class="img">
-					<img src="<%=data.fujianPath%>" >
-				</div>
+                
 				<%-data.pageContent-%>
 				<!-- <p>Fig. 1. Given an unknown large-scale urban site with arbitrary boundary shape (red polygon shown on left), our algorithm designs an aerial flight trajectory in real-time, which guides a single-camera UAV to both explore the site (trajectory shown in yellow) and observe all buildings (trajectory shown in blue). 9,148 images were captured, which support high-quality reconstruction of this 1.35km2 area through available multi-view stereo matching techniques (right).</p>
 				<p class="b c_cca84d">Abstract</p>

@@ -406,6 +406,9 @@ router.get('/xrld',function(req,res){
 					title:req.body.title,//加入权限后需要更新
 					name:req.body.name,
 					work:req.body.work,
+					title1:req.body.title1,//加入权限后需要更新
+					name1:req.body.name1,
+					work1:req.body.work1,
 					paixu:req.body.paixu,
 					pic:req.body.pic
 				})
@@ -435,6 +438,9 @@ router.get('/xrld',function(req,res){
 					name:req.body.name,
 					work:req.body.work,
 					paixu:req.body.paixu,
+					title1:req.body.title1,//加入权限后需要更新
+					name1:req.body.name1,
+					work1:req.body.work1,
 					pic:req.body.pic
 				}
 				xrld.updateOne({id:req.body.id},obj,function(error){
@@ -705,6 +711,8 @@ router.get('/xzbgs',function(req,res){
 					pageContentEN:req.body.pageContentEN,
 					zhur:req.body.zhur,
 					fuzhur:req.body.fuzhur,
+					zhur1:req.body.zhur1,
+					fuzhur1:req.body.fuzhur1,
 					tag2:'教学系',
 					fujianPath:req.body.fujianPath
 				})
@@ -736,6 +744,8 @@ router.get('/xzbgs',function(req,res){
 					pageContentEN:req.body.pageContentEN,
 					zhur:req.body.zhur,
 					fuzhur:req.body.fuzhur,
+					zhur1:req.body.zhur1,
+					fuzhur1:req.body.fuzhur1,
 					tag2:'教学系',
 					fujianPath:req.body.fujianPath
 				}
@@ -1672,9 +1682,10 @@ router.get('/cglr',function(req,res){
 					title:req.body.title,
 					year:req.body.year,
 					kanwu:req.body.kanwu,
-					zuozhe:req.body.zuozhe,
-					danwei:req.body.danwei,
+					// zuozhe:req.body.zuozhe,
+					// danwei:req.body.danwei,
 					belongsto:req.body.belongsto,
+					belongsto1:req.body.belongsto1,
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					fujianPath:req.body.fujianPath,
@@ -1713,9 +1724,10 @@ router.get('/cglr',function(req,res){
 					title:req.body.title,
 					year:req.body.year,
 					kanwu:req.body.kanwu,
-					zuozhe:req.body.zuozhe,
-					danwei:req.body.danwei,
+					// zuozhe:req.body.zuozhe,
+					// danwei:req.body.danwei,
 					belongsto:req.body.belongsto,
+					belongsto1:req.body.belongsto1,
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					fujianPath:req.body.fujianPath,
@@ -1827,7 +1839,9 @@ router.get('/cglr',function(req,res){
 	console.log('id------------------',req.body.id,req.body.pageContent)
 	let obj = {
 		pageContent:req.body.pageContent,
-		csrankings:req.body.csrankings
+		csrankings:req.body.csrankings,
+		pageContentEN:req.body.pageContentEN,
+		csrankingsEN:req.body.csrankingsEN
 	}
 	cmsContent.updateOne({id:req.body.id},obj,function(error){
 		if(error){
@@ -4525,7 +4539,7 @@ router.post('/usertx',function(req,res){
 			if(err){
 				return res.json({'code':-1,'msg':err})
 			}
-			console.log('img src ------>',doc.avatar)// /csse/attachment/userimg/1635602692_1628310982_bbhu.jpg
+			console.log('img src ------>',doc,doc.avatar)// /csse/attachment/userimg/1635602692_1628310982_bbhu.jpg
 			let temparr = doc.avatar.split('/')
 			console.log('temparr---->',temparr)
 			temparr.shift()
@@ -4534,6 +4548,7 @@ router.post('/usertx',function(req,res){
 			let tempstr = temparr.join('/')
 			console.log('tempstr---->',tempstr)
 			let imgpath = 'G:/newcsse-master/public/' + tempstr
+			imgpath = imgpath.split('?')[0]
 			console.log('imgpath-----',imgpath)
 			jimp.read(imgpath, function (err, img) {
 				if (err) throw err
@@ -4662,7 +4677,8 @@ router.post('/usertx',function(req,res){
 }).post('/szgkadd',function(req,res){
 	console.log('id------------------',req.body.id,req.body.pageContent)
 	let obj = {
-		pageContent:req.body.pageContent
+		pageContent:req.body.pageContent,
+		pageContentEN:req.body.pageContentEN
 	}
 	cmsContent.updateOne({id:req.body.id},obj,function(error){
 		if(error){

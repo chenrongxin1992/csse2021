@@ -127,7 +127,7 @@
 .area-nav ul li{
     color: #333;
     cursor: pointer;
-    margin-bottom: 1px;
+    border-bottom: 1px solid white;
     font-size: 16px;
 }
 .area-nav ul li a{
@@ -227,17 +227,6 @@
     width: 100%;
     font-size: 24px;
 
-}
-.area-nav ul li{
-    padding: 19px 0;
-    width: 100%;
-    color: #333;
-    cursor: pointer;
-    margin-bottom: 1px;
-    font-size: 16px;
-}
-.area-nav ul li.active,.area-nav ul li:hover{
-    background-color: #fff;
 }
 
 .area-right{
@@ -489,12 +478,12 @@
     }
 }
 @media only screen and (max-width:560px){
-	.m-area .area-right .mess-list .mess {
+	.area-right .mess-list .mess {
 		font-size: 16px;
 	}
 }
 @media only screen and (max-width:480px) {
-	.m-area .area-right .mess-list .mess {
+	.area-right .mess-list .mess {
 		height: 50px;
 		font-size: 14px;
 	}

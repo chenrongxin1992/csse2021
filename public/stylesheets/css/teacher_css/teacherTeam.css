@@ -115,7 +115,7 @@
 .area-nav ul li{
     color: #333;
     cursor: pointer;
-    margin-bottom: 1px;
+    border-bottom: 1px solid white;
     font-size: 16px;
 }
 .area-nav ul li a{

@@ -38,7 +38,7 @@
         ,autoHeightEnabled : false
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
 
-        , toolbars: [["fontsize","fontfamily","forecolor","backcolor","paragraph","justifyleft","justifycenter","justifyright","justifyjustify","source","undo","redo","insertunorderedlist","insertorderedlist","inserttable","deletetable","link","unlink","help","attachment","simpleupload","insertimage","pagebreak","date","bold","italic","fontborder","strikethrough","underline","rowspacingbottom","rowspacingtop","lineheight"]]
+        , toolbars: [["fontsize","fontfamily","forecolor","backcolor","paragraph","justifyleft","justifycenter","justifyright","justifyjustify","source","superscript","subscript","undo","redo","insertunorderedlist","insertorderedlist","inserttable","deletetable","link","unlink","help","attachment","simpleupload","insertimage","pagebreak","date","bold","italic","fontborder","strikethrough","underline","rowspacingbottom","rowspacingtop","lineheight"]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
         //    'anchor':'', 'undo':''

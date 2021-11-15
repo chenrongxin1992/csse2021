@@ -140,9 +140,12 @@ const cmsContentSchema = new Schema({
     belongsto:{type:String},//所属研究所
     zhur:{type:String},//21主任,用于教学系
     fuzhur:{type:String},//21副主任，用于教学系
+    zhur1:{type:String},//21主任,用于教学系
+    fuzhur1:{type:String},//21副主任，用于教学系
     zplx:{type:String},//21新增，招聘类型
     timeAddStamp:{type:String,default:moment().format('X')},//主要用于排序
     csrankings:{type:String},
+    csrankingsEN:{type:String},
     pyxm:{type:String},//国际合作培养项目
     hbsort:{type:Number},//合作伙伴排序
     tag1:{type:String},//2021新增字段，标识所属一级菜单
@@ -170,8 +173,11 @@ const cmsSliderSchema = new Schema({
 const xrldSchema = new Schema({ 
     id:{type:Number},
     name :{type:String},//
+    name1 :{type:String},//
     title : {type:String},//职务
+    title1 : {type:String},//职务
     work : {type:String},//分管工作
+    work1 : {type:String},//分管工作
     pic : {type:String},
     paixu : {type:Number},//排序
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
@@ -235,6 +241,7 @@ const cglrSchema = new Schema({
     kanwu : {type:String},//
     zuozhe : {type:String},//
     belongsto : {type:String},
+    belongsto1:{type:String},
     belongstoid : {type:Number},//
     danwei : {type:String},//
     fujianPath : {type:String},//
@@ -242,6 +249,7 @@ const cglrSchema = new Schema({
     pageContentEN:{type:String},
     patharr:{type:String,default:null},//附件路径，用，隔开
     namearr:{type:String,default:null},//附件名，用，隔开
+
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
     timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'cglr'})

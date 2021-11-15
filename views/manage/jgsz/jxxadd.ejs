@@ -90,6 +90,18 @@
 	      			</div>
 				</div>
 			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">系主任(EN)</label>
+					<div class="layui-input-inline"  style="width: 450px;">
+	        			<input type="text" name="zhur1"  autocomplete="off" class="layui-input" id="zhur1">
+	      			</div>
+					<label class="layui-form-label">副主任(EN)</label>
+					<div class="layui-input-inline"  style="width: 450px;">
+	        			<input type="text" name="fuzhur1"  autocomplete="off" class="layui-input" id="fuzhur1">
+	      			</div>
+				</div>
+			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">封面图</label>
@@ -225,7 +237,8 @@ $(function(){
         }
         $('#zhur').val('<%- data.zhur%>')
 	    $('#fuzhur').val('<%- data.fuzhur%>')
-     
+		$('#zhur1').val('<%- data.zhur1%>')
+	    $('#fuzhur1').val('<%- data.fuzhur1%>')
 		//初始化封面图
 		$('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
@@ -254,6 +267,8 @@ $(function(){
       data.field.titleEN = $('#titleEN').val()
 	  data.field.zhur = $('#zhur').val()
       data.field.fuzhur = $('#fuzhur').val()
+	  data.field.zhur1 = $('#zhur1').val()
+      data.field.fuzhur1 = $('#fuzhur1').val()
 	  if($('#fmpic').attr('src')){
 	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
 	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉

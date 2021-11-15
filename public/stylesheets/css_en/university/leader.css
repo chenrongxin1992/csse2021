@@ -1,0 +1,165 @@
+.university{
+    background-color: #352C84;
+}
+.university .contain{
+    overflow: hidden;
+}
+/* banner */
+.banner{
+    position: relative;
+}
+.banner .b_bg{
+    width: 100%;
+}
+.banner .b_txt{
+    position: absolute;
+    left: 10%;
+    top: 44%;
+    height: 37%;
+}
+.banner .mimg{
+    display: none;
+}
+
+
+.contain-area{
+    background-color: #f3f3f3;
+}
+.contain-area .nav-list{
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    color: #433b95;
+    justify-content: center;
+    padding: 20px 0;
+}
+.contain-area .nav-list .nav{
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    color: #433b95;
+    font-size: 18px;
+    margin: 0 30px;
+}
+.contain-area .nav-list .active,.contain-area .nav-list .nav:hover{
+    color: #CCA84D;
+    border-bottom-color: #CCA84D;
+}
+
+.cont{
+    height: 50.2vw;
+    position: relative;
+    padding: 40px 0 100px 0;
+}
+.cont .img-file{
+    width: 34.53%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.leader-list .row{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.leader-list .row.row1{
+    margin-top: 5vw;
+    margin-bottom: 7.5vw;
+}
+.leader-list .col{
+    width: 15%;
+    display: inline-block;
+    position: relative;
+    font-size: 16px;
+    color:#666;
+    line-height: 24px;
+}
+.leader-list .col .img{
+    width: 67.7%;
+    position: relative;
+    z-index: 10;
+}
+.leader-list .col .identity{
+    padding: 9px 0;
+}
+.leader-list .col div{
+    width: 95%;
+    margin: 0 auto;
+}
+.leader-list .col .img-bg{
+    width: 61.54%;
+    position: absolute;
+    left: 0;
+    top: -12%;
+}
+
+.leader-list .col .name{
+    font-size: 24px;
+    padding-top: 21px;
+}
+@media only screen and (max-width:1920px){
+    .leader-list .row{
+        width: 80%;
+        margin: 0 auto;
+    }
+    .leader-list .col{
+        width: 16.6%;
+    }
+    .high-list {
+        width: 75%;
+    }
+}
+@media only screen and (max-width:1440px){
+    .cont{
+       height: auto;
+    }
+    .leader-list .row{
+        width: auto;
+    }
+    .leader-list .col{
+        width: 15%;
+    }
+}
+@media only screen and (max-width:1200px){
+    .leader-list .row.row1{
+        margin-top: 0;
+        padding-top: 100px;
+        margin-bottom: 20px;
+    }
+    .leader-list .row{
+        flex-flow: wrap;
+    }
+    .leader-list .col{
+        width: 33.3%;
+        margin-bottom: 110px;
+    }
+    .cont{
+        height: auto;
+        padding: 0;
+    }
+    .cont .img-file{
+        width: 84.5%;
+    }
+    
+    /* university */
+	.university .contain-area .nav-list {
+		display: none;
+	}
+}
+@media only screen and (max-width: 767px){
+    .banner .pimg{
+        display: none;
+    }
+    .banner .mimg{
+        display: block;
+    }
+}
+
+@media only screen and (max-width:350px){
+    .leader-list .col {
+        width: 50%;
+        margin-bottom: 30px;
+        font-size: 13px;
+    }
+}

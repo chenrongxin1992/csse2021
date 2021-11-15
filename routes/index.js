@@ -115,6 +115,18 @@ router.get('/', function(req, res, next) {
 					//console.log('docs',docs)
 					cb()
 				})
+		},
+		function(cb){
+			let search = cmsContent.findOne({})
+				search.where('title').equals('院长寄语')
+				search.exec(function(err,doc){
+					if(err){
+						return res.send(err)
+					}
+					console.log(doc)	
+					data.yzjy = doc
+					cb()
+				})
 		}
 	],function(error,result){
 		if(error){
@@ -207,7 +219,11 @@ router.get('/pages/university/index',function(req,res){
 		if(error){
 			return res.json(error.message)
 		}
-		res.render('pages/university/index',{L:req.query['L'],data:data})
+		if(req.query['L']=='1'){
+			res.render('pages/university/index',{L:req.query['L'],data:data})
+		}else{
+			res.render('pages/university/indexen',{L:req.query['L'],data:data})
+		}	
 	})
 }).get('/pages/university/message',function(req,res){
 	console.log('dddd')
@@ -252,7 +268,12 @@ router.get('/pages/university/index',function(req,res){
 			return res.json(error.message)
 		}
 		console.log('data',data)
-		res.render('pages/university/leader',{L:req.query['L'],data:data})
+		if(req.query['L']=='1'){
+			res.render('pages/university/leader',{L:req.query['L'],data:data})
+		}
+		else{
+			res.render('pages/university/leaderen',{L:req.query['L'],data:data})
+		}
 	})
 }).get('/pages/university/logo',function(req,res){
 	res.render('pages/university/logo',{L:req.query['L']})
@@ -745,7 +766,11 @@ router.get('/pages/research/index1',function(req,res){
 				year = 'Before'
 			}
 			console.log('check year ------',year)
-			res.render('pages/research/index',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			if(req.query['L']=='1'){
+				res.render('pages/research/index',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			}else{
+				res.render('pages/research/indexen',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			}	
 		})
 	}else{
 		if(year && belongstoid){
@@ -899,7 +924,12 @@ router.get('/pages/research/index1',function(req,res){
 				year = 'Before'
 			}
 			console.log('check year ------',year)
-			res.render('pages/research/index',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			if(req.query['L']=='1'){
+				res.render('pages/research/index',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			}else{
+				res.render('pages/research/indexen',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			}
+			
 		})
 	}
 })
@@ -1033,8 +1063,12 @@ router.get('/pages/teacherTeam/index',function(req,res){
 				return res.json(error)
 			}
 			totalpage = Math.ceil(total/limit)
-							console.log('总页数------->',totalpage)
-			res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt})
+			console.log('总页数------->',totalpage)
+			if(req.query['L']=='1'){
+				res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt})
+			}else{
+				res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt})
+			}
 		})
 	}
 	else if(i){
@@ -1158,7 +1192,12 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			totalpage = Math.ceil(total/limit)
 			console.log('总页数------->',totalpage)
 			console.log('i-------------------',i)
-			res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+			if(req.query['L']=='1'){
+				res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+			}else{
+				res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+			}
+			
 		})
 	}
 	else{
@@ -1265,8 +1304,12 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					return res.json(error)
 				}
 				totalpage = Math.ceil(total/limit)
-								console.log('总页数------->',totalpage)
-				res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				console.log('总页数------->',totalpage)
+				if(req.query['L']=='1'){
+					res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}else{
+					res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}
 			})
 		}
 		if(zhicheng&&!suoxi){
@@ -1366,8 +1409,12 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					return res.json(error)
 				}
 				totalpage = Math.ceil(total/limit)
-								console.log('总页数------->',totalpage)
-				res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				console.log('总页数------->',totalpage)
+				if(req.query['L']=='1'){
+					res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}else{
+					res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}
 			})
 		}
 		if(suoxi&&!zhicheng){
@@ -1471,8 +1518,12 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					return res.json(error)
 				}
 				totalpage = Math.ceil(total/limit)
-								console.log('总页数------->',totalpage)
-				res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				console.log('总页数------->',totalpage)
+				if(req.query['L']=='1'){
+					res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}else{
+					res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}
 			})
 		}
 		if(!zhicheng&&!suoxi&!search_txt){
@@ -1582,12 +1633,15 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					return res.json(error)
 				}
 				totalpage = Math.ceil(total/limit)
-								console.log('总页数------->',totalpage)
-				res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				console.log('总页数------->',totalpage)
+				if(req.query['L']=='1'){
+					res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}else{
+					res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}				
 			})
 		}
-	}
-	
+	}	
 })
 //个人主页
 router.get('/pages/user/index',function(req,res){
@@ -2241,7 +2295,11 @@ router.get('/pages/globalCooperation/partner',function(req,res){
 			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 		}
 		console.log('hzhb_data async waterfall success',result)
-		res.render('pages/globalCooperation/partner',{L:req.query['L'],data:result})
+		if(req.query['L']=='1'){
+			res.render('pages/globalCooperation/partner',{L:req.query['L'],data:result})
+		}else{
+			res.render('pages/globalCooperation/partneren',{L:req.query['L'],data:result})
+		}
 	})
 }).get('/pages/globalCooperation/jointTraining',function(req,res){
 	async.waterfall([
@@ -2268,7 +2326,11 @@ router.get('/pages/globalCooperation/partner',function(req,res){
 			item.img1 = (item.fujianPath).split(';')[0]
 			item.img2 = (item.fujianPath).split(';')[1]
 		})
-		res.render('pages/globalCooperation/jointTraining',{L:req.query['L'],data:result})
+		if(req.query['L']=='1'){
+			res.render('pages/globalCooperation/jointTraining',{L:req.query['L'],data:result})
+		}else{
+			res.render('pages/globalCooperation/jointTrainingen',{L:req.query['L'],data:result})
+		}
 	})
 }).get('/pages/globalCooperation/index',function(req,res){
 	async.waterfall([
@@ -2295,7 +2357,11 @@ router.get('/pages/globalCooperation/partner',function(req,res){
 			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 		}
 		console.log('hzhb_data async waterfall success',result)
-		res.render('pages/globalCooperation/index',{L:req.query['L'],data:result})
+		if(req.query['L']=='1'){
+			res.render('pages/globalCooperation/index',{L:req.query['L'],data:result})
+		}else{
+			res.render('pages/globalCooperation/indexen',{L:req.query['L'],data:result})
+		}
 	})
 })
 router.get('/pages/recruitment/doctor',function(req,res){
@@ -2459,9 +2525,13 @@ router.get('/pages/recruitment/doctor',function(req,res){
 		z = 1
 	if(zhuanye == 1){
 		zhuanye = '计算机科学与技术'
-	}else{
+	}else if(zhuanye == 2){
 		zhuanye = '软件工程'
-		z = 2
+		z=2
+	}
+	else{
+		zhuanye = '软件工程（腾班）'
+		z=3
 	}
 	let data = {}
 	console.log(zhuanye)
@@ -2487,10 +2557,11 @@ router.get('/pages/recruitment/doctor',function(req,res){
 		}
 		//console.log('hzhb_data async waterfall success',result)
 		if(info==1){data.info = result.xuefei,info='学费与住宿'}
-		if(info==2){data.info = result.jxj,info='奖学金'}
-		if(info==3){data.info = result.jiuye,info='就业情况'}
-		if(info==4){data.info = result.xyhj,info='校园环境'}
-		if(info==5){data.info = result.lxfs,info='联系方式'}
+		else if(info==2){data.info = result.jxj,info='奖学金'}
+		else if(info==3){data.info = result.jiuye,info='就业情况'}
+		else if(info==4){data.info = result.xyhj,info='校园环境'}
+		else if(info==5){data.info = result.lxfs,info='联系方式'}
+		else{info=0}
 		console.log(data.info,info)
 		let patharr,namearr
 			if(result.patharr){
@@ -2498,7 +2569,7 @@ router.get('/pages/recruitment/doctor',function(req,res){
 				patharr = (result.patharr).split(',')
 				namearr = (result.namearr).split(',')
 			}
-			//console.log(result.namearr.length)
+			console.log(namearr)
 		res.render('pages/recruitment/index',{L:req.query['L'],data:data,zhuanye:zhuanye,z:z,info:info,patharr:patharr,namearr:namearr})
 	})
 })
@@ -2533,7 +2604,11 @@ router.get('/pages/organization/graduateSchool',function(req,res){
 			item.img1 = (item.fujianPath).split(';')[0]
 			item.img2 = (item.fujianPath).split(';')[1]
 		})
-		res.render('pages/organization/graduateSchool',{L:req.query['L'],data:data})
+		if(req.query['L']=='1'){
+			res.render('pages/organization/graduateSchool',{L:req.query['L'],data:data})
+		}else{
+			res.render('pages/organization/graduateSchoolen',{L:req.query['L'],data:data})
+		}
 	})
 }).get('/pages/organization/index',function(req,res){
 	let data = {},type = req.query.t,content={}
@@ -2553,11 +2628,18 @@ router.get('/pages/organization/graduateSchool',function(req,res){
 						cb(error)
 					}
 					data = docs
+					console.log('length ------ >',data.length)
 					cb(null)
 				})
 		},
 		function(cb){
-			let search = cmsContent.findOne({'tag2':'教学系',title:type})
+			let obj = {}
+			if(req.query['L']=='1'){
+				obj = {'tag2':'教学系',title:type}
+			}else{
+				obj = {'tag2':'教学系',titleEN:type}
+			}
+			let search = cmsContent.findOne(obj)
 				search.exec(function(error,doc){
 					if(error){
 						cb(error)
@@ -2572,8 +2654,12 @@ router.get('/pages/organization/graduateSchool',function(req,res){
 			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 		}
 		console.log('hzhb_data async waterfall success',result)
-		res.render('pages/organization/index',{L:req.query['L'],data:data,doc:content,type:type})
-	})
+		if(req.query['L']=='1'){
+			res.render('pages/organization/index',{L:req.query['L'],data:data,doc:content,type:type})
+		}else{
+			res.render('pages/organization/indexen',{L:req.query['L'],data:data,doc:content,type:type})
+		}
+})
 }).get('/pages/organization/periodical',function(req,res){
 	console.log('in qkbjb')
 	let search = cmsContent.findOne({})
@@ -2582,7 +2668,12 @@ router.get('/pages/organization/graduateSchool',function(req,res){
 			if(err){
 				return res.send(err)
 			}
-			res.render('pages/organization/periodical',{L:req.query['L'],data:doc})
+			if(req.query['L']=='1'){
+				res.render('pages/organization/periodical',{L:req.query['L'],data:doc})
+			}else{
+				res.render('pages/organization/periodicalen',{L:req.query['L'],data:doc})
+			}
+			
 		})
 }).get('/pages/organization/executive',function(req,res){
 	console.log('in executive')

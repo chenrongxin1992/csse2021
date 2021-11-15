@@ -126,7 +126,7 @@
 .area-nav ul li{
     color: #333;
     cursor: pointer;
-    margin-bottom: 1px;
+    border-bottom: 1px solid white;
     font-size: 16px;
 }
 .area-nav ul li a{
@@ -387,26 +387,6 @@
 	.area-right .area-txt p{
 	    font-size: 15px;
 		padding: 5px 9px;
-	}
-	
-}
-
-
-@media only screen and (max-width:350px) {
-	.m-area .bread-crumbs {
-		font-size: 14px !important;
-	}
-	.m-area .nav-area .nav-tit,
-	.area-right .area-txt .b,
-	.m-area .area-right .area-txt{
-		font-size: 16px;
-	}
-	.area-right .area-tit {
-		font-size: 20px;
-	}
-	.area-right .area-txt th,
-	.area-right .area-txt p{
-	    font-size: 14px !important;
 	}
 	
 }

@@ -69,20 +69,25 @@
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">姓名</label>
-					<div class="layui-input-inline" style="width: 450px;">
+					<div class="layui-input-inline">
                         <select name="name" lay-filter="name" id="name">
                             <%users.forEach(function(item,index){%>
                                 <option value="<%=item.userName%>" id="<%=item._id%>"><%=item.userName%></option>
                             <%})%>
                         </select>
 				    </div>
-				   
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">姓名EN</label>
+					<div class="layui-input-inline">
+                        <input type="text" id="name1" class="layui-input"  value="">
+				    </div>
 				</div>
 			</div>
             <div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">职务</label>
-					<div class="layui-input-inline" style="width: 272px;">
+					<div class="layui-input-inline" >
 	        			<select name="title" lay-filter="title" id="title">
                             <option value="党委书记">党委书记</option>
                             <option value="党委副书记">党委副书记</option>
@@ -92,19 +97,31 @@
                         </select>
 	      			</div>					
 				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">职务(EN)</label>
+					<div class="layui-input-inline" >
+	        			<input type="text" id="title1" class="layui-input"  value="">
+	      			</div>			
+				</div>
 			</div>
             <div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">分管工作</label>
-					<div class="layui-input-inline" style="width: 272px;">
+					<div class="layui-input-inline" >
 	        			<input type="text" id="work" class="layui-input"  value="">
+	      			</div>					
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">分管工作(EN)</label>
+					<div class="layui-input-inline" >
+	        			<input type="text" id="work1" class="layui-input"  value="">
 	      			</div>					
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">排序</label>
-					<div class="layui-input-inline" style="width: 272px;">
+					<div class="layui-input-inline" >
 	        			<input type="text" id="paixu" class="layui-input"  value="">
 	      			</div>					
 				</div>
@@ -209,8 +226,11 @@ $(function(){
 
 	}else{
         $('#name').val('<%- data.name%>')
+		$('#name1').val('<%- data.name1%>')
         $('#title').val('<%- data.title%>')
+		$('#title1').val('<%- data.title1%>')
         $('#work').val('<%- data.work%>')
+		$('#work1').val('<%- data.work1%>')
 		$('#paixu').val('<%- data.paixu%>')
         
 		//初始化封面图
@@ -227,6 +247,9 @@ $(function(){
 	  data.field.title = $('#title option:selected').val()
       data.field.name = $('#name option:selected').val()
 	  data.field.work = $('#work').val()
+	  data.field.work1 = $('#work1').val()
+	  data.field.name1 = $('#name1').val()
+	  data.field.title1 = $('#title1').val()
 	  data.field.paixu = $('#paixu').val()
 	  if($('#fmpic').attr('src')){
 	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))

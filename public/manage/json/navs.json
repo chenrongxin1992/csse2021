@@ -327,6 +327,39 @@
 	],
 	"enMenu": [
 		{
+			"title": "Home",
+			"icon": "&#xe614;",
+			"href": "",
+			"spread": false,
+			"children": [	
+				{
+					"title": "Slider",
+					"icon": "&#xe62a;",
+					"href": "/csse/manage/slider",
+					"spread": false
+				},
+				{
+					"title": "Dean’s Message",
+					"icon": "&#xe63c;",
+					"href": "/csse/manage/yzjy",
+					"spread": false
+				},
+				{
+					"title": "Collaboration",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/hzhb",
+					"spread": false
+				},
+				{
+					"title": "Highlights",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/highlights",
+					"spread": false,
+					"target": ""
+				}
+			]
+		},
+		{
 			"title": "About",
 			"icon": "&#xe614;",
 			"href": "",
@@ -558,6 +591,50 @@
 			"href": "/csse/manage/userinfo"
 		},
 		{
+			"title": "机构设置",
+			"icon": "&#xe609;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "研究所",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/yjs",
+					"spread": false
+				},
+				{
+					"title": "教学系",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jxx",
+					"spread": false
+				},
+				{
+					"title": "实验中心",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/syzx",
+					"spread": false
+				},
+				{
+					"title": "行政办公室",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xzbgs",
+					"spread": false
+				},
+				{
+					"title": "期刊编辑部",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/qkbjb",
+					"spread": false
+				},
+				{
+					"title": "国家工程实验室",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/bdsc",
+					"spread": false
+				}
+			]
+		},
+		{
 			"title": "学院概况",
 			"icon": "&#xe716;",
 			"href": "",
@@ -620,6 +697,52 @@
 					"href": "/csse/manage/kyhz",
 					"spread": false,
 					"target": ""
+				}
+			]
+		},
+		{
+			"title": "招生招聘",
+			"icon": "&#xe615;",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "本科生招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/bkszs",
+					"spread": false
+				},
+				{
+					"title": "硕士生招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/ssszs",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "博士生招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/bsszs",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "成教招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/cjzkzs",
+					"spread": false
+				},
+				{
+					"title": "自考招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/cjzkzs",
+					"spread": false
+				},
+				{
+					"title": "人才招聘",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/jszp",
+					"spread": false
 				}
 			]
 		},

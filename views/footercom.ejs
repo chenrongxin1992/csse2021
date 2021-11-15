@@ -128,3 +128,19 @@
     <img src="../../image/common/bot.png" class="bot_img p-bg" />
     <img src="../../image/mobile/m-bot-bg.png" class="bot_img m-bg" />
   </div>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+        $('#changeL').click(function(){
+            console.log('change to en')
+            $.get('/csse/setLanguage', {
+                language:'0'
+            }, function(data){
+                if(data.success){
+                //return 1
+                return window.location.reload();
+                }
+            }, 'json');
+        })
+    })
+  </script>
