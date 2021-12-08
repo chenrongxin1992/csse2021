@@ -39,10 +39,10 @@
             background-color: black;
             color: white;
             filter: alpha(Opacity=80);
-            -moz-opacity: 0.5;
-            opacity: 0.5;
+            /* -moz-opacity: 0.5;
+            opacity: 0.5; */
             /* text-align: right; */
-            display: none;
+            /* display: none; */
 			right: 0;
 			width: 100%;
         }
@@ -200,14 +200,19 @@ $(function(){
     let id = '<%-data.id%>'
     let ue1,ue2
 		ue1 = UE.getEditor('intro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		//ue1.execCommand('forecolor', '#cca84d');
 		ue1.ready(function () {//研究方向
 	   		console.log('pageContent...',)
+			//ue1.execCommand('forecolor', '#cca84d');
+			ue1.queryCommandValue( 'forecolor' );
+			console.log(ue1.queryCommandValue( 'forecolor' ))
 	   		let htmlStr = $("#pageContent").val()
 	   		ue1.setContent(htmlStr,false)
 	    });
 		ue2 = UE.getEditor('eintro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
 		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
 	   		console.log('pageContentEN...')
+			//ue2.execCommand('forecolor', '#cca84d');
 	   		let htmlStr = $("#pageContentEN").val();
 	   		ue2.setContent(htmlStr,false)
 	    });

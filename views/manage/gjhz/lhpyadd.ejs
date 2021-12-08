@@ -39,10 +39,10 @@
             background-color: black;
             color: white;
             filter: alpha(Opacity=80);
-            -moz-opacity: 0.5;
-            opacity: 0.5;
+            /* -moz-opacity: 0.5;
+            opacity: 0.5; */
             /* text-align: right; */
-            display: none;
+            /* display: none; */
 			right: 0;
 			width: 100%;
         }
@@ -79,6 +79,12 @@
 					<label class="layui-form-label">项目</label>
 					<div class="layui-input-inline" style="width: 450px;">
 				      <input type="text" name="pyxm" lay-verify="required" autocomplete="off" class="layui-input" id="pyxm">
+				    </div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">项目(EN)</label>
+					<div class="layui-input-inline" style="width: 450px;">
+				      <input type="text" name="pyxm1" lay-verify="required" autocomplete="off" class="layui-input" id="pyxm1">
 				    </div>
 				</div>
 			</div>
@@ -214,6 +220,7 @@ $(function(){
          //初始化表单值
         $('#title').val('<%- data.title%>')
 		$('#pyxm').val('<%- data.pyxm%>')
+		$('#pyxm1').val('<%- data.pyxm1%>')
      
 		//初始化封面图
 		let fujianarr = ('<%=data.fujianPath%>').split(';')
@@ -244,6 +251,7 @@ $(function(){
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()
 	  data.field.pyxm = $('#pyxm').val()
+	  data.field.pyxm1 = $('#pyxm1').val()
 	  if($('.fmpic').length!=0){
 	  	//20211030
 		let fujianstr = ''

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>附加信息</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		.w-e-text-container{
+	    	height: 250px !important;
+	    }
+	    .layui-form-select dl{
+	        z-index: 99999;
+	    }
+		.filedelbtn{
+			margin-left: 5px;
+		}
+		#fujian p{
+			margin-bottom: 5px;
+		}
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+			<div class="layui-form-item">
+				<label class="layui-form-label">招生情况</label>
+				<div class="layui-input-block">
+					<input id="zsqk"  value="<%=data.zsqk%>" type="hidden" />
+					<script id="zsqk1" type="text/plain" ></script>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<label class="layui-form-label">学费与住宿</label>
+				<div class="layui-input-block">
+					<input id="xuefei"  value="<%=data.xuefei%>" type="hidden" />
+					<script id="xuefei1" type="text/plain" ></script>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<label class="layui-form-label">奖学金</label>
+				<div class="layui-input-block">
+					<input id="jxj"  value="<%=data.jxj%>" type="hidden" />
+					<script id="jxj1" type="text/plain" ></script>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<label class="layui-form-label">就业情况</label>
+				<div class="layui-input-block">
+					<input id="jiuye"  value="<%=data.jiuye%>" type="hidden" />
+					<script id="jiuye1" type="text/plain" ></script>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<label class="layui-form-label">校园环境</label>
+				<div class="layui-input-block">
+					<input id="xyhj"  value="<%=data.xyhj%>" type="hidden" />
+					<script id="xyhj1" type="text/plain" ></script>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<label class="layui-form-label">联系方式</label>
+				<div class="layui-input-block">
+					<input id="lxfs"  value="<%=data.lxfs%>" type="hidden" />
+					<script id="lxfs1" type="text/plain" ></script>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1">
+					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
+<script type="text/javascript">
+		
+$(function(){
+	layui.use(['jquery','layer','form','layedit','upload','laydate'], function(){ 
+    //let $ = layui.$, //重点处
+    let	layedit = layui.layedit,
+    	upload = layui.upload,
+        laydate = layui.laydate
+    //日期
+    let form = layui.form,layer = layui.layer
+	
+    //先得到当前iframe层的索引
+    let id = '<%-data.id%>'
+    let ue2,ue3,ue4,ue5,ue6,ue7
+		ue2 = UE.getEditor('xuefei1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
+		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('pageContentEN...')
+	   		let htmlStr = $("#xuefei").val();
+	   		ue2.setContent(htmlStr,false)
+	    });
+        ue3 = UE.getEditor('jxj1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
+		ue3.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('pageContentEN...')
+	   		let htmlStr = $("#jxj").val();
+	   		ue3.setContent(htmlStr,false)
+	    });
+        ue4 = UE.getEditor('jiuye1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
+		ue4.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('pageContentEN...')
+	   		let htmlStr = $("#jiuye").val();
+	   		ue4.setContent(htmlStr,false)
+	    });
+       ue5 = UE.getEditor('xyhj1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
+		ue5.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('pageContentEN...')
+	   		let htmlStr = $("#xyhj").val();
+	   		ue5.setContent(htmlStr,false)
+	    });
+       ue6 = UE.getEditor('lxfs1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
+		ue6.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('pageContentEN...')
+	   		let htmlStr = $("#lxfs").val();
+	   		ue6.setContent(htmlStr,false)
+	    });
+		ue7 = UE.getEditor('zsqk1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
+		ue6.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('pageContentEN...')
+	   		let htmlStr = $("#zsqk").val();
+	   		ue7.setContent(htmlStr,false)
+	    });
+		
+    if(id==''||id==null||typeof(id)=='undefined'){
+		console.log('新增',id)
+      
+	}else{
+  		form.render()
+	}
+    form.on('submit(update)', function(data){
+
+	  data.field.id = id
+	  data.field.xuefei = ue2.getContent()
+	  data.field.jxj = ue3.getContent()
+	  data.field.jiuye = ue4.getContent()
+	  data.field.xyhj =ue5.getContent()
+	  data.field.lxfs = ue6.getContent()
+	  data.field.zsqk = ue7.getContent()
+
+	  console.log('提交数据',data.field)
+      
+	  $.ajax({
+          //本地与服务器
+        url:'<%=base_url%>bkzsinfo',
+	  	type:'POST',
+	  	data:data.field,
+	  	dataType : "json",
+	  	success:function(result){
+	  		if(result.code == 0){
+	  			console.log('update success')
+	  			//墨绿深蓝风
+				let frameindex = layer.alert('保存成功', {
+				  skin: 'layui-layer-molv' //样式类名
+				  ,closeBtn: 0
+				}, function(){
+					layer.close(frameindex);
+					let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						parent.layer.close(index); 
+						console.log('father -----',index)
+				});	  			
+	  		}
+	  	},
+	  	error:function(msg){
+	  		console.log('ajax error msg',msg)
+	  	}
+	  })
+	});
+})
+})
+
+</script>
+</body>
+</html>

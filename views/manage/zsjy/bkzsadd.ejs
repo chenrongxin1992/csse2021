@@ -71,41 +71,6 @@
 				</div>
 			</div>
 
-            <div class="layui-form-item">
-				<label class="layui-form-label">学费与住宿</label>
-				<div class="layui-input-block">
-					<input id="xuefei"  value="<%=data.xuefei%>" type="hidden" />
-					<script id="xuefei1" type="text/plain" ></script>
-				</div>
-			</div>
-            <div class="layui-form-item">
-				<label class="layui-form-label">奖学金</label>
-				<div class="layui-input-block">
-					<input id="jxj"  value="<%=data.jxj%>" type="hidden" />
-					<script id="jxj1" type="text/plain" ></script>
-				</div>
-			</div>
-            <div class="layui-form-item">
-				<label class="layui-form-label">就业情况</label>
-				<div class="layui-input-block">
-					<input id="jiuye"  value="<%=data.jiuye%>" type="hidden" />
-					<script id="jiuye1" type="text/plain" ></script>
-				</div>
-			</div>
-            <div class="layui-form-item">
-				<label class="layui-form-label">校园环境</label>
-				<div class="layui-input-block">
-					<input id="xyhj"  value="<%=data.xyhj%>" type="hidden" />
-					<script id="xyhj1" type="text/plain" ></script>
-				</div>
-			</div>
-            <div class="layui-form-item">
-				<label class="layui-form-label">联系方式</label>
-				<div class="layui-input-block">
-					<input id="lxfs"  value="<%=data.lxfs%>" type="hidden" />
-					<script id="lxfs1" type="text/plain" ></script>
-				</div>
-			</div>
 			<div class="layui-form-item">
 				<hr class="layui-bg-gray" />
 				<div class="layui-col-md-offset1">
@@ -188,36 +153,7 @@ $(function(){
 	   		let htmlStr = $("#neirong").val()
 	   		ue1.setContent(htmlStr,false)
 	    });
-		ue2 = UE.getEditor('xuefei1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#xuefei").val();
-	   		ue2.setContent(htmlStr,false)
-	    });
-        ue3 = UE.getEditor('jxj1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue3.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#jxj").val();
-	   		ue3.setContent(htmlStr,false)
-	    });
-        ue4 = UE.getEditor('jiuye1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue4.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#jiuye").val();
-	   		ue4.setContent(htmlStr,false)
-	    });
-       ue5 = UE.getEditor('xyhj1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue5.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#xyhj").val();
-	   		ue5.setContent(htmlStr,false)
-	    });
-       ue6 = UE.getEditor('lxfs1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue6.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#lxfs").val();
-	   		ue6.setContent(htmlStr,false)
-	    });
+		
 		
     if(id==''||id==null||typeof(id)=='undefined'){
 		console.log('新增',id)
@@ -258,24 +194,19 @@ $(function(){
 	  //更新
 	  //附件
 	  let $pitem = $('#fujian p'),
-	  	  patharr = '',
-	  	  namearr = ''
+	  	  patharr = [],
+	  	  namearr = []
 	  $('#fujian p').each(function(){
-	  	patharr = patharr + $(this).attr('path') + ','
-	  	namearr = namearr + $(this).attr('name') + ','
+	  	patharr.push($(this).attr('path'))
+	  	namearr.push($(this).attr('name'))
 	  	console.log(patharr)
 	  	console.log(namearr)
 	  })
-	  data.field.patharr = patharr.substring(0,patharr.length-1)
-	  data.field.namearr = namearr.substring(0,namearr.length-1)
+	  data.field.patharr = patharr.join(',')
+	  data.field.namearr = namearr.join(',')
 	  data.field.id = id
       data.field.zhuanye = $('#zhuanye').val()
 	  data.field.neirong =ue1.getContent()
-	  data.field.xuefei = ue2.getContent()
-	  data.field.jxj = ue3.getContent()
-	  data.field.jiuye = ue4.getContent()
-	  data.field.xyhj =ue5.getContent()
-	  data.field.lxfs = ue6.getContent()
 	  data.field.timeAdd = $('#timeAdd').val()
       data.field.timeEdit = $('#timeEdit').val()
 

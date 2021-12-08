@@ -46,6 +46,9 @@
                     <input type="text" placeholder="输入关键字" class="search" id="search">
                     <img src="../../image/research_image/search.png" class="search-img" />
                 </div>
+                <div class="list">
+                  <i id="clear_choose" style="cursor:pointer;">清空筛选</i>
+              </div>
             </div>
             <div class="area">
                 <div class="area-left">
@@ -100,6 +103,7 @@
                      <%}%>
                     </div>
                     <script type="text/javascript"> 
+                    
                       function getQueryString(name) {
                           var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
                           var r = window.location.search.substr(1).match(reg);
@@ -109,6 +113,11 @@
                           return '';
                       }
                       $().ready(function() {   
+                        $('#clear_choose').click(function(){
+                                let reg = new RegExp("index", "g"); 
+                                let url = "index"; 
+                                window.location.href = url.replace(reg, "index"); 
+                            })   
                         $('#search').bind('keydown',function(event){
                             if(event.keyCode == "13") {
                                 console.log('回车搜索',$('#search').val())

@@ -12,6 +12,7 @@ const slider = require('../../db/db_struct').cmsSlider
 const xrld = require('../../db/db_struct').xrld
 const highlight = require('../../db/db_struct').highlight
 const bkzs = require('../../db/db_struct').bkzs
+const bkzsinfo = require('../../db/db_struct').bkzsinfo
 const officehour = require('../../db/db_struct').officehour
 const cglr = require('../../db/db_struct').cglr
 
@@ -1075,7 +1076,7 @@ router.get('/bkszs',function(req,res){
 				}
 				console.log('_filter',_filter)
 				let search = bkzs.find(_filter)
-					search.sort({'timeAdd':-1})
+					search.sort({'bsort':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -1097,7 +1098,7 @@ router.get('/bkszs',function(req,res){
 			}else{
 				console.log('不带搜索参数')
 				let search = bkzs.find({})
-					search.sort({'timeAdd':-1})
+					search.sort({'bsort':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -1138,7 +1139,7 @@ router.get('/bkszs',function(req,res){
 		res.render('manage/zsjy/bkzsadd',{data:{}})
 	}
 }).post('/bkzsadd',function(req,res){
-	console.log('bkzsadd------------------>',)
+	console.log('bkzsadd------------------>',req.body.patharr,(req.body.patharr.split(',')))
 	if(req.body.id==''||req.body.id==null){
 		console.log('新增 bkzsadd')
 		async.waterfall([
@@ -1177,8 +1178,8 @@ router.get('/bkszs',function(req,res){
 					timeEdit:req.body.timeEdit,
 					xyhj:req.body.xyhj,
 					lxfs:req.body.lxfs,
-					patharr:req.body.patharr,
-					namearr:req.body.namearr
+					patharr:req.body.patharr.split(','),
+					namearr:req.body.namearr.split(',')
 				})
 				newbkzsadd.save(function(error,doc){
 					if(error){
@@ -1211,8 +1212,8 @@ router.get('/bkszs',function(req,res){
 					timeEdit:req.body.timeEdit,
 					xyhj:req.body.xyhj,
 					lxfs:req.body.lxfs,
-					patharr:req.body.patharr,
-					namearr:req.body.namearr
+					patharr:req.body.patharr.split(','),
+					namearr:req.body.namearr.split(',')
 				}
 				bkzs.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -1232,6 +1233,160 @@ router.get('/bkszs',function(req,res){
 			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
 		})
 	}
+}).get('/binfo',function(req,res){
+	let id = req.query.id
+	console.log('cmsContent ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let search = bkzsinfo.findOne({id:id})
+		search.where('id').equals(id)
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			if(doc){
+				res.render('manage/zsjy/binfo',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/zsjy/binfo',{data:{}})
+			}
+		})
+	}else{
+		let search = bkzsinfo.findOne({})
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			if(doc){
+				console.log('doc-----',doc)
+				res.render('manage/zsjy/binfo',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/zsjy/binfo',{data:{}})
+			}
+		})
+	}
+}).post('/bkzsinfo',function(req,res){
+	console.log('bkzsinfo------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 bkzsinfo')
+		async.waterfall([
+			function(cb){
+				let search = bkzsinfo.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let newbkzsinfo = new bkzsinfo({
+					id:id,
+					xuefei:req.body.xuefei,
+					jxj:req.body.jxj,
+					jiuye:req.body.jiuye,
+					xyhj:req.body.xyhj,
+					lxfs:req.body.lxfs,
+					zsqk:req.body.zsqk
+				})
+				newbkzsinfo.save(function(error,doc){
+					if(error){
+						console.log('newbkzsinfo save error',error)
+						cb(error)
+					}
+					console.log('newbkzsinfo save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('newbkzsinfo async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('newbkzsinfo',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					xuefei:req.body.xuefei,
+					jxj:req.body.jxj,
+					jiuye:req.body.jiuye,
+					xyhj:req.body.xyhj,
+					lxfs:req.body.lxfs,
+					zsqk:req.body.zsqk
+				}
+				bkzsinfo.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('bkzsinfo update error',error)
+						cb(error)
+					}
+					console.log('bkzsinfo update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('bkzsinfo async error',error)
+				return res.end(error)
+			}
+			console.log('ssszsadd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
+}).get('/bsort',function(req,res){
+	console.log('专业排序')
+	let search = bkzs.find({})
+		search.sort({'bsort':1})
+		search.exec(function(error,docs){
+			if(error){
+				console.log('专业排序 error',error)
+				return error
+			}
+			res.render('manage/zsjy/bsort',{'data':docs})
+		})
+}).post('/bsort',function(req,res){
+	console.log('排序信息',req.body.sortarr)
+	async.eachLimit(req.body.sortarr,1,function(item,callback){
+		console.log('item',item,item.split(','))
+		let temp = item.split(',')
+		let tempid = temp[1],
+			tempsort = parseInt(temp[2])
+		let obj = {
+			bsort : tempsort
+		}
+		console.log(tempid,tempsort)
+		bkzs.updateOne({_id:tempid},obj,function(error){
+			if(error){
+				console.log('sort update error',error)
+				callback(error)
+			}
+			console.log('sort update success')
+			callback(null)
+		})
+	},function(error){
+		if(error){
+			onsole.log('eachLimit update sort error',error)
+			return res.json({'code':-1,'msg':error})
+		}
+		return res.json({'code':0})
+	})
 }).post('/bkzsupload',function(req,res){
 	let bkzs = attachmentuploaddir + '\\bkzs' //替换 //G:\newcsse\public\attachment\xrld 
 	fs.existsSync(bkzs) || fs.mkdirSync(bkzs) //替换
@@ -1259,6 +1414,16 @@ router.get('/bkszs',function(req,res){
 		returnimgurl = '/csse'+returnimgurl
     	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
     })
+}).post('/bkzsdel',function(req,res){
+	console.log('bkzsdel',req.body.id)
+	//console.log('newsdel del',req.bdoy.id)
+	bkzs.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('bkzsdel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del bkzsdel success'})
+	})
 }).get('/ssszs',function(req,res){
 	console.log('in ssszs')
 	res.render('manage/zsjy/ssszs')
@@ -1581,6 +1746,7 @@ router.get('/cglr',function(req,res){
 				let search = cglr.find(_filter)
 					search.sort({'year':-1})
 					search.sort({'timeAdd':-1})
+					search.sort({'id':-1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -1604,6 +1770,7 @@ router.get('/cglr',function(req,res){
 				let search = cglr.find({})
 					search.sort({'year':-1})
 					search.sort({'timeAdd':-1})
+					search.sort({'id':-1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -2265,7 +2432,8 @@ router.get('/hzhb',function(req,res){
 					pageContentEN:req.body.pageContentEN,
 					tag2:'联合培养',
 					fujianPath:req.body.fujianPath,
-					pyxm:req.body.pyxm
+					pyxm:req.body.pyxm,
+					pyxm1:req.body.pyxm1
 				})
 				cmsContentadd.save(function(error,doc){
 					if(error){
@@ -2294,7 +2462,8 @@ router.get('/hzhb',function(req,res){
 					pageContentEN:req.body.pageContentEN,
 					tag2:'联合培养',
 					fujianPath:req.body.fujianPath,
-					pyxm:req.body.pyxm
+					pyxm:req.body.pyxm,
+					pyxm1:req.body.pyxm1
 				}
 				cmsContent.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -2528,6 +2697,7 @@ router.get('/hzhb',function(req,res){
 				let cmsContentadd = new cmsContent({
 					id:id,
 					title:req.body.title,//加入权限后需要更新
+					titleEN:req.body.titleEN,
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					tag2:'科研合作',
@@ -2556,6 +2726,7 @@ router.get('/hzhb',function(req,res){
 			function(cb){
 				let obj = {
 					title:req.body.title,//加入权限后需要更新
+					titleEN:req.body.titleEN,
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					tag2:'科研合作',

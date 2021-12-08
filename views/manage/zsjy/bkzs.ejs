@@ -21,7 +21,9 @@
 	    <input class="layui-input" name="search" id="search_txt" autocomplete="off">
 	  </div>
 	  <button class="layui-btn" data-type="reload" id="news_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
-	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button>
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增专业</button>
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="bsort">专业排序</button>
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="binfo">附加信息</button>
 	</div>
 
 	<table id="bkzs_table" lay-filter="bkzs_table"></table>
@@ -79,6 +81,42 @@ layui.use(['jquery','table','form'], function(){
 	    //     $(window).on("resize",function(){
 	    //         layui.layer.full(index);
 	    //     })
+    })
+	$('#binfo').on('click', function(){
+    	//do somehing
+	    let index = layui.layer.open({
+            title : "附加信息",
+            type : 2,
+            content : "binfo",
+			area:['90%','90%'],
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_bkzs', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
+    })
+	$('#bsort').on('click', function(){
+    	//do somehing
+	    let index = layui.layer.open({
+            title : "附加信息",
+            type : 2,
+            content : "bsort",
+			area: ['800px', '500px'],
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_bkzs', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
     })
     //监听工具条
 	table.on('tool(bkzs_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"

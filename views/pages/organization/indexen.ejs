@@ -90,8 +90,8 @@
                           <div class="nav-area">
                               <div class="nav-area-row tc fl-1">
                                 <a href="../../pages/globalCooperation/partner">Partner</a>
-                                <a href="../../pages/globalCooperation/jointTraining">Joint training</a>
-                                <a href="../../pages/globalCooperation/index">Scientific research cooperation</a>
+                                <a href="../../pages/globalCooperation/jointTraining">Joint Program</a>
+                                <a href="../../pages/globalCooperation/index">International Platform</a>
                               </div>
                           </div>
                       </div>
@@ -175,8 +175,8 @@
                     <a href="pages/globalCooperation/index">GLobal</a><i></i>
                     <ol>
                       <li><a href="pages/globalCooperation/partner">Partner</a></li>
-                      <li><a href="pages/globalCooperation/jointTraining">Joint training</a></li>
-                      <li><a href="pages/globalCooperation/index">Scientific research cooperation</a></li>
+                      <li><a href="pages/globalCooperation/jointTraining">Joint Program</a></li>
+                      <li><a href="pages/globalCooperation/index">International Platform</a></li>
                     </ol>
                 </li>
             </ul>
@@ -197,10 +197,10 @@
       <div class="l area-nav">
         <div class="tit b">Organization</div>
         <ul>
-          <li>
-            <a href="graduateSchool">Institutes</a>
+          <li class="active">
+            <a href="javascript:;">Institutes</a>
           </li>
-          <li class="active"><a href="javascript:;">Departments</a></li>
+          <li ><a href="departments">Departments</a></li>
           <li><a href="">National Teaching Centers</a></li>
           <li><a href="../../pages/organization/periodical">IJMLC Office</a></li>
           <li><a href="https://bdsc.szu.edu.cn">National Laboratory</a></li>
@@ -208,11 +208,11 @@
       </div>
       <div class="area-cont area1">
         <div class="ress_nav">
-          current position: <a href="">home</a>
+          current position: <a href="/">home</a>
 					>
-					<a href="">organization</a>
+					<a href="index">organization</a>
 					>
-          <a href="">Departments</a>
+          <a href="Departments">Departments</a>
           <!-- >
           <a href="">Department of Software Engineering</a> -->
         </div>
@@ -221,11 +221,12 @@
         <%data.forEach(function(item,index){%>
           <div class="area-row">
             <div class="img-wrap">
-                <a href="index?t=<%=item.titleEN%>"><img class="img lazy_img" src="<%=item.fujianPath%>" /></a>
+                <a href="departments?t=<%=item.titleEN%>"><img class="img lazy_img" src="<%=item.fujianPath%>" /></a>
                 <span class="img-txt b"><%=item.titleEN%></span>
             </div>
             <div class="txt">
               <div>Director: <%=item.zhur1%></div>
+              <div>Deputy Director: <%=item.fuzhur1%></div>
             </div>
           </div>
           <%})%>

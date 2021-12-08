@@ -39,10 +39,10 @@
             background-color: black;
             color: white;
             filter: alpha(Opacity=80);
-            -moz-opacity: 0.5;
-            opacity: 0.5;
+            /* -moz-opacity: 0.5;
+            opacity: 0.5; */
             /* text-align: right; */
-            display: none;
+            /* display: none; */
 			right: 0;
 			width: 100%;
         }
@@ -71,6 +71,12 @@
 					<label class="layui-form-label">合作名称</label>
 					<div class="layui-input-inline" style="width: 450px;">
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
+				    </div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">合作名称(EN)</label>
+					<div class="layui-input-inline" style="width: 450px;">
+				      <input type="text" name="titleEN" lay-verify="required" autocomplete="off" class="layui-input" id="titleEN">
 				    </div>
 				</div>
 			</div>
@@ -229,6 +235,7 @@ $(function(){
 	  //data.field.eleaderintro = editor4.txt.html()
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()
+	  data.field.titleEN = $('#titleEN').val()
 	  if($('#fmpic').attr('src')){
 	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
 	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉

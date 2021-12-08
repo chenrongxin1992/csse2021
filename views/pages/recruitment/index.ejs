@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="../../stylesheets/css/common.css">
 	<link rel="stylesheet" type="text/css" href="../../stylesheets/css/recruitment_css/recruitment.css" />
 	<script src="../../javascripts/js/jquery.min.js"></script>
+  <style>
+ 
+  </style>
 </head>
 <body class="recruitment">
 <%if(L=='1'){%>
@@ -81,9 +84,9 @@
         <div class="nav-row">
           <div class="nav-tit c_cca84d b">专业介绍</div>
           <div class="nav-cont">
-            <span class="btn"><a href="index?z=1">计算机科学与技术</a></span>
-            <span class="btn"><a href="index?z=2">软件工程</a></span>
-            <span class="btn"><a href="index?z=3">软件工程（腾班）</a></span>
+            <% lmenu.forEach(function(item,index){%>
+              <span class="btn"><a href="index?bsort=<%=index+1%>"><%=item%></a></span>
+              <%})%>
           </div>
           <script type="text/javascript"> 
             $('.btn').each(function(index,obj){
@@ -97,11 +100,12 @@
         <div class="nav-row">
           <div class="nav-tit c_cca84d b">相关信息</div>
           <div class="nav-cont">
-            <span class="btn"><a href="index?z=<%=z%>&info=1">学费与住宿</a></span>
-            <span class="btn"><a href="index?z=<%=z%>&info=2">奖学金</a></span>
-            <span class="btn"><a href="index?z=<%=z%>&info=3">就业情况</a></span>
-            <span class="btn"><a href="index?z=<%=z%>&info=4">校园环境</a></span>
-            <span class="btn"><a href="index?z=<%=z%>&info=5">联系方式</a></span>
+            <span class="btn"><a href="index?bsort=<%=z%>&info=6">招生情况</a></span>
+            <span class="btn"><a href="index?bsort=<%=z%>&info=1">学费与住宿</a></span>
+            <span class="btn"><a href="index?bsort=<%=z%>&info=2">奖学金</a></span>
+            <span class="btn"><a href="index?bsort=<%=z%>&info=3">就业情况</a></span>
+            <span class="btn"><a href="index?bsort=<%=z%>&info=4">校园环境</a></span>
+            <span class="btn"><a href="index?bsort=<%=z%>&info=5">联系方式</a></span>
           </div>
           <script type="text/javascript"> 
             $('.btn').each(function(index,obj){
@@ -119,9 +123,9 @@
             <div class=" area-nav">
               <div class="tit b">专业介绍</div>
               <ul>
-                <li class="li_zhuanye"><a href="index?z=1">计算机科学与技术</a></li>
-                <li class="li_zhuanye"><a href="index?z=2">软件工程</a></li>
-                <li class="li_zhuanye"><a href="index?z=3">软件工程（腾班）</a></li>
+                <% lmenu.forEach(function(item,index){%>
+                <li class="li_zhuanye"><a href="index?bsort=<%=index+1%>"><%=item%></a></li>
+                <%})%>
               </ul>
                 <script type="text/javascript"> 
                   $('.li_zhuanye').each(function(index,obj){
@@ -135,11 +139,12 @@
             <div class=" area-nav">
               <div class="tit b">相关信息</div>
               <ul>
-                <li class="li_info"><a href="index?z=<%=z%>&info=1">学费与住宿</a></li>
-                <li class="li_info"><a href="index?z=<%=z%>&info=2">奖学金</a></li>
-                <li class="li_info"><a href="index?z=<%=z%>&info=3">就业情况</a></li>
-                <li class="li_info"><a href="index?z=<%=z%>&info=4">校园环境</a></li>
-                <li class="li_info"><a href="index?z=<%=z%>&info=5">联系方式</a></li>
+                <li class="li_info"><a href="index?bsort=<%=z%>&info=6">招生情况</a></li>
+                <li class="li_info"><a href="index?bsort=<%=z%>&info=1">学费与住宿</a></li>
+                <li class="li_info"><a href="index?bsort=<%=z%>&info=2">奖学金</a></li>
+                <li class="li_info"><a href="index?bsort=<%=z%>&info=3">就业情况</a></li>
+                <li class="li_info"><a href="index?bsort=<%=z%>&info=4">校园环境</a></li>
+                <li class="li_info"><a href="index?bsort=<%=z%>&info=5">联系方式</a></li>
               </ul>
             </div>
           </div>
@@ -171,7 +176,7 @@
               <%if(info){%>
                 
               <%}else{%>
-                <%if(namearr){%>
+                <%if(namearr.length!=0){%>
                   <div class="mess-down">
                     <div class="tit c_cca84d b">资料下载</div>
                     <%namearr.forEach(function(item,index){%>

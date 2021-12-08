@@ -12,6 +12,7 @@ const slider = require('../db/db_struct').cmsSlider
 const xrld = require('../db/db_struct').xrld
 const highlight = require('../db/db_struct').highlight
 const bkzs = require('../db/db_struct').bkzs
+const bkzsinfo = require('../db/db_struct').bkzsinfo
 const cglr = require('../db/db_struct').cglr
 //result.recordsets[[{}]]
 //result.output{}
@@ -80,9 +81,19 @@ router.get('/', function(req, res, next) {
 				})
 		},
 		function(cb){
-			let search = cglr.find({})
-				search.sort({'year':-1})
-				search.limit(5)
+			// let search = cglr.find({})
+			// 	search.sort({'year':-1})
+			// 	search.limit(5)
+			// 	search.exec(function(err,docs){
+			// 		if(err){
+			// 			cb(err)
+			// 		}
+			// 		data.kycg = docs//循环用
+			// 		data.kycg1 = docs[0]//第一次用
+			// 		data.kycgstr = encodeURIComponent(JSON.stringify(docs))//js中用
+			// 		cb()
+			// 	})
+			let search = cglr.aggregate([{$sample:{size:5}}])
 				search.exec(function(err,docs){
 					if(err){
 						cb(err)
@@ -278,6 +289,25 @@ router.get('/pages/university/index',function(req,res){
 }).get('/pages/university/logo',function(req,res){
 	res.render('pages/university/logo',{L:req.query['L']})
 })
+function mysort(attr,rev){
+	//第二个参数没有传递 默认升序排列
+	if(rev ==  undefined){
+		rev = 1;
+	}else{
+		rev = (rev) ? 1 : -1;
+	}
+	return function(a,b){
+		a = a[attr];
+		b = b[attr];
+		if(a < b){
+			return rev * -1;
+		}
+		if(a > b){
+			return rev * 1;
+		}
+		return 0;
+	}
+}
 router.get('/pages/research/index1',function(req,res){
 	let page = req.query.p,
 		limit = req.query.limit,
@@ -592,10 +622,10 @@ router.get('/pages/research/index1',function(req,res){
 			if(doc.danwei&&typeof(doc.danwei)!='undefined'){
 				danwei_arr = doc.danwei.split(',')
 			}
-			let zuozhe_arr = doc.zuozhe.split(',')
+			// let zuozhe_arr = doc.zuozhe.split(',')
 			data = doc
-			data.zuozhe_arr = zuozhe_arr
-			data.danwei_arr = danwei_arr
+			// data.zuozhe_arr = zuozhe_arr
+			// data.danwei_arr = danwei_arr
 			let patharr,namearr
 			if(doc.patharr){
 				patharr = (doc.patharr).split(',')
@@ -620,34 +650,34 @@ router.get('/pages/research/index1',function(req,res){
 		if(year && belongstoid){
 			console.log('年 所')
 			if(year=='Before'){
-				year = parseInt(moment().format('YYYY')-5)
-				obj = {year:{$lte:year},belongstoid:belongstoid,title:{$regex:search_txt}}
+				year = parseInt(moment().format('YYYY')-6)
+				obj = {year:{$lte:year},belongstoid:belongstoid,title:{$regex:search_txt,$options:"$i"}}
 			}else{
 				year = parseInt(year)
-				obj = {year:year,belongstoid:belongstoid,title:{$regex:search_txt}}
+				obj = {year:year,belongstoid:belongstoid,title:{$regex:search_txt,$options:"$i"}}
 			}
-			aggregate_obj = {title:{$regex:search_txt}}
+			aggregate_obj = {title:{$regex:search_txt,$options:"$i"}}
 		}
 		if(year && !belongstoid){
 			console.log('年 ')
 			if(year=='Before'){
-				year = parseInt(moment().format('YYYY')-5)
-				obj = {year:{$lte:year},title:{$regex:search_txt}}
+				year = parseInt(moment().format('YYYY')-6)
+				obj = {year:{$lte:year},title:{$regex:search_txt,$options:"$i"}}
 			}else{
 				year = parseInt(year)
-				obj = {year:year,title:{$regex:search_txt}}
+				obj = {year:year,title:{$regex:search_txt,$options:"$i"}}
 			}
-			aggregate_obj = {title:{$regex:search_txt}}
+			aggregate_obj = {title:{$regex:search_txt,$options:"$i"}}
 		}
 		if(!year && belongstoid){
 			console.log('所 ')
-			obj = {belongstoid:belongstoid,title:{$regex:search_txt}}
-			aggregate_obj = {title:{$regex:search_txt}}
+			obj = {belongstoid:belongstoid,title:{$regex:search_txt,$options:"$i"}}
+			aggregate_obj = {title:{$regex:search_txt,$options:"$i"}}
 		}
 		if(!year && !belongstoid){
 			console.log('nothing')
-			obj = {title:{$regex:search_txt}}
-			aggregate_obj = {title:{$regex:search_txt}}
+			obj = {title:{$regex:search_txt,$options:"$i"}}
+			aggregate_obj = {title:{$regex:search_txt,$options:"$i"}}
 		}
 		async.waterfall([
 			function(cb){
@@ -672,8 +702,9 @@ router.get('/pages/research/index1',function(req,res){
 							console.log('year -------')
 							let search = cglr.aggregate([
 								{$match:aggregate_obj},
-								{$group:{'_id':'$year',num:{$sum:1}}},
-								{$sort:{year:-1}}
+								{$sort:{year:1}},
+								{$group:{'_id':'$year',num:{$sum:1}}}
+								
 							])
 							search.exec(function(err,docs){
 								if(err){
@@ -681,7 +712,7 @@ router.get('/pages/research/index1',function(req,res){
 								}
 								let tempcount = 0
 								docs.forEach(function(item,index){
-									if(item._id<=parseInt(moment().format('YYYY')-5)){
+									if(item._id<parseInt(moment().format('YYYY')-5)){
 										tempcount += item.num
 									}
 								})
@@ -762,7 +793,7 @@ router.get('/pages/research/index1',function(req,res){
 				return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 			}
 			console.log('check year ------',year)
-			if(year==parseInt(moment().format('YYYY')-5) ){
+			if(year==parseInt(moment().format('YYYY')-6) ){
 				year = 'Before'
 			}
 			console.log('check year ------',year)
@@ -776,7 +807,7 @@ router.get('/pages/research/index1',function(req,res){
 		if(year && belongstoid){
 			console.log('年 所')
 			if(year=='Before'){
-				year = parseInt(moment().format('YYYY')-5)
+				year = parseInt(moment().format('YYYY')-6)
 				obj = {year:{$lte:year},belongstoid:belongstoid}
 			}else{
 				year = parseInt(year)
@@ -787,18 +818,21 @@ router.get('/pages/research/index1',function(req,res){
 		if(year && !belongstoid){
 			console.log('年 ')
 			if(year=='Before'){
-				year = parseInt(moment().format('YYYY')-5)
+				year = parseInt(moment().format('YYYY')-6)
 				obj = {year:{$lte:year}}
+				aggregate_obj = {year:{$lte:year}}
 			}else{
 				year = parseInt(year)
 				obj = {year:year}
+				aggregate_obj = {year:year}
 			}
-			aggregate_obj = {}
+			//aggregate_obj = {}
 		}
 		if(!year && belongstoid){
 			console.log('所 ')
 			obj = {belongstoid:belongstoid}
-			aggregate_obj = {}
+			//aggregate_obj = {}
+			aggregate_obj = {belongstoid:parseInt(belongstoid)}
 		}
 		if(!year && !belongstoid){
 			console.log('nothing')
@@ -822,24 +856,27 @@ router.get('/pages/research/index1',function(req,res){
 			function(cb){
 				let numSkip = (page-1)*limit
 					limit = parseInt(limit)
-					console.log('obj-----------------',obj)
+					console.log('obj-----------------',obj,aggregate_obj)
 					async.waterfall([
 						function(cbb){
 							//统计年份数据
 							console.log('year -------')
 							let search = cglr.aggregate([
 								{$match:aggregate_obj},
-								{$group:{'_id':'$year',num:{$sum:1}}},
-								{$sort:{year:-1}}
-							]).collation({'locale':'zh',numericOrdering:true}).sort({year:-1})
+								{$sort:{year:1}},
+								{$group:{'_id':'$year',num:{$sum:1}}}
+								
+							])
 							
 							search.exec(function(err,docs){
 								if(err){
 									cbb(err)
 								}
 								let tempcount = 0
+								docs = docs.sort(mysort('_id',false))
+								console.log('check ----------',docs)
 								docs.forEach(function(item,index){
-									if(item._id<=parseInt(moment().format('YYYY')-5)){
+									if(item._id<parseInt(moment().format('YYYY')-5)){
 										tempcount += item.num
 									}
 								})
@@ -920,7 +957,7 @@ router.get('/pages/research/index1',function(req,res){
 				return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 			}
 			console.log('check year ------',year)
-			if(year==parseInt(moment().format('YYYY')-5) ){
+			if(year==parseInt(moment().format('YYYY')-6) ){
 				year = 'Before'
 			}
 			console.log('check year ------',year)
@@ -1294,7 +1331,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 								console.log('error',error)
 								cb(error)
 							}	
-							//console.log('docs-----',docs)	
+							console.log('docs-----',docs)	
 							data.jsdw = docs
 							cb(null)
 						})
@@ -2018,11 +2055,11 @@ router.get('/pages/regulation/index',function(req,res){
 			limit = parseInt(limit)
 			console.log('不带搜索参数')
 			let search = cmsContent.find({tag2:'党建活动'})
-				search.where('isDelete').equals(0)
-				search.sort({'id':-1})
-				search.sort({'isTop':-1})//正序
-				search.sort({'timeAdd':-1})
-				search.sort({'isDisplay':1})
+				//search.where('isDelete').equals(0)
+				//search.sort({'id':-1})
+				//search.sort({'isTop':-1})//正序
+				search.sort({'timeEdit':-1})
+				//search.sort({'isDisplay':1})
 				search.limit(limit)
 				search.skip(numSkip)
 				search.exec(function(error,docs){
@@ -2273,21 +2310,24 @@ router.get('/pages/news/index',function(req,res){
 			res.render('pages/news/details',{L:req.query['L'],data:doc})
 		})
 })
-router.get('/pages/globalCooperation/partner',function(req,res){
+router.get('/pages/globalCooperation/coresearch',function(req,res){
 	async.waterfall([
 		function(cb){
 			console.log('不带搜索参数')
-			let search = cmsContent.find({'tag2':'合作伙伴'})
+			let search = cmsContent.find({'tag2':'科研合作'})
 				search.where('isDelete').equals(0)
-				search.sort({'hbsort':1})
-				
+				search.sort({'id':-1})
+				search.sort({'isTop':-1})//正序
+				search.sort({'timeAdd':-1})
+				search.sort({'isDisplay':1})
 				search.exec(function(error,docs){
 					if(error){
-						console.log('hzhb_data error',error)
+						console.log('error',error)
 						cb(error)
 					}
 					cb(null,docs)
 				})
+			
 		}
 	],function(error,result){
 		if(error){
@@ -2296,9 +2336,9 @@ router.get('/pages/globalCooperation/partner',function(req,res){
 		}
 		console.log('hzhb_data async waterfall success',result)
 		if(req.query['L']=='1'){
-			res.render('pages/globalCooperation/partner',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/index',{L:req.query['L'],data:result})
 		}else{
-			res.render('pages/globalCooperation/partneren',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/indexen',{L:req.query['L'],data:result})
 		}
 	})
 }).get('/pages/globalCooperation/jointTraining',function(req,res){
@@ -2336,20 +2376,17 @@ router.get('/pages/globalCooperation/partner',function(req,res){
 	async.waterfall([
 		function(cb){
 			console.log('不带搜索参数')
-			let search = cmsContent.find({'tag2':'科研合作'})
+			let search = cmsContent.find({'tag2':'合作伙伴'})
 				search.where('isDelete').equals(0)
-				search.sort({'id':-1})
-				search.sort({'isTop':-1})//正序
-				search.sort({'timeAdd':-1})
-				search.sort({'isDisplay':1})
+				search.sort({'hbsort':1})
+				
 				search.exec(function(error,docs){
 					if(error){
-						console.log('error',error)
+						console.log('hzhb_data error',error)
 						cb(error)
 					}
 					cb(null,docs)
 				})
-			
 		}
 	],function(error,result){
 		if(error){
@@ -2358,9 +2395,9 @@ router.get('/pages/globalCooperation/partner',function(req,res){
 		}
 		console.log('hzhb_data async waterfall success',result)
 		if(req.query['L']=='1'){
-			res.render('pages/globalCooperation/index',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/partner',{L:req.query['L'],data:result})
 		}else{
-			res.render('pages/globalCooperation/indexen',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/partneren',{L:req.query['L'],data:result})
 		}
 	})
 })
@@ -2520,26 +2557,28 @@ router.get('/pages/recruitment/doctor',function(req,res){
 		res.render('pages/recruitment/talents',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,type:type})
 	})
 }).get('/pages/recruitment/index',function(req,res){
-	let zhuanye = req.query.z,
+	let zhuanye = req.query.bsort,//中文名表示，用来选中左侧菜单
 		info = req.query.info,
-		z = 1
-	if(zhuanye == 1){
-		zhuanye = '计算机科学与技术'
-	}else if(zhuanye == 2){
-		zhuanye = '软件工程'
-		z=2
+		z = 1 //数字表示
+	if(!zhuanye){
+		zhuanye = 1
 	}
-	else{
-		zhuanye = '软件工程（腾班）'
-		z=3
-	}
-	let data = {}
+	// if(zhuanye == 1){
+	// 	zhuanye = '计算机科学与技术'
+	// }else{
+	// 	zhuanye = '计算机科学与技术（卓越班）'
+	// 	z=2
+	// }
+	// else{
+	// 	zhuanye = '软件工程（腾班）'
+	// 	z=3
+	// }
+	let data = {},lmenu=[],allinfo={}
 	console.log(zhuanye)
 	async.waterfall([
 		function(cb){
-			console.log('不带搜索参数')
-			let search = bkzs.findOne({zhuanye:zhuanye})
-				search.sort({'timeAdd':-1})
+			let search = bkzs.findOne({bsort:zhuanye})
+				//search.sort({'timeAdd':-1})
 				search.exec(function(error,docs){
 					if(error){
 						console.log('bkzs_data error',error)
@@ -2547,7 +2586,35 @@ router.get('/pages/recruitment/doctor',function(req,res){
 					}
 					data = docs
 					console.log(data)
-					cb(null,docs)
+					cb(null)
+				})
+		},
+		function(cb){
+			//获取左侧菜单
+			let search = bkzs.find({})
+				search.sort({bsort:1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					
+					docs.forEach(function(item,index){
+						lmenu.push(item.zhuanye)
+					})
+					console.log('check lmenu-----',lmenu)
+					//lmenu = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = bkzsinfo.findOne({})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					console.log('check info -----',docs)
+					allinfo = docs
+					cb()
 				})
 		}
 	],function(error,result){
@@ -2556,61 +2623,20 @@ router.get('/pages/recruitment/doctor',function(req,res){
 			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 		}
 		//console.log('hzhb_data async waterfall success',result)
-		if(info==1){data.info = result.xuefei,info='学费与住宿'}
-		else if(info==2){data.info = result.jxj,info='奖学金'}
-		else if(info==3){data.info = result.jiuye,info='就业情况'}
-		else if(info==4){data.info = result.xyhj,info='校园环境'}
-		else if(info==5){data.info = result.lxfs,info='联系方式'}
+		if(info==1){data.info = allinfo.xuefei,info='学费与住宿'}
+		else if(info==2){data.info = allinfo.jxj,info='奖学金'}
+		else if(info==3){data.info = allinfo.jiuye,info='就业情况'}
+		else if(info==4){data.info = allinfo.xyhj,info='校园环境'}
+		else if(info==5){data.info = allinfo.lxfs,info='联系方式'}
+		else if(info==6){data.info = allinfo.zsqk,info='招生情况'}
 		else{info=0}
-		console.log(data.info,info)
-		let patharr,namearr
-			if(result.patharr){
-				console.log('dddd')
-				patharr = (result.patharr).split(',')
-				namearr = (result.namearr).split(',')
-			}
-			console.log(namearr)
-		res.render('pages/recruitment/index',{L:req.query['L'],data:data,zhuanye:zhuanye,z:z,info:info,patharr:patharr,namearr:namearr})
+		//console.log(data.info,info)
+		console.log(data.patharr.length)
+		//return 
+		res.render('pages/recruitment/index',{L:req.query['L'],data:data,zhuanye:data.zhuanye,z:data.bsort,info:info,patharr:data.patharr,namearr:data.namearr,lmenu:lmenu})
 	})
 })
-router.get('/pages/organization/graduateSchool',function(req,res){
-	let data = {}
-	async.waterfall([
-		function(cb){
-			console.log('不带搜索参数')
-			let search = cmsContent.find({'tag2':'研究所'})
-				search.where('isDelete').equals(0)
-				search.sort({'id':-1})
-				search.sort({'isTop':-1})//正序
-				search.sort({'timeAdd':-1})
-				search.sort({'isDisplay':1})
-				search.exec(function(error,docs){
-					if(error){
-						console.log('error',error)
-						cb(error)
-					}
-					data = docs
-					cb(null)
-				})
-			
-		}
-	],function(error,result){
-		if(error){
-			console.log('hzhb_data async waterfall error',error)
-			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
-		}
-		console.log('hzhb_data async waterfall success',result)
-		data.forEach(function(item,index){
-			item.img1 = (item.fujianPath).split(';')[0]
-			item.img2 = (item.fujianPath).split(';')[1]
-		})
-		if(req.query['L']=='1'){
-			res.render('pages/organization/graduateSchool',{L:req.query['L'],data:data})
-		}else{
-			res.render('pages/organization/graduateSchoolen',{L:req.query['L'],data:data})
-		}
-	})
-}).get('/pages/organization/index',function(req,res){
+router.get('/pages/organization/departments',function(req,res){
 	let data = {},type = req.query.t,content={}
 	if(!type){type = '软件工程系'}
 	async.waterfall([
@@ -2659,7 +2685,45 @@ router.get('/pages/organization/graduateSchool',function(req,res){
 		}else{
 			res.render('pages/organization/indexen',{L:req.query['L'],data:data,doc:content,type:type})
 		}
-})
+	})
+}).get('/pages/organization/index',function(req,res){
+	let data = {}
+	async.waterfall([
+		function(cb){
+			console.log('不带搜索参数')
+			let search = cmsContent.find({'tag2':'研究所'})
+				search.where('isDelete').equals(0)
+				search.sort({'id':-1})
+				search.sort({'isTop':-1})//正序
+				search.sort({'timeAdd':-1})
+				search.sort({'isDisplay':1})
+				search.exec(function(error,docs){
+					if(error){
+						console.log('error',error)
+						cb(error)
+					}
+					data = docs
+					cb(null)
+				})
+			
+		}
+	],function(error,result){
+		if(error){
+			console.log('hzhb_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('hzhb_data async waterfall success',result)
+		data.forEach(function(item,index){
+			item.img1 = (item.fujianPath).split(';')[0]
+			item.img2 = (item.fujianPath).split(';')[1]
+		})
+		if(req.query['L']=='1'){
+			res.render('pages/organization/graduateSchool',{L:req.query['L'],data:data})
+		}else{
+			res.render('pages/organization/graduateSchoolen',{L:req.query['L'],data:data})
+		}
+	})
+	
 }).get('/pages/organization/periodical',function(req,res){
 	console.log('in qkbjb')
 	let search = cmsContent.findOne({})

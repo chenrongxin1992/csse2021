@@ -35,9 +35,9 @@
             color: white;
             filter: alpha(Opacity=80);
             -moz-opacity: 0.5;
-            opacity: 0.5;
+            /* opacity: 0.5; */
             /* text-align: right; */
-            display: none;
+            /* display: none; */
 			top: 0;
 			margin-left: 0px;
         }
@@ -338,7 +338,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 		
 		//初始化上传按钮  
 		//let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button><button type="button" class="layui-btn" id="editbtn">编辑头像</button>'
-		let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button>'
+		let uploadbtn = '<button type="button" class="layui-btn layui-btn-sm" id="uploadbtn">上传头像</button>'
     	$('#uploadarea').append(uploadbtn)	
 		$('#editbtn').click(function(){
 			console.log(	$('#userimg').attr('src'))
