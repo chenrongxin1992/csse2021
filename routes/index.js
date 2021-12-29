@@ -971,7 +971,7 @@ router.get('/pages/research/index1',function(req,res){
 	}
 })
 router.get('/pages/teacherTeam/index',function(req,res){
-	let data={},total=0,totalpage=0,myarr=[1,2,3,4,5,6,7,8,9,10],myarr1=[1,2,3,4,5,6,7,8,9]//职称统计数组
+	let data={},total=0,totalpage=0,myarr=[1,2,3,4,5,6,7,8,9,10],myarr1=[1,2,3,4,5,6,7,8,9]//职称统计数组,所/中心统计数组
 	let page = req.query.p,
 		search_txt = req.query.s,
 		zhicheng = req.query.zc,//peopleid
@@ -1436,7 +1436,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 								console.log('error',error)
 								cb(error)
 							}	
-							//console.log('docs-----',docs)	
+							console.log('docs-----',docs)	
 							data.jsdw = docs
 							cb(null)
 						})
@@ -1694,7 +1694,12 @@ router.get('/pages/user/index',function(req,res){
 			if(!doc){
 				return res.json({'errMsg':'no result'})
 			}
-			res.render('pages/user/index',{L:req.query['L'],data:doc})
+			if(req.query['L']=='1'){
+				res.render('pages/user/index',{L:req.query['L'],data:doc})
+			}else{
+				res.render('pages/user/indexen',{L:req.query['L'],data:doc})
+			}
+			
 		})
 })
 router.get('/pages/teacherTeam/index1',function(req,res){
@@ -2515,7 +2520,7 @@ router.get('/pages/recruitment/doctor',function(req,res){
 				console.log('不带搜索参数')
 				let search = cmsContent.find(obj)
 					search.where('isDelete').equals(0)
-					search.sort({'id':-1})
+					//search.sort({'id':-1})
 					search.sort({'isTop':-1})//正序
 					search.sort({'timeAdd':-1})
 					search.sort({'isDisplay':1})
@@ -2638,6 +2643,7 @@ router.get('/pages/recruitment/doctor',function(req,res){
 })
 router.get('/pages/organization/departments',function(req,res){
 	let data = {},type = req.query.t,content={}
+	console.log('type----',type)
 	if(!type){type = '软件工程系'}
 	async.waterfall([
 		function(cb){

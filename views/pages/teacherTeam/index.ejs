@@ -38,7 +38,7 @@
         </div>
         <div class="cont">
             <div class="top-nav">
-                <div class="tit">师资队伍</div>
+                <div class="tit c_cca84d">师资队伍</div>
                 <div class="search-input">
                     <input type="text" placeholder="输入姓名" class="search" id="search">
                     <img src="../../image/teacher_image/search.png" class="search-img" />
@@ -81,9 +81,9 @@
                         <ul id="zc_ul">
                             <li><a href="" class="a_zc" id="<%=data.zhichengNum[0]._id%>">杰出人才(<%=data.zhichengNum[0].num%>)</a></li>
                             <li><a href="" class="a_zc" id="<%=data.zhichengNum[1]._id%>">教授(<%=data.zhichengNum[1].num%>)</a></li>
-                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[2]._id%>">副教授(<%=data.zhichengNum[2].num%>)</a></li>
-                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[3]._id%>">讲师(<%=data.zhichengNum[3].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[2]._id%>">副教授(<%=data.zhichengNum[2].num%>)</a></li> 
                             <li><a href="" class="a_zc" id="<%=data.zhichengNum[4]._id%>">助理教授(<%=data.zhichengNum[4].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[3]._id%>">讲师(<%=data.zhichengNum[3].num%>)</a></li>
                             <li><a href="" class="a_zc" id="<%=data.zhichengNum[5]._id%>">专职研人员(<%=data.zhichengNum[5].num%>)</a></li>                            
                             <li><a href="" class="a_zc" id="<%=data.zhichengNum[6]._id%>">博士后(<%=data.zhichengNum[6].num%>)</a></li>
                             <li><a href="" class="a_zc" id="<%=data.zhichengNum[7]._id%>">技术/管理人员(<%=data.zhichengNum[7].num%>)</a></li>
@@ -117,7 +117,10 @@
                                         <div class="name"><%=item.userName%></div>
                                         <img class="avatar" src="<%=item.avatar%>" style="height: 171px;width: 171px;border-radius:50%;"/>
                                         <div class="txt">
-                                            <p class="c_333"><%=item.zhiwu%> <%=item.zhicheng%></p>
+                                            <p class="c_333"><%=item.zhiwu%> 
+                                                <%if(item.zhicheng!='专职研究人员'){%>
+                                                <%=item.zhicheng%>
+                                                <%}%></p>
                                             <p class="c_666"><%=item.suoxi%></p>
                                         </div>
                                         <div class="skill"><%if(!item.yjly){%>无

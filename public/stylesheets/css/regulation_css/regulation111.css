@@ -108,7 +108,7 @@
     margin-bottom: 1px;
     font-size: 16px;
 }
-.area-nav ul li a{
+.area-nav ul li > a{
     display: block;
     padding: 19px 0;
     width: 100%;

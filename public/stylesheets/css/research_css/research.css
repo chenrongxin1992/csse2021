@@ -93,6 +93,7 @@
     font-size: 36px;
     margin-right: 40px;
     margin-left: 50px;
+    font-weight: bold;
 }
 .cont .top-nav .list{
     display: flex;
@@ -151,13 +152,42 @@
     border-bottom: 1px solid white;
     font-size: 16px;
 }
-.area-nav ul li a{
+.area-nav ul li:last-child{
+    border-bottom: none;
+}
+.area-nav ul li > a{
     display: block;
     padding: 19px 0;
     width: 100%;
 }
 .area-nav ul li.active,.area-nav ul li:hover{
     background-color: #fff;
+}
+.area-nav ul li.third{
+    text-align: center;
+    background-color: white;
+    padding-bottom: 5px;
+}
+.area-nav ul li.third span{
+    display: block;
+    padding: 15px 0;
+    width: 100%;
+}
+.area-nav ul li.third div{
+    margin: 0 auto;
+    width: 75%;
+}
+.area-nav ul li.third div a{
+    display: block;
+    color: #999;
+}
+.area-nav ul li.third div a.active,
+.area-nav ul li.third div a:hover{
+    background-color: #f3f3f3;
+    border-radius: 15px;
+}
+.area-nav ul li.third div:not(:first-child){
+    margin-top: 3px;
 }
 
 .area-right .page-list .page{
@@ -185,7 +215,7 @@
 }
 
 .area-right .page-list .row-right p {
-	font-size: 16px !important;
+	font-size: 16px;
 	margin-bottom: 10px;
 }
 
@@ -200,8 +230,8 @@
 }
 .area-right .page-list .row-right .more .more_img{
     margin-left: 5px;
-    width: 20px;
-    vertical-align: -4px;
+    width: 26px;
+    vertical-align: -6px;
 }
 
 @media only screen and (max-width:1200px){

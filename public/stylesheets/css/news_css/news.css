@@ -55,13 +55,42 @@
     border-bottom: 1px solid white;
     font-size: 16px;
 }
-.area-nav ul li a{
+.area-nav ul li:last-child{
+    border-bottom: none;
+}
+.area-nav ul li > a{
     display: block;
     padding: 19px 0;
     width: 100%;
 }
 .area-nav ul li.active,.area-nav ul li:hover{
     background-color: #fff;
+}
+.area-nav ul li.third{
+    text-align: center;
+    background-color: white;
+    padding-bottom: 5px;
+}
+.area-nav ul li.third span{
+    display: block;
+    padding: 15px 0;
+    width: 100%;
+}
+.area-nav ul li.third div{
+    margin: 0 auto;
+    width: 75%;
+}
+.area-nav ul li.third div a{
+    display: block;
+    color: #999;
+}
+.area-nav ul li.third div a.active,
+.area-nav ul li.third div a:hover{
+    background-color: #f3f3f3;
+    border-radius: 15px;
+}
+.area-nav ul li.third div:not(:first-child){
+    margin-top: 3px;
 }
 
 .area-right{

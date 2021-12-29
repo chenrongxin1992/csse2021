@@ -9,18 +9,19 @@
   <div class="banner">
     <div class="slider">
       <a href="">
-      <div class="banner-video">
-           <video autoplay name="media" loop muted>
-              <source src="/csse/video/test.mp4" type="video/mp4">
-           </video>
-      </div>
-    </a>
+        <div class="banner-video">
+             <video muted autoplay name="media" loop webkit-playsinline playsinline x5-video-player-type="h5" x5-video-orientation="h5" x5-video-player-fullscreen="true">
+                <source src="/csse/video/test1.mp4" type="video/mp4">
+             </video>
+        </div>
+      </a>
       <%data.slider.forEach(function(item,index){%>
       <a href="<%=item.url%>">
         <img class="slider-img lazy_img" src="<%=item.pic%>" style="max-height: 743px;" />
         <div class="banner-txt"><%=item.title%></div>
       </a>
       <%})%>
+      
     </div>
   </div>
   <div class="p-area contain">
@@ -294,7 +295,9 @@
       <div class="news-list">
         <div class="news-row news-row1">
           <a href="/csse/pages/news/details?id=<%=data.news1.id%>">
-            <img class="img" src="<%=data.news1.fujianPath%>" />
+            <div class="img">
+              <img class="lazy_img" src="<%=data.news1.fujianPath%>" />
+            </div>
             <div class="news-txt clearfix">
               <div class="time c_cca84d l">
                 <span class="b day"><%=data.news1.day%></span>
@@ -306,7 +309,9 @@
         </div>
         <div class="news-row news-row2">
           <a href="/csse/pages/news/details?id=<%=data.news2.id%>">
-            <img class="img" src="<%=data.news2.fujianPath%>" />
+            <div class="img">
+              <img class="lazy_img" src="<%=data.news2.fujianPath%>" />
+            </div>
             <div class="news-txt clearfix">
               <div class="time c_cca84d l">
                 <span class="b day"><%=data.news2.day%></span>
@@ -348,7 +353,7 @@
       <!-- 科研成果 -->
       <div class="research">
         <div class="img_bg">
-          <img class="img" src="image/index/research_bg.png" />
+          <img class="img" src="image/index/research_bg_m.png" />
           <img src="image/index/recruitment/ellipse_left.png" class="semicircle1" />
           <img src="image/index/recruitment/ellipse_right.png" class="semicircle2" />
           <img src="image/index/recruitment/ellipse_right.png" class="semicircle3" />
@@ -360,7 +365,7 @@
             <p>CSRankings 2016 - 2021</p>
             <p>全国并列第11位</p>
           </div>
-          <div class="research_btn">了解 CSRankings<img src="image/index/btn-right.png" class="btn" /></div>
+          <a class="research_btn" href="http://csrankings.org/" target="_blank">了解 CSRankings<img src="image/index/btn-right.png" class="btn" /></a>
         </div>
         <div class="research_cont">
           <div class="research_banner">
@@ -599,7 +604,8 @@
         <!-- 科研成果 -->
         <div class="research">
             <div class="img_bg">
-                <img class="img lazy_img" src="image/index/research_bg.png" />
+                <img class="img pc lazy_img" src="image/index/research_bg.png" />
+                <img class="img mb lazy_img" src="image/index/research_bg_m.png" />
                 <img src="image/index/recruitment/ellipse_left.png" class="semicircle1 lazy_img" />
                 <img src="image/index/recruitment/ellipse_right.png" class="semicircle2 lazy_img" />
                 <img src="image/index/recruitment/ellipse_right.png" class="semicircle3 lazy_img" />
@@ -609,7 +615,7 @@
                     <p>CSRankings 2016-2021</p>
                     <p>11<sup style="font-size: 8px;">th</sup> in China</p>
                 </div>
-                <a class="research_btn" href="http://csrankings.org/">
+                <a class="research_btn" href="http://csrankings.org/" target="_blank">
                     CSRankings<img src="image/index/btn-right.png" class="btn" />
                 </a>
             </div>

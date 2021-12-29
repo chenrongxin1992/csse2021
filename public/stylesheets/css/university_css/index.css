@@ -54,6 +54,7 @@
 }
 .introduction .img-list{
     position: relative;
+    z-index: 5;
 }
 .introduction .img-list .img{
     width: 100%;

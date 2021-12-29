@@ -19,7 +19,7 @@
 }
 
 .contain-area{
-    width: 80%;
+    width: 83.3333%;
     padding: 80px 0;
     margin: 0 12% 0 8%;
 }
@@ -43,7 +43,10 @@
     border-bottom: 1px solid white;
     font-size: 16px;
 }
-.area-nav ul li a{
+.area-nav ul li:last-child{
+    border-bottom: none;
+}
+.area-nav ul li > a{
     display: block;
     padding: 19px 0;
     width: 100%;
@@ -51,11 +54,37 @@
 .area-nav ul li.active,.area-nav ul li:hover{
     background-color: #fff;
 }
+.area-nav ul li.third{
+    text-align: center;
+    background-color: white;
+    padding-bottom: 5px;
+}
+.area-nav ul li.third span{
+    display: block;
+    padding: 15px 0;
+    width: 100%;
+}
+.area-nav ul li.third div{
+    margin: 0 auto;
+    width: 75%;
+}
+.area-nav ul li.third div a{
+    display: block;
+    color: #999;
+}
+.area-nav ul li.third div a.active,
+.area-nav ul li.third div a:hover{
+    background-color: #f3f3f3;
+    border-radius: 15px;
+}
+.area-nav ul li.third div:not(:first-child){
+    margin-top: 3px;
+}
 
 .area-cont{
     margin-left: 279px;
     background: #F9F9F9;
-    padding: 30px 50px 80px 50px;
+    padding: 30px 15px 80px;
     position: relative;
 }
 .area-cont .line{
@@ -82,8 +111,9 @@
 .logo-list .img-bg{
     width: 73%;
     position: absolute;
-    top: 0;
-    left: 13.5%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
 .logo-list .row{
     position: relative;
@@ -93,13 +123,9 @@
     justify-content: center;
 }
 .logo-list .col{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30%;
-    height: 6.5VW;
-    min-width: 140px;
-    vertical-align: top;
+    width: 31.75%;
+    position: relative;
+    padding-top: 9%;
 }
 .logo-list .col:nth-child(n+3){
     margin-top: 15px;
@@ -108,8 +134,11 @@
     background-color:#433B95;
 }
 .logo-list .col img{
-    width: 50%;
-    max-height: 80%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    height: 87.2727%;
 }
 
 .bread-crumbs{
@@ -158,7 +187,6 @@
     }
     .logo-list .img-bg{
         width: 100%;
-        left: 0;
     }
     .area-tit{
         font-size: 24px;

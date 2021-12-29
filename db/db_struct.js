@@ -101,7 +101,7 @@ const userSchema = new Schema({
   jstype1:{type:String},
   jstype:{type:String,default:''},//教师队伍类别，新增
   userName_py:{type:String},
-  display:{type:Number,default:1},//默认显示
+  display:{type:Number,default:0},//默认显示
   peopleid:{type:Number,default:15},//人员类别，用来排序 10为其它
   suoxiid:{type:Number}//所系id，排序
 },{collection:'allUser'})
