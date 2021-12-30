@@ -163,9 +163,11 @@
 }
 .high-list .high-left .num{
     font-size: 36px;
+    font-family:  'Times New Roman', Times, serif;
 }
 .high-list .high-right .num{
     font-size: 20px;
+    font-family:  'Times New Roman', Times, serif;
 }
 .high-list .noBorBot{
     border-bottom: none;

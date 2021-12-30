@@ -121,15 +121,15 @@
     z-index: 10;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
 }
 .logo-list .col{
-    width: 31.75%;
+    width: 30.2%;
     position: relative;
-    padding-top: 9%;
+    padding-top: 8.554%;
 }
-.logo-list .col:nth-child(n+3){
-    margin-top: 15px;
+.logo-list .col:nth-child(n+4){
+    margin-top: 2.6vw;
 }
 .logo-list .col:hover{
     background-color:#433B95;

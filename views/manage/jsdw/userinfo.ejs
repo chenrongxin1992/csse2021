@@ -109,11 +109,13 @@
 					<option value="副教授" peopleid="3">副教授</option>
 					<option value="讲师" peopleid="4">讲师</option>
 					<option value="助理教授" peopleid="5">助理教授</option>
-					<option value="专职研究人员" peopleid="6">专职研究人员</option>
+					<option value="研究员" peopleid="6">研究员</option>
+					<option value="副研究员" peopleid="10">副研究员</option>
 					<!-- <option value="研究员" peopleid="6">专职研究人员</option> -->
 					<option value="博士后" peopleid="7">博士后</option>
 					<option value="技术/管理人员" peopleid="8">技术/管理人员</option>
 					<option value="研究/辅助管理" peopleid="9">研究/辅助管理</option>
+					<option value="其它" peopleid="11">其它</option>
 				</select>
 			</td>
 	        <td class="tdstyle">(英文)职称</td>
@@ -125,9 +127,11 @@
 					<option value="Lecturer">Lecturer</option>
 					<option value="Assistant Professor">Assistant Professor</option>
 					<option value="Researcher">Researcher</option>
+					<option value="Associate Researcher">Associate Researcher</option>
 					<option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
 					<option value="Technical / management personnel">Technical/management personnel</option>
 					<option value="Assistant">Assistant</option>
+					<option value="other">other</option>
 				</select>
 			</td>
 	      </tr>
@@ -163,7 +167,7 @@
 					<option value="Visual Computing Research Center (VCC)" suoxiid="8">Visual Computing Research Center (VCC)</option>
 					<option value="Teaching Department" suoxiid="9">Teaching Department</option>
 					<!-- 20211227新增 -->
-					<option value="软件工程研究中心" suoxiid="11">软件工程研究中心</option>
+					<option value="Software Engineering Research Center" suoxiid="11">Software Engineering Research Center</option>
 				</select>
 			</td>
 	      </tr>
@@ -309,6 +313,14 @@ layui.use(['jquery','layer','upload','form'], function(){
 		$('#yjly1').val('<%=user.yjly1%>')
 		$('#suoxi').val('<%=user.suoxi%>')
 		$('#suoxi1').val('<%=user.suoxi1%>')
+		//20211230添加
+		if('<%=username%>' != '王佳岱' ){
+			console.log('只有管理员能修改select')
+			$("select[name=zhicheng]").attr("disabled", "disabled")
+			$("select[name=zhicheng1]").attr("disabled", "disabled")
+			$("select[name=suoxi]").attr("disabled", "disabled")
+			$("select[name=suoxi1]").attr("disabled", "disabled")
+		}
 		form.render('select')
 		//监听下拉框
 		form.on('select(sex)',function (data) {

@@ -375,9 +375,9 @@
 }
 .contact_way .contact-title  {
 	color: #cca84d;
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: bold;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .contact_way .content {
@@ -395,7 +395,11 @@
 	text-align: center;
 }
 .contact_way .content .way_list p {
-	padding-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+.content .QR-code div{
+    margin-top: 5px;
 }
 
 

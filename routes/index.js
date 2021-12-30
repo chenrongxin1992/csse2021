@@ -19,6 +19,44 @@ const cglr = require('../db/db_struct').cglr
 //result.rowsAffected[5]
 //result.returnValue:number
 /* GET home page. */
+function checkMonth(arg){
+	if(arg=='1'||arg=='01'){
+		return 'January'
+	}
+	else if(arg=='2'||arg=='02'){
+		return 'February'
+	}
+	else if(arg=='3'||arg=='03'){
+		return 'March'
+	}
+	else if(arg=='4'||arg=='04'){
+		return 'April'
+	}
+	else if(arg=='5'||arg=='05'){
+		return 'May'
+	}
+	else if(arg=='6'||arg=='06'){
+		return 'June'
+	}
+	else if(arg=='7'||arg=='07'){
+		return 'July'
+	}
+	else if(arg=='8'||arg=='08'){
+		return 'August'
+	}
+	else if(arg=='9'||arg=='09'){
+		return 'September'
+	}
+	else if(arg=='10'){
+		return 'October'
+	}
+	else if(arg=='11'){
+		return 'November'
+	}
+	else{
+		return 'December'
+	}
+}
 router.get('/', function(req, res, next) {
 	//首页
 	let data = {}
@@ -53,10 +91,10 @@ router.get('/', function(req, res, next) {
 						cb(err)
 					}
 					data.news1 = docs[0]
-					data.news1.month = docs[0].timeAdd.slice(5,7)
+					data.news1.month = checkMonth(docs[0].timeAdd.slice(5,7))
 					data.news1.day = docs[0].timeAdd.slice(8,11)
 					data.news2 = docs[1]
-					data.news2.month = docs[1].timeAdd.slice(5,7)
+					data.news2.month = checkMonth(docs[1].timeAdd.slice(5,7))
 					data.news2.day = docs[1].timeAdd.slice(8,11)
 					cb()
 				})
@@ -76,6 +114,10 @@ router.get('/', function(req, res, next) {
 					if(err){
 						cb(err)
 					}
+					docs.forEach(function(item){
+						item.month = checkMonth(item.timeAdd.slice(5,7))
+						console.log('item.month-----',item.month)
+					})
 					data.notice = docs
 					cb()
 				})
@@ -971,7 +1013,8 @@ router.get('/pages/research/index1',function(req,res){
 	}
 })
 router.get('/pages/teacherTeam/index',function(req,res){
-	let data={},total=0,totalpage=0,myarr=[1,2,3,4,5,6,7,8,9,10],myarr1=[1,2,3,4,5,6,7,8,9]//职称统计数组,所/中心统计数组
+	//6 9 10 为专职研究人员
+	let data={},total=0,totalpage=0,myarr=[1,2,3,4,5,6,7,8,9,10,11],myarr1=[1,2,3,4,5,6,7,8,9,10]//myarr1根人员类别数量相对应，myarr跟所系数量对应
 	let page = req.query.p,
 		search_txt = req.query.s,
 		zhicheng = req.query.zc,//peopleid
@@ -1436,7 +1479,16 @@ router.get('/pages/teacherTeam/index',function(req,res){
 								console.log('error',error)
 								cb(error)
 							}	
-							console.log('docs-----',docs)	
+							//console.log('docs-----',docs)	
+							let check = new RegExp('院')//院长，院长助理
+							let check1 = new RegExp('所')//所长
+
+							docs.forEach(function(item){
+								if(!item.zhiwu.match(check)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+							})
 							data.jsdw = docs
 							cb(null)
 						})
@@ -1877,6 +1929,12 @@ function checksuotype(arg){
 	else if(arg==9){
 		return '教学系'
 	}
+	else if(arg==10){
+		return '院办管理/技术人员'
+	}
+	else if(arg==11){
+		return '软件工程研究中心'
+	}
 	else{
 		return '其它'
 	}
@@ -1898,7 +1956,7 @@ function checkjstype(arg){
 		return '助理教授'
 	}
 	else if (arg==6){
-		return '专职研究人员'
+		return '研究员'
 	}
 	else if (arg==7){
 		return '博士后'
@@ -1906,8 +1964,11 @@ function checkjstype(arg){
 	else if (arg==8){
 		return '技术/管理人员'
 	}
-	else{
+	else if(arg==9){
 		return '研究/辅助管理'
+	}
+	else{
+		return '副研究员'
 	}
 }
 //临时用，更新人员peopleid
@@ -2377,7 +2438,7 @@ router.get('/pages/globalCooperation/coresearch',function(req,res){
 			res.render('pages/globalCooperation/jointTrainingen',{L:req.query['L'],data:result})
 		}
 	})
-}).get('/pages/globalCooperation/index',function(req,res){
+}).get('/pages/globalCooperation/partner',function(req,res){
 	async.waterfall([
 		function(cb){
 			console.log('不带搜索参数')

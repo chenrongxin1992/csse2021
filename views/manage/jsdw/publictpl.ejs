@@ -27,16 +27,17 @@
        </div>
        <div class="layui-inline">
 	    	<select name="jstype" id="jstype" lay-filter="jstype" >
-          		<option value="">人员类别</option>
 		        <option value="1" peopleid="1">杰出人才</option>
 		        <option value="2" peopleid="2">教授</option>
 		        <option value="3" peopleid="3">副教授</option>
 				<option value="4" peopleid="4">讲师</option>
 		        <option value="5" peopleid="5">助理教授</option>
-		        <option value="6" peopleid="6">专职研究人员</option>
+		        <option value="6" peopleid="6">研究员</option>
+				<option value="10" peopleid="10">副研究员</option>
 		        <option value="7" peopleid="7">博士后</option>
 				<option value="8" peopleid="8">技术/管理人员</option>
 				<option value="9" peopleid="9">研究/管理助理</option>
+				<option value="11" peopleid="11">其它</option>
 		              <!-- 动态获取 -->
 		   </select>
 	  </div>
@@ -88,16 +89,16 @@ layui.use(['jquery','table','form'], function(){
 				}
 			});
     })
-	$(function(){
-		console.log('done get data')
-		table.reload('table_jsdw', {
-				where: {
-					userName: $('#userName').val(),
-					power: $('#power option:selected').val(),
-					peopleid: $('#jstype option:selected').attr('peopleid')
-				}
-			});
-	})
+	// $(function(){
+	// 	console.log('done get data')
+	// 	table.reload('table_jsdw', {
+	// 			where: {
+	// 				userName: $('#userName').val(),
+	// 				power: $('#power option:selected').val(),
+	// 				peopleid: $('#jstype option:selected').attr('peopleid')
+	// 			}
+	// 		});
+	// })
     
     $('#addkyxm').on('click', function(){
     	console.log('新增账号')

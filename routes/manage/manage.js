@@ -4602,6 +4602,7 @@ router.get('/jsdw',function(req,res){
 					userName:req.body.userName,
 					power:req.body.power,
 					account:req.body.account,//加入权限后需要更新
+					peopleid:11,//默认人员职称是其它
 					password:cryptoPassFunc(req.body.password),
 					userName_py:pinyin(req.body.userName,{
 						style:pinyin.STYLE_FIRST_LETTER
