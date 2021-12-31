@@ -686,7 +686,7 @@ router.get('/pages/research/index1',function(req,res){
 	let total = 0,data = {},totalpage = 0
 	console.log('page limit',page,limit,search_txt,year,belongstoid,typeof(year))
 	let obj = {},aggregate_obj = {}
-	let myarr = [1,2,3,4,5,6,7,8,9,10]
+	let myarr = [1,2,3,4,5,6,7,8,9,10,11]
 	if(search_txt){
 		console.log('search--------------')
 		if(year && belongstoid){
