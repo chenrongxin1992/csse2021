@@ -623,7 +623,8 @@ em {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: #ccc;
+	color: rgba(243,243,243,0.5);
+	font-size: 18px;
 }
 
 .pc_footer .p-foot-list li:nth-child(3n+2) {

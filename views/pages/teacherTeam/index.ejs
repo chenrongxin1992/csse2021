@@ -85,7 +85,7 @@
                             <li><a href="" class="a_zc" id="<%=data.zhichengNum[4]._id%>">助理教授(<%=data.zhichengNum[4].num%>)</a></li>
                             <li><a href="" class="a_zc" id="<%=data.zhichengNum[3]._id%>">讲师(<%=data.zhichengNum[3].num%>)</a></li>
                             <li class="third">
-                                <span>专职研究人员</span>
+                                <span>专职研究人员(<%=data.zhichengNum[5].num+data.zhichengNum[9].num+data.zhichengNum[8].num%>)</span>
                                 <div>
                                     <a href="" class="a_zc" id="<%=data.zhichengNum[5]._id%>">研究员(<%=data.zhichengNum[5].num%>)</a>
                                 </div>
@@ -97,7 +97,7 @@
                                 </div>
                             </li>                          
                             <li><a href="" class="a_zc" id="<%=data.zhichengNum[6]._id%>">博士后(<%=data.zhichengNum[6].num%>)</a></li>
-                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[7]._id%>">技术/管理人员(<%=data.zhichengNum[7].num%>)</a></li>
+                            <!-- <li><a href="" class="a_zc" id="<%=data.zhichengNum[7]._id%>">技术/管理人员(<%=data.zhichengNum[7].num%>)</a></li> -->
                             
                         </ul>
                     </div>
@@ -160,7 +160,24 @@
                          <%}%>
                     </div>
                     <script type="text/javascript"> 
+                        function getQueryString(name) {
+                            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                            var r = window.location.search.substr(1).match(reg);
+                            if (r != null) {
+                            return unescape(r[2]);
+                            }
+                            return null;
+                        }
                         $().ready(function() {   
+                            //三级菜单
+                            let check_zc = getQueryString('zc')
+                            console.log('check_zc-----',check_zc,typeof(check_zc))
+                            if(check_zc=='6'||check_zc=='9'||check_zc=='10'){
+                                $('.third').addClass('active')
+                            }
+                            $('.third').click(function(){
+                                $(this).addClass('active')
+                            })
                             $('#search').bind('keydown',function(event){
                                 if(event.keyCode == "13") {
                                     console.log('回车搜索',$('#search').val())

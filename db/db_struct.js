@@ -103,7 +103,9 @@ const userSchema = new Schema({
   userName_py:{type:String},
   display:{type:Number,default:0},//默认显示
   peopleid:{type:Number,default:11},//人员类别，用来排序 1杰出2教授3副教授4讲师5助理教授6研究员7博后8技术管理9助理10副研11为其它
-  suoxiid:{type:Number}//所系id，排序
+  suoxiid:{type:Number},//所系id，排序
+  login_date:{type:String,default:moment().format('YYYY-MM-DD')},//限制登录
+  login_num:{type:Number,default:0}
 },{collection:'allUser'})
 const cmsContentSchema = new Schema({
     id:{type:Number},

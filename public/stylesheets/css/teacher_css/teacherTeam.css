@@ -130,19 +130,27 @@
 .area-nav ul li.active,.area-nav ul li:hover{
     background-color: #fff;
 }
+
 .area-nav ul li.third{
     text-align: center;
+}
+.area-nav ul li.third.active{
     background-color: white;
     padding-bottom: 5px;
 }
+.area-nav ul li.third.active div{
+    display: block;
+}
 .area-nav ul li.third span{
     display: block;
-    padding: 15px 0;
+    padding: 19px 0;
     width: 100%;
 }
+
 .area-nav ul li.third div{
     margin: 0 auto;
     width: 75%;
+    display: none;
 }
 .area-nav ul li.third div a{
     display: block;
@@ -188,6 +196,10 @@
     padding: 8px 0 15px;
     font-weight: 400;
     font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 53px;
 }
 .area-right .page-list .page .txt{
     font-size: 16px;
@@ -198,11 +210,11 @@
 }
 .area-right .page-list .page .txt .c_666{
     height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.2;
+    line-height: 32px;
     padding: 0 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .area-right .row2{
@@ -290,9 +302,6 @@
     .cont{
         width: 95%;
     }
-    .area-right .page-list .page .txt .c_666{
-        height: 45px;
-    }
 }
 @media only screen and (max-width:480px){
     .info .info-cont{
@@ -317,14 +326,13 @@
         padding: 12px 0;
     }
     .area-right .page-list .page .skill{
-        font-size: 15px;
-        padding: 20px 0 12px 0;
+        font-size: 16px;
     }
     .area-right .page-list .page .avatar{
         margin-bottom: 10px;
     }
     .area-right .page-list .page .txt{
-        font-size: 14px;
+        font-size: 16px;
     }
     .area-right .page-list .page{
         margin-bottom: 20px;

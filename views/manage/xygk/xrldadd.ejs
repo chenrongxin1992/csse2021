@@ -108,13 +108,15 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">分管工作</label>
 					<div class="layui-input-inline" >
-	        			<input type="text" id="work" class="layui-input"  value="">
+						<textarea placeholder="分管工作" class="layui-textarea" id="work" style="height: 150px;"><%=data.work%></textarea>
+	        			<!-- <input type="text" id="work" class="layui-input"  value=""> -->
 	      			</div>					
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">分管工作(EN)</label>
 					<div class="layui-input-inline" >
-	        			<input type="text" id="work1" class="layui-input"  value="">
+						<textarea placeholder="分管工作" class="layui-textarea" id="work1" style="height: 150px;"><%=data.work1%></textarea>
+	        			<!-- <input type="text" id="work1" class="layui-input"  value=""> -->
 	      			</div>					
 				</div>
 			</div>
@@ -229,7 +231,7 @@ $(function(){
 		$('#name1').val('<%- data.name1%>')
         $('#title').val('<%- data.title%>')
 		$('#title1').val('<%- data.title1%>')
-        $('#work').val('<%- data.work%>')
+        // $('#work').val('<%- data.work%>')
 		$('#work1').val('<%- data.work1%>')
 		$('#paixu').val('<%- data.paixu%>')
         

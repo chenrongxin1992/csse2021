@@ -69,12 +69,56 @@ router.get('/login', function(req, res, next) {
 					console.log('login error',error)
 					return res.json({'code':-1,msg:error})
 				}
+				//20211231新增登录限制，一天中登录失败5次，不给登录
 				if(doc){
+					if(doc.login_num>=5){
+						console.log('doc.login_num------->',doc.login_num)
+						return res.json({'code':-1,msg:'您今天输入密码错误5次，请明天再试。'})
+					}
 					//20210730 判断密码是否一致
 					console.log('记录中的密码 & 提交密码--------',doc.password,cryptoPassFunc(req.body.password))
 					if(doc.password != cryptoPassFunc(req.body.password)){
-						console.log('密码错误')
-						return res.json({'code':-1,msg:'密码错误'})
+						console.log('------------密码错误，修改密码错误次数------------')
+						let doc_login_date = moment(doc.login_date),
+							today = moment().format('YYYY-MM-DD')
+						console.log('check today,login_date----->',today,doc_login_date,doc_login_date.isSame(today,'date'))
+						if(doc_login_date.isSame(today,'date')){
+							console.log('同一天登录，密码错误，次数加1')
+							let update_obj = {
+								login_date:moment().format('YYYY-MM-DD'),
+								login_num:(doc.login_num)?doc.login_num+1:1
+							}
+							user.updateOne({'_id':doc._id},update_obj,function(error){
+								if(error){
+									console.log('error',error)
+									return res.json({'code':-1,msg:error})
+								}
+								let try_num = 5-(update_obj.login_num)
+								console.log('try_num---------->',try_num)
+								if(try_num==0){
+									return res.json({'code':-1,msg:'当天密码输错次数太多，账号锁定一天。'})
+								}
+								return res.json({'code':-1,msg:'密码错误，您今天还能尝试 '+ try_num + ' 次登录。'})
+							})
+						}else{
+							console.log('不是同一天登录，密码错误，次数加1，日期更新为今天')
+							let update_obj = {
+								login_date:moment().format('YYYY-MM-DD'),
+								login_num:(doc.login_num)?doc.login_num+1:1
+							}
+							user.updateOne({'_id':doc._id},update_obj,function(error){
+								if(error){
+									console.log('error',error)
+									return res.json({'code':-1,msg:error})
+								}
+								let try_num = 5-(update_obj.login_num)
+								console.log('try_num---------->',try_num)
+								if(try_num==0){
+									return res.json({'code':-1,msg:'当天密码输错次数太多，账号锁定一天。'})
+								}
+								return res.json({'code':-1,msg:'密码错误，您今天还能尝试 '+ try_num + ' 次登录。'})
+							})
+						}
 					}else{
 						console.log('密码一致,设置session.....')
 						req.session.account = doc.account//可能是字母，可能是校园卡号
@@ -125,6 +169,20 @@ router.get('/login', function(req, res, next) {
 								req.session.powerType = 'all'
 								req.session.menu = 'shiyanshiManagement'
 							}
+						}
+						console.log('密码一致，如果登录错误次数不为零，重置为0')
+						if(doc.login_num!=0){
+							let update_obj = {
+								login_date:moment().format('YYYY-MM-DD'),
+								login_num:0
+							}
+							user.updateOne({'_id':doc._id},update_obj,function(error){
+								if(error){
+									console.log('error',error)
+									return res.json({'code':-1,msg:error})
+								}
+								return res.json({'code':0})
+							})
 						}
 						return res.json({'code':0})
 					}
