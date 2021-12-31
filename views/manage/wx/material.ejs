@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>公众号素材</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="referrer" content="never">
+
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style>
+        .layui-table-cell{
+            height: auto !important;
+			max-height: 100px !important;
+        }
+		
+    </style>
+</head>
+<body class="childrenBody">
+	
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：微信公众号 > 素材</div> <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="download"><i class="layui-icon">&#xe654;</i>下载公众号素材</button></blockquote>
+	<%- include('../search.ejs', {realod_id: 'table_material'}); %>
+	<table id="material_table" lay-filter="material_table"></table>
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+
+<script type="text/javascript">
+const reload_id = "table_material"
+layui.config({
+	base : "js/"
+}).extend({
+	"bodyTab" : "bodyTab"
+})
+layui.use(['jquery','table','form','element'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form
+    table.render({
+	    elem: '#material_table'
+	    ,id:reload_id//重载需要
+	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    //本地与服务器
+        ,url: '<%=base_url%>material_data' //数据接口
+	    ,page: true //开启分页
+        ,limits: [10,20,30]
+        ,limit: 10 //每页默认显示的数量
+	    ,cols: [[ //表头
+		   {type:'numbers', title: '序号',width:60,align:'center',sort:true}
+	      ,{field: 'title', title: '标题',align:'center',width:350,sort:true}
+		  ,{field: 'leixing', title: '类别',align:'center',sort:true}
+          ,{field: 'pageContent', title: '内容',align:'center'}
+		  ,{field: 'fujianPath', title: '封面图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
+	      ,{field: 'timeAdd', title: '发布时间', align:'center',width:180,sort:true}
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
+	    ]]
+	  });
+    //数据重载
+    $('#news_btn').on('click', function(){
+		var whereparam = {};
+		$(".searchbox input").each(function(){
+			whereparam[$(this).attr('name')] = $(this).val()
+		});
+    	table.reload(reload_id, {
+	        where: whereparam
+	    });
+    })
+    $('#newsadd').on('click', function(){
+		AddTab('新增'+$("title").text(),'material_table'+ 'new',"materialadd")
+    	
+    })
+	$('#download').on('click', function(){
+		//AddTab('新增'+$("title").text(),'material_table'+ 'new',"materialadd")
+		$('#download').text("下载中，请等待...")
+		$.ajax({
+               //本地与服务器
+                //url:'/manage/newsdel',
+			  	url:'<%=base_url%>material_download',
+			  	type:'POST',
+			  	data:{},
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('download success')		
+                        layer.msg('更新完成')	
+						$('#download').html('<i class="layui-icon">&#xe654;</i>下载公众号素材')
+						var whereparam = {};
+						$(".searchbox input").each(function(){
+							whereparam[$(this).attr('name')] = $(this).val()
+						});
+						table.reload(reload_id, {
+							where: whereparam
+						});
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+					  layer.msg(msg)	
+					$('#download').html('<i class="layui-icon">&#xe654;</i>下载公众号素材')
+			  	}
+			})
+    	
+    })
+	
+    //成果简介
+    $('#jianjie').on('click', function(){
+    	//do somehing
+        let index = layui.layer.open({
+					title : "成果概况",
+					type : 2,
+					area: ['500px', '350px'],
+					content : "cgjj",
+					success : function(layero, index){
+					}
+				})
+    })
+	table.on('sort(material_table)', function(obj){ //注：tool是工具条
+		table.reload("table_material", {
+			initSort:obj,
+			where: {
+				search_txt: $('#search_txt').val(),
+				order_field:obj.field,
+				order_type:obj.type
+			}
+		});
+	});
+    //监听工具条
+	table.on('tool(material_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	  console.log('dddd')
+	  if(layEvent === 'edit'){ //编辑
+		AddTab('编辑'+$("title").text(),'material_table'+ obj.data.id,"materialadd?id="+data.id)
+	   
+	  } else if(layEvent === 'del'){ //删除
+        console.log('data-----',data)
+	    layer.confirm('确定删除吗?',{closeBtn: 0}, function(index){
+	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+	      layer.close(index);
+	      //向服务端发送删除指令
+	       $.ajax({
+               //本地与服务器
+                //url:'/manage/newsdel',
+			  	url:'<%=base_url%>materialdel',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('del success')		
+                          layer.msg('ok')	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+			  	}
+			})
+	    });
+	  }else if(layEvent === 'review'){ //审核
+        console.log('data-----',data)
+	    layer.confirm('审核通过的稿件将会展示在前台，确定审核通过吗?',{closeBtn: 0}, function(index){
+	      layer.close(index);
+	      //向服务端发送删除指令
+	       $.ajax({
+               //本地与服务器
+                //url:'/manage/newsdel',
+			  	url:'<%=base_url%>contentreview',
+			  	type:'POST',
+			  	data:{id:obj.data.id},
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('del success')		
+						layer.msg(result.msg)	
+						table.reload(reload_id, {
+							where: {
+								search_txt: $('#search_txt').val()
+							}
+						});
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+			  	}
+			})
+	    });
+	  } else if(layEvent === 'preview'){
+	  	console.log('preview')
+	  	let src = ''+ data.fujianPath
+	  	layer.photos({ photos: {"data": [{"src": src}]} });
+	  }else if(layEvent === 'detailpreview'){
+		AddTab('预览'+data.id,'details'+ obj.data.id,'/pages/research/details?id='+data.id)
+	  }
+	});
+});
+</script>
+<script type="text/html" id="review">
+	{{# if(d.review != 1){ }}
+	 未审核
+	{{# } else { }}
+	 已审核
+	{{# } }}
+</script>
+<script type="text/html" id="yjfxbar">
+  <a class="layui-btn layui-btn-xs" lay-event="detailpreview"  target="_blank">预览</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="sytpimg">
+	<img src="../{{d.fujianPath}}" style="height: 100px;max-width: 100%;" class="previewimg" />
+</script>
+</body>
+</html>

@@ -45,7 +45,7 @@ log4js.configure({
     }
 });
 //manage route
-const base_url = '/csse/manage/'//'/manage/'
+const base_url = '/manage/'//'/manage/'
 const logger1 = log4js.getLogger('default');
 const logger2 = log4js.getLogger('default');
 //console.log = logger2.info.bind(logger2)
@@ -87,8 +87,8 @@ app.use(session({
         httpOnly: true
         //expires : new Date(Date.now() + 7200000)//默认是UTC时间，Date.now()获取当前时间的时间戳，输出是毫秒。
     },
-    store:new MongoStore({url: 'mongodb://newcsse:youtrytry@localhost:27017/newcsse'})
-    //store: MongoStore.create({ mongoUrl: 'mongodb://newcsse:youtrytry@localhost:27017/newcsse' })
+    store:new MongoStore({url: 'mongodb://test:test@localhost:27017/csse'})
+    //store: MongoStore.create({ mongoUrl: 'mongodb://newcsse:newcsse@localhost:27017/newcsse' })
 }));
 
 app.use(function(req,res,next){
@@ -130,7 +130,7 @@ app.use('/manage',function(req,res,next){
         console.log('no login redirect')
         //本地与服务器
         //return res.redirect('/manage/login')
-        return res.redirect('/csse/manage/login')//本地
+        return res.redirect('/manage/login')//本地
     }else{
       console.log('------- 有session 设置 ----------')
       res.locals.username = req.session.username;   // 从session 获取 user对象

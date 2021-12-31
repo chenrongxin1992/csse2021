@@ -7,9 +7,9 @@
     const mongoose = require('mongoose')
     mongoose.Promise = global.Promise;
     //服务器上
-    const DB_URL = 'mongodb://newcsse:youtrytry@localhost:27017/newcsse'
+    //const DB_URL = 'mongodb://csse:test@localhost:27017/csse'
     //本地
-    //const DB_URL = 'mongodb://localhost:27017/dxxxhjs'
+    const DB_URL = 'mongodb://localhost:27017/csse'
     mongoose.connect(DB_URL,{useNewUrlParser:true,useUnifiedTopology: true})//{ useUnifiedTopology: true }
 
     /**
@@ -129,6 +129,8 @@ const cmsContentSchema = new Schema({
     isCas:{type:Number,default:0},
     isDelete:{type:Number,default:0},
     url:{type:String},
+    content_source_url:{type:String},
+    digest:{type:String},
     idAdd:{type:Number},
     accountAdd:{type:String},
     fujianName:{type:String},//附件
@@ -149,10 +151,14 @@ const cmsContentSchema = new Schema({
     csrankings:{type:String},
     csrankingsEN:{type:String},
     pyxm:{type:String},//国际合作培养项目
-    pyxm1:{type:String},//国际合作培养项目
     hbsort:{type:Number},//合作伙伴排序
     tag1:{type:String},//2021新增字段，标识所属一级菜单
-    tag2:{type:String}//2021新增字段，标识当前菜单
+    tag2:{type:String},//2021新增字段，标识当前菜单
+    review:{type:String,default:0},//审核状态,
+    fromwx:{type:String,default:0},//是否来自于微信
+    mediaid:{type:String},//素材id
+    articleid:{type:String}//素材id
+    
 },{collection:'cmsContent'})
 const cmsSliderSchema = new Schema({
     id:{type:Number},
@@ -206,7 +212,6 @@ const highlightSchema = new Schema({
 },{collection:'highlight'})
 const bkzsSchema = new Schema({ 
     id:{type:Number},
-    bsort:{type:String},
     zhuanye :{type:String},//
     neirong :{type:String},//
     xuefei : {type:String},//
@@ -214,24 +219,11 @@ const bkzsSchema = new Schema({
     jiuye : {type:String},
     xyhj : {type:String},//
     lxfs : {type:String},//
-    patharr:{type:Array,default:[]},//附件路径，用，隔开
-    namearr:{type:Array,default:[]},//附件名，用，隔开
+    patharr:{type:String,default:null},//附件路径，用，隔开
+    namearr:{type:String,default:null},//附件名，用，隔开
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
-    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
-    timeStamp:{type:String,default:moment().format('X')}
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'bkzs'})
-const bkzsinfoSchema = new Schema({ 
-    id:{type:Number},
-    xuefei : {type:String},//
-    jxj : {type:String},//
-    jiuye : {type:String},
-    xyhj : {type:String},//
-    lxfs : {type:String},//
-    zsqk : {type:String},//
-    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
-    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
-    timeStamp:{type:String,default:moment().format('X')}
-},{collection:'bkzsinfo'})
 const officehourSchema = new Schema({ 
     id:{type:Number},
     account :{type:String},//
@@ -266,15 +258,18 @@ const cglrSchema = new Schema({
     pageContentEN:{type:String},
     patharr:{type:String,default:null},//附件路径，用，隔开
     namearr:{type:String,default:null},//附件名，用，隔开
+    review:{type:String,default:0},//审核状态
 
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
     timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'cglr'})
+const kanwu = new Schema({ 
+},{collection:'kanwu'})
 
 exports.cglr = mongoose.model('cglr',cglrSchema)//成果录入
+exports.kanwu = mongoose.model('kanwu',kanwu)//成果录入
 exports.officehour = mongoose.model('officehour',officehourSchema)//本科招生
 exports.bkzs = mongoose.model('bkzs',bkzsSchema)//本科招生
-exports.bkzsinfo = mongoose.model('bkzsinfo',bkzsinfoSchema)//本科招生
 exports.highlight = mongoose.model('highlight',highlightSchema)//highlight
 exports.xrld = mongoose.model('xrld',xrldSchema)//现任领导
 exports.user = mongoose.model('allUser',userSchema)

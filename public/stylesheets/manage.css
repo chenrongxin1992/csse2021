@@ -1,0 +1,235 @@
+.w-e-text-container{
+	height: 250px !important;
+}
+.layui-form-select dl{
+	z-index: 99999;
+}
+.uploader-list {
+	margin-left: -15px;
+}
+.uploader-list .info {
+	position: relative;
+	margin-top: -25px;
+	background-color: black;
+	color: white;
+	filter: alpha(Opacity=80);
+	-moz-opacity: 0.5;
+	opacity: 0.5;
+	width: 100px;
+	height: 25px;
+	text-align: center;
+	display: none;
+}
+.uploader-list .handle {
+	position: absolute;
+	background-color: black;
+	color: white;
+	filter: alpha(Opacity=80);
+	-moz-opacity: 0.5;
+	opacity: 0.5;
+	/* text-align: right; */
+	display: none;
+	right: 0;
+	width: 100%;
+}
+.uploader-list .handle i {
+	margin: 0 auto;
+	display: block;
+	text-align: center;
+}
+.uploader-list .handle i:hover {
+	cursor: pointer;
+}
+.uploader-list .file-iteme {
+	margin: 12px 0 0 0px;
+	padding: 1px;
+	float: left;
+	position: relative;
+}
+.searchbox{
+ width: 100%;
+}
+.searchbox .search-item{
+	width: 20%;
+    float: left;
+    margin: 10px 5px;
+	line-height: 1rem;
+}
+.searchbox .search-item-button{
+	width: 20%;
+    float: left;
+    margin: 10px 5px;
+}
+.searchbox .searchbox-title{
+	width: 66px;
+	/* display: inline; */
+	float: left;
+	line-height: 40px;
+}
+.searchbox .layui-inline{
+	width:calc( 100% - 80px);
+	float: left;
+}
+.searchbox .search-item{
+	width: 18%;
+	float: left;
+	margin: 10px 5px;
+}
+.searchbox .search-item-button{
+	width: 15%;
+	float: left;
+	margin: 10px 5px;
+	line-height: 40px;
+}
+
+.layui-inline-item{
+	width:50%;
+}
+
+.form-item{
+	width:50%;
+	float:left;
+	line-height: 40px;
+}
+.form-item .form-item-inline{
+	width: 60%;
+	line-height: 40px;
+	/* display: inline; */
+	float: left;
+}
+.layui-elem-quote{
+
+}
+.layui-elem-quote .layui-elem-quote-title{
+    width: 50%;
+    display: inline;
+}
+.form-item-inline{
+	/* width: 60%; */
+	line-height: 40px;
+	/* display: inline; */
+	float: left;
+	width: calc(50% - 110px);
+}
+.layui-input-block{
+	
+}
+.rc-search-btn{
+
+}
+.dataBox{
+	max-height: 300px;
+	overflow-y: scroll;
+}
+@media screen and (max-width: 750px){
+	.searchbox .search-item{
+		width: 100%;
+		float: left;
+		margin: 10px 5px;
+		line-height: 40px;
+	}
+	.searchbox .search-item-button{
+		width: 60%;
+        margin: 10px 20%;
+	}
+	.searchbox .searchbox-title{
+		width: 66px;
+		/* display: inline; */
+		float: left;
+		line-height: 40px;
+	}
+	.searchbox .layui-inline{
+		width:calc( 100% - 80px);
+		float: left;
+	}
+	.demoTable  .layui-inline{
+		width:calc( 100% );
+		float: left;
+		
+	}
+	.form-item{
+		width:100%;
+		float:left;
+		line-height: 40px;
+	}
+	.form-item .form-item-inline{
+		width: 70%;
+		line-height: 40px;
+		float: left;
+		margin: 5px 5px;
+	}
+	.form-item-inline{
+		line-height: 40px;
+		float: left;
+		width: calc(100% ) !important;
+	}
+	.layui-col-xs12 .layui-form-label {
+		width: 80px !important;
+		padding-left: 0;
+	}
+	.layui-col-md-offset1{
+		text-align: center;
+		margin-bottom: 30px;
+	}
+	.layui-input-block{
+		line-height: 40px;
+		float: left;
+		width: calc(100% );
+		margin-left:0
+	}
+	.layui-form-item .layui-inline{
+		width: 100% !important;
+	}
+	.layui-input-inline{
+		width: 100%!important;
+	}
+	.rc-search-btn{
+		margin-top: 10px;
+	  }
+	  .layui-form-item{
+		  margin-bottom: 0 !important;
+	  }
+}
+
+
+
+
+@media screen and (max-width: 450px) {
+    .layui-elem-quote{
+
+	}
+	.layui-elem-quote .layui-btn{
+		margin-top: 54px !important;
+		margin-top: 30px !important;
+		margin-bottom: 10px;
+		padding: 0 8px;
+	}
+	.layui-elem-quote .layui-elem-quote-title{
+	   width:100%;
+	   display: inherit;
+	  
+	}
+	.form-item-inline{
+		/* width: 60%; */
+		line-height: 40px;
+		/* display: inline; */
+		float: left;
+		width: calc(100% );
+	}
+	.layui-col-xs12 .layui-form-label {
+		width: 80px !important;
+		padding-left: 0;
+	}
+	.layui-input-block{
+		line-height: 40px;
+		float: left;
+		width: calc(100% );
+		margin-left:0 !important;
+	}
+	.rc-search-btn{
+	  margin-top: 10px;
+	}
+	.layui-form-item{
+		margin-bottom: 0 !important;
+	}
+}

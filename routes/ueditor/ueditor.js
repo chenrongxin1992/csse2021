@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var basedir = ''
 const path = require('path')
 const async = require('async')
 const fs = require('fs')
@@ -49,7 +49,7 @@ router.get("/ue", ueditor(path.join(__dirname, '../public/'), function(req, res,
     res.setHeader('Content-Type', 'application/json');
     //服务器与本地
     //res.redirect('/ueditor/config.json')
-    res.redirect('/csse/ueditor/config.json')
+    res.redirect(basedir+'/ueditor/config.json')
   }
 })).post('/ue',ueditor(path.join(__dirname, '../../public/'), function(req, res, next) {
   let baseimgDir = path.join(__dirname, '../../public')// //上传地址
@@ -85,7 +85,7 @@ router.get("/ue", ueditor(path.join(__dirname, '../public/'), function(req, res,
     res.setHeader('Content-Type', 'application/json');
     //服务器与本地
     //res.redirect('/ueditor/config.json')
-    res.redirect('/csse/ueditor/config.json')
+    res.redirect(basedir+'/ueditor/config.json')
   }
 }))
 module.exports = router;

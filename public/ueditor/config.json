@@ -8,7 +8,7 @@
     "imageCompressEnable": true, /* 是否压缩图片,默认是true */
     "imageCompressBorder": 1600, /* 图片压缩最长边限制 */
     "imageInsertAlign": "none", /* 插入的图片浮动方式 */
-    "imageUrlPrefix": "http://116.13.96.53:81/csse/", /* 图片访问路径前缀 */
+    "imageUrlPrefix": "http://116.13.96.53:81/", /* 图片访问路径前缀 */
     "imagePathFormat": "/attachment/ueditor_images/{yyyy}_{mm}_{dd}_{rand:6}_{filename}", 
     /*"imagePathFormat": "/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", *//* 上传保存路径,可以自定义保存路径和文件名格式 */
                                 /* {filename} 会替换成原文件名,配置这项需要注意中文乱码问题 */
@@ -29,13 +29,13 @@
     "scrawlFieldName": "upfile", /* 提交的图片表单名称 */
     "scrawlPathFormat": "/attachment/ueditor_images/{yyyy}_{mm}_{dd}_{rand:6}_{filename}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
     "scrawlMaxSize": 2048000, /* 上传大小限制，单位B */
-    "scrawlUrlPrefix": "http://116.13.96.53:81/csse/", /* 图片访问路径前缀 */
+    "scrawlUrlPrefix": "http://116.13.96.53:81/", /* 图片访问路径前缀 */
     "scrawlInsertAlign": "none",
 
     /* 截图工具上传 */
     "snapscreenActionName": "uploadimage", /* 执行上传截图的action名称 */
     "snapscreenPathFormat": "/attachment/ueditor_images/{yyyy}_{mm}_{dd}_{rand:6}_{filename}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
-    "snapscreenUrlPrefix": "http://116.13.96.53:81/csse/", /* 图片访问路径前缀 */
+    "snapscreenUrlPrefix": "http://116.13.96.53:81/", /* 图片访问路径前缀 */
     "snapscreenInsertAlign": "none", /* 插入的图片浮动方式 */
 
     /* 抓取远程图片配置 */
@@ -51,7 +51,7 @@
     "videoActionName": "uploadvideo", /* 执行上传视频的action名称 */
     "videoFieldName": "upfile", /* 提交的视频表单名称 */
     "videoPathFormat": "/attachment/ueditor_videos/{yyyy}_{mm}_{dd}_{rand:6}_{filename}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
-    "videoUrlPrefix": "http://116.13.96.53:81/csse/", /* 视频访问路径前缀 */
+    "videoUrlPrefix": "http://116.13.96.53:81/", /* 视频访问路径前缀 */
     "videoMaxSize": 102400000, /* 上传大小限制，单位B，默认100MB */
     "videoAllowFiles": [
         ".flv", ".swf", ".mkv", ".avi", ".rm", ".rmvb", ".mpeg", ".mpg",
@@ -61,7 +61,7 @@
     "fileActionName": "uploadfile", /* controller里,执行上传视频的action名称 */
     "fileFieldName": "upfile", /* 提交的文件表单名称 */
     "filePathFormat": "/attachment/ueditor_files/{yyyy}_{mm}_{dd}_{rand:6}_{filename}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
-    "fileUrlPrefix": "http://116.13.96.53:81/csse/", /* 文件访问路径前缀 */
+    "fileUrlPrefix": "http://116.13.96.53:81/", /* 文件访问路径前缀 */
     "fileMaxSize": 51200000, /* 上传大小限制，单位B，默认50MB */
     "fileAllowFiles": [
         ".png", ".jpg", ".jpeg", ".gif", ".bmp",
@@ -74,7 +74,7 @@
     /* 列出指定目录下的图片 */
     "imageManagerActionName": "listimage", /* 执行图片管理的action名称 */
     "imageManagerListPath": "/attachment/ueditor_images/", /* 指定要列出图片的目录 */
-    "imageManagerListPath": "/csse/attachment/ueditor_images/",
+    "imageManagerListPath": "/attachment/ueditor_images/",
     "imageManagerListSize": 20, /* 每次列出文件数量 */
     "imageManagerUrlPrefix": "", /* 图片访问路径前缀 */
     "imageManagerInsertAlign": "none", /* 插入的图片浮动方式 */

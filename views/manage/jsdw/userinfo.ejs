@@ -35,9 +35,9 @@
             color: white;
             filter: alpha(Opacity=80);
             -moz-opacity: 0.5;
-            /* opacity: 0.5; */
+            opacity: 0.5;
             /* text-align: right; */
-            /* display: none; */
+            display: none;
 			top: 0;
 			margin-left: 0px;
         }
@@ -254,13 +254,8 @@
   </table>
   </form>
 
-	<script type="text/javascript" src="../layui/layui.js"></script>
-	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
-	<script type="text/javascript" charset="utf-8" src="https://www.jq22.com/demo/cropper-master20160830/dist/cropper.min.js"> </script>
-<script type="text/javascript">
+  <script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+  <script type="text/javascript">
 
 let ue1,ue2
 let id = '<%=user.id%>'
@@ -355,8 +350,14 @@ layui.use(['jquery','layer','upload','form'], function(){
 		
 		//初始化上传按钮  
 		//let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button><button type="button" class="layui-btn" id="editbtn">编辑头像</button>'
-		let uploadbtn = '<button type="button" class="layui-btn layui-btn-sm" id="uploadbtn">上传头像</button>'
-    	$('#uploadarea').append(uploadbtn)	
+		let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button>'
+		$('#uploadarea').append(uploadbtn)	
+		InitImgCropping("uploadbtn","userimg",1/1,function(re){
+			if(re.code == 0 ){
+                $("#userimg").attr("data",re.fileName);
+                $("#userimg").attr("src",""+re.fileName);
+            }
+		})
 		$('#editbtn').click(function(){
 			console.log(	$('#userimg').attr('src'))
 			if(!$('#userimg').attr('src')){
@@ -378,7 +379,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 				}
 			})
 		})
-		let uploadInst  = upload.render({
+		/*let uploadInst  = upload.render({
 		    elem: '#uploadbtn'
 			,url: '<%=base_url%>userimgupload'
 		    , accept: 'images'
@@ -408,7 +409,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 		      let demoText = $('#demoText');
 		      demoText.html('<span style="color: #FF5722;">上传失败</span> ');
 		    }
-		  });
+		  });*/
 		  //form.render('select')
 		form.render()
 		ue1 = UE.getEditor('introduceeditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'}),

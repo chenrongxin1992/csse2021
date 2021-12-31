@@ -20,29 +20,26 @@
     </style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote">当前位置：科研成果 > 成果录入</blockquote>
-
-	<div class="demoTable">
-	  搜索：
-	  <div class="layui-inline">
-	    <input class="layui-input" name="search" id="search_txt" autocomplete="off">
-	  </div>
-	  <button class="layui-btn" data-type="reload" id="news_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
-      <button class="layui-btn" data-type="getCheckData" style="float: right;" id="jianjie">成果概况</button>
-	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增成果</button>
-	</div>
-
+	
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：科研成果 > 成果录入</div><button class="layui-btn search-item-button" style="float: right;margin-top: -8px;margin-left:10px" data-type="getCheckData"  id="jianjie">成果概况</button> <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
+	<%- include('../search.ejs', {realod_id: 'table_cglr'}); %>
 	<table id="cglr_table" lay-filter="cglr_table"></table>
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
 
-<script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
-layui.use(['jquery','table','form'], function(){ 
+const reload_id = "table_cglr"
+layui.config({
+	base : "js/"
+}).extend({
+	"bodyTab" : "bodyTab"
+})
+layui.use(['jquery','table','form','element'], function(){ 
     let $ = layui.$ //重点处
     let table = layui.table,
     	form = layui.form
     table.render({
 	    elem: '#cglr_table'
-	    ,id:'table_cglr'//重载需要
+	    ,id:reload_id//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
         ,url: '<%=base_url%>cglr_data' //数据接口
@@ -50,52 +47,32 @@ layui.use(['jquery','table','form'], function(){
         ,limits: [10,20,30]
         ,limit: 10 //每页默认显示的数量
 	    ,cols: [[ //表头
-	      {type:'numbers', title: '序号',width:60,align:'center'}
-	      ,{field: 'title', title: '名称',align:'center'}
-          ,{field: 'year', title: '年份',align:'center',width:100}
-          ,{field: 'kanwu', title: '刊物',align:'center'}
-          //,{field: 'zuozhe', title: '作者',align:'center'}
+	      {type:'numbers', title: '序号',width:60,align:'center',sort:true}
+	      ,{field: 'title', title: '名称',align:'center',sort:true}
+          ,{field: 'year', title: '年份',align:'center',width:100,sort:true}
+          ,{field: 'kanwu', title: '刊物',align:'center',sort:true}
+          ,{field: 'zuozhe', title: '作者',align:'center',sort:true}
+		  
         //   ,{field: 'pageContent', title: '简介',align:'center'}
 		  ,{field: 'fujianPath', title: '封面图', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
-	      ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,}
+	      ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,sort:true}
+		  ,{field: 'review', title: '审核状态',align:'center',templet:'#review',sort:true}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载
     $('#news_btn').on('click', function(){
-    	table.reload('table_cglr', {
-	        where: {
-	            search_txt: $('#search_txt').val()
-	        }
+		var whereparam = {};
+		$(".searchbox input").each(function(){
+			whereparam[$(this).attr('name')] = $(this).val()
+		});
+    	table.reload(reload_id, {
+	        where: whereparam
 	    });
     })
     $('#newsadd').on('click', function(){
-    	//do somehing
-	    let index = layui.layer.open({
-            title : "查看 | 编辑",
-            type : 2,
-			// area : ['90%','90%'],
-            content : "cglradd",
-            success : function(layero, index){
-            },
-			end:function(){
-				console.log('1111111index-------------',index)
-				layui.layer.close(index)
-				table.reload('table_cglr', {
-					where: {
-						search_txt: $('#search_txt').val()
-					}
-				});
-				
-			}
-        })
-		console.log('777777777index-------------',index)
-        layui.layer.full(index);
-	        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-	        $(window).on("resize",function(){
-				console.log('ddddddindex-----',index)
-	            layui.layer.full(index);
-	        })
+		AddTab('新增'+$("title").text(),'cglr_table'+ 'new',"cglradd")
+    	
     })
     //成果简介
     $('#jianjie').on('click', function(){
@@ -109,18 +86,43 @@ layui.use(['jquery','table','form'], function(){
 					}
 				})
     })
+	table.on('sort(cglr_table)', function(obj){ //注：tool是工具条
+		table.reload("table_cglr", {
+			initSort:obj,
+			where: {
+				search_txt: $('#search_txt').val(),
+				order_field:obj.field,
+				order_type:obj.type
+			}
+		});
+	});
     //监听工具条
 	table.on('tool(cglr_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 	  var data = obj.data; //获得当前行数据
 	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	  console.log('dddd')
-	  if(layEvent === 'edit'){ //查看
+	  if(layEvent === 'edit'){ //编辑
+		AddTab('编辑'+$("title").text(),'cglr_table'+ obj.data.id,"cglradd?id="+data.id)
 	    //do somehing
-	    let index = layui.layer.open({
+		//tab.tabAdd($(this));
+		/*element.tabAdd('cglr_table'+ obj.data.id, {
+			title: '编辑内容'
+			,content: '编辑内容' //支持传入(html代码）不持支直接传入html页面
+			,id: 'cglr_table'+ obj.data.id
+		}); */
+		/*let openTitle =  '<i class="layui-icon">' + "&#xe66c;" + '</i>'+'<cite>' + '编辑'+$("title").text()+ '</cite>';
+        openTitle += '<i class="layui-icon layui-unselect layui-tab-close" data-id="' + obj.data.id + '">&#x1006;</i>';
+		element.tabAdd("bodyTab", {
+			title: openTitle,
+			content: "<iframe src='" +  "cglradd?id="+data.id + "' data-id='" + 'cglr_table'+ obj.data.id + "'></frame>",
+			id: 'cglr_table'+ obj.data.id
+		})
+		element.tabChange('bodyTab', 'cglr_table'+ obj.data.id);*/
+	    /*let index = layui.layer.open({
             title : "查看 | 编辑",
             type : 2,
-			//area : ['90%','90%'],
+			area : ['90%','90%'],
             content : "cglradd?id="+data.id,
             success : function(layero, index){
 				console.log('22222关闭时的 index',index)
@@ -128,19 +130,19 @@ layui.use(['jquery','table','form'], function(){
             },
 			end:function(){
 				console.log('进来了吗--------------')
-				table.reload('table_cglr', {
+				table.reload(reload_id, {
 					where: {
 						search_txt: $('#search_txt').val()
 					}
 				});
 			}
-        })
-        console.log('22222点击时的 index',index)
-        layui.layer.full(index);
-        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-        $(window).on("resize",function(){
-            layui.layer.full(index);
-        })
+        })*/
+        //console.log('22222点击时的 index',index)
+        // layui.layer.full(index);
+        // //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        // $(window).on("resize",function(){
+        //     layui.layer.full(index);
+        // })
 
         //同步更新缓存对应的值
 	    // obj.update({
@@ -171,21 +173,61 @@ layui.use(['jquery','table','form'], function(){
 			  	}
 			})
 	    });
+	  }else if(layEvent === 'review'){ //审核
+        console.log('data-----',data)
+	    layer.confirm('审核通过的稿件将会展示在前台，确定审核通过吗?',{closeBtn: 0}, function(index){
+	      layer.close(index);
+	      //向服务端发送删除指令
+	       $.ajax({
+               //本地与服务器
+                //url:'/manage/newsdel',
+			  	url:'<%=base_url%>contentreview',
+			  	type:'POST',
+			  	data:{id:obj.data.id},
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('del success')		
+						layer.msg(result.msg)	
+						table.reload(reload_id, {
+							where: {
+								search_txt: $('#search_txt').val()
+							}
+						});
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+			  	}
+			})
+	    });
 	  } else if(layEvent === 'preview'){
 	  	console.log('preview')
 	  	let src = ''+ data.fujianPath
 	  	layer.photos({ photos: {"data": [{"src": src}]} });
+	  }else if(layEvent === 'detailpreview'){
+		AddTab('预览'+data.id,'details'+ obj.data.id,'/pages/research/details?id='+data.id)
 	  }
 	});
 });
 </script>
+<script type="text/html" id="review">
+	{{# if(d.review != 1){ }}
+	 未审核
+	{{# } else { }}
+	 已审核
+	{{# } }}
+</script>
 <script type="text/html" id="yjfxbar">
-  <a class="layui-btn layui-btn-xs" href="/csse/pages/research/details?id={{d.id}}"+ target="_blank">预览</a>
+  <a class="layui-btn layui-btn-xs" lay-event="detailpreview"  target="_blank">预览</a>
   <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+  {{# if(d.review != 1 && (d.power == '管理员' || '<%=username%>' == '陈荣鑫' ||'<%=username%>' == '何文锋')){ }} 
+  <a class="layui-btn layui-btn-xs" lay-event="review"><i class="layui-icon">&#xe642;</i>审核通过</a>
+  {{# } }}
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 <script type="text/html" id="sytpimg">
-	<img src="{{d.fujianPath}}" style="height: 100px;max-width: 100%;" class="previewimg" />
+	<img src="../{{d.fujianPath}}" style="height: 100px;max-width: 100%;" class="previewimg" />
 </script>
 </body>
 </html>

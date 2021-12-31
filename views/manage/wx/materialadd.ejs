@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>查看 | 编辑 新闻</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		
+		
+        
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">标题</label>
+					<div class="form-item-inline" >
+				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
+				    </div>
+				    <label class="layui-form-label" >标题(EN)</label>
+				    <div class="form-item-inline" >
+				      <input type="text" name="titleEN"  autocomplete="off" class="layui-input" id="titleEN">
+				    </div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">类别</label>
+					<div class="form-item-inline" >
+						<input type="radio" name="leixing" value="科研动态" title="科研动态" checked>
+						<input type="radio" name="leixing" value="国际交流" title="国际交流">
+						<input type="radio" name="leixing" value="学生工作" title="学生工作">
+						<input type="radio" name="leixing" value="党务行政" title="党务行政">
+				    </div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">分类</label>
+					<div class="form-item-inline" >
+						<input type="radio" name="trees" value="179-181-" title="新闻中心"  value="<%=data.trees=='179-181-'?'checked':'' %>" >
+						<input type="radio" name="trees" value="179-182-" title="通知公告"  value="<%=data.trees=='179-182-'?'checked':'' %>" >
+				    </div>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">发布时间<b style="color: red;">*</b></label>
+					<div class="form-item-inline" >
+	        			<input type="text" class="layui-input" id="timeAdd" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
+	      			</div>
+					<label class="layui-form-label">更新时间<b style="color: red;">*</b></label>
+					<div class="form-item-inline" >
+	        			<input type="text" class="layui-input" id="timeEdit" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
+	      			</div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">是否置顶</label>
+				<div class="form-item-inline" >
+		           <input type="checkbox" name="isTop" title="是" lay-skin="primary" value="1" id="isTop">
+		        </div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">封面图</label>
+				<button type="button" class="layui-btn" id="test1">上传</button>
+				<span>513*344</span>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">预览图</label>
+				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">     
+				</div>
+				 <!-- <p style="margin-left: 105px;">(1100px * 240px)</p> -->
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">内容</label>
+				<div class="layui-input-block" id="intro_bk">
+					<textarea id="pageContent"  value="<%=data.pageContent%>" /><%=data.pageContent%></textarea>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">内容(EN)</label>
+				<div class="layui-input-block" id="eintro_bk">
+					<textarea id="pageContentEN"  value="<%=data.pageContentEN%>" /><%=data.pageContentEN%></textarea>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1">
+					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
+<script type="text/javascript">
+		
+$(function(){
+	layui.use(['jquery','layer','form','layedit','upload','laydate'], function(){ 
+    //let $ = layui.$, //重点处
+    let	layedit = layui.layedit,
+    	upload = layui.upload,
+        laydate = layui.laydate
+    //日期
+	$(document).on("mouseenter mouseleave", ".file-iteme", function(event){
+            if(event.type === "mouseenter"){
+                //鼠标悬浮
+                $(this).children(".handle").fadeIn("fast");
+            }else if(event.type === "mouseleave") {
+                //鼠标离开
+                $(this).children(".handle").hide();
+            }
+        });
+	// 删除图片
+    $(document).on("click", ".file-iteme .handle", function(event){
+		layer.confirm('确定要删除图片吗', {
+			btn: ['确定','取消'] //按钮
+			}, function(){
+				console.log('$(this).parent()-----',$(this).parent(),$(this).parent().parent())
+				$('#fmpic').parent().remove()
+				layer.msg('已删除', {icon: 1});
+			}, function(){
+				layer.msg('已取消', {
+					time: 1000, 
+				});
+		});
+    });
+    //图标上传
+	let uploadInst = upload.render({
+	    elem: '#test1'
+        //本地与服务器
+	    ,url: '<%=base_url%>newsupload'
+		,accept:"file"
+        ,exts: 'jpg|jpeg|gif|png'
+	    ,before: function(obj){
+			console.log('try......')
+			layer.msg('图片上传中...', {
+                icon: 16,
+                shade: 0.01,
+                time: 0
+            })
+	    }
+	    ,done: function(res){
+			layer.close(layer.msg());//关闭上传提示窗口
+	      console.log('upload success',res)
+		 $('#uploader-list').empty()
+		  $('#uploader-list').append(
+                    '<div id="" class="file-iteme">' +
+                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
+                    '<img style="height: 150px;" id="fmpic" src='+'../'+ res.data +'>' +
+                    '</div>'
+                );
+          layer.msg('图片上传成功')
+	      //上传成功
+	    }
+	    ,error: function(){
+	      layer.msg('上传失败，请联系CRX')
+	    }
+	  });
+	laydate.render({
+	    elem: '#timeEdit',
+		format:'yyyy/MM/dd HH:mm:ss',
+		value: new Date()
+	});
+    let form = layui.form,layer = layui.layer
+    //先得到当前iframe层的索引
+    let id = '<%-data.id%>'
+    let pageContent = CKEDITOR.replace("pageContent");
+	let pageContentENEditor = CKEDITOR.replace("pageContentEN");
+	$('#copy').bind('click',function(){
+		pageContentENEditor.setData(pageContent.getData())
+	})
+		
+    if(id==''||id==null||typeof(id)=='undefined'){
+		console.log('新增',id)
+        laydate.render({
+            elem: '#timeAdd',
+            format:'yyyy/MM/dd HH:mm:ss',
+            value: new Date()
+        });
+	}else{
+        laydate.render({
+            elem: '#timeAdd',
+            format:'yyyy/MM/dd HH:mm:ss'
+        });
+         //初始化表单值
+         console.log('编辑',id,'<%- data.timeAdd%>')
+        $('#title').val('<%- data.title%>')
+        if('<%- data.titleEN%>'){
+    	    $('#titleEN').val('<%- data.titleEN%>')
+        }
+        $('#timeAdd').val('<%- data.timeAdd%>')
+	    $('#timeEdit').val('<%- data.timeEdit%>')
+        if('<%=data.isTop%>' == 1){
+			$("#isTop").prop("checked", true)
+		}
+		$("input[name=leixing][value=<%-data.leixing-%>]").prop("checked","true");
+		$("input[name=trees][value=<%-data.trees-%>]").prop("checked","true");
+		
+		//初始化封面图
+		$('#uploader-list').append(
+                    '<div id="" class="file-iteme">' +
+                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
+                    '<img style="height: 150px;" id="fmpic" src="..//<%-data.fujianPath%>" ></div>'
+                );
+  		form.render()
+	}
+    form.on('submit(update)', function(data){
+	  
+      //checkbox
+    	let topstr = ''
+    	 $("input:checkbox[name='isTop']:checked").each(function(i){
+                console.log('checkbox',$(this).val())
+                topstr += $(this).val() + ';';
+         });
+         console.log('topstr',topstr)
+	  //更新
+	  data.field.id = id
+	   data.field.pageContent =pageContent.getData()
+	  data.field.pageContentEN = pageContentENEditor.getData()
+	  data.field.leixing = $("input[name='leixing']:checked").val();
+	  data.field.trees = $("input[name='trees']:checked").val();
+	  
+	  //data.field.eleaderintro = editor4.txt.html()
+	  //data.field.bgcolor = $('#bgcolor').val()
+	  data.field.title = $('#title').val()
+      data.field.titleEN = $('#titleEN').val()
+	  data.field.timeAdd = $('#timeAdd').val()
+      data.field.timeEdit = $('#timeEdit').val()
+      data.field.isTop = topstr.substring(0,topstr.length-1)
+	  data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
+	//   if($('#fmpic').attr('src')){
+	//   	console.log('ddddd---------------------------',$('#demo1').attr('src'))
+	//   	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
+	//   }else{
+	// 	  layer.msg('请上传封面图')
+	// 	  return false
+	//   }
+
+	  console.log('提交数据',data.field)
+     //return false
+	  $.ajax({
+          //本地与服务器
+        url:'<%=base_url%>material_update',
+	  	type:'POST',
+	  	data:data.field,
+	  	dataType : "json",
+	  	success:function(result){
+	  		if(result.code == 0){
+	  			console.log('update success')
+	  			//墨绿深蓝风
+				let frameindex = layer.alert('保存成功', {
+				  skin: 'layui-layer-molv' //样式类名
+				  ,closeBtn: 0
+				}, function(){
+					parent.CloseCurrentTab()
+					layer.close(frameindex);
+					let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						parent.layer.close(index); 
+						console.log('father -----',index)
+				});	  			
+	  		}
+	  	},
+	  	error:function(msg){
+	  		console.log('ajax error msg',msg)
+	  	}
+	  })
+	});
+})
+})
+
+</script>
+</body>
+</html>

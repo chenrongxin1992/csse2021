@@ -1,3 +1,8 @@
+@import url('manage.css');
+@import url('selectpage.css');
+@import url('ImgCropping.css');
+@import url('cropper.min.css');
+
 /*公共样式*/
 .childrenBody{ padding:10px;}
 /*.layui-table-view{ margin:0 !important;}*/

@@ -142,7 +142,7 @@
   $(document).ready(function () {
     $('#changeL').click(function(){
       console.log('change to en')
-      $.get('/csse/setLanguage', {
+      $.get('/setLanguage', {
         language:'0'
       }, function(data){
         if(data.success){
@@ -154,7 +154,7 @@
     $('.banner .slider').slick({
       dots: true,
       arrows: true,
-      autoplay: false,
+      autoplay: true,
       slidesToShow: 1,
       autoplaySpeed: 5000,
       pauseOnHover: true,
