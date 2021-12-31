@@ -87,8 +87,8 @@ app.use(session({
         httpOnly: true
         //expires : new Date(Date.now() + 7200000)//默认是UTC时间，Date.now()获取当前时间的时间戳，输出是毫秒。
     },
-    store:new MongoStore({url: 'mongodb://test:test@localhost:27017/csse'})
-    //store: MongoStore.create({ mongoUrl: 'mongodb://newcsse:newcsse@localhost:27017/newcsse' })
+    store:new MongoStore({url: 'mongodb://newcsse:youtrytry@localhost:27017/newcsse'})
+    //store: MongoStore.create({ mongoUrl: 'mongodb://newcsse:youtrytry@localhost:27017/newcsse' })
 }));
 
 app.use(function(req,res,next){

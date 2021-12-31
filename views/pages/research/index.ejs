@@ -11,7 +11,7 @@
 </head>
 <body class="research">
 <%if(L=='1'){%>
-  <%include ../../headcom.ejs%>
+  <%include headcom.ejs%>
 <%}%>
 <%if(L!='1'){%>
   <%include ../../headcom.ejs%>
@@ -29,7 +29,7 @@
                 <div class="txt">	
 					<div class="txt-title">
 						<p><%-data.cggk.csrankings-%>
-							<a href="http://csrankings.org/" class="csr">
+							<a href="http://csrankings.org/" class="csr" target="_blank">
 								了解 CSRankings
 								<img src="../../image/research_image/icon_right.png" />
 							</a>
@@ -41,11 +41,14 @@
         </div>
         <div class="cont">
             <div class="top-nav">
-                <div class="tit">科研成果</div>
+                <div class="tit c_cca84d">科研成果</div>
                 <div class="search-input">
                     <input type="text" placeholder="输入关键字" class="search" id="search">
                     <img src="../../image/research_image/search.png" class="search-img" />
                 </div>
+                <div class="list">
+                  <i id="clear_choose" style="cursor:pointer;">清空筛选</i>
+              </div>
             </div>
             <div class="area">
                 <div class="area-left">
@@ -70,6 +73,8 @@
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[5]._id%>">智能技术与系统集成研究所(<%=data.belongstoNum[5].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[6]._id%>">物联网研究中心(<%=data.belongstoNum[6].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[7]._id%>">可视计算研究中心(<%=data.belongstoNum[7].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[8]._id%>">教学系(<%=data.belongstoNum[8].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[10]._id%>">软件工程研究中心(<%=data.belongstoNum[10].num%>)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -80,11 +85,11 @@
                         <div class="page">
                           <a href="details?id=<%=item.id%>">
                           <div class="row">
-                              <img class="img" src="../<%=item.fujianPath%>" />
+                              <img class="img" src="<%=item.fujianPath%>" />
                               <div class="row-right">
                                   <div class="row-tit"><%=item.title%></div>
                                   <p class="c_666 small"><%=item.kanwu%></p>
-                                  <p class="c_666 small"><%=item.belongsto%></p>
+                                  <p class="c_666 small" style="font-size: 18px;"><%=item.belongsto%></p>
                                   <div class="more">
                                       Project page <img class="more_img" src="../../image/index/right.png" />
                                   </div>
@@ -100,6 +105,7 @@
                      <%}%>
                     </div>
                     <script type="text/javascript"> 
+                    
                       function getQueryString(name) {
                           var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
                           var r = window.location.search.substr(1).match(reg);
@@ -109,6 +115,11 @@
                           return '';
                       }
                       $().ready(function() {   
+                        $('#clear_choose').click(function(){
+                                let reg = new RegExp("index", "g"); 
+                                let url = "index"; 
+                                window.location.href = url.replace(reg, "index"); 
+                            })   
                         $('#search').bind('keydown',function(event){
                             if(event.keyCode == "13") {
                                 console.log('回车搜索',$('#search').val())
