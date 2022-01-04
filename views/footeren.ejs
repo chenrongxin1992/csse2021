@@ -115,7 +115,7 @@
     $(document).ready(function () {
         $('#changeL').click(function(){
             console.log('change to en')
-            $.get('/csse/setLanguage', {
+            $.get('/setLanguage', {
                 language:'1'
             }, function(data){
                 if(data.success){
@@ -149,16 +149,12 @@
         $('.research_banner .slider').on('afterChange', function (event, slick, currentSlide) {
             // currentSlide 为当前显示的slider下标
             console.log(currentSlide);
-            let kycg = JSON.parse(decodeURIComponent('<%=data.kycgstr%>'));
-            // $('.research_desc .c_cca84d').html(
-            //     'A distributed data management system to support large-scale data analysis -- ' +
-            //     currentSlide)
-            // $('.research_desc .c_666 span').html('The Journal of Systems & Software -- ' +
-            //     currentSlide)
-            // $('.research_desc .c_999').html('大数据技术与应用研究所 -- ' + currentSlide)
-            $('.research_desc .c_999').html(kycg[currentSlide].belongsto1)
-            $('.research_desc .c_cca84d').html(kycg[currentSlide].title)
-            $('.research_desc .c_666 span').html(kycg[currentSlide].kanwu)
+            $('.research_desc .c_cca84d').html(
+                'A distributed data management system to support large-scale data analysis -- ' +
+                currentSlide)
+            $('.research_desc .c_666 span').html('The Journal of Systems & Software -- ' +
+                currentSlide)
+            $('.research_desc .c_999').html('大数据技术与应用研究所 -- ' + currentSlide)
         });
     });
     // 屏幕滚动到当前元素时，显示动画

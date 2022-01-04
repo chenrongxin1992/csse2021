@@ -9,19 +9,18 @@
   <div class="banner">
     <div class="slider">
       <a href="">
-        <div class="banner-video">
-             <video muted autoplay name="media" loop webkit-playsinline playsinline x5-video-player-type="h5" x5-video-orientation="h5" x5-video-player-fullscreen="true">
-                <source src="/csse/video/test1.mp4" type="video/mp4">
-             </video>
-        </div>
-      </a>
+      <div class="banner-video">
+           <video autoplay name="media" loop muted>
+              <source src="/video/test.mp4" type="video/mp4">
+           </video>
+      </div>
+    </a>
       <%data.slider.forEach(function(item,index){%>
       <a href="<%=item.url%>">
         <img class="slider-img lazy_img" src="<%=item.pic%>" style="max-height: 743px;" />
         <div class="banner-txt"><%=item.title%></div>
       </a>
       <%})%>
-      
     </div>
   </div>
   <div class="p-area contain">
@@ -30,7 +29,7 @@
       <div class="news-tit b c_cca84d">新闻动态</div>
       <div class="news-list">
         <div class="news-row news-row1">
-          <a href="/csse/pages/news/details?id=<%=data.news1.id%>">
+          <a href="/pages/news/details?id=<%=data.news1.id%>">
             <div class="img">
               <img class="lazy_img" src="<%=data.news1.fujianPath%>" />
             </div>
@@ -44,7 +43,7 @@
           </a>
         </div>
         <div class="news-row news-row2">
-          <a href="/csse/pages/news/details?id=<%=data.news2.id%>">
+          <a href="/pages/news/details?id=<%=data.news2.id%>">
             <div class="img">
               <img class="lazy_img" src="<%=data.news2.fujianPath%>" />
             </div>
@@ -56,7 +55,7 @@
               <div class="txt"><%=data.news2.title%></div>
             </div>
           </a>
-          <a class="more" href="/csse/pages/news/index">
+          <a class="more" href="/pages/news/index">
             更多新闻 <img class="more_img" src="image/index/right.png" />
           </a>
         </div>
@@ -65,20 +64,20 @@
           <ul>
             <%data.notice.forEach(function(item,index){%>
             <li class="clearfix">
-              <a href="/csse/pages/news/details?id=<%=item.id%>">
+              <a href="/pages/news/details?id=<%=item.id%>">
                 <div class="time c_cca84d l">
                   <span class="b day"><%=item.timeAdd.slice(8,11)%></span>
-                  <span><%=item.month%></span>
+                  <span><%=item.timeAdd.slice(5,7)%></span>
                 </div>
                 <div class="txt">
                   <p><%=item.title%></p>
-                  <!-- <p><%-item.pageContent-%></p> -->
+                  <p><%-item.pageContent-%></p>
                 </div>
               </a>
             </li>
             <%})%>
           </ul>
-          <a class="more" href="/csse/pages/news/index?type=5">
+          <a class="more" href="/pages/news/index?type=5">
             更多公告 <img class="more_img" src="image/index/right.png" />
           </a>
         </div>
@@ -107,17 +106,17 @@
             <div class="research_tit c_cca84d b">科研成果</div>
             <div class="slider">
               <%data.kycg.forEach(function(item,index){%>
-                <a href="/csse/pages/research/details?id=<%=item.id%>"><img class="slider-img" src="<%=item.fujianPath%>" style="max-height: 461px;"/></a>
+                <a href="/pages/research/details?id=<%=item.id%>"><img class="slider-img" src="<%=item.fujianPath%>" style="max-height: 461px;"/></a>
               <%})%>
             </div>
           </div>
           <div class="research_desc">
-            <div class="c_cca84d"><%=data.kycg1.title%></div>
+            <div class="c_cca84d"><%=data.kycg1.title%> -- 0</div>
             <div class="c_666 txt">
-              <span><%=data.kycg1.kanwu%></span>
-              <div class="c_999"><%=data.kycg1.belongsto%></div>
+              <span><%=data.kycg1.kanwu%> -- 0</span>
+              <div class="c_999"><%=data.kycg1.belongsto%> -- 0</div>
             </div>
-            <a class="more" href="/csse/pages/research/index">
+            <a class="more" href="/pages/research/index">
               更多 <img class="more_img" src="image/index/right.png" />
             </a>
           </div>
@@ -136,15 +135,15 @@
         <div class="recruitment_cont">
           <div class="tit">招生招聘</div>
           <div class="r-list clearfix">
-            <a class="r-row active" href="/csse/pages/recruitment/index">
+            <a class="r-row active" href="/pages/recruitment/index">
               <img src="image/recruitment/img1.png" class="img" />
               <span class="txt">本科生招生</span>
             </a>
-            <a class="r-row" href="/csse/pages/recruitment/master">
+            <a class="r-row" href="/pages/recruitment/master">
               <img src="image/recruitment/img2.png" class="img" />
               <span class="txt">硕士生招生</span>
             </a>
-            <a class="r-row" href="/csse/pages/recruitment/doctor">
+            <a class="r-row" href="/pages/recruitment/doctor">
               <img src="image/recruitment/img3.png" class="img" />
               <span class="txt">博士生招生</span>
             </a>
@@ -156,7 +155,7 @@
               <img src="image/recruitment/img5.png" class="img" />
               <span class="txt">自考招生</span>
             </a>
-            <a class="r-row" href="/csse/pages/recruitment/talents">
+            <a class="r-row" href="/pages/recruitment/talents">
               <img src="image/recruitment/img6.png" class="img" />
               <span class="txt">人才招聘</span>
             </a>
@@ -174,7 +173,7 @@
             </div>
             <%})%>
           </div>
-          <a class="more" href="/csse/pages/globalCooperation/partner">
+          <a class="more" href="/pages/globalCooperation/index">
             更多 <img class="more_img" src="image/index/right.png" />
           </a>
         </div>
@@ -287,17 +286,15 @@
       <div class="news-tit b c_cca84d">
         新闻动态
         <!-- <div class="more"> -->
-          <a class="more" href="/csse/pages/news/index">
+          <a class="more" href="/pages/news/index">
           更多新闻 <img class="more_img" src="image/index/right.png" />
           </a>
         <!-- </div> -->
       </div>
       <div class="news-list">
         <div class="news-row news-row1">
-          <a href="/csse/pages/news/details?id=<%=data.news1.id%>">
-            <div class="img">
-              <img class="lazy_img" src="<%=data.news1.fujianPath%>" />
-            </div>
+          <a href="/pages/news/details?id=<%=data.news1.id%>">
+            <img class="img" src="<%=data.news1.fujianPath%>" />
             <div class="news-txt clearfix">
               <div class="time c_cca84d l">
                 <span class="b day"><%=data.news1.day%></span>
@@ -308,10 +305,8 @@
           </a>
         </div>
         <div class="news-row news-row2">
-          <a href="/csse/pages/news/details?id=<%=data.news2.id%>">
-            <div class="img">
-              <img class="lazy_img" src="<%=data.news2.fujianPath%>" />
-            </div>
+          <a href="/pages/news/details?id=<%=data.news2.id%>">
+            <img class="img" src="<%=data.news2.fujianPath%>" />
             <div class="news-txt clearfix">
               <div class="time c_cca84d l">
                 <span class="b day"><%=data.news2.day%></span>
@@ -326,7 +321,7 @@
         <div class="tit">
           通知公告
           <!-- <div class="more"> -->
-            <a class="more" href="/csse/pages/news/index?type=5">
+            <a class="more" href="/pages/news/index?type=5">
               更多公告 <img class="more_img" src="image/index/right.png" />
             </a>
           <!-- </div> -->
@@ -334,7 +329,7 @@
         <ul>
           <%data.notice.forEach(function(item,index){%>
             <li class="clearfix">
-              <a href="/csse/pages/news/details?id=<%=item.id%>">
+              <a href="/pages/news/details?id=<%=item.id%>">
               <div class="time c_cca84d l">
                 <span class="b day"><%=item.timeAdd.slice(8,11)%></span>
                 <span class="month"><%=item.timeAdd.slice(5,7)%></span>
@@ -353,7 +348,7 @@
       <!-- 科研成果 -->
       <div class="research">
         <div class="img_bg">
-          <img class="img" src="image/index/research_bg_m.png" />
+          <img class="img" src="image/index/research_bg.png" />
           <img src="image/index/recruitment/ellipse_left.png" class="semicircle1" />
           <img src="image/index/recruitment/ellipse_right.png" class="semicircle2" />
           <img src="image/index/recruitment/ellipse_right.png" class="semicircle3" />
@@ -365,7 +360,7 @@
             <p>CSRankings 2016 - 2021</p>
             <p>全国并列第11位</p>
           </div>
-          <a class="research_btn" href="http://csrankings.org/" target="_blank">了解 CSRankings<img src="image/index/btn-right.png" class="btn" /></a>
+          <div class="research_btn">了解 CSRankings<img src="image/index/btn-right.png" class="btn" /></div>
         </div>
         <div class="research_cont">
           <div class="research_banner">
@@ -373,7 +368,7 @@
 
             <div class="slider">
               <%data.kycg.forEach(function(item,index){%>
-              <a href="/csse/pages/research/details?id=<%=item.id%>"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
+              <a href="/pages/research/details?id=<%=item.id%>"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
               <%})%>
             </div>
           </div>
@@ -384,7 +379,7 @@
               <div class="c_999"><%=data.kycg1.belongsto%></div>
             </div>
             <div class="more">
-              <a href="/csse/pages/research/index">
+              <a href="/pages/research/index">
               更多 <img class="more_img" src="image/index/right.png" />
               </a>
             </div>
@@ -405,19 +400,19 @@
           <div class="tit">招生招聘</div>
           <div class="r-list clearfix">
             <!-- <div class="r-row"> -->
-              <a class="r-row active" href="/csse/pages/recruitment/index">
+              <a class="r-row active" href="/pages/recruitment/index">
                 <img src="image/recruitment/img1.png" class="img" />
                 <span class="txt">本科生招生</span>
               </a>
             <!-- </div> -->
             <!-- <div class="r-row"> -->
-              <a class="r-row" href="/csse/pages/recruitment/master">
+              <a class="r-row" href="/pages/recruitment/master">
                 <img src="image/recruitment/img2.png" class="img" />
                 <span class="txt">硕士生招生</span>
               </a>
             <!-- </div> -->
             <!-- <div class="r-row"> -->
-              <a class="r-row" href="/csse/pages/recruitment/doctor">
+              <a class="r-row" href="/pages/recruitment/doctor">
                 <img src="image/recruitment/img3.png" class="img" />
                 <span class="txt">博士生招生</span>
               </a>
@@ -435,7 +430,7 @@
               </a>
             <!-- </div> -->
             <!-- <div class="r-row"> -->
-              <a class="r-row" href="/csse/pages/recruitment/talents">
+              <a class="r-row" href="/pages/recruitment/talents">
                 <img src="image/recruitment/img6.png" class="img" />
                 <span class="txt">人才招聘</span>
               </a>
@@ -467,7 +462,7 @@
             </div>
           </div>
           <div class="more">
-            <a class="more" href="/csse/pages/globalCooperation/partner">
+            <a class="more" href="/pages/globalCooperation/index">
             更多 <img class="more_img" src="image/index/right.png" />
             </a>
           </div>
@@ -604,8 +599,7 @@
         <!-- 科研成果 -->
         <div class="research">
             <div class="img_bg">
-                <img class="img pc lazy_img" src="image/index/research_bg.png" />
-                <img class="img mb lazy_img" src="image/index/research_bg_m.png" />
+                <img class="img lazy_img" src="image/index/research_bg.png" />
                 <img src="image/index/recruitment/ellipse_left.png" class="semicircle1 lazy_img" />
                 <img src="image/index/recruitment/ellipse_right.png" class="semicircle2 lazy_img" />
                 <img src="image/index/recruitment/ellipse_right.png" class="semicircle3 lazy_img" />
@@ -615,7 +609,7 @@
                     <p>CSRankings 2016-2021</p>
                     <p>11<sup style="font-size: 8px;">th</sup> in China</p>
                 </div>
-                <a class="research_btn" href="http://csrankings.org/" target="_blank">
+                <a class="research_btn" href="http://csrankings.org/">
                     CSRankings<img src="image/index/btn-right.png" class="btn" />
                 </a>
             </div>
@@ -624,7 +618,7 @@
                     <div class="research_tit c_cca84d b">Research</div>
                     <div class="slider">
                       <%data.kycg.forEach(function(item,index){%>
-                        <a href="/csse/pages/research/details?id=<%=item.id%>"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
+                        <a href="/pages/research/details?id=<%=item.id%>"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
                       <%})%>
                     </div>
                 </div>
@@ -679,7 +673,7 @@
                   <%})%>
                     
                 </div>
-                <a class="more" href="/csse/pages/globalCooperation/partner">
+                <a class="more" href="/pages/globalCooperation/index">
                     More <img class="more_img" src="image/index/right.png" />
                 </a>
             </div>

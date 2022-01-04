@@ -12,7 +12,7 @@
 </head>
 <body class="organization">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../../headcom.ejs%>
 <%}%>
 <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
@@ -27,24 +27,23 @@
       <div class="l area-nav">
         <div class="tit b">机构设置</div>
         <ul>
-          <li >
-            <a href="index">研究所/中心</a>
+          <li>
+            <a href="graduateSchool">研究所/中心</a>
           </li>
           <li class="active"><a href="javascript:;">教学系</a></li>
-          <!-- 2222 -->
           <li><a href="executive">行政办公室</a></li>
           <li><a href="periodical">期刊编辑部</a></li>
-          <li><a href="http://csse.szu.edu.cn/cpct">实验中心</a></li>
+          <li><a href="">实验中心</a></li>
           <li><a href="https://bdsc.szu.edu.cn">国家工程实验室</a></li>
         </ul>
       </div>
       <div class="area-cont area1">
         <div class="ress_nav">
-          当前位置：<a href="/">首页</a>
+          当前位置：<a href="">首页</a>
           >
-          <a href="index">组织机构</a>
+          <a href="">组织机构</a>
           >
-          <a href="departments">教学系</a>
+          <a href="">教学系</a>
           >
           <a href="">软件工程系</a>
         </div>
@@ -55,7 +54,7 @@
           <%data.forEach(function(item,index){%>
           <div class="area-row" >
             <div class="img-wrap">
-              <a href="departments?t=<%=item.title%>"><img class="img lazy_img" src="<%=item.fujianPath%>" /></a>
+              <a href="index?t=<%=item.title%>"><img class="img lazy_img" src="<%=item.fujianPath%>" /></a>
               <span class="img-txt b"><%=item.title%></span>
             </div>
             <div class="txt">
