@@ -12,12 +12,7 @@
 	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 	<style type="text/css">
-		.w-e-text-container{
-	    	height: 250px !important;
-	    }
-	    .layui-form-select dl{
-	        z-index: 99999;
-	    }
+		
 		.filedelbtn{
 			margin-left: 5px;
 		}
@@ -41,11 +36,11 @@
             <div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">发布时间<b style="color: red;">*</b></label>
-					<div class="layui-input-inline" style="width: 272px;">
+					<div class="form-item-inline" >
 	        			<input type="text" class="layui-input" id="timeAdd" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
 	      			</div>
 					<label class="layui-form-label">更新时间<b style="color: red;">*</b></label>
-					<div class="layui-input-inline" style="width: 272px;">
+					<div class="form-item-inline" >
 	        			<input type="text" class="layui-input" id="timeEdit" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
 	      			</div>
 				</div>
@@ -66,11 +61,40 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">内容</label>
 				<div class="layui-input-block" >
-					<input id="neirong"  value="<%=data.neirong%>" type="hidden" />
-					<script id="neirong1" type="text/plain" ></script>
+					<textarea id="neirong"  value="<%=data.neirong%>" /><%=data.neirong%></textarea>
 				</div>
 			</div>
 
+            <div class="layui-form-item">
+				<label class="layui-form-label">学费与住宿</label>
+				<div class="layui-input-block">
+					<textarea id="xuefei"  value="<%=data.xuefei%>" /><%=data.xuefei%></textarea>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<label class="layui-form-label">奖学金</label>
+				<div class="layui-input-block">
+					<textarea id="jxj"  value="<%=data.jxj%>" /><%=data.jxj%></textarea>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<label class="layui-form-label">就业情况</label>
+				<div class="layui-input-block">
+					<textarea id="jiuye"  value="<%=data.jiuye%>" /><%=data.jiuye%></textarea>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<label class="layui-form-label">校园环境</label>
+				<div class="layui-input-block">
+					<textarea id="xyhj"  value="<%=data.xyhj%>" /><%=data.xyhj%></textarea>
+				</div>
+			</div>
+            <div class="layui-form-item">
+				<label class="layui-form-label">联系方式</label>
+				<div class="layui-input-block">
+					<textarea id="lxfs"  value="<%=data.lxfs%>" /><%=data.lxfs%></textarea>
+				</div>
+			</div>
 			<div class="layui-form-item">
 				<hr class="layui-bg-gray" />
 				<div class="layui-col-md-offset1">
@@ -80,11 +104,7 @@
 		</div>
 	</form>
 
-<script type="text/javascript" src="../layui/layui.js"></script>
-<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
-<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
 <!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script type="text/javascript">
 		
@@ -146,14 +166,13 @@ $(function(){
 	});
     //先得到当前iframe层的索引
     let id = '<%-data.id%>'
-    let ue1,ue2,ue3,ue4,ue5,ue6
-		ue1 = UE.getEditor('neirong1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue1.ready(function () {//研究方向
-	   		console.log('pageContent...',)
-	   		let htmlStr = $("#neirong").val()
-	   		ue1.setContent(htmlStr,false)
-	    });
-		
+	let neirong = CKEDITOR.replace("neirong");
+	let xuefei = CKEDITOR.replace("xuefei");
+	let jxj = CKEDITOR.replace("jxj");
+	let jiuye = CKEDITOR.replace("jiuye");
+	let xyhj = CKEDITOR.replace("xyhj");
+	let lxfs = CKEDITOR.replace("lxfs");
+
 		
     if(id==''||id==null||typeof(id)=='undefined'){
 		console.log('新增',id)
@@ -194,19 +213,24 @@ $(function(){
 	  //更新
 	  //附件
 	  let $pitem = $('#fujian p'),
-	  	  patharr = [],
-	  	  namearr = []
+	  	  patharr = '',
+	  	  namearr = ''
 	  $('#fujian p').each(function(){
-	  	patharr.push($(this).attr('path'))
-	  	namearr.push($(this).attr('name'))
+	  	patharr = patharr + $(this).attr('path') + ','
+	  	namearr = namearr + $(this).attr('name') + ','
 	  	console.log(patharr)
 	  	console.log(namearr)
 	  })
-	  data.field.patharr = patharr.join(',')
-	  data.field.namearr = namearr.join(',')
+	  data.field.patharr = patharr.substring(0,patharr.length-1)
+	  data.field.namearr = namearr.substring(0,namearr.length-1)
 	  data.field.id = id
       data.field.zhuanye = $('#zhuanye').val()
-	  data.field.neirong =ue1.getContent()
+	  data.field.neirong =neirong.getData()
+	  data.field.xuefei = xuefei.getData()
+	  data.field.jxj = jxj.getData()
+	  data.field.jiuye = jiuye.getData()
+	  data.field.xyhj =xyhj.getData()
+	  data.field.lxfs = lxfs.getData()
 	  data.field.timeAdd = $('#timeAdd').val()
       data.field.timeEdit = $('#timeEdit').val()
 
@@ -226,6 +250,7 @@ $(function(){
 				  skin: 'layui-layer-molv' //样式类名
 				  ,closeBtn: 0
 				}, function(){
+					parent.CloseCurrentTab()
 					layer.close(frameindex);
 					let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
 						parent.layer.close(index); 

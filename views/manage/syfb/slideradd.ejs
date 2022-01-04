@@ -12,15 +12,8 @@
 	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 	<style type="text/css">
-		.w-e-text-container{
-	    	height: 250px !important;
-	    }
-	    .layui-form-select dl{
-	        z-index: 99999;
-	    }
-		.uploader-list {
-            margin-left: -15px;
-        }
+		
+		
         .uploader-list .info {
             position: relative;
             margin-top: -25px;
@@ -40,10 +33,10 @@
             background-color: black;
             color: white;
             filter: alpha(Opacity=80);
-            /* -moz-opacity: 0.5; */
-            /* opacity: 0.5; */
+            -moz-opacity: 0.5;
+            opacity: 0.5;
             /* text-align: right; */
-            /* display: none; */
+            display: none;
 			right: 0;
         }
         .uploader-list .handle i {
@@ -69,11 +62,11 @@
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">标题</label>
-					<div class="layui-input-inline" style="width: 450px;">
+					<div class="form-item-inline" >
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
 				    <label class="layui-form-label" >标题(EN)</label>
-				    <div class="layui-input-inline" style="width: 450px;">
+				    <div class="form-item-inline" >
 				      <input type="text" name="title1"  autocomplete="off" class="layui-input" id="title1">
 				    </div>
 				   
@@ -81,7 +74,7 @@
 			</div>
             <div class="layui-form-item">
 				<label class="layui-form-label">链接</label>
-				<div class="layui-input-inline" style="width: 450px;">
+				<div class="form-item-inline" >
                     <input type="text" name="url" lay-verify="required" autocomplete="off" class="layui-input" id="url">
                   </div>
 			</div>
@@ -114,16 +107,14 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">简介</label>
 				<div class="layui-input-block" id="intro_bk">
-					<input id="jianjie"  value="<%=data.jianjie%>" type="hidden" />
-					<script id="intro" type="text/plain" ></script>
+					<textarea id="jianjie"  value="<%=data.jianjie%>" /><%=data.jianjie%></textarea>
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">简介(EN)</label>
 				<div class="layui-input-block" id="eintro_bk">
-					<input id="jianjie1"  value="<%=data.jianjie1%>" type="hidden" />
-					<script id="eintro" type="text/plain" ></script>
+					<textarea id="jianjie1"  value="<%=data.jianjie1%>" /><%=data.jianjie1%></textarea>
 				</div>
 			</div>
 
@@ -136,11 +127,7 @@
 		</div>
 	</form>
 
-<script type="text/javascript" src="../layui/layui.js"></script>
-<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
-<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
 <!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script type="text/javascript">
 
@@ -149,15 +136,15 @@ $(function(){
 		//let $ = layui.$, //重点处
 		let	element = layui.element,
     	upload = layui.upload
-	// $(document).on("mouseenter mouseleave", ".file-iteme", function(event){
-    //         if(event.type === "mouseenter"){
-    //             //鼠标悬浮
-    //             $(this).children(".handle").fadeIn("fast");
-    //         }else if(event.type === "mouseleave") {
-    //             //鼠标离开
-    //             $(this).children(".handle").hide();
-    //         }
-    //     });
+	$(document).on("mouseenter mouseleave", ".file-iteme", function(event){
+            if(event.type === "mouseenter"){
+                //鼠标悬浮
+                $(this).children(".handle").fadeIn("fast");
+            }else if(event.type === "mouseleave") {
+                //鼠标离开
+                $(this).children(".handle").hide();
+            }
+        });
 	// 删除图片
     $(document).on("click", ".file-iteme .handle", function(event){
 		layer.confirm('确定要删除图片吗', {
@@ -177,19 +164,8 @@ $(function(){
     let form = layui.form,layer = layui.layer
     let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
     let id = '<%-data.id%>'
-    let ue1,ue2,ue3,ue4,ue5,ue6
-		ue1 = UE.getEditor('intro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
-		ue1.ready(function () {//研究方向
-	   		console.log('初始jianjie...',)
-	   		let htmlStr = $("#jianjie").val()
-	   		ue1.setContent(htmlStr,false)
-	    });
-		ue2 = UE.getEditor('eintro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
-		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('初始jianjie1...')
-	   		let htmlStr = $("#jianjie1").val();
-	   		ue2.setContent(htmlStr,false)
-	    });
+    let jianjie = CKEDITOR.replace("jianjie");
+	let jianjie1 = CKEDITOR.replace("jianjie1");
 		
     if(id==''||id==null||typeof(id)=='undefined'){
 		console.log('新增',id)
@@ -229,6 +205,7 @@ $(function(){
 	    ,done: function(res){
 		  layer.close(layer.msg());//关闭上传提示窗口
 	      console.log('upload success',res)
+		 $('#uploader-list').empty()
 		  $('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
                     '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
@@ -260,8 +237,8 @@ $(function(){
 	  console.log('update data field',data.field);
 	  //更新
 	  data.field.id = id
-	  data.field.jianjie =ue1.getContent()
-	  data.field.jianjie1 = ue2.getContent()
+	  data.field.jianjie =jianjie.getData()
+	  data.field.jianjie1 = jianjie1.getData()
 	  //data.field.leaderintro = editor3.txt.html()
 	  //data.field.eleaderintro = editor4.txt.html()
 	  //data.field.bgcolor = $('#bgcolor').val()
@@ -297,6 +274,7 @@ $(function(){
 				  skin: 'layui-layer-molv' //样式类名
 				  ,closeBtn: 0
 				}, function(){
+					parent.CloseCurrentTab()
 					layer.close(frameindex);
 				});	  			
 	  		}

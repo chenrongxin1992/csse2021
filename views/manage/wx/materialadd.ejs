@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>查看 | 编辑 学习园地</title>
+	<title>查看 | 编辑 新闻</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -14,45 +14,7 @@
 	<style type="text/css">
 		
 		
-        .uploader-list .info {
-            position: relative;
-            margin-top: -25px;
-            background-color: black;
-            color: white;
-            filter: alpha(Opacity=80);
-            -moz-opacity: 0.5;
-            opacity: 0.5;
-            width: 100px;
-            height: 25px;
-            text-align: center;
-            display: none;
-        }
-        .uploader-list .handle {
-			width: 100%;
-            position: absolute;
-            background-color: black;
-            color: white;
-            filter: alpha(Opacity=80);
-            -moz-opacity: 0.5;
-            opacity: 0.5;
-            /* text-align: right; */
-            display: none;
-			right: 0;
-        }
-        .uploader-list .handle i {
-			margin: 0 auto;
-    		display: block;
-			text-align: center;
-        }
-        .uploader-list .handle i:hover {
-            cursor: pointer;
-        }
-        .uploader-list .file-iteme {
-            margin: 12px 0 0 15px;
-            padding: 1px;
-            float: left;
-			position: relative;
-        }
+        
 	</style>
 </head>
 <body class="childrenBody">
@@ -65,10 +27,30 @@
 					<div class="form-item-inline" >
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
-				    <!-- <label class="layui-form-label" >标题(EN)</label>
+				    <label class="layui-form-label" >标题(EN)</label>
 				    <div class="form-item-inline" >
 				      <input type="text" name="titleEN"  autocomplete="off" class="layui-input" id="titleEN">
-				    </div> -->
+				    </div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">类别</label>
+					<div class="form-item-inline" >
+						<input type="radio" name="leixing" value="科研动态" title="科研动态" checked>
+						<input type="radio" name="leixing" value="国际交流" title="国际交流">
+						<input type="radio" name="leixing" value="学生工作" title="学生工作">
+						<input type="radio" name="leixing" value="党务行政" title="党务行政">
+				    </div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">分类</label>
+					<div class="form-item-inline" >
+						<input type="radio" name="trees" value="179-181-" title="新闻中心"  value="<%=data.trees=='179-181-'?'checked':'' %>" >
+						<input type="radio" name="trees" value="179-182-" title="通知公告"  value="<%=data.trees=='179-182-'?'checked':'' %>" >
+				    </div>
 				</div>
 			</div>
             <div class="layui-form-item">
@@ -93,12 +75,12 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">封面图</label>
 				<button type="button" class="layui-btn" id="test1">上传</button>
+				<span>513*344</span>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">预览图</label>
-				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">
-                                    
+				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">     
 				</div>
 				 <!-- <p style="margin-left: 105px;">(1100px * 240px)</p> -->
 			</div>
@@ -109,12 +91,12 @@
 				</div>
 			</div>
 
-			<!-- <div class="layui-form-item">
+			<div class="layui-form-item">
 				<label class="layui-form-label">内容(EN)</label>
 				<div class="layui-input-block" id="eintro_bk">
 					<textarea id="pageContentEN"  value="<%=data.pageContentEN%>" /><%=data.pageContentEN%></textarea>
 				</div>
-			</div> -->
+			</div>
 
 			<div class="layui-form-item">
 				<hr class="layui-bg-gray" />
@@ -163,8 +145,9 @@ $(function(){
 	let uploadInst = upload.render({
 	    elem: '#test1'
         //本地与服务器
-	    ,url: '<%=base_url%>xxydupload'
-        //,url: '/manage/xxydupload'
+	    ,url: '<%=base_url%>newsupload'
+		,accept:"file"
+        ,exts: 'jpg|jpeg|gif|png'
 	    ,before: function(obj){
 			console.log('try......')
 			layer.msg('图片上传中...', {
@@ -198,7 +181,11 @@ $(function(){
     let form = layui.form,layer = layui.layer
     //先得到当前iframe层的索引
     let id = '<%-data.id%>'
-   let pageContent = CKEDITOR.replace("pageContent");
+    let pageContent = CKEDITOR.replace("pageContent");
+	let pageContentENEditor = CKEDITOR.replace("pageContentEN");
+	$('#copy').bind('click',function(){
+		pageContentENEditor.setData(pageContent.getData())
+	})
 		
     if(id==''||id==null||typeof(id)=='undefined'){
 		console.log('新增',id)
@@ -215,17 +202,22 @@ $(function(){
          //初始化表单值
          console.log('编辑',id,'<%- data.timeAdd%>')
         $('#title').val('<%- data.title%>')
-       
+        if('<%- data.titleEN%>'){
+    	    $('#titleEN').val('<%- data.titleEN%>')
+        }
         $('#timeAdd').val('<%- data.timeAdd%>')
 	    $('#timeEdit').val('<%- data.timeEdit%>')
         if('<%=data.isTop%>' == 1){
 			$("#isTop").prop("checked", true)
 		}
+		$("input[name=leixing][value=<%-data.leixing-%>]").prop("checked","true");
+		$("input[name=trees][value=<%-data.trees-%>]").prop("checked","true");
+		
 		//初始化封面图
 		$('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
                     '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-                    '<img style="height: 150px;" id="fmpic" src=<%-data.fujianPath%> ></div>'
+                    '<img style="height: 150px;" id="fmpic" src="..//<%-data.fujianPath%>" ></div>'
                 );
   		form.render()
 	}
@@ -241,29 +233,31 @@ $(function(){
 	  //更新
 	  data.field.id = id
 	   data.field.pageContent =pageContent.getData()
-	  //data.field.pageContentEN = ue2.getContent()
-	  //data.field.leaderintro = editor3.txt.html()
+	  data.field.pageContentEN = pageContentENEditor.getData()
+	  data.field.leixing = $("input[name='leixing']:checked").val();
+	  data.field.trees = $("input[name='trees']:checked").val();
+	  
 	  //data.field.eleaderintro = editor4.txt.html()
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()
-     // data.field.titleEN = $('#titleEN').val()
+      data.field.titleEN = $('#titleEN').val()
 	  data.field.timeAdd = $('#timeAdd').val()
       data.field.timeEdit = $('#timeEdit').val()
       data.field.isTop = topstr.substring(0,topstr.length-1)
-	  if($('#fmpic').attr('src')){
-	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
-	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
-	  }else{
-		  layer.msg('请上传封面图')
-		  return false
-	  }
+	  data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
+	//   if($('#fmpic').attr('src')){
+	//   	console.log('ddddd---------------------------',$('#demo1').attr('src'))
+	//   	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
+	//   }else{
+	// 	  layer.msg('请上传封面图')
+	// 	  return false
+	//   }
 
 	  console.log('提交数据',data.field)
      //return false
 	  $.ajax({
           //本地与服务器
-        url:'<%=base_url%>xxydadd',
-        //url:'/manage/xxydadd',
+        url:'<%=base_url%>material_update',
 	  	type:'POST',
 	  	data:data.field,
 	  	dataType : "json",
@@ -277,6 +271,9 @@ $(function(){
 				}, function(){
 					parent.CloseCurrentTab()
 					layer.close(frameindex);
+					let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						parent.layer.close(index); 
+						console.log('father -----',index)
 				});	  			
 	  		}
 	  	},

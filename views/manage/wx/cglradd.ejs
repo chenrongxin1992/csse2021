@@ -49,10 +49,9 @@
 				<div class="layui-inline">
 					<div class="form-item">
 						<label class="layui-form-label">刊物</label>
-						<div class="form-item-inline input-box" >
+						<div class="form-item-inline" >
 							<!--<input type="text" name="year" lay-verify="yearverify" autocomplete="off" class="layui-input" id="year">-->
-							<input class="layui-input wx-input" id="kanwu" name='kanwu' showField='title' keyField='title' url='kanwu' value ="<%=data.kanwu%>" autocomplete="off">
-							<!--<input type="text" id="kanwu"  class="selectpage layui-input" showField='title' keyField='title' url='./kanwu' value="<%=data.kanwu%>"  data-init="<%=data.kanwu%>" > -->
+							<input type="text" id="kanwu"  class="selectpage layui-input" showField='title' keyField='title' url='./kanwu' value="<%=data.kanwu%>"  data-init="<%=data.kanwu%>" > 
 						</div>
 					</div>
 					<div class="form-item">
@@ -136,7 +135,6 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label"></label>
 				<button type="button" class="layui-btn" id="copy">一键复制到英文</button>
-				<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>提交</a>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">详情(EN)</label>
@@ -189,19 +187,9 @@ $(function(){
 				});
 		});
     });
-	InitImgCropping("test1","uploader-list",1000/460,function(re){
-		if(re.code == 0 ){
-			$('#uploader-list').empty()
-			$('#uploader-list').append(
-				'<div id="" class="file-iteme">' +
-				'<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-				'<img style="height: 150px;" id="fmpic" src='+'../'+ re.fileName +'>' +
-				'</div>'
-			);
-		}
-	})
+
     //图标上传
-	/*let uploadInst = upload.render({
+	let uploadInst = upload.render({
 	    elem: '#test1'
         //本地与服务器
 	    ,url: '<%=base_url%>cglrupload'
@@ -231,7 +219,7 @@ $(function(){
 	    ,error: function(){
 	      layer.msg('上传失败，请联系CRX')
 	    }
-	  });*/
+	  });
 	  upload.render({
 	    elem: '#tzggupload'
 	    ,url: '<%=base_url%>cglrupload'
@@ -388,9 +376,7 @@ $(function(){
 				  skin: 'layui-layer-molv' //样式类名
 				  ,closeBtn: 0
 				}, function(){
-					
 					parent.CloseCurrentTab()
-					//AddTab('成果录入','cglr_table',"cglr")
 					layer.close(frameindex);///关闭当前
 					
 					let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引

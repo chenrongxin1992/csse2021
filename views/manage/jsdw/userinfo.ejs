@@ -35,9 +35,9 @@
             color: white;
             filter: alpha(Opacity=80);
             -moz-opacity: 0.5;
-            /* opacity: 0.5; */
+            opacity: 0.5;
             /* text-align: right; */
-            /* display: none; */
+            display: none;
 			top: 0;
 			margin-left: 0px;
         }
@@ -109,13 +109,10 @@
 					<option value="副教授" peopleid="3">副教授</option>
 					<option value="讲师" peopleid="4">讲师</option>
 					<option value="助理教授" peopleid="5">助理教授</option>
-					<option value="研究员" peopleid="6">研究员</option>
-					<option value="副研究员" peopleid="10">副研究员</option>
-					<!-- <option value="研究员" peopleid="6">专职研究人员</option> -->
+					<option value="研究员" peopleid="6">专职研究人员</option>
 					<option value="博士后" peopleid="7">博士后</option>
 					<option value="技术/管理人员" peopleid="8">技术/管理人员</option>
 					<option value="研究/辅助管理" peopleid="9">研究/辅助管理</option>
-					<option value="其它" peopleid="11">其它</option>
 				</select>
 			</td>
 	        <td class="tdstyle">(英文)职称</td>
@@ -127,11 +124,9 @@
 					<option value="Lecturer">Lecturer</option>
 					<option value="Assistant Professor">Assistant Professor</option>
 					<option value="Researcher">Researcher</option>
-					<option value="Associate Researcher">Associate Researcher</option>
 					<option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
 					<option value="Technical / management personnel">Technical/management personnel</option>
 					<option value="Assistant">Assistant</option>
-					<option value="other">other</option>
 				</select>
 			</td>
 	      </tr>
@@ -139,7 +134,7 @@
 	        <td class="tdstyle">所/中心</td>
 	        <td  class="tdform">
 				<select name="suoxi" lay-filter="suoxi" id="suoxi">
-					<option value="院办管理/技术人员" suoxiid="10">院办管理/技术人员</option>
+					<option value="其它" suoxiid="10">其它</option>
 					<option value="高性能计算研究所" suoxiid="1">高性能计算研究所</option>
 					<option value="大数据技术与应用研究所" suoxiid="2">大数据技术与应用研究所</option>
 					<option value="未来媒体技术与计算研究所" suoxiid="3">未来媒体技术与计算研究所</option>
@@ -149,14 +144,12 @@
 					<option value="物联网研究中心" suoxiid="7">物联网研究中心</option>
 					<option value="可视计算研究中心" suoxiid="8">可视计算研究中心</option>
 					<option value="教学系" suoxiid="9">教学系</option>
-					<!-- 20211227新增 -->
-					<option value="软件工程研究中心" suoxiid="11">软件工程研究中心</option>
 				</select>
 			</td>
 	        <td class="tdstyle">(英文)所/中心</td>
 	        <td  class="tdform">
 				<select name="suoxi1" lay-filter="suoxi1" id="suoxi1">
-					<option value="Tech/Admin Staff" suoxiid="10">Tech/Admin Staff</option>
+					<option value="other">other</option>
 					<option value="National High Performance Computing Center at Shenzhen" suoxiid="1">National High Performance Computing Center at Shenzhen</option>
 					<option value="Big Data Institute" suoxiid="2">Big Data Institute</option>
 					<option value="Research Institute for Future Media Computing" suoxiid="3">Research Institute for Future Media Computing</option>
@@ -165,9 +158,7 @@
 					<option value="Research Institute of Intelligence Technology and System Integration" suoxiid="6">Research Institute of Intelligence Technology and System Integration</option>
 					<option value="Internet of things Research Center" suoxiid="7">Internet of things Research Center</option>
 					<option value="Visual Computing Research Center (VCC)" suoxiid="8">Visual Computing Research Center (VCC)</option>
-					<option value="Teaching Department" suoxiid="9">Teaching Department</option>
-					<!-- 20211227新增 -->
-					<option value="Software Engineering Research Center" suoxiid="11">Software Engineering Research Center</option>
+					<option value="Teaching Department">Teaching Department</option>
 				</select>
 			</td>
 	      </tr>
@@ -254,13 +245,8 @@
   </table>
   </form>
 
-	<script type="text/javascript" src="../layui/layui.js"></script>
-	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
-	<script type="text/javascript" charset="utf-8" src="https://www.jq22.com/demo/cropper-master20160830/dist/cropper.min.js"> </script>
-<script type="text/javascript">
+  <script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+  <script type="text/javascript">
 
 let ue1,ue2
 let id = '<%=user.id%>'
@@ -313,14 +299,6 @@ layui.use(['jquery','layer','upload','form'], function(){
 		$('#yjly1').val('<%=user.yjly1%>')
 		$('#suoxi').val('<%=user.suoxi%>')
 		$('#suoxi1').val('<%=user.suoxi1%>')
-		//20211230添加
-		if('<%=username%>' != '王佳岱' && '<%=username%>' != '陈荣鑫' ){
-			console.log('只有管理员能修改select')
-			$("select[name=zhicheng]").attr("disabled", "disabled")
-			$("select[name=zhicheng1]").attr("disabled", "disabled")
-			$("select[name=suoxi]").attr("disabled", "disabled")
-			$("select[name=suoxi1]").attr("disabled", "disabled")
-		}
 		form.render('select')
 		//监听下拉框
 		form.on('select(sex)',function (data) {
@@ -355,8 +333,14 @@ layui.use(['jquery','layer','upload','form'], function(){
 		
 		//初始化上传按钮  
 		//let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button><button type="button" class="layui-btn" id="editbtn">编辑头像</button>'
-		let uploadbtn = '<button type="button" class="layui-btn layui-btn-sm" id="uploadbtn">上传头像</button>'
-    	$('#uploadarea').append(uploadbtn)	
+		let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button>'
+		$('#uploadarea').append(uploadbtn)	
+		InitImgCropping("uploadbtn","userimg",1/1,function(re){
+			if(re.code == 0 ){
+                $("#userimg").attr("data",re.fileName);
+                $("#userimg").attr("src",""+re.fileName);
+            }
+		})
 		$('#editbtn').click(function(){
 			console.log(	$('#userimg').attr('src'))
 			if(!$('#userimg').attr('src')){
@@ -378,7 +362,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 				}
 			})
 		})
-		let uploadInst  = upload.render({
+		/*let uploadInst  = upload.render({
 		    elem: '#uploadbtn'
 			,url: '<%=base_url%>userimgupload'
 		    , accept: 'images'
@@ -408,7 +392,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 		      let demoText = $('#demoText');
 		      demoText.html('<span style="color: #FF5722;">上传失败</span> ');
 		    }
-		  });
+		  });*/
 		  //form.render('select')
 		form.render()
 		ue1 = UE.getEditor('introduceeditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'}),

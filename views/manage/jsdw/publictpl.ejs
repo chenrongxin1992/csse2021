@@ -13,6 +13,10 @@
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 </head>
 <body class="childrenBody">
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：科研成果 > 成果录入</div> <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 10px;" id="szgk">师资概况</button>
+		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增人员</button>
+  </blockquote>
+
 	<div class="demoTable layui-form">
 	  <div class="layui-inline">
 	    <input class="layui-input" name="userName" id="userName" autocomplete="off" placeholder="姓名">
@@ -27,29 +31,26 @@
        </div>
        <div class="layui-inline">
 	    	<select name="jstype" id="jstype" lay-filter="jstype" >
+          		<option value="">人员类别</option>
 		        <option value="1" peopleid="1">杰出人才</option>
 		        <option value="2" peopleid="2">教授</option>
 		        <option value="3" peopleid="3">副教授</option>
 				<option value="4" peopleid="4">讲师</option>
 		        <option value="5" peopleid="5">助理教授</option>
-		        <option value="6" peopleid="6">研究员</option>
-				<option value="10" peopleid="10">副研究员</option>
+		        <option value="6" peopleid="6">专职研究人员</option>
 		        <option value="7" peopleid="7">博士后</option>
 				<option value="8" peopleid="8">技术/管理人员</option>
 				<option value="9" peopleid="9">研究/管理助理</option>
-				<option value="11" peopleid="11">其它</option>
 		              <!-- 动态获取 -->
 		   </select>
 	  </div>
-	  <button class="layui-btn" data-type="reload" id="kyxm_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+	  <button class="layui-btn rc-search-btn" data-type="reload" id="kyxm_btn" ><i class="layui-icon">&#xe615;</i>搜索</button>
 	  <!-- <button class="layui-btn btnfloat" id="ptglsort" style="float: right;" >人员排序(教师系列)</button> -->
-	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="szgk">师资概况</button>
-	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增人员</button>
-	</div>
+	 	</div>
 
 	<table id="jsdw_table" lay-filter="jsdw_table" style="width: 100%;"></table>
 
-<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
 <script type="text/javascript">
 layui.use(['jquery','table','form'], function(){ 
     let $ = layui.$ //重点处
@@ -67,12 +68,12 @@ layui.use(['jquery','table','form'], function(){
         ,limits: [30,50,70]
         ,limit: 30 //每页默认显示的数量
 	    ,cols: [[ //表头
-	      {type:'numbers', title: '序号',width:90,align:'center'}
-	      ,{field: 'userName', title: '姓名',width:120,align:'center'}
-		  ,{field: 'suoxi', title: '所/系',align:'center'}
-		  ,{field: 'zhicheng', title: '职称',width:140,align:'center'}
-	      ,{field: 'account', title: '登录账号', width:140,align:'center'}
-	      ,{field: 'power', title: '角色',width:140, align:'center'}
+	      {type:'numbers', title: '序号',width:90,align:'center',sort:true}
+	      ,{field: 'userName', title: '姓名',width:120,align:'center',sort:true}
+		  ,{field: 'suoxi', title: '所/系',align:'center',sort:true}
+		  ,{field: 'zhicheng', title: '职称',width:140,align:'center',sort:true}
+	      ,{field: 'account', title: '登录账号', width:140,align:'center',sort:true}
+	      ,{field: 'power', title: '角色',width:140, align:'center',sort:true}
 	      ,{title:'操作', align:'center',width:450, toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
@@ -89,23 +90,23 @@ layui.use(['jquery','table','form'], function(){
 				}
 			});
     })
-	// $(function(){
-	// 	console.log('done get data')
-	// 	table.reload('table_jsdw', {
-	// 			where: {
-	// 				userName: $('#userName').val(),
-	// 				power: $('#power option:selected').val(),
-	// 				peopleid: $('#jstype option:selected').attr('peopleid')
-	// 			}
-	// 		});
-	// })
+	$(function(){
+		console.log('done get data')
+		table.reload('table_jsdw', {
+				where: {
+					userName: $('#userName').val(),
+					power: $('#power option:selected').val(),
+					peopleid: $('#jstype option:selected').attr('peopleid')
+				}
+			});
+	})
     
     $('#addkyxm').on('click', function(){
     	console.log('新增账号')
     	let index = layui.layer.open({
             title : "新增账号",
             type : 2,
-			area: ['500px', '400px'],
+			area: ['80%', '400px'],
             content : "jsdwadd",
             success : function(layero, index){
             },
@@ -127,8 +128,8 @@ layui.use(['jquery','table','form'], function(){
         let index = layui.layer.open({
 					title : "师资概况",
 					type : 2,
-					area: ['700px', '350px'],
-					fixed: false, //不固定
+					area: ['80%', '350px'],
+					fixed: true, //不固定
 					content : "szgk",
 					success : function(layero, index){
 					}
@@ -142,11 +143,11 @@ layui.use(['jquery','table','form'], function(){
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	  console.log('data.id-----',data.id)
 	  if(layEvent === 'edit'){ //查看
+		//AddTab('编辑'+$("title").text(),'jsdw_table'+ obj.data.id,"userinfo?id="+data.id)
 	    //do somehing
 	    let index = layui.layer.open({
             title : "编辑个人信息",
             type : 2,
-			area: ['90%', '90%'],
             content : "userinfo?id="+data.id,
             success : function(layero, index){
             },
@@ -160,12 +161,12 @@ layui.use(['jquery','table','form'], function(){
 				});
             }
         })
-        // console.log('index-------',index)
-        // layui.layer.full(index);
-        // //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
-        // $(window).on("resize",function(){
-        //     layui.layer.full(index);
-        // })
+        console.log('index-------',index)
+        layui.layer.full(index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize",function(){
+            layui.layer.full(index);
+        })
 	  } else if(layEvent === 'del'){ //删除
 		console.log('删除-----',data)
 	    layer.confirm('确定删除吗?',{
@@ -197,7 +198,7 @@ layui.use(['jquery','table','form'], function(){
 	    var index = layui.layer.open({
             title : "修改账号",
             type : 2,
-			area: ['500px', '400px'],
+			area: ['80%', '400px'],
             content : "jsdwadd?id="+data.id,
             success : function(layero, index){
             }
