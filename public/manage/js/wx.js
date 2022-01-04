@@ -113,12 +113,13 @@ const GetAccessToken = function(userreq,appid,appkey,callback){
                   commonfunc.TranlateMultiText("wx",saveitem.content,function(result){
                      saveitem.content = result
                      if(saveitem.thumb_url){
-                        let relativepath = basedir + '/attachment/wx/'+moment().format('YYYYMMDD')+'/'; 
+                        let relativepath =  '/attachment/wx/'+moment().format('YYYYMMDD')+'/'; 
                         fs.existsSync(attachmentuploaddir+relativepath) || fs.mkdirSync(attachmentuploaddir+relativepath) 
                         let newfilename =   relativepath+'wximg'+'_'+moment().unix()+'_'+ Math.round(Math.random()*100000000000) + '_' + '.jpg'
                         let actualnewfilename =attachmentuploaddir + newfilename
                         //console.log("thumb_url",saveitem.thumb_url)
                         download(saveitem.thumb_url).pipe(fs.createWriteStream(actualnewfilename));
+                        newfilename = basedir + newfilename
                         saveitem['fujianPath'] = newfilename
                      }
                      SavecmsContent(saveitem,i)
@@ -159,6 +160,7 @@ const GetAccessToken = function(userreq,appid,appkey,callback){
          //console.log(data.content)
          url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token="+userreq.session.accesstoken
          console.log("开始上传封面图片素材")
+         data.fujianPath = data.fujianPath.replace(basedir,'') //临时使用
          commonfunc.UploadImg(url,path.resolve(__dirname, '../../'+data.fujianPath),function(status,res2){
             console.log(__dirname)
             console.log(path.resolve(__dirname, '../../'+data.fujianPath))

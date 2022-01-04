@@ -67,7 +67,7 @@
 			item = item.replace("src=",'')	
             //将前台传来的base64数据去掉前缀
 			
-			let relativepath = basedir+ '/attachment/wx/' +moment().format('YYYYMMDD')+'/'; 
+			let relativepath = '/attachment/wx/' +moment().format('YYYYMMDD')+'/'; 
 			fs.existsSync(attachmentuploaddir+relativepath) || fs.mkdirSync(attachmentuploaddir+relativepath) 
 			let newfilename =  relativepath+'wximg'+'_'+moment().unix()+'_'+ Math.round(Math.random()*100000) + '_' + '.jpg'
 			let actualnewfilename =attachmentuploaddir + newfilename
@@ -75,6 +75,7 @@
 			count++
 			//console.log("item:"+item)
 			//console.log("newfilename:"+newfilename)
+			newfilename = basedir+ newfilename
 			str = str.replace('data-src="'+item, 'src="'+newfilename+'"')
 			str = str.replace('src="'+item, 'src="'+newfilename)
 			if(count==imglist.length){
@@ -90,7 +91,7 @@
  }
 
  const TranlateRevertMultiText = async function TranlateRevertMultiText(str,url,callback){
-	 console.log(str)
+	 //console.log(str)
 	 if(str ==undefined||str==''){
 		console.log("转换的富文本为空")
 		callback(str)
@@ -117,10 +118,11 @@
 			
 			item = item.replace("src=",'')	
 			item = item.replace(/\"/g,'')
+			tempitem = item.replace(basedir,'') //临时使用
 			//console.log(item)
             //将前台传来的base64数据去掉前缀
 			let newfilename =  basedir + '/attachment/wx/'+'wximg'+'_'+moment().unix()+'_'+ Math.round(Math.random()*100000) + '_' + '.jpg'
-			let actualnewfilename =attachmentuploaddir + item
+			let actualnewfilename =attachmentuploaddir + tempitem
 			//console.log(actualnewfilename)
 			//download(item).pipe(fs.createWriteStream(actualnewfilename));
 			var formData = {

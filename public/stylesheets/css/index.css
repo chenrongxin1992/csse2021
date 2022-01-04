@@ -202,6 +202,7 @@
 .news .time{
     font-size: 22px;
     line-height: 1;
+    text-align: center;
 }
 .news .time .day{
     display: block;
