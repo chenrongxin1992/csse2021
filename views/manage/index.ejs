@@ -12,9 +12,9 @@
 	<meta name="format-detection" content="telephone=no">
 	<link rel="icon" href="/favicon.ico">
 	<!-- 服务器与本地 -->
-	<link rel="stylesheet" href="/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="/stylesheets/index.css" media="all" />
-	<link rel="stylesheet" href="/stylesheets/iconfont1.css" media="all" />
+	<link rel="stylesheet" href="/csse/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/csse/stylesheets/index.css" media="all" />
+	<link rel="stylesheet" href="/csse/stylesheets/iconfont1.css" media="all" />
 	<!-- <link rel="stylesheet" href="/layui/css/layui.css" media="all" /> -->
 	<!-- <link rel="stylesheet" href="/stylesheets/index.css" media="all" /> -->
 	<style type="text/css">
@@ -41,7 +41,7 @@
 		<!-- 顶部 -->
 		<div class="layui-header header">
 			<div class="layui-main mag0">
-				<a href="../" class="logo" style="font-size: 18px;">计算机与软件学院</a>
+				<a href="#" class="logo" style="font-size: 18px;">计算机与软件学院</a>
 				<a href="#" class="logo1" style="font-size: 18px;">计软</a>
 				<!-- 显示/隐藏菜单 -->
 				<a href="javascript:;" class="seraph hideMenu icon-caidan"></a>
@@ -136,9 +136,9 @@
 	<div class="site-tree-mobile"><i class="layui-icon">&#xe602;</i></div>
 	<div class="site-mobile-shade"></div>
 <!-- 服务器与本地 -->
-	<script type="text/javascript" src="/layui/layui.js"></script>
-	<!-- <script type="text/javascript" src="/javascripts/index.js"></script> -->
-	<script type="text/javascript" src="/javascripts/cache.js"></script>
+	<script type="text/javascript" src="/csse/layui/layui.js"></script>
+	<!-- <script type="text/javascript" src="/csse/javascripts/index.js"></script> -->
+	<script type="text/javascript" src="/csse/javascripts/cache.js"></script>
 	<script>
 		var $,tab,dataStr,layer;
 		layui.config({
@@ -337,33 +337,26 @@ function screen(){
 		return 2
 	}
 }
-function CloseCurrentTab(){
-    layui.use(['jquery','table','form','element'], function(){ 
-        let $ = layui.$ //重点处
-        let element = layui.element
-        element.tabDelete("bodyTab",$("#top_tabs .layui-this").attr("lay-id")).init();
-    });
-    //element.tabDelete("bodyTab",$(this).parent("li").attr("lay-id")).init();
-}
-	layui.use(['layer'], function(){ 
-		let layer = layui.layer,
-			$ = layui.$
-		$('#changepassword').on('click', function(){
-			console.log('change')
-			let index = layui.layer.open({
-				title : "修改密码",
-				type : 2,
-				area: screen() == 2 ? ['80%','400px']:['80%', '400px'],
-				content : "changePassword",
-				success : function(layero, index){
-				},
-				end:function(){
-					window.location.reload()
-				}
+
+		layui.use(['layer'], function(){ 
+			let layer = layui.layer,
+				$ = layui.$
+			$('#changepassword').on('click', function(){
+				console.log('change')
+				let index = layui.layer.open({
+					title : "修改密码",
+					type : 2,
+					area: screen() == 2 ? ['90%','30%']:['500px', '250px'],
+					content : "changePassword",
+					success : function(layero, index){
+					},
+					end:function(){
+						window.location.reload()
+					}
+				})
+				console.log('index',index)
 			})
-			console.log('index',index)
 		})
-	})
 	</script>
 </body>
 </html>

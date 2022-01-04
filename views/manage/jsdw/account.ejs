@@ -24,20 +24,20 @@
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">真实姓名</label>
-				<div class="form-item-inline" >
+				<div class="layui-input-inline" style="width: 272px;">
 		           <input name="userName" type="text" class="layui-input" id="userName" autocomplete="off" lay-verify="required" >
 		       </div>
 		       
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">登录账号</label>
-				<div class="form-item-inline" >
+				<div class="layui-input-inline" style="width: 272px;">
 		           <input name="account" type="text" class="layui-input" id="account" autocomplete="off" lay-verify="required">
 		       </div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">登录密码</label>
-				<div class="form-item-inline" >
+				<div class="layui-input-inline" style="width: 272px;">
 		           <input name="password" type="password" class="layui-input" id="password" autocomplete="off" value="" lay-verify="required">
 		       </div>
 		       
@@ -50,7 +50,7 @@
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">角色</label>
-				<div class="form-item-inline" >
+				<div class="layui-input-inline" style="width: 272px;">
 		           <input type="checkbox" name="power" title="管理员" lay-skin="primary" value="管理员" id="checkbox1">
 		           <input type="checkbox" name="power" title="教职工" lay-skin="primary" value="教职工" id="checkbox2">
 				   <input type="checkbox" name="power" title="其他" lay-skin="primary" value="其他" id="checkbox3">
@@ -60,14 +60,14 @@
 			<div class="layui-form-item">
 				<hr class="layui-bg-gray" />
 				<label class="layui-form-label"></label>
-				<div class="form-item-inline" >
+				<div class="layui-input-inline" style="width: 272px;">
 					<button class="layui-btn layui-btn-sm" lay-filter="update" lay-submit id="btnsave"><i class="layui-icon">&#xe609;</i>保存</button>
 				</div>
 			</div>
 		</div>
 	</form>
 
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
 layui.use(['jquery','table','form','upload','layer','laydate'], function(){ 
     let $ = layui.$ //重点处

@@ -12,7 +12,12 @@
 	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 	<style type="text/css">
-		
+		.w-e-text-container{
+	    	height: 250px !important;
+	    }
+	    .layui-form-select dl{
+	        z-index: 99999;
+	    }
 	</style>
 </head>
 <body class="childrenBody">
@@ -22,11 +27,11 @@
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">标题</label>
-					<div class="form-item-inline" >
+					<div class="layui-input-inline" style="width: 450px;">
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
 				    <label class="layui-form-label" >标题(EN)</label>
-				    <div class="form-item-inline" >
+				    <div class="layui-input-inline" style="width: 450px;">
 				      <input type="text" name="titleEN"  autocomplete="off" class="layui-input" id="titleEN">
 				    </div>
 				</div>
@@ -34,11 +39,11 @@
             <div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">发布时间<b style="color: red;">*</b></label>
-					<div class="form-item-inline" >
+					<div class="layui-input-inline" style="width: 272px;">
 	        			<input type="text" class="layui-input" id="timeAdd" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
 	      			</div>
 					<label class="layui-form-label">更新时间<b style="color: red;">*</b></label>
-					<div class="form-item-inline" >
+					<div class="layui-input-inline" style="width: 272px;">
 	        			<input type="text" class="layui-input" id="timeEdit" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
 	      			</div>
 				</div>
@@ -46,7 +51,7 @@
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">是否置顶</label>
-				<div class="form-item-inline" >
+				<div class="layui-input-inline" style="width: 272px;">
 		           <input type="checkbox" name="isTop" title="是" lay-skin="primary" value="1" id="isTop">
 		        </div>
 			</div>
@@ -54,14 +59,16 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">内容</label>
 				<div class="layui-input-block" id="intro_bk">
-					<textarea id="pageContent"  value="<%=data.pageContent%>" /><%=data.pageContent%></textarea>
+					<input id="pageContent"  value="<%=data.pageContent%>" type="hidden" />
+					<script id="intro" type="text/plain" ></script>
 				</div>
 			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">内容(EN)</label>
 				<div class="layui-input-block" id="eintro_bk">
-					<textarea id="pageContentEN"  value="<%=data.pageContentEN%>" /><%=data.pageContentEN%></textarea>
+					<input id="pageContentEN"  value="<%=data.pageContentEN%>" type="hidden" />
+					<script id="eintro" type="text/plain" ></script>
 				</div>
 			</div>
 
@@ -74,7 +81,11 @@
 		</div>
 	</form>
 
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
 <!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script type="text/javascript">
 		
@@ -93,11 +104,19 @@ $(function(){
     let form = layui.form,layer = layui.layer
     //先得到当前iframe层的索引
     let id = '<%-data.id%>'
-    let pageContent = CKEDITOR.replace("pageContent");
-	let pageContentENEditor = CKEDITOR.replace("pageContentEN");
-	$('#copy').bind('click',function(){
-		pageContentENEditor.setData(pageContent.getData())
-	})
+    let ue1,ue2
+		ue1 = UE.getEditor('intro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue1.ready(function () {//研究方向
+	   		console.log('pageContent...',)
+	   		let htmlStr = $("#pageContent").val()
+	   		ue1.setContent(htmlStr,false)
+	    });
+		ue2 = UE.getEditor('eintro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('pageContentEN...')
+	   		let htmlStr = $("#pageContentEN").val();
+	   		ue2.setContent(htmlStr,false)
+	    });
 		
     if(id==''||id==null||typeof(id)=='undefined'){
 		console.log('新增',id)
@@ -135,8 +154,8 @@ $(function(){
          console.log('topstr',topstr)
 	  //更新
 	  data.field.id = id
-	   data.field.pageContent =pageContent.getData()
-	  data.field.pageContentEN = pageContentENEditor.getData()
+	  data.field.pageContent =ue1.getContent()
+	  data.field.pageContentEN = ue2.getContent()
 	  //data.field.leaderintro = editor3.txt.html()
 	  //data.field.eleaderintro = editor4.txt.html()
 	  //data.field.bgcolor = $('#bgcolor').val()
@@ -162,7 +181,6 @@ $(function(){
 				  skin: 'layui-layer-molv' //样式类名
 				  ,closeBtn: 0
 				}, function(){
-					parent.CloseCurrentTab()
 					layer.close(frameindex);
 				});	  			
 	  		}

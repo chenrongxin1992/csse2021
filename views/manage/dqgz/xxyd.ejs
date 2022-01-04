@@ -13,11 +13,20 @@
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：党群工作 > <%=title%> </div><button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
-	<%- include('../search.ejs', {realod_id: 'table_news'}); %>
+	<blockquote class="layui-elem-quote">当前位置：党群工作 > <%=title%></blockquote>
+
+	<div class="demoTable">
+	  搜索：
+	  <div class="layui-inline">
+	    <input class="layui-input" name="search" id="search_txt" autocomplete="off">
+	  </div>
+	  <button class="layui-btn" data-type="reload" id="news_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button>
+	</div>
+
 	<table id="news_table" lay-filter="news_table"></table>
 
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
 layui.use(['jquery','table','form'], function(){ 
     let $ = layui.$ //重点处
@@ -34,11 +43,11 @@ layui.use(['jquery','table','form'], function(){
         ,limits: [15,30,45]
         ,limit: 15 //每页默认显示的数量
 	    ,cols: [[ //表头
-	      {field: 'id', title: '序号',width:90,align:'center',sort:true}
-	      ,{field: 'title', title: '标题',align:'center',sort:true}
+	      {field: 'id', title: '序号',width:90,align:'center'}
+	      ,{field: 'title', title: '标题',align:'center'}
           ,{field: 'pageContent', title: '内容',align:'center'}
 		  ,{field: 'fujianPath', title: '封面图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
-	      ,{field: 'timeAdd', title: '发布时间', align:'center',sort:true}
+	      ,{field: 'timeAdd', title: '发布时间', align:'center'}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
@@ -51,8 +60,27 @@ layui.use(['jquery','table','form'], function(){
 	    });
     })
     $('#newsadd').on('click', function(){
-		AddTab('新增'+$("title").text(),'table_news'+ 'new',"xxydadd")
-    	
+    	//do somehing
+	    let index = layui.layer.open({
+            title : "查看 | 编辑",
+            type : 2,
+            content : "xxydadd",
+            success : function(layero, index){
+            },
+			end:function(){
+                table.reload('table_news', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
+            }
+        })
+        console.log('add index-----',index)
+        layui.layer.full(index);
+	        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+	        $(window).on("resize",function(){
+	            layui.layer.full(index);
+	        })
     })
     //监听工具条
 	table.on('tool(news_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -61,8 +89,33 @@ layui.use(['jquery','table','form'], function(){
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	  console.log('dddd')
 	  if(layEvent === 'edit'){ //查看
-		AddTab('编辑'+$("title").text(),'news_table'+ obj.data.id,"xxydadd?id="+data.id)
-	  
+	    //do somehing
+	    let index = layui.layer.open({
+            title : "查看 | 编辑",
+            type : 2,
+            content : "xxydadd?id="+data.id,
+            success : function(layero, index){
+            },
+			end:function(){
+                table.reload('table_news', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
+            }
+        })
+        console.log('edit index-----',index)
+        layui.layer.full(index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize",function(){
+            layui.layer.full(index);
+        })
+
+        //同步更新缓存对应的值
+	    // obj.update({
+	    //   username: '123'
+	    //   ,title: 'xxx'
+	    // });
 	  } else if(layEvent === 'del'){ //删除
         console.log('data-----',data)
 	    layer.confirm('确定删除吗?',{closeBtn: 0}, function(index){

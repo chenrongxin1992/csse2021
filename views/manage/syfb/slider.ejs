@@ -19,12 +19,11 @@
 	</style>
 </head>
     <br>
+    <button class="layui-btn layui-btn-sm btnfloat" id="ptgladd" style="float: right;margin-right: 15px;"><i class="layui-icon">&#xe654;</i>新增</button>
     <div style="clear:both;"></div> 
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：首页发布 > 轮动图 </div><button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
-	<%- include('../search.ejs', {realod_id: 'table_slider'}); %>
 	<table id="slider_table" lay-filter="slider_table"></table>
 
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
 layui.use(['jquery','table','form'], function(){ 
     let $ = layui.$ //重点处
@@ -38,11 +37,11 @@ layui.use(['jquery','table','form'], function(){
 	    ,url: '<%=base_url%>slider_data' //数据接口
 	    ,page: true //开启分页
 	    ,cols: [[ //表头
-	      {type:'numbers', title: '序号',width:90,align:'center',sort:true}
-	      ,{field: 'title', title: '标题',align:'center',sort:true}
-	      ,{field: 'title1', title: '标题(EN)',align:'center',sort:true}
+	      {type:'numbers', title: '序号',width:90,align:'center'}
+	      ,{field: 'title', title: '标题',align:'center'}
+	      ,{field: 'title1', title: '标题(EN)',align:'center'}
 	      ,{field: 'pic', title: '图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
-	      ,{field: 'url', title: '链接', align:'center',sort:true}
+	      ,{field: 'url', title: '链接', align:'center'}
 	      //,{field: 'isDisplay', title: '是否显示', align:'center',templet:'#displaytpl'}
 	      //,{field: 'timeEdit', title: '修改时间', align:'center'}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
@@ -50,9 +49,23 @@ layui.use(['jquery','table','form'], function(){
 	  });
     //数据重载
 
-    $('#newsadd').on('click', function(){
-		AddTab('新增'+$("title").text(),'table_slider'+ 'new',"slideradd")
-    	
+    $('#ptgladd').on('click', function(){
+    	//do somehing
+	    let index = layui.layer.open({
+            title : "新增 | 编辑",
+            type : 2,
+            content : "slideradd",
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_slider')
+			}
+        })
+        layui.layer.full(index);
+	        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+	        $(window).on("resize",function(){
+	            layui.layer.full(index);
+	        })
     })
     //监听工具条
 	table.on('tool(slider_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -61,9 +74,23 @@ layui.use(['jquery','table','form'], function(){
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	  console.log('dddd')
 	  if(layEvent === 'edit'){ //查看
-		AddTab('编辑'+$("title").text(),'slider_table'+ obj.data.id,"slideradd?id="+data.id)
 	    //do somehing
-	   
+	    let index = layui.layer.open({
+            title : "查看 | 编辑",
+            type : 2,
+            content : "slideradd?id="+data.id,
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_slider')
+			}
+        })
+        console.log('index',index)
+        layui.layer.full(index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize",function(){
+            layui.layer.full(index);
+        })
 	  } else if(layEvent === 'del'){ //删除
 	    layer.confirm('确定删除吗?',{skin: 'layui-layer-molv' //样式类名
 				                     ,closeBtn: 0}, function(index){

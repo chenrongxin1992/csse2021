@@ -19,11 +19,11 @@
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">标题<b style="color: red;">*</b></label>
-					<div class="form-item-inline" >
+					<div class="layui-input-inline" style="width: 272px;">
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
 				    <label class="layui-form-label">标题(EN)</label>
-				    <div class="form-item-inline" >
+				    <div class="layui-input-inline" style="width: 272px;">
 				      <input type="text" name="titleEN"  autocomplete="off" class="layui-input" id="titleEN">
 				    </div>
 				</div>
@@ -32,32 +32,29 @@
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">发布时间<b style="color: red;">*</b></label>
-					<div class="form-item-inline" >
+					<div class="layui-input-inline" style="width: 272px;">
 	        			<input type="text" class="layui-input" id="timeAdd" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
 	      			</div>
 					<label class="layui-form-label">更新时间<b style="color: red;">*</b></label>
-					<div class="form-item-inline" >
+					<div class="layui-input-inline" style="width: 272px;">
 	        			<input type="text" class="layui-input" id="timeEdit" placeholder="yyyy/MM/dd HH:mm:ss" lay-verify='required'>
 	      			</div>
 				</div>
 			</div>
 
 			<div class="layui-form-item">
-				<label class="layui-form-label">详情</label>
-				<div class="layui-input-block" id="intro_bk">
-					<textarea id="pageContent"  value="<%=data.pageContent%>" /><%=data.pageContent%></textarea>
-					
+				<label class="layui-form-label">内容<b style="color: red;">*</b></label>
+				<div class="layui-input-block" id="content_bk">
+					<input id="contentValue"  value="<%=data.pageContent%>" type="hidden" />
+					<script id="pageContent" type="text/plain" ></script>
 				</div>
 			</div>
+
 			<div class="layui-form-item">
-				<label class="layui-form-label"></label>
-				<button type="button" class="layui-btn" id="copy">一键复制到英文</button>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">详情(EN)</label>
-				<div class="layui-input-block" id="eintro_bk">
-					<textarea id="pageContentEN"  value="<%=data.pageContentEN%>" /><%=data.pageContentEN%></textarea>
-					
+				<label class="layui-form-label">内容(EN)</label>
+				<div class="layui-input-block" id="econtent_bk">
+					<input id="econtentValue"  value="<%=data.pageContentEN%>" type="hidden" />
+					<script id="pageContentEN" type="text/plain" ></script>
 				</div>
 			</div>
 
@@ -70,7 +67,11 @@
 		</div>
 	</form>
 
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
 <!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script type="text/javascript">
 layui.use(['jquery','layer','form','laydate'], function(){ 
@@ -90,18 +91,30 @@ layui.use(['jquery','layer','form','laydate'], function(){
 		value: new Date()
 	});
     let id = '<%- data.id %>'
-    let pageContent = CKEDITOR.replace("pageContent");
-	let pageContentENEditor = CKEDITOR.replace("pageContentEN");
-	$('#copy').bind('click',function(){
-		pageContentENEditor.setData(pageContent.getData())
-	})
+    let ue1,ue2
+		ue1 = UE.getEditor('pageContent',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue1.ready(function () {//研究方向
+	   		console.log('初始内容...')
+	   		//先赋值给一个隐藏的input,然后获取再初始化
+	   		let htmlStr = $("#contentValue").val();
+	   		//console.log('htmlStr--->',htmlStr)
+	   		ue1.setContent(htmlStr,false)
+	    });
+		ue2 = UE.getEditor('pageContentEN',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('初始内容EN...')
+	   		let htmlStr = $("#econtentValue").val();
+	   		//console.log('ehtmlStr--->',htmlStr)
+	   		ue2.setContent(htmlStr,false)
+
+	    });
     form.on('submit(update)', function(data){
 	  //更新
 	  data.field.id = id
 	  data.field.title = $('#title').val()
 	  data.field.titleEN = $('#titleEN').val()
-	  data.field.pageContent = pageContent.getData()
-	  data.field.pageContentEN = pageContentENEditor.getData()
+	  data.field.pageContent = ue1.getContent()
+	  data.field.pageContentEN = ue2.getContent()
 	  data.field.timeAdd = $('#timeAdd').val()
 	  data.field.timeEdit = $('#timeEdit').val()
 	  console.log('update data field',data.field);
