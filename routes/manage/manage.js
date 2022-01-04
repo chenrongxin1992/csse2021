@@ -85,7 +85,10 @@ router.get('/login', function(req, res, next) {
 				}
 				//20211231新增登录限制，一天中登录失败5次，不给登录
 				if(doc){
-					if(doc.login_num>=5){
+					let doc_login_date = moment(doc.login_date),
+							today = moment().format('YYYY-MM-DD')
+						console.log('check today,login_date----->',today,doc_login_date,doc_login_date.isSame(today,'date'))
+					if(doc.login_num>=5&&doc_login_date.isSame(today,'date')){
 						console.log('doc.login_num------->',doc.login_num)
 						return res.json({'code':-1,msg:'您今天输入密码错误5次，请明天再试。'})
 					}
@@ -93,9 +96,7 @@ router.get('/login', function(req, res, next) {
 					console.log('记录中的密码 & 提交密码--------',doc.password,cryptoPassFunc(req.body.password))
 					if(doc.password != cryptoPassFunc(req.body.password)){
 						console.log('------------密码错误，修改密码错误次数------------')
-						let doc_login_date = moment(doc.login_date),
-							today = moment().format('YYYY-MM-DD')
-						console.log('check today,login_date----->',today,doc_login_date,doc_login_date.isSame(today,'date'))
+						
 						if(doc_login_date.isSame(today,'date')){
 							console.log('同一天登录，密码错误，次数加1')
 							let update_obj = {
@@ -197,8 +198,10 @@ router.get('/login', function(req, res, next) {
 								}
 								return res.json({'code':0})
 							})
+						}else{
+							return res.json({'code':0})
 						}
-						return res.json({'code':0})
+						
 					}
 				}
 				if(!doc){
