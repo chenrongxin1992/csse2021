@@ -19,9 +19,54 @@
 		#fujian p{
 			margin-bottom: 5px;
 		}
-		
-		
-        
+		.w-e-text-container{
+	    	height: 250px !important;
+	    }
+	    .layui-form-select dl{
+	        z-index: 99999;
+	    }
+		.uploader-list {
+            margin-left: -15px;
+        }
+        .uploader-list .info {
+            position: relative;
+            margin-top: -25px;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            width: 100px;
+            height: 25px;
+            text-align: center;
+            display: none;
+        }
+        .uploader-list .handle {
+            position: absolute;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            /* -moz-opacity: 0.5;
+            opacity: 0.5; */
+            /* text-align: right; */
+            /* display: none; */
+			right: 0;
+			width: 100%;
+        }
+        .uploader-list .handle i {
+            margin: 0 auto;
+    		display: block;
+			text-align: center;
+        }
+        .uploader-list .handle i:hover {
+            cursor: pointer;
+        }
+        .uploader-list .file-iteme {
+            margin: 12px 0 0 15px;
+            padding: 1px;
+            float: left;
+			position: relative;
+        }
 	</style>
 </head>
 <body class="childrenBody">
@@ -30,58 +75,40 @@
 
 			<div class="layui-form-item">
 				<div class="layui-inline">
-					<div class="form-item">
-						<label class="layui-form-label">成果名称</label>
-						<div class="form-item-inline" >
-						<input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
-						</div>
+					<label class="layui-form-label">成果名称</label>
+					<div class="layui-input-inline" style="width: 450px;">
+				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
-					<div class="form-item">
-						<label class="layui-form-label">年份</label>
-						<div class="form-item-inline" >
-						<!--<input type="text" name="year" lay-verify="yearverify" autocomplete="off" class="layui-input" id="year">-->
-						<input type="text" id="year"  class="selectpage layui-input" showField='title' keyField='title' url='./year' value="<%=data.year%>"  data-init="<%=data.year%>" > 
-						</div>
+                    <label class="layui-form-label">年份</label>
+					<div class="layui-input-inline" style="width: 450px;">
+				      <input type="text" name="year" lay-verify="yearverify" autocomplete="off" class="layui-input" id="year">
 				    </div>
 				</div>
 			</div>
             <div class="layui-form-item">
 				<div class="layui-inline">
-					<div class="form-item">
-						<label class="layui-form-label">刊物</label>
-						<div class="form-item-inline input-box" >
-							<!--<input type="text" name="year" lay-verify="yearverify" autocomplete="off" class="layui-input" id="year">-->
-							<input class="layui-input wx-input" id="kanwu" name='kanwu' showField='title' keyField='title' url='kanwu' value ="<%=data.kanwu%>" autocomplete="off">
-							<!--<input type="text" id="kanwu"  class="selectpage layui-input" showField='title' keyField='title' url='./kanwu' value="<%=data.kanwu%>"  data-init="<%=data.kanwu%>" > -->
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="layui-form-label">作者</label>
-						<div class="form-item-inline" >
-						<input type="text" name="zuozhe" lay-verify="required" autocomplete="off" class="layui-input" id="zuozhe" value="<%=data.zuozhe%>" placeholder="多个作者按顺序用,隔开">
-						</div>
+					<label class="layui-form-label">刊物</label>
+					<div class="layui-input-inline" style="width: 450px;">
+				      <input type="text" name="kanwu" lay-verify="required" autocomplete="off" class="layui-input" id="kanwu">
 				    </div>
-					
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<div class="layui-inline">
-					<div class="form-item">
-						<label class="layui-form-label">研究所</label>
-						<div class="form-item-inline" >
-							<select name="belongsto" lay-filter="belongsto" id="belongsto">
-								<option value="其它"  belongstoid="10" belongsto1="">其它</option>
-								<option value="教学系" suoxiid="9" belongsto1="">教学系</option>
-								<option value="高性能计算研究所" belongstoid="1" belongsto1="National High Performance Computing Center (NHPCC) at Shenzhen">高性能计算研究所</option>
-								<option value="大数据技术与应用研究所"  belongstoid="2" belongsto1="Big Data Institute">大数据技术与应用研究所</option>
-								<option value="未来媒体技术与计算研究所"  belongstoid="3" belongsto1="Research Institute for Future Media Computing">未来媒体技术与计算研究所</option>
-								<option value="网络与信息安全研究所"  belongstoid="4" belongsto1="Research Institute of Network and Information Security">网络与信息安全研究所</option>
-								<option value="计算机视觉研究所"  belongstoid="5" belongsto1="Institute of Computer Vision">计算机视觉研究所</option>
-								<option value="智能技术与系统集成研究所" belongstoid="6" belongsto1="Research Institute of Intelligence Technology and System Integration">智能技术与系统集成研究所</option>
-								<option value="物联网研究中心"  belongstoid="7" belongsto1="The IoT Research Center">物联网研究中心</option>
-								<option value="可视计算研究中心"  belongstoid="8" belongsto1="Visual Computing Research Center (VCC)">可视计算研究中心</option>
-							</select>
-						</div>
+                    <!-- <label class="layui-form-label">作者</label>
+					<div class="layui-input-inline" style="width: 450px;">
+				      <input type="text" name="zuozhe" lay-verify="required" autocomplete="off" class="layui-input" id="zuozhe" placeholder="多个作者按顺序用,隔开">
+				    </div> -->
+					<label class="layui-form-label">研究所</label>
+					<div class="layui-input-inline" style="width: 450px;position: relative;z-index: 1000000;">
+                        <select name="belongsto" lay-filter="belongsto" id="belongsto">
+                            <option value="其它"  belongstoid="10" belongsto1="">其它</option>
+							<option value="教学系" suoxiid="9" belongsto1="">教学系</option>
+                            <option value="高性能计算研究所" belongstoid="1" belongsto1="National High Performance Computing Center (NHPCC) at Shenzhen">高性能计算研究所</option>
+                            <option value="大数据技术与应用研究所"  belongstoid="2" belongsto1="Big Data Institute">大数据技术与应用研究所</option>
+                            <option value="未来媒体技术与计算研究所"  belongstoid="3" belongsto1="Research Institute for Future Media Computing">未来媒体技术与计算研究所</option>
+                            <option value="网络与信息安全研究所"  belongstoid="4" belongsto1="Research Institute of Network and Information Security">网络与信息安全研究所</option>
+                            <option value="计算机视觉研究所"  belongstoid="5" belongsto1="Institute of Computer Vision">计算机视觉研究所</option>
+                            <option value="智能技术与系统集成研究所" belongstoid="6" belongsto1="Research Institute of Intelligence Technology and System Integration">智能技术与系统集成研究所</option>
+                            <option value="物联网研究中心"  belongstoid="7" belongsto1="The IoT Research Center">物联网研究中心</option>
+                            <option value="可视计算研究中心"  belongstoid="8" belongsto1="Visual Computing Research Center (VCC)">可视计算研究中心</option>
+                        </select>
 				    </div>
 				</div>
 			</div>
@@ -89,7 +116,7 @@
 				<div class="layui-inline">
 					
 					<!-- <label class="layui-form-label">单位</label>
-					<div class="layui-input-inline" >
+					<div class="layui-input-inline" style="width: 450px;">
 				      <input type="text" name="danwei" lay-verify="required" autocomplete="off" class="layui-input" id="danwei">
 				    </div> -->
 				</div>
@@ -107,7 +134,6 @@
 					
 				</div>
 			</div>
-			
 			<div class="layui-form-item">
 				<label class="layui-form-label">封面图</label>
 				<button type="button" class="layui-btn" id="test1">上传</button>
@@ -120,33 +146,24 @@
 				</div>
 				 <!-- <p style="margin-left: 105px;">(1100px * 240px)</p> -->
 			</div>
-			
-			<div class="layui-form-item">
-				<label class="layui-form-label">导入</label>
-				<button type="button" class="layui-btn" id="wordimport" toid="pageContent">导入word(docx)</button>
-			</div>
-			
+
 			<div class="layui-form-item">
 				<label class="layui-form-label">详情</label>
 				<div class="layui-input-block" id="intro_bk">
-					<textarea id="pageContent"  value="<%=data.pageContent%>" /><%=data.pageContent%></textarea>
-					
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label"></label>
-				<button type="button" class="layui-btn" id="copy">一键复制到英文</button>
-				<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>提交</a>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">详情(EN)</label>
-				<div class="layui-input-block" id="eintro_bk">
-					<textarea id="pageContentEN"  value="<%=data.pageContentEN%>" /><%=data.pageContentEN%></textarea>
-					
+					<input id="pageContent"  value="<%=data.pageContent%>" type="hidden" />
+					<script id="intro" type="text/plain" ></script>
 				</div>
 			</div>
 
-			<div class="layui-form-item" style="text-align: center;">
+			<div class="layui-form-item">
+				<label class="layui-form-label">详情(EN)</label>
+				<div class="layui-input-block" id="eintro_bk">
+					<input id="pageContentEN"  value="<%=data.pageContentEN%>" type="hidden" />
+					<script id="eintro" type="text/plain" ></script>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
 				<hr class="layui-bg-gray" />
 				<div class="layui-col-md-offset1">
 					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>提交</a>
@@ -154,9 +171,16 @@
 			</div>
 		</div>
 	</form>
-</body>
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript" src="../javascripts/easyUpload.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
+<!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script type="text/javascript">
+		
 $(function(){
 	// 以下为默认配置，重新配置后将覆盖
 	
@@ -189,19 +213,8 @@ $(function(){
 				});
 		});
     });
-	InitImgCropping("test1","uploader-list",1000/460,function(re){
-		if(re.code == 0 ){
-			$('#uploader-list').empty()
-			$('#uploader-list').append(
-				'<div id="" class="file-iteme">' +
-				'<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-				'<img style="height: 150px;" id="fmpic" src='+'../'+ re.fileName +'>' +
-				'</div>'
-			);
-		}
-	})
     //图标上传
-	/*let uploadInst = upload.render({
+	let uploadInst = upload.render({
 	    elem: '#test1'
         //本地与服务器
 	    ,url: '<%=base_url%>cglrupload'
@@ -218,11 +231,10 @@ $(function(){
 	    ,done: function(res){
 			layer.close(layer.msg());//关闭上传提示窗口
 	      console.log('upload success',res)
-		 $('#uploader-list').empty()
 		  $('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
                     '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-                    '<img style="height: 150px;" id="fmpic" src='+'../'+ res.data +'>' +
+                    '<img style="height: 150px;" id="fmpic" src='+ res.data +'>' +
                     '</div>'
                 );
           layer.msg('图片上传成功')
@@ -231,7 +243,7 @@ $(function(){
 	    ,error: function(){
 	      layer.msg('上传失败，请联系CRX')
 	    }
-	  });*/
+	  });
 	  upload.render({
 	    elem: '#tzggupload'
 	    ,url: '<%=base_url%>cglrupload'
@@ -277,26 +289,28 @@ $(function(){
 	});
     let form = layui.form,layer = layui.layer
     //先得到当前iframe层的索引
-	let pageContent = CKEDITOR.replace("pageContent");
-	let pageContentENEditor = CKEDITOR.replace("pageContentEN");
-	$('#copy').bind('click',function(){
-		pageContentENEditor.setData(pageContent.getData())
-	})
-	
     let id = '<%-data.id%>'
-    /*let pageContent = CKEDITOR.replace("pageContent");
-	let pageContentENEditor = CKEDITOR.replace("pageContentEN");
-	$('#copy').bind('click',function(){
-		pageContentENEditor.setData(pageContent.getData())
-	})
-	*/	
+    let ue1,ue2
+		ue1 = UE.getEditor('intro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue1.ready(function () {//研究方向
+	   		console.log('pageContent...',)
+	   		let htmlStr = $("#pageContent").val()
+	   		ue1.setContent(htmlStr,false)
+	    });
+		ue2 = UE.getEditor('eintro',{'initialFrameHeight':'350','initialFrameWidth':'100%'})
+		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
+	   		console.log('pageContentEN...')
+	   		let htmlStr = $("#pageContentEN").val();
+	   		ue2.setContent(htmlStr,false)
+	    });
+		
     if(id==''||id==null||typeof(id)=='undefined'){
 		console.log('新增',id)
 	}else{
          //初始化表单值
         $('#title').val('<%- data.title%>')
         $('#year').val('<%- data.year%>')
-
+        $('#kanwu').val('<%- data.kanwu%>')
         $('#belongsto').val('<%=data.belongsto%>')
 		//20211106
 		let patharr = '<%=data.patharr%>',
@@ -314,10 +328,10 @@ $(function(){
 		}
 		//初始化封面图
 		$('#uploader-list').append(
-			'<div id="" class="file-iteme">' +
-			'<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-			'<img style="height: 150px;" id="fmpic" src=<%-data.fujianPath%> ></div>'
-		);
+                    '<div id="" class="file-iteme">' +
+                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
+                    '<img style="height: 150px;" id="fmpic" src=<%-data.fujianPath%> ></div>'
+                );
   		form.render()
 	}
 	form.verify({
@@ -350,17 +364,15 @@ $(function(){
          console.log('topstr',topstr)
 	  //更新
 	  data.field.id = id
-	  // data.field.pageContent =pageContent.getData()
-	  //data.field.pageContentEN = ue2.getContent()
-	  data.field.pageContent = pageContent.getData()
-	  data.field.pageContentEN = pageContentENEditor.getData()
+	  data.field.pageContent =ue1.getContent()
+	  data.field.pageContentEN = ue2.getContent()
 	  data.field.patharr = patharr.substring(0,patharr.length-1)
 	  data.field.namearr = namearr.substring(0,namearr.length-1)
 	  data.field.title = $('#title').val()
       data.field.year = $('#year').val()
-      data.field.kanwu =  $('#kanwu').val()
-      data.field.zuozhe = $('#zuozhe').val()
-	  data.field.danwei = $('#danwei').val()
+      data.field.kanwu = $('#kanwu').val()
+    //   data.field.zuozhe = $('#zuozhe').val()
+	//   data.field.danwei = $('#danwei').val()
       data.field.belongsto = $('#belongsto option:selected').val()
 	  data.field.belongstoid = $('#belongsto option:selected').attr('belongstoid')
 	  data.field.belongsto1 = $('#belongsto option:selected').attr('belongsto1')
@@ -388,9 +400,6 @@ $(function(){
 				  skin: 'layui-layer-molv' //样式类名
 				  ,closeBtn: 0
 				}, function(){
-					
-					parent.CloseCurrentTab()
-					//AddTab('成果录入','cglr_table',"cglr")
 					layer.close(frameindex);///关闭当前
 					
 					let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引

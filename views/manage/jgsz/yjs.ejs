@@ -19,11 +19,20 @@
     </style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：机构设置 > 研究所</div><button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
-	<%- include('../search.ejs', {realod_id: 'table_yjs'}); %>
+	<blockquote class="layui-elem-quote">当前位置：机构设置 > 研究所</blockquote>
+
+	<div class="demoTable">
+	  搜索：
+	  <div class="layui-inline">
+	    <input class="layui-input" name="search" id="search_txt" autocomplete="off">
+	  </div>
+	  <button class="layui-btn" data-type="reload" id="news_btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+	  <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button>
+	</div>
+
 	<table id="yjs_table" lay-filter="yjs_table"></table>
 
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
 layui.use(['jquery','table','form'], function(){ 
     let $ = layui.$ //重点处
@@ -39,11 +48,11 @@ layui.use(['jquery','table','form'], function(){
         ,limits: [15,30,45]
         ,limit: 15 //每页默认显示的数量
 	    ,cols: [[ //表头
-	      {type:'numbers', title: '序号',width:60,align:'center',sort:true}
-	      ,{field: 'title', title: '所名称',align:'center',width:350,sort:true}
-          ,{field: 'pageContent', title: '简介',align:'center',sort:true}
+	      {type:'numbers', title: '序号',width:60,align:'center'}
+	      ,{field: 'title', title: '所名称',align:'center',width:350}
+          ,{field: 'pageContent', title: '简介',align:'center'}
 		  ,{field: 'fujianPath', title: '图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
-	      ,{field: 'timeAdd', title: '发布时间', align:'center',width:180,sort:true}
+	      ,{field: 'timeAdd', title: '发布时间', align:'center',width:180,}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
@@ -56,8 +65,26 @@ layui.use(['jquery','table','form'], function(){
 	    });
     })
     $('#newsadd').on('click', function(){
-		AddTab('新增'+$("title").text(),'table_yjs'+ 'new',"yjsadd")
-    	
+    	//do somehing
+	    let index = layui.layer.open({
+            title : "查看 | 编辑",
+            type : 2,
+            content : "yjsadd",
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_yjs', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
+        layui.layer.full(index);
+	        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+	        $(window).on("resize",function(){
+	            layui.layer.full(index);
+	        })
     })
     //监听工具条
 	table.on('tool(yjs_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -66,8 +93,33 @@ layui.use(['jquery','table','form'], function(){
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	  console.log('dddd')
 	  if(layEvent === 'edit'){ //查看
-		AddTab('编辑'+$("title").text(),'yjs_table'+ obj.data.id,"yjsadd?id="+data.id)
-	   
+	    //do somehing
+	    let index = layui.layer.open({
+            title : "查看 | 编辑",
+            type : 2,
+            content : "yjsadd?id="+data.id,
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_yjs', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
+        console.log('index',index)
+        layui.layer.full(index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize",function(){
+            layui.layer.full(index);
+        })
+
+        //同步更新缓存对应的值
+	    // obj.update({
+	    //   username: '123'
+	    //   ,title: 'xxx'
+	    // });
 	  } else if(layEvent === 'del'){ //删除
         console.log('data-----',data)
 	    layer.confirm('确定删除吗?',{closeBtn: 0}, function(index){

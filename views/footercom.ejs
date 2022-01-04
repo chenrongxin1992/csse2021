@@ -133,7 +133,7 @@
     $(document).ready(function () {
         $('#changeL').click(function(){
             console.log('change to en')
-            $.get('/setLanguage', {
+            $.get('/csse/setLanguage', {
                 language:'0'
             }, function(data){
                 if(data.success){

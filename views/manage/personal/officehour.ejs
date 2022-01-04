@@ -19,10 +19,10 @@
     </style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：首页 > OfficeHour </div><button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
+	<blockquote class="layui-elem-quote">当前位置：首页 > OfficeHour <button class="layui-btn" data-type="getCheckData" style="float: right;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
 	<table id="oh_table" lay-filter="oh_table"></table>
 
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
 layui.use(['jquery','table','form'], function(){ 
     let $ = layui.$ //重点处
@@ -50,8 +50,27 @@ layui.use(['jquery','table','form'], function(){
 	    ]]
 	  });
     $('#newsadd').on('click', function(){
-		AddTab('新增'+$("title").text(),'table_oh'+ 'new',"ohadd")
-    	
+    	//do somehing
+	    let index = layui.layer.open({
+            title : "新增OfficeHour",
+            type : 2,
+            content : "ohadd",
+            area:screen() == 2 ? ['340px', '350px']:['48%','50%'],
+            success : function(layero, index){
+            },
+			end:function(){
+                table.reload('table_oh', {
+					where: {
+						//search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
+        // layui.layer.full(index);
+	    //     //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+	    //     $(window).on("resize",function(){
+	    //         layui.layer.full(index);
+	    //     })
     })
     //监听工具条
 	table.on('tool(oh_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -60,8 +79,34 @@ layui.use(['jquery','table','form'], function(){
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	  console.log('dddd')
 	  if(layEvent === 'edit'){ //查看
-		AddTab('编辑'+$("title").text(),'oh_table'+ obj.data.id,"ohadd?id="+data.id)
-	   
+	    //do somehing
+	    let index = layui.layer.open({
+            title : "查看 | 编辑",
+            type : 2,
+            area:screen() == 2 ? ['300px', '250px']:['48%','50%'],
+            content : "ohadd?id="+data.id,
+            success : function(layero, index){
+            },
+			end:function(){
+                table.reload('table_oh', {
+					where: {
+						//search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
+        // console.log('index',index)
+        // layui.layer.full(index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        // $(window).on("resize",function(){
+        //     layui.layer.full(index);
+        // })
+
+        //同步更新缓存对应的值
+	    // obj.update({
+	    //   username: '123'
+	    //   ,title: 'xxx'
+	    // });
 	  } else if(layEvent === 'del'){ //删除
         console.log('data-----',data)
 	    layer.confirm('确定删除吗?',{closeBtn: 0}, function(index){

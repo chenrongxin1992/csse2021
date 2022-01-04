@@ -18,11 +18,11 @@
     </style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：学院概况 > 现任领导</div> <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
-	<%- include('../search.ejs', {realod_id: 'table_xrld'}); %>
+	<blockquote class="layui-elem-quote">当前位置：学院概况 > 现任领导 <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
+
 	<table id="xrld_table" lay-filter="xrld_table"></table>
 
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript" src="../layui/layui.js"></script>
 <script type="text/javascript">
 layui.use(['jquery','table','form'], function(){ 
     let $ = layui.$ //重点处
@@ -38,18 +38,36 @@ layui.use(['jquery','table','form'], function(){
         ,limits: [15,30,45]
         ,limit: 15 //每页默认显示的数量
 	    ,cols: [[ //表头
-	      {type:'numbers', title: '序号',width:90,align:'center',sort:true}
-	      ,{field: 'name', title: '姓名',align:'center',sort:true}
-          ,{field: 'title', title: '职务',align:'center',sort:true}
-          ,{field: 'work', title: '分管工作',align:'center',sort:true}
-		  ,{field: 'paixu', title: '排序',align:'center',sort:true}
+	      {type:'numbers', title: '序号',width:90,align:'center'}
+	      ,{field: 'name', title: '姓名',align:'center'}
+          ,{field: 'title', title: '职务',align:'center'}
+          ,{field: 'work', title: '分管工作',align:'center'}
+		  ,{field: 'paixu', title: '排序',align:'center'}
 		  ,{field: 'pic', title: '照片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     $('#newsadd').on('click', function(){
-		AddTab('新增'+$("title").text(),'table_xrld'+ 'new',"xrldadd")
-    	
+    	//do somehing
+	    let index = layui.layer.open({
+            title : "查看 | 编辑",
+            type : 2,
+            content : "xrldadd",
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_xrld', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
+        layui.layer.full(index);
+	        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+	        $(window).on("resize",function(){
+	            layui.layer.full(index);
+	        })
     })
     //监听工具条
 	table.on('tool(xrld_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -58,8 +76,33 @@ layui.use(['jquery','table','form'], function(){
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	  console.log('dddd')
 	  if(layEvent === 'edit'){ //查看
-		AddTab('编辑'+$("title").text(),'xrld_table'+ obj.data.id,"xrldadd?id="+data.id)
-	   
+	    //do somehing
+	    let index = layui.layer.open({
+            title : "查看 | 编辑",
+            type : 2,
+            content : "xrldadd?id="+data.id,
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_xrld', {
+					where: {
+						search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
+        console.log('index',index)
+        layui.layer.full(index);
+        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+        $(window).on("resize",function(){
+            layui.layer.full(index);
+        })
+
+        //同步更新缓存对应的值
+	    // obj.update({
+	    //   username: '123'
+	    //   ,title: 'xxx'
+	    // });
 	  } else if(layEvent === 'del'){ //删除
         console.log('data-----',data)
 	    layer.confirm('确定删除吗?',{closeBtn: 0}, function(index){
