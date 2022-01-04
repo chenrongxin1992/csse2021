@@ -45,7 +45,8 @@ log4js.configure({
     }
 });
 //manage route
-const base_url = '/manage/'//'/manage/'
+const base_url = '/csse/manage/'//'/manage/'
+
 const logger1 = log4js.getLogger('default');
 const logger2 = log4js.getLogger('default');
 //console.log = logger2.info.bind(logger2)

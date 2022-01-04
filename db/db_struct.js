@@ -7,6 +7,7 @@
  const mongoose = require('mongoose')
  mongoose.Promise = global.Promise;
  //服务器上
+ //const DB_URL = 'mongodb://localhost:27017/csse'
  const DB_URL = 'mongodb://newcsse:youtrytry@localhost:27017/newcsse'
  //本地
  //const DB_URL = 'mongodb://localhost:27017/dxxxhjs'
