@@ -21,40 +21,40 @@ const cglr = require('../db/db_struct').cglr
 /* GET home page. */
 function checkMonth(arg){
 	if(arg=='1'||arg=='01'){
-		return 'January'
+		return 'Jan'
 	}
 	else if(arg=='2'||arg=='02'){
-		return 'February'
+		return 'Feb'
 	}
 	else if(arg=='3'||arg=='03'){
-		return 'March'
+		return 'Mar'
 	}
 	else if(arg=='4'||arg=='04'){
-		return 'April'
+		return 'Apr'
 	}
 	else if(arg=='5'||arg=='05'){
 		return 'May'
 	}
 	else if(arg=='6'||arg=='06'){
-		return 'June'
+		return 'Jun'
 	}
 	else if(arg=='7'||arg=='07'){
-		return 'July'
+		return 'Jul'
 	}
 	else if(arg=='8'||arg=='08'){
-		return 'August'
+		return 'Aug'
 	}
 	else if(arg=='9'||arg=='09'){
-		return 'September'
+		return 'Sep'
 	}
 	else if(arg=='10'){
-		return 'October'
+		return 'Oct'
 	}
 	else if(arg=='11'){
-		return 'November'
+		return 'Nov'
 	}
 	else{
-		return 'December'
+		return 'Dec'
 	}
 }
 router.get('/', function(req, res, next) {
@@ -673,7 +673,12 @@ router.get('/pages/research/index1',function(req,res){
 				patharr = (doc.patharr).split(',')
 				namearr = (doc.namearr).split(',')
 			}
-			res.render('pages/research/details',{L:req.query['L'],data:data,patharr:patharr,namearr:namearr})
+			if(req.query['L']=='1'){
+				res.render('pages/research/details',{L:req.query['L'],data:data,patharr:patharr,namearr:namearr})
+			}else{
+				res.render('pages/research/detailsen',{L:req.query['L'],data:data,patharr:patharr,namearr:namearr})
+			}	
+			
 		})
 }).get('/pages/research/index',function(req,res){
 	let page = req.query.p,
@@ -1030,19 +1035,19 @@ router.get('/pages/teacherTeam/index',function(req,res){
 		console.log('搜索----------------',search_txt)
 		if(zhicheng&&suoxi){
 			console.log('职称 && 所系')
-			searchobj = {peopleid:zhicheng,suoxiid:suoxi,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			searchobj = {display:1,peopleid:zhicheng,suoxiid:suoxi,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
 		}
 		if(zhicheng&&!suoxi){
 			console.log('职称')
-			searchobj = {peopleid:zhicheng,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			searchobj = {display:1,peopleid:zhicheng,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
 		}
 		if(!zhicheng&&suoxi){
 			console.log('所系')
-			searchobj = {suoxiid:suoxi,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			searchobj = {display:1,suoxiid:suoxi,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
 		}
 		if(!zhicheng&&!suoxi){
 			console.log('都没有')
-			searchobj = {userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			searchobj = {display:1,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
 		}
 		console.log('check searchobj --------',searchobj)
 		async.waterfall([
@@ -1099,7 +1104,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 				//统计所系人数
 				async.eachLimit(myarr,1,function(item,cbb){
 					console.log('item-------',item)
-					let search = user.find({suoxiid:item,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search = user.find({suoxiid:item,display:1,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}).count()
 						search.exec(function(err,count){
 							if(err){
 								cbb(err)
@@ -1157,19 +1162,19 @@ router.get('/pages/teacherTeam/index',function(req,res){
 		console.log('字母筛选----------------',i)
 		if(zhicheng&&suoxi){
 			console.log('职称 && 所系')
-			searchobj = {peopleid:zhicheng,suoxiid:suoxi,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			searchobj = {peopleid:zhicheng,suoxiid:suoxi,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
 		}
 		if(zhicheng&&!suoxi){
 			console.log('职称')
-			searchobj = {peopleid:zhicheng,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			searchobj = {peopleid:zhicheng,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
 		}
 		if(!zhicheng&&suoxi){
 			console.log('所系')
-			searchobj = {suoxiid:suoxi,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			searchobj = {suoxiid:suoxi,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
 		}
 		if(!zhicheng&&!suoxi){
 			console.log('都没有')
-			searchobj = {userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			searchobj = {display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
 		}
 		console.log('check searchobj --------',searchobj)
 		async.waterfall([
@@ -1226,7 +1231,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 				//统计所系人数
 				async.eachLimit(myarr,1,function(item,cbb){
 					console.log('item-------',item)
-					let search = user.find({suoxiid:item,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search = user.find({suoxiid:item,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}).count()
 						search.exec(function(err,count){
 							if(err){
 								cbb(err)
@@ -1287,7 +1292,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			async.waterfall([
 				function(cb){
 					//get count
-					let search = user.find({peopleid:zhicheng,suoxiid:suoxi,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search = user.find({peopleid:zhicheng,suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
 						search.exec(function(err,count){
 							if(err){
 								console.log('user get total err',err)
@@ -1338,7 +1343,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					//统计所系人数
 					async.eachLimit(myarr,1,function(item,cbb){
 						console.log('item-------',item)
-						let search = user.find({suoxiid:item,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						let search = user.find({suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
 							search.exec(function(err,count){
 								if(err){
 									cbb(err)
@@ -1398,7 +1403,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			async.waterfall([
 				function(cb){
 					//get count
-					let search = user.find({peopleid:zhicheng,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search = user.find({peopleid:zhicheng,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
 						search.exec(function(err,count){
 							if(err){
 								console.log('user get total err',err)
@@ -1444,7 +1449,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					//统计所系人数
 					async.eachLimit(myarr,1,function(item,cbb){
 						console.log('item-------',item)
-						let search = user.find({peopleid:zhicheng,suoxiid:item,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						let search = user.find({peopleid:zhicheng,suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
 							search.exec(function(err,count){
 								if(err){
 									cbb(err)
@@ -1512,7 +1517,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			async.waterfall([
 				function(cb){
 					//get count
-					let search = user.find({suoxiid:suoxi,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search = user.find({suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
 						search.exec(function(err,count){
 							if(err){
 								console.log('user get total err',err)
@@ -1563,7 +1568,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					//统计所系人数
 					async.eachLimit(myarr,1,function(item,cbb){
 						console.log('item-------',item)
-						let search = user.find({suoxiid:item,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						let search = user.find({suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
 							search.exec(function(err,count){
 								if(err){
 									cbb(err)
@@ -1621,7 +1626,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			async.waterfall([
 				function(cb){
 					//get count
-					let search = user.find({$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search = user.find({display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
 						search.exec(function(err,count){
 							if(err){
 								console.log('user get total err',err)
@@ -1678,7 +1683,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					//统计所系人数
 					async.eachLimit(myarr,1,function(item,cbb){
 						console.log('item-------',item)
-						let search = user.find({suoxiid:item,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						let search = user.find({suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
 							search.exec(function(err,count){
 								if(err){
 									cbb(err)

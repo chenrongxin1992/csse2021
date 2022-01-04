@@ -148,7 +148,10 @@
                                             <span class="s-txt">HOMEPAGE</span>
                                         </a>
                                         <div class="email">
-                                            <%=item.email%> <img class="img" src="../../image/teacher_image/documents@2x.png" />
+                                            <%if(item.email){%>
+                                                <%=item.email%> <img class="img" src="../../image/teacher_image/documents@2x.png" />
+                                            <%}%>
+                                            
                                         </div>
                                     </div>
                                 </div>
