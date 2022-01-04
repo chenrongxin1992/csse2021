@@ -130,6 +130,8 @@ const cmsContentSchema = new Schema({
  isCas:{type:Number,default:0},
  isDelete:{type:Number,default:0},
  url:{type:String},
+    content_source_url:{type:String},
+    digest:{type:String},
  idAdd:{type:Number},
  accountAdd:{type:String},
  fujianName:{type:String},//附件
@@ -153,7 +155,11 @@ const cmsContentSchema = new Schema({
  pyxm1:{type:String},//国际合作培养项目
  hbsort:{type:Number},//合作伙伴排序
  tag1:{type:String},//2021新增字段，标识所属一级菜单
- tag2:{type:String}//2021新增字段，标识当前菜单
+    tag2:{type:String},//2021新增字段，标识当前菜单
+    review:{type:String,default:0},//审核状态,
+    fromwx:{type:String,default:0},//是否来自于微信
+    mediaid:{type:String},//素材id
+    articleid:{type:String}//素材id
 },{collection:'cmsContent'})
 const cmsSliderSchema = new Schema({
  id:{type:Number},
@@ -267,12 +273,16 @@ const cglrSchema = new Schema({
  pageContentEN:{type:String},
  patharr:{type:String,default:null},//附件路径，用，隔开
  namearr:{type:String,default:null},//附件名，用，隔开
+    review:{type:String,default:0},//审核状态
 
  timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
  timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'cglr'})
+const kanwu = new Schema({ 
+},{collection:'kanwu'})
 
 exports.cglr = mongoose.model('cglr',cglrSchema)//成果录入
+exports.kanwu = mongoose.model('kanwu',kanwu)//成果录入
 exports.officehour = mongoose.model('officehour',officehourSchema)//本科招生
 exports.bkzs = mongoose.model('bkzs',bkzsSchema)//本科招生
 exports.bkzsinfo = mongoose.model('bkzsinfo',bkzsinfoSchema)//本科招生

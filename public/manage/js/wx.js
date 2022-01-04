@@ -9,7 +9,7 @@ const commonfunc = require('./commonfunc');
 const cmsContent = require('../../../db/db_struct').cmsContent//内容
 const attachmentuploaddir = path.resolve(__dirname, '../..')//G:\spatial_lab\public\attachment
 const moment  = require('moment')
-
+const basedir = '/csse/'
 const GetAccessToken = function(userreq,appid,appkey,callback){
    var app = express()
     let url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='+appid+'&secret='+appkey
@@ -113,9 +113,9 @@ const GetAccessToken = function(userreq,appid,appkey,callback){
                   commonfunc.TranlateMultiText("wx",saveitem.content,function(result){
                      saveitem.content = result
                      if(saveitem.thumb_url){
-                        let relativepath = '/attachment/wx/'+moment().format('YYYYMMDD')+'/'; 
+                        let relativepath = basedir + '/attachment/wx/'+moment().format('YYYYMMDD')+'/'; 
                         fs.existsSync(attachmentuploaddir+relativepath) || fs.mkdirSync(attachmentuploaddir+relativepath) 
-                        let newfilename =  relativepath+'wximg'+'_'+moment().unix()+'_'+ Math.round(Math.random()*100000000000) + '_' + '.jpg'
+                        let newfilename =   relativepath+'wximg'+'_'+moment().unix()+'_'+ Math.round(Math.random()*100000000000) + '_' + '.jpg'
                         let actualnewfilename =attachmentuploaddir + newfilename
                         //console.log("thumb_url",saveitem.thumb_url)
                         download(saveitem.thumb_url).pipe(fs.createWriteStream(actualnewfilename));

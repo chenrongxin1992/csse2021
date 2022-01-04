@@ -26,7 +26,7 @@ const moment  = require('moment')
 const attachmentuploaddir = path.resolve(__dirname, '../../public/attachment')//G:\spatial_lab\public\attachment
 fs.existsSync(attachmentuploaddir) || fs.mkdirSync(attachmentuploaddir)
 const async = require('async')
-const basedir = '/'
+const basedir = '/csse/'
 //参数code表示退出码
 process.on("exit",function(code){
 	//进行一些清理工作
@@ -478,7 +478,7 @@ router.get('/xyjj',function(req,res){
 			//1012更改，加入时间戳，防止同名文件覆盖
 			originalFilename.push(item.originalFilename)
 			let newfilename =  moment().unix() + '_' + item.originalFilename
-			returnimgurl.push('/'+baseimgpath+'/'+ newfilename)
+			returnimgurl.push(basedir +baseimgpath+'/'+ newfilename)
 			fs.renameSync(item.path,imgpath+'/'+ newfilename);
 			return res.json({'code':0,'msg':'update success','fileName':returnimgurl[0],uploaded:1,url:returnimgurl[0]})
 		});
@@ -498,7 +498,7 @@ router.get('/xyjj',function(req,res){
 		}else{
 			console.log("item:"+item)
 			console.log("newfilename:"+newfilename)
-			return res.json({'code':0,'msg':'update success','fileName': "/attachment"+newfilename,uploaded:1,url: "/attachment"+newfilename})
+			return res.json({'code':0,'msg':'update success','fileName': basedir+"/attachment"+newfilename,uploaded:1,url: "/attachment"+newfilename})
 		} 
 	});
 }).post('/xyjj',function(req,res){

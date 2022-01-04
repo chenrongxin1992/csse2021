@@ -9,31 +9,31 @@
 				{
 					"title": "学院简介",
 					"icon": "&#xe66c;",
-					"href": "/manage/xyjj",
+					"href": "/csse/manage/xyjj",
 					"spread": false
 				},
 				{
 					"title": "院长寄语",
 					"icon": "&#xe66c;",
-					"href": "/manage/yzjy",
+					"href": "/csse/manage/yzjy",
 					"spread": false
 				},
 				{
 					"title": "发展沿革",
 					"icon": "&#xe66c;",
-					"href": "/manage/fzyg",
+					"href": "/csse/manage/fzyg",
 					"spread": false
 				},
 				{
 					"title": "现任领导",
 					"icon": "&#xe66c;",
-					"href": "/manage/xrld",
+					"href": "/csse/manage/xrld",
 					"spread": false
 				},
 				{
 					"title": "学院标识",
 					"icon": "&#xe66c;",
-					"href": "/manage/xybs",
+					"href": "/csse/manage/xybs",
 					"spread": false
 				}
 			]
@@ -47,37 +47,37 @@
 				{
 					"title": "研究所",
 					"icon": "&#xe66c;",
-					"href": "/manage/yjs",
+					"href": "/csse/manage/yjs",
 					"spread": false
 				},
 				{
 					"title": "教学系",
 					"icon": "&#xe66c;",
-					"href": "/manage/jxx",
+					"href": "/csse/manage/jxx",
 					"spread": false
 				},
 				{
 					"title": "实验中心",
 					"icon": "&#xe66c;",
-					"href": "/manage/syzx",
+					"href": "/csse/manage/syzx",
 					"spread": false
 				},
 				{
 					"title": "行政办公室",
 					"icon": "&#xe66c;",
-					"href": "/manage/xzbgs",
+					"href": "/csse/manage/xzbgs",
 					"spread": false
 				},
 				{
 					"title": "期刊编辑部",
 					"icon": "&#xe66c;",
-					"href": "/manage/qkbjb",
+					"href": "/csse/manage/qkbjb",
 					"spread": false
 				},
 				{
 					"title": "国家工程实验室",
 					"icon": "&#xe66c;",
-					"href": "/manage/bdsc",
+					"href": "/csse/manage/bdsc",
 					"spread": false
 				}
 			]
@@ -91,56 +91,56 @@
 				{
 					"title": "杰出人才",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=1",
+					"href": "/csse/manage/jsdw?peopleid=1",
 					"spread": false
 				},
 				{
 					"title": "教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=2",
+					"href": "/csse/manage/jsdw?peopleid=2",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "副教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=3",
+					"href": "/csse/manage/jsdw?peopleid=3",
 					"spread": false
 				},
 				{
 					"title": "讲师",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=4",
+					"href": "/csse/manage/jsdw?peopleid=4",
 					"spread": false
 				},
 				{
 					"title": "助理教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=5",
+					"href": "/csse/manage/jsdw?peopleid=5",
 					"spread": false
 				},
 				{
 					"title": "专职研究人员",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?type=6",
+					"href": "/csse/manage/jsdw?type=6",
 					"spread": false
 				},
 				{
 					"title": "博士后",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=7",
+					"href": "/csse/manage/jsdw?peopleid=7",
 					"spread": false
 				},
 				{
 					"title": "技术/管理人员",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=8",
+					"href": "/csse/manage/jsdw?peopleid=8",
 					"spread": false
 				},
 				{
 					"title": "研究/辅助管理",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=9",
+					"href": "/csse/manage/jsdw?peopleid=9",
 					"spread": false
 				}
 			]
@@ -154,39 +154,39 @@
 				{
 					"title": "本科生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/bkszs",
+					"href": "/csse/manage/bkszs",
 					"spread": false
 				},
 				{
 					"title": "硕士生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/ssszs",
+					"href": "/csse/manage/ssszs",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "博士生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/bsszs",
+					"href": "/csse/manage/bsszs",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "成教招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/cjzkzs",
+					"href": "/csse/manage/cjzkzs",
 					"spread": false
 				},
 				{
 					"title": "自考招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/cjzkzs",
+					"href": "/csse/manage/cjzkzs",
 					"spread": false
 				},
 				{
 					"title": "人才招聘",
 					"icon": "&#xe66c;",
-					"href": "/manage/jszp",
+					"href": "/csse/manage/jszp",
 					"spread": false
 				}
 			]
@@ -200,7 +200,7 @@
 				{
 					"title": "成果录入",
 					"icon": "&#xe66c;",
-					"href": "/manage/cglr",
+					"href": "/csse/manage/cglr",
 					"spread": false
 				}
 			]
@@ -214,7 +214,7 @@
 				{
 					"title": "素材",
 					"icon": "&#xe66c;",
-					"href": "/manage/material",
+					"href": "/csse/manage/material",
 					"spread": false
 				}
 			]
@@ -228,20 +228,20 @@
 				{
 					"title": "合作伙伴",
 					"icon": "&#xe66c;",
-					"href": "/manage/hzhb",
+					"href": "/csse/manage/hzhb",
 					"spread": false
 				},
 				{
 					"title": "联合培养",
 					"icon": "&#xe66c;",
-					"href": "/manage/lhpy",
+					"href": "/csse/manage/lhpy",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "科研合作",
 					"icon": "&#xe66c;",
-					"href": "/manage/kyhz",
+					"href": "/csse/manage/kyhz",
 					"spread": false,
 					"target": ""
 				}
@@ -256,34 +256,34 @@
 				{
 					"title": "组织概况",
 					"icon": "&#xe66c;",
-					"href": "/manage/zzgk",
+					"href": "/csse/manage/zzgk",
 					"spread": false
 				},
 				{
 					"title": "规章制度",
 					"icon": "&#xe66c;",
-					"href": "/manage/gzzd",
+					"href": "/csse/manage/gzzd",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "通知公告",
 					"icon": "&#xe66c;",
-					"href": "/manage/tzgg",
+					"href": "/csse/manage/tzgg",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "党建活动",
 					"icon": "&#xe66c;",
-					"href": "/manage/djhd",
+					"href": "/csse/manage/djhd",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "学“习”园地",
 					"icon": "&#xe66c;",
-					"href": "/manage/xxyd",
+					"href": "/csse/manage/xxyd",
 					"spread": false,
 					"target": ""
 				}
@@ -298,34 +298,34 @@
 				{
 					"title": "轮动图",
 					"icon": "&#xe66c;",
-					"href": "/manage/slider",
+					"href": "/csse/manage/slider",
 					"spread": false
 				},
 				{
 					"title": "新闻中心",
 					"icon": "&#xe66c;",
-					"href": "/manage/jrnews",
+					"href": "/csse/manage/jrnews",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "通知公告",
 					"icon": "&#xe66c;",
-					"href": "/manage/notice",
+					"href": "/csse/manage/notice",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "计软风采",
 					"icon": "&#xe66c;",
-					"href": "/manage/jrfc",
+					"href": "/csse/manage/jrfc",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "highlights",
 					"icon": "&#xe66c;",
-					"href": "/manage/highlights",
+					"href": "/csse/manage/highlights",
 					"spread": false,
 					"target": ""
 				}
@@ -336,7 +336,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		}
 	],
 	"enMenu": [
@@ -349,25 +349,25 @@
 				{
 					"title": "Slider",
 					"icon": "&#xe62a;",
-					"href": "/manage/slider",
+					"href": "/csse/manage/slider",
 					"spread": false
 				},
 				{
 					"title": "Dean’s Message",
 					"icon": "&#xe63c;",
-					"href": "/manage/yzjy",
+					"href": "/csse/manage/yzjy",
 					"spread": false
 				},
 				{
 					"title": "Collaboration",
 					"icon": "&#xe66c;",
-					"href": "/manage/hzhb",
+					"href": "/csse/manage/hzhb",
 					"spread": false
 				},
 				{
 					"title": "Highlights",
 					"icon": "&#xe66c;",
-					"href": "/manage/highlights",
+					"href": "/csse/manage/highlights",
 					"spread": false,
 					"target": ""
 				}
@@ -382,25 +382,25 @@
 				{
 					"title": "General Information",
 					"icon": "&#xe62a;",
-					"href": "/manage/xyjj",
+					"href": "/csse/manage/xyjj",
 					"spread": false
 				},
 				{
 					"title": "Dean’s Message",
 					"icon": "&#xe63c;",
-					"href": "/manage/yzjy",
+					"href": "/csse/manage/yzjy",
 					"spread": false
 				},
 				{
 					"title": "Facts and Figures",
 					"icon": "&#xe62d;",
-					"href": "/manage/figures",
+					"href": "/csse/manage/figures",
 					"spread": false
 				},
 				{
 					"title": "Current Leaders",
 					"icon": "&#xe770;",
-					"href": "/manage/xrld",
+					"href": "/csse/manage/xrld",
 					"spread": false
 				}
 			]
@@ -414,37 +414,37 @@
 				{
 					"title": "Institutes",
 					"icon": "&#xe620;",
-					"href": "/manage/yjs",
+					"href": "/csse/manage/yjs",
 					"spread": false
 				},
 				{
 					"title": "Departments",
 					"icon": "&#xe620;",
-					"href": "/manage/jxx",
+					"href": "/csse/manage/jxx",
 					"spread": false
 				},
 				{
 					"title": "National Teaching Centers",
 					"icon": "&#xe620;",
-					"href": "/manage/syzx",
+					"href": "/csse/manage/syzx",
 					"spread": false
 				},
 				{
 					"title": "Admin Office",
 					"icon": "&#xe66c;",
-					"href": "/manage/xzbgs",
+					"href": "/csse/manage/xzbgs",
 					"spread": false
 				},
 				{
 					"title": "IJMLC Office",
 					"icon": "&#xe620;",
-					"href": "/manage/qkbjb",
+					"href": "/csse/manage/qkbjb",
 					"spread": false
 				},
 				{
 					"title": "National Laboratory",
 					"icon": "&#xe620;",
-					"href": "/manage/bdsc",
+					"href": "/csse/manage/bdsc",
 					"spread": false
 				}				
 			]
@@ -458,55 +458,55 @@
 				{
 					"title": "Outstanding Talent",
 					"icon": "&#xe612;",
-					"href": "/manage/jsdw?type=jcrc",
+					"href": "/csse/manage/jsdw?type=jcrc",
 					"spread": false
 				},
 				{
 					"title": "Professor",
 					"icon": "&#xe612;",
-					"href": "/manage/jsdw?type=professor",
+					"href": "/csse/manage/jsdw?type=professor",
 					"spread": false
 				},
 				{
 					"title": "Researcher",
 					"icon": "&#xe612;",
-					"href": "/manage/jsdw?type=yjy",
+					"href": "/csse/manage/jsdw?type=yjy",
 					"spread": false
 				},
 				{
 					"title": "Associate Professor",
 					"icon": "&#xe612;",
-					"href": "/manage/jsdw?type=fjs",
+					"href": "/csse/manage/jsdw?type=fjs",
 					"spread": false
 				},
 				{
 					"title": "Associate Researcher",
 					"icon": "&#xe612;",
-					"href": "/manage/jsdw?type=fyjy",
+					"href": "/csse/manage/jsdw?type=fyjy",
 					"spread": false
 				},
 				{
 					"title": "Assistant Professor",
 					"icon": "&#xe612;",
-					"href": "/manage/jsdw?type=zljs",
+					"href": "/csse/manage/jsdw?type=zljs",
 					"spread": false
 				},
 				{
 					"title": "Lecturer",
 					"icon": "&#xe612;",
-					"href": "/manage/jsdw?type=jiangshi",
+					"href": "/csse/manage/jsdw?type=jiangshi",
 					"spread": false
 				},
 				{
 					"title": "Postdoctoral Researcher",
 					"icon": "&#xe612;",
-					"href": "/manage/jsdw?type=boshihou",
+					"href": "/csse/manage/jsdw?type=boshihou",
 					"spread": false
 				},
 				{
 					"title": "Research/Admin Assistant",
 					"icon": "&#xe612;",
-					"href": "/manage/jsdw?type=qita",
+					"href": "/csse/manage/jsdw?type=qita",
 					"spread": false
 				}
 			]
@@ -519,19 +519,19 @@
 				{
 					"title": "Undergraduates",
 					"icon": "&#xe602;",
-					"href": "/manage/bkszs",
+					"href": "/csse/manage/bkszs",
 					"spread": false
 				},
 				{
 					"title": "Post-graduates",
 					"icon": "&#xe602;",
-					"href": "/manage/ssszs",
+					"href": "/csse/manage/ssszs",
 					"spread": false
 				},
 				{
 					"title": "Doctor Candidates",
 					"icon": "&#xe602;",
-					"href": "/manage/bsszs",
+					"href": "/csse/manage/bsszs",
 					"spread": false
 				}
 			]
@@ -539,13 +539,13 @@
 		{
 			"title": "Research",
 			"icon": "&#xe63c;",
-			"href": "/manage/research",
+			"href": "/csse/manage/research",
 			"spread": false
 		},
 		{
 			"title": "Join Us",
 			"icon": "&#xe770;",
-			"href": "/manage/zpxxen",
+			"href": "/csse/manage/zpxxen",
 			"spread": false
 		}
 	],
@@ -553,7 +553,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		},
 		{
 			"title": "党群工作",
@@ -564,34 +564,34 @@
 				{
 					"title": "组织概况",
 					"icon": "&#xe66c;",
-					"href": "/manage/zzgk",
+					"href": "/csse/manage/zzgk",
 					"spread": false
 				},
 				{
 					"title": "规章制度",
 					"icon": "&#xe66c;",
-					"href": "/manage/gzzd",
+					"href": "/csse/manage/gzzd",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "通知公告",
 					"icon": "&#xe66c;",
-					"href": "/manage/tzgg",
+					"href": "/csse/manage/tzgg",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "党建活动",
 					"icon": "&#xe66c;",
-					"href": "/manage/djhd",
+					"href": "/csse/manage/djhd",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "学“习”园地",
 					"icon": "&#xe66c;",
-					"href": "/manage/xxyd",
+					"href": "/csse/manage/xxyd",
 					"spread": false,
 					"target": ""
 				}
@@ -602,7 +602,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		},
 		{
 			"title": "机构设置",
@@ -613,37 +613,37 @@
 				{
 					"title": "研究所",
 					"icon": "&#xe66c;",
-					"href": "/manage/yjs",
+					"href": "/csse/manage/yjs",
 					"spread": false
 				},
 				{
 					"title": "教学系",
 					"icon": "&#xe66c;",
-					"href": "/manage/jxx",
+					"href": "/csse/manage/jxx",
 					"spread": false
 				},
 				{
 					"title": "实验中心",
 					"icon": "&#xe66c;",
-					"href": "/manage/syzx",
+					"href": "/csse/manage/syzx",
 					"spread": false
 				},
 				{
 					"title": "行政办公室",
 					"icon": "&#xe66c;",
-					"href": "/manage/xzbgs",
+					"href": "/csse/manage/xzbgs",
 					"spread": false
 				},
 				{
 					"title": "期刊编辑部",
 					"icon": "&#xe66c;",
-					"href": "/manage/qkbjb",
+					"href": "/csse/manage/qkbjb",
 					"spread": false
 				},
 				{
 					"title": "国家工程实验室",
 					"icon": "&#xe66c;",
-					"href": "/manage/bdsc",
+					"href": "/csse/manage/bdsc",
 					"spread": false
 				}
 			]
@@ -657,31 +657,31 @@
 				{
 					"title": "学院简介",
 					"icon": "&#xe66c;",
-					"href": "/manage/xyjj",
+					"href": "/csse/manage/xyjj",
 					"spread": false
 				},
 				{
 					"title": "院长寄语",
 					"icon": "&#xe66c;",
-					"href": "/manage/yzjy",
+					"href": "/csse/manage/yzjy",
 					"spread": false
 				},
 				{
 					"title": "发展沿革",
 					"icon": "&#xe66c;",
-					"href": "/manage/fzyg",
+					"href": "/csse/manage/fzyg",
 					"spread": false
 				},
 				{
 					"title": "现任领导",
 					"icon": "&#xe66c;",
-					"href": "/manage/xrld",
+					"href": "/csse/manage/xrld",
 					"spread": false
 				},
 				{
 					"title": "学院标识",
 					"icon": "&#xe66c;",
-					"href": "/manage/xybs",
+					"href": "/csse/manage/xybs",
 					"spread": false
 				}
 			]
@@ -695,20 +695,20 @@
 				{
 					"title": "合作伙伴",
 					"icon": "&#xe66c;",
-					"href": "/manage/hzhb",
+					"href": "/csse/manage/hzhb",
 					"spread": false
 				},
 				{
 					"title": "联合培养",
 					"icon": "&#xe66c;",
-					"href": "/manage/lhpy",
+					"href": "/csse/manage/lhpy",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "科研合作",
 					"icon": "&#xe66c;",
-					"href": "/manage/kyhz",
+					"href": "/csse/manage/kyhz",
 					"spread": false,
 					"target": ""
 				}
@@ -723,39 +723,39 @@
 				{
 					"title": "本科生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/bkszs",
+					"href": "/csse/manage/bkszs",
 					"spread": false
 				},
 				{
 					"title": "硕士生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/ssszs",
+					"href": "/csse/manage/ssszs",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "博士生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/bsszs",
+					"href": "/csse/manage/bsszs",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "成教招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/cjzkzs",
+					"href": "/csse/manage/cjzkzs",
 					"spread": false
 				},
 				{
 					"title": "自考招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/cjzkzs",
+					"href": "/csse/manage/cjzkzs",
 					"spread": false
 				},
 				{
 					"title": "人才招聘",
 					"icon": "&#xe66c;",
-					"href": "/manage/jszp",
+					"href": "/csse/manage/jszp",
 					"spread": false
 				}
 			]
@@ -769,34 +769,34 @@
 				{
 					"title": "轮动图",
 					"icon": "&#xe66c;",
-					"href": "/manage/slider",
+					"href": "/csse/manage/slider",
 					"spread": false
 				},
 				{
 					"title": "新闻中心",
 					"icon": "&#xe66c;",
-					"href": "/manage/jrnews",
+					"href": "/csse/manage/jrnews",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "通知公告",
 					"icon": "&#xe66c;",
-					"href": "/manage/notice",
+					"href": "/csse/manage/notice",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "计软风采",
 					"icon": "&#xe66c;",
-					"href": "/manage/jrfc",
+					"href": "/csse/manage/jrfc",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "highlights",
 					"icon": "&#xe66c;",
-					"href": "/manage/highlights",
+					"href": "/csse/manage/highlights",
 					"spread": false,
 					"target": ""
 				}
@@ -811,7 +811,7 @@
 				{
 					"title": "素材",
 					"icon": "&#xe66c;",
-					"href": "/manage/material",
+					"href": "/csse/manage/material",
 					"spread": false
 				}
 			]
@@ -821,7 +821,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		},
 		{
 			"title": "机构设置",
@@ -832,7 +832,7 @@
 				{
 					"title": "教学系",
 					"icon": "&#xe66c;",
-					"href": "/manage/jxx",
+					"href": "/csse/manage/jxx",
 					"spread": false
 				}
 			]
@@ -846,7 +846,7 @@
 				{
 					"title": "本科生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/bkszs",
+					"href": "/csse/manage/bkszs",
 					"spread": false
 				}
 			]
@@ -860,14 +860,14 @@
 				{
 					"title": "新闻中心",
 					"icon": "&#xe66c;",
-					"href": "/manage/jrnews",
+					"href": "/csse/manage/jrnews",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "通知公告",
 					"icon": "&#xe66c;",
-					"href": "/manage/notice",
+					"href": "/csse/manage/notice",
 					"spread": false,
 					"target": ""
 				}
@@ -878,7 +878,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		},
 		{
 			"title": "教师队伍",
@@ -889,56 +889,56 @@
 				{
 					"title": "杰出人才",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=1",
+					"href": "/csse/manage/jsdw?peopleid=1",
 					"spread": false
 				},
 				{
 					"title": "教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=2",
+					"href": "/csse/manage/jsdw?peopleid=2",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "副教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=3",
+					"href": "/csse/manage/jsdw?peopleid=3",
 					"spread": false
 				},
 				{
 					"title": "讲师",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=4",
+					"href": "/csse/manage/jsdw?peopleid=4",
 					"spread": false
 				},
 				{
 					"title": "助理教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=5",
+					"href": "/csse/manage/jsdw?peopleid=5",
 					"spread": false
 				},
 				{
 					"title": "专职研究人员",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?type=6",
+					"href": "/csse/manage/jsdw?type=6",
 					"spread": false
 				},
 				{
 					"title": "博士后",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=7",
+					"href": "/csse/manage/jsdw?peopleid=7",
 					"spread": false
 				},
 				{
 					"title": "技术/管理人员",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=8",
+					"href": "/csse/manage/jsdw?peopleid=8",
 					"spread": false
 				},
 				{
 					"title": "研究/辅助管理",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=9",
+					"href": "/csse/manage/jsdw?peopleid=9",
 					"spread": false
 				}
 			]
@@ -952,7 +952,7 @@
 				{
 					"title": "人才招聘",
 					"icon": "&#xe66c;",
-					"href": "/manage/jszp",
+					"href": "/csse/manage/jszp",
 					"spread": false
 				}
 			]
@@ -962,7 +962,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		},
 		{
 			"title": "教师队伍",
@@ -973,7 +973,7 @@
 				{
 					"title": "博士后",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?type=boshihou",
+					"href": "/csse/manage/jsdw?type=boshihou",
 					"spread": false
 				}
 			]
@@ -983,7 +983,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		},
 		{
 			"title": "机构设置",
@@ -994,7 +994,7 @@
 				{
 					"title": "行政办公室",
 					"icon": "&#xe66c;",
-					"href": "/manage/xzbgs",
+					"href": "/csse/manage/xzbgs",
 					"spread": false
 				}
 			]
@@ -1008,56 +1008,56 @@
 				{
 					"title": "杰出人才",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=1",
+					"href": "/csse/manage/jsdw?peopleid=1",
 					"spread": false
 				},
 				{
 					"title": "教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=2",
+					"href": "/csse/manage/jsdw?peopleid=2",
 					"spread": false,
 					"target": ""
 				},
 				{
 					"title": "副教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=3",
+					"href": "/csse/manage/jsdw?peopleid=3",
 					"spread": false
 				},
 				{
 					"title": "讲师",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=4",
+					"href": "/csse/manage/jsdw?peopleid=4",
 					"spread": false
 				},
 				{
 					"title": "助理教授",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=5",
+					"href": "/csse/manage/jsdw?peopleid=5",
 					"spread": false
 				},
 				{
 					"title": "专职研究人员",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?type=6",
+					"href": "/csse/manage/jsdw?type=6",
 					"spread": false
 				},
 				{
 					"title": "博士后",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=7",
+					"href": "/csse/manage/jsdw?peopleid=7",
 					"spread": false
 				},
 				{
 					"title": "技术/管理人员",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=8",
+					"href": "/csse/manage/jsdw?peopleid=8",
 					"spread": false
 				},
 				{
 					"title": "研究/辅助管理",
 					"icon": "&#xe66c;",
-					"href": "/manage/jsdw?peopleid=9",
+					"href": "/csse/manage/jsdw?peopleid=9",
 					"spread": false
 				}
 			]
@@ -1067,7 +1067,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		},
 		{
 			"title": "招生信息",
@@ -1078,7 +1078,7 @@
 				{
 					"title": "硕士生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/ssszs",
+					"href": "/csse/manage/ssszs",
 					"spread": false
 				}
 			]
@@ -1088,7 +1088,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		},
 		{
 			"title": "机构设置",
@@ -1099,7 +1099,7 @@
 				{
 					"title": "期刊编辑部",
 					"icon": "&#xe66c;",
-					"href": "/manage/qkbjb",
+					"href": "/csse/manage/qkbjb",
 					"spread": false
 				}
 			]
@@ -1113,7 +1113,7 @@
 				{
 					"title": "博士生招生",
 					"icon": "&#xe66c;",
-					"href": "/manage/bsszs",
+					"href": "/csse/manage/bsszs",
 					"spread": false
 				}
 			]
@@ -1123,7 +1123,7 @@
 		{
 			"title":"个人信息",
 			"icon": "&#xe612;",
-			"href": "/manage/userinfo"
+			"href": "/csse/manage/userinfo"
 		},
 		{
 			"title": "科研成果",
@@ -1134,7 +1134,7 @@
 				{
 					"title": "成果录入",
 					"icon": "&#xe66c;",
-					"href": "/manage/cglr",
+					"href": "/csse/manage/cglr",
 					"spread": false
 				}
 			]
@@ -1148,7 +1148,7 @@
 				{
 					"title": "素材",
 					"icon": "&#xe66c;",
-					"href": "/manage/material",
+					"href": "/csse/manage/material",
 					"spread": false
 				}
 			]

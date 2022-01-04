@@ -10,6 +10,7 @@
  var request = require('request');
  const moment  = require('moment')
  const async = require('async')
+ const basedir = '/csse/'
  const attachmentuploaddir = path.resolve(__dirname, '../..')//G:\spatial_lab\public\attachment
  const TranlateWordString = function TranlateWordString(str,callback){
 	if(str ==undefined||str==''){
@@ -25,7 +26,7 @@
     
             var dataBuffer = Buffer.from(imgData, 'base64');
             //写入文件
-            let newfilename =  '\\attachment\\word\\'+'wordimg'+'_'+moment().unix()+'_'+ index + '_' + '.jpg'
+            let newfilename =  basedir +'/attachment/word/'+'wordimg'+'_'+moment().unix()+'_'+ index + '_' + '.jpg'
             let actualnewfilename =attachmentuploaddir + newfilename
             //console.log(newfilename)
             fs.writeFile(actualnewfilename, dataBuffer, function(err){
@@ -66,7 +67,7 @@
 			item = item.replace("src=",'')	
             //将前台传来的base64数据去掉前缀
 			
-			let relativepath = '/attachment/wx/'+moment().format('YYYYMMDD')+'/'; 
+			let relativepath = basedir+ '/attachment/wx/' +moment().format('YYYYMMDD')+'/'; 
 			fs.existsSync(attachmentuploaddir+relativepath) || fs.mkdirSync(attachmentuploaddir+relativepath) 
 			let newfilename =  relativepath+'wximg'+'_'+moment().unix()+'_'+ Math.round(Math.random()*100000) + '_' + '.jpg'
 			let actualnewfilename =attachmentuploaddir + newfilename
@@ -118,7 +119,7 @@
 			item = item.replace(/\"/g,'')
 			//console.log(item)
             //将前台传来的base64数据去掉前缀
-			let newfilename =  '/attachment/wx/'+'wximg'+'_'+moment().unix()+'_'+ Math.round(Math.random()*100000) + '_' + '.jpg'
+			let newfilename =  basedir + '/attachment/wx/'+'wximg'+'_'+moment().unix()+'_'+ Math.round(Math.random()*100000) + '_' + '.jpg'
 			let actualnewfilename =attachmentuploaddir + item
 			//console.log(actualnewfilename)
 			//download(item).pipe(fs.createWriteStream(actualnewfilename));
