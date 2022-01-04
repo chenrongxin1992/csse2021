@@ -1701,7 +1701,7 @@ router.get('/cglr',function(req,res){
 				console.log('cmsContentadd async error',error)
 				return res.end(error)
 			}
-			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+			return res.json({'code':0,'data':[]})//返回跳转到该新增的项目
 		})
 	}else{
 		console.log('cmsContentadd',req.body)
@@ -1744,7 +1744,7 @@ router.get('/cglr',function(req,res){
 				return res.end(error)
 			}
 			console.log('cglradd',result)
-			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+			return res.json({'code':0,'data':[]})//返回跳转到该新增的项目
 		})
 	}
 }).post('/cglrupload',function(req,res){
