@@ -16,6 +16,7 @@ const bkzsinfo = require('../../db/db_struct').bkzsinfo
 const officehour = require('../../db/db_struct').officehour
 const cglr = require('../../db/db_struct').cglr
 const kanwu = require('../../db/db_struct').kanwu
+const forlog = require('../../db/db_struct').forlog
 const manageconfig = require('./manageconfig')
 const wx = require('../../public/manage/js/wx')
 const commonfunc = require('../../public/manage/js/commonfunc')
@@ -147,7 +148,7 @@ router.get('/login', function(req, res, next) {
 								req.session.powerType = 'dangqMenu'
 								req.session.menu = 'dangqMenu'
 							}
-							if(doc.userName == '樊婷'){
+							if(doc.userName == '樊婷'||doc.userName=='test'){
 								console.log('樊婷')
 								req.session.powerType = 'ftMenu'
 								req.session.menu = 'ftMenu'
@@ -5373,6 +5374,58 @@ router.get('/officehour',function(req,res){
 			return res.json({'code':'-1','msg':error})
 		}
 		return res.json({'code':'0','msg':'del ohdel success'})
+	})
+})
+//20220105
+router.get('/czjl',function(req,res){
+	console.log('in czjl')
+	res.render('manage/czjl')
+}).get('/czjl_data',function(req,res){
+	console.log('router czjl_data')
+	let page = req.query.page,
+		limit = req.query.limit,
+		search_txt = req.query.search_txt
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = forlog.find({}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('czjl_data get total err',err)
+						cb(err)
+					}
+					console.log('czjl_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+			let search = forlog.find({})
+				search.sort({'date':-1})
+				search.sort({'exacttime':-1})
+				search.limit(limit)
+				search.skip(numSkip)
+				search.exec(function(error,docs){
+					if(error){
+						console.log('news_data error',error)
+						cb(error)
+					}
+					cb(null,docs)
+				})
+		}
+	],function(error,result){
+		if(error){
+			console.log('czjl_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('czjl_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
 	})
 })
 

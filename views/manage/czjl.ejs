@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>操作记录</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+    <style>
+        .layui-table-cell{
+            height: auto !important;
+        }
+    </style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote">当前位置：后台首页 > 操作记录 </blockquote>
+
+	<table id="xrld_table" lay-filter="xrld_table"></table>
+
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form
+    table.render({
+	    elem: '#xrld_table'
+	    ,id:'table_xrld'//重载需要
+	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    //本地与服务器
+        ,url: '<%=base_url%>czjl_data' //数据接口
+	    ,page: true //开启分页
+        ,limits: [15,30,45]
+        ,limit: 15 //每页默认显示的数量
+	    ,cols: [[ //表头
+	      {type:'numbers', title: '序号',width:90,align:'center'}
+	      ,{field: 'ip', title: 'ip',align:'center'}
+          ,{field: 'user', title: '用户',align:'center'}
+          ,{field: 'url', title: '链接',align:'center'}
+		  ,{field: 'caozuo', title: '操作',align:'center'}
+		  ,{field: 'exacttime', title: '时间',align:'center'}
+	    ]]
+	  });
+    
+});
+</script>
+<script type="text/html" id="yjfxbar">
+
+  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="sytpimg">
+	<img src="{{d.pic}}" style="height: 100px;max-width: 100%;" class="previewimg" />
+</script>
+</body>
+</html>

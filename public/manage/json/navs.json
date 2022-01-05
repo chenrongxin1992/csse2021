@@ -330,6 +330,11 @@
 					"target": ""
 				}
 			]
+		},
+		{
+			"title":"操作记录",
+			"icon": "&#xe612;",
+			"href": "/csse/manage/czjl"
 		}
 	],
 	"normalMenu":[

@@ -71,8 +71,12 @@ layui.use(['jquery','table','form'], function(){
 	  if(layEvent === 'edit'){ //查看
 		AddTab('编辑'+$("title").text(),'news_table'+ obj.data.id,"jrxwadd?id="+data.id)
 	  } else if(layEvent === 'uploadwx'){ //删除
-		$(this).text("操作中...")
 		var data = obj.data; 
+		if(data.fujianPath =='' ||data.fujianPath ==null||data.fujianPath ==undefined){
+			layer.msg('请先上传封面')
+			return;
+		}
+		$(this).text("操作中...")
 		let that = this
 		$.ajax({
 			//本地与服务器

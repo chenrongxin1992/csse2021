@@ -177,7 +177,7 @@ const GetAccessToken = function(userreq,appid,appkey,callback){
                      "thumb_media_id": data.thumb_media_id,
                      "author": 'CSSE',
                      "digest": data.title,
-                     "show_cover_pic": 1,
+                     "show_cover_pic": 0,
                      "content": data.content,
                      "content_source_url": 'csse.shubiao.store',
                      "need_open_comment":0,

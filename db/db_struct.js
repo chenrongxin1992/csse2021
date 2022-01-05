@@ -281,6 +281,17 @@ const cglrSchema = new Schema({
 const kanwu = new Schema({ 
 },{collection:'kanwu'})
 
+//20220105 操作记录
+const forlogSchema = new Schema({ 
+    ip:{type:String},
+    caozuo :{type:String},//
+    url :{type:String},//
+    date:{type:String,default:moment().format('YYYY-MM-DD')},
+    exacttime : {type:String},//
+    user : {type:String}
+},{collection:'forlog'})
+
+exports.forlog = mongoose.model('forlog',forlogSchema)
 exports.cglr = mongoose.model('cglr',cglrSchema)//成果录入
 exports.kanwu = mongoose.model('kanwu',kanwu)//成果录入
 exports.officehour = mongoose.model('officehour',officehourSchema)//本科招生

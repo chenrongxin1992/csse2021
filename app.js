@@ -11,7 +11,9 @@ var usersRouter = require('./routes/users');
 //20210730
 const manage = require('./routes/manage/manage');
 const ueditor = require('./routes/ueditor/ueditor');
-
+//20220105
+const moment = require('moment')
+const forlog = require('./db/db_struct').forlog
 //20210730
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
@@ -105,16 +107,66 @@ app.use(function(req,res,next){
     }
     next()
 })
-//check ip
+//check ip && 操作记录
 app.use(function(req,res,next){
   let ip = req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
   req.connection.remoteAddress || // 判断 connection 的远程 IP
   req.socket.remoteAddress || // 判断后端的 socket 的 IP
-  req.connection.socket.remoteAddress;
-  console.log('ip ----->' ,ip)
-  next()
+  req.connection.socket.remoteAddress || 
+  req.headers['x-real-ip']
+  if(ip){
+    // 拿到ip进行下一步操作
+    //res.send({ip:ip})
+  }else{ 
+      //获取不到时
+      ip =req.ip().substring(req.ip().lastIndexOf(":") + 1)	
+  }
+  console.log('ip --------------------->' ,ip)
+  let url = req.originalUrl
+  console.log('访问链接---------------------------->',url)
+  if(url.indexOf('manage')!=-1){
+    console.log('--------------访问后台链接，检查session---------------')
+    if(req.session.account){
+      let newforlog = new forlog({
+        ip:ip,
+        url:url,
+        date:moment().format('YYYY-MM-DD'),
+        exacttime:moment().format('YYYY-MM-DD HH:mm:ss'),
+        user:req.session.account,
+        caozuo:check_caozuo(url)
+      })
+      newforlog.save(function(error){
+        if(error){
+          next(error)
+        }
+        next()
+      })
+    }else{
+      console.log('----------用户未登录，暂不操作----------------')
+      next()
+    }
+  }else{
+    next()
+  }
 })
-
+//20220105
+function check_caozuo(url){
+  if(url.indexOf('add')!=-1){
+    return '新增/更新'
+  }
+  else if(url.indexOf('del')!=-1){
+    return '删除'
+  }
+  else if(url.indexOf('upload')!=-1){
+    return '上传'
+  }
+  else if(url.indexOf('_data')!=-1){
+    return '查询'
+  }
+  else{
+    return '手动确认'
+  }
+}
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //20210730
@@ -131,7 +183,7 @@ app.use('/manage',function(req,res,next){
         console.log('no login redirect')
         //本地与服务器
         //return res.redirect('/manage/login')
-        return res.redirect('/manage/login')//本地
+        return res.redirect('/csse/manage/login')//本地
     }else{
       console.log('------- 有session 设置 ----------')
       res.locals.username = req.session.username;   // 从session 获取 user对象
