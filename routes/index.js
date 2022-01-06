@@ -2320,7 +2320,7 @@ router.get('/pages/news/index',function(req,res){
 	}
 	let total = 0,data={}
 	console.log('page limit',page,limit)
-
+	obj['isDisplay']=1
 	console.log('check obj -------',obj)
 	async.waterfall([
 		function(cb){

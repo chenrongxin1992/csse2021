@@ -5427,6 +5427,15 @@ router.get('/czjl',function(req,res){
 		console.log('czjl_data async waterfall success')
 		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
 	})
+}).post('/resetloginnum',function(req,res){
+	console.log('resetloginnum',req.body._id)
+	user.updateOne({'account':req.body.user},{login_num:0},function(error){
+		if(error){
+			console.log('resetloginnum del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'resetloginnum success'})
+	})
 })
 
 module.exports = router;

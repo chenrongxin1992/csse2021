@@ -44,15 +44,46 @@ layui.use(['jquery','table','form'], function(){
           ,{field: 'url', title: '链接',align:'center'}
 		  ,{field: 'caozuo', title: '操作',align:'center'}
 		  ,{field: 'exacttime', title: '时间',align:'center'}
+          ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
-    
+    //监听工具条
+	table.on('tool(xrld_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	  console.log('dddd')
+	  if(layEvent === 'edit'){ //查看
+	    //do somehing
+        layer.confirm('确定重置登录次数吗?', function(index){
+	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+	      //向服务端发送删除指令
+	       $.ajax({
+               //本地与服务器
+                //url:'/manage/newsdel',
+			  	url:'<%=base_url%>resetloginnum',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('resetloginnum success')		
+                          layer.msg('ok')	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+			  	}
+			})
+	    });
+	  } 
+    })
 });
 </script>
 <script type="text/html" id="yjfxbar">
 
-  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>重置登录次数</a>
+  <!-- <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a> -->
 </script>
 <script type="text/html" id="sytpimg">
 	<img src="{{d.pic}}" style="height: 100px;max-width: 100%;" class="previewimg" />
