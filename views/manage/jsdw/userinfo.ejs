@@ -223,16 +223,14 @@
 	        <td class="tdstyle">个人介绍</td>
 	        <!-- <td colspan="4"><span id="introduce"></span></td> -->
 	        <td colspan="4">
-	        	<input id="introduceValue"  value="<%=user.intro%>" type="hidden" />
-	        	<script id="introduceeditor" type="text/plain" ></script>
+				<textarea id="introduceValue"  value="<%=user.intro%>" /><%=user.intro%></textarea>
 	        </td>
 	      </tr>
 	       <tr>
 	        <td class="tdstyle">(英文)个人介绍</td>
 	        <!-- <td colspan="4"><span id="eintroduce"></span></td> -->
 	        <td colspan="4">
-	        	<input id="eintroduceValue"  value="<%=user.intro1%>" type="hidden" />
-	        	<script id="eintroduceeditor" type="text/plain" ></script>
+				<textarea id="eintroduceValue"  value="<%=user.intro1%>" /><%=user.intro1%></textarea>
 	        </td>
 	        </tr>
 			<tr>
@@ -247,7 +245,8 @@
 
   <script type="text/javascript" src="../manage/js/thirdpart.js"></script>
   <script type="text/javascript">
-
+let introduceValue = "";
+let eintroduceValue ="";
 let ue1,ue2
 let id = '<%=user.id%>'
 layui.use(['jquery','layer','upload','form'], function(){ 
@@ -299,6 +298,9 @@ layui.use(['jquery','layer','upload','form'], function(){
 		$('#yjly1').val('<%=user.yjly1%>')
 		$('#suoxi').val('<%=user.suoxi%>')
 		$('#suoxi1').val('<%=user.suoxi1%>')
+
+		introduceValue = CKEDITOR.replace("introduceValue");
+		eintroduceValue = CKEDITOR.replace("eintroduceValue");
 		form.render('select')
 		//监听下拉框
 		form.on('select(sex)',function (data) {
@@ -395,7 +397,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 		  });*/
 		  //form.render('select')
 		form.render()
-		ue1 = UE.getEditor('introduceeditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'}),
+		/*ue1 = UE.getEditor('introduceeditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'}),
 			ue2 = UE.getEditor('eintroduceeditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'}),
 			//ue3 = UE.getEditor('workresumeueditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'}),
 			//ue4 = UE.getEditor('eworkresumeueditor',{'initialFrameHeight':'200','initialFrameWidth':'100%'})
@@ -408,15 +410,16 @@ layui.use(['jquery','layer','upload','form'], function(){
 	   		console.log('初始化eintroduce...')
 	   		let htmlStr = $("#eintroduceValue").val();
 	   		ue2.setContent(htmlStr,false)
-	    })
+	    })*/
+
     })
 	form.on('submit(update)', function(data){
 	  //更新
 	  data.field.id = id
 	  data.field.userName = $('#userName').val()
 	  data.field.userName1 = $('#userName1').val()
-	  data.field.intro = ue1.getContent()
-	  data.field.intro1 = ue2.getContent()
+	  data.field.intro = introduceValue.getData()
+	  data.field.intro1 = eintroduceValue.getData()
 	  data.field.sex =$('#sex option:selected').val()
 	  data.field.sex1 =$('#sex1 option:selected').val()
 	  //20211030

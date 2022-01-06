@@ -232,14 +232,13 @@ $(function(){
 	  data.field.timeAdd = $('#timeAdd').val()
       data.field.timeEdit = $('#timeEdit').val()
       data.field.isTop = topstr.substring(0,topstr.length-1)
-	  data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
-	//   if($('#fmpic').attr('src')){
-	//   	console.log('ddddd---------------------------',$('#demo1').attr('src'))
-	//   	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
-	//   }else{
-	// 	  layer.msg('请上传封面图')
-	// 	  return false
-	//   }
+	 if($('#fmpic').attr('src')){
+	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
+	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
+	  }else{
+		  layer.msg('请上传封面图')
+		  return false
+	  }
 
 	  console.log('提交数据',data.field)
      //return false
