@@ -78,8 +78,8 @@ router.get('/', function(req, res, next) {
 		function(cb){
 			let _filter = {
 				$or:[
-					{tag2:'计软新闻'},
-					{trees:'179-181-'}
+					{tag2:'计软新闻','isDisplay':1},
+					{trees:'179-181-','isDisplay':1}					
 				]
 			}
 			let search = cmsContent.find(_filter)
@@ -726,6 +726,7 @@ router.get('/pages/research/index1',function(req,res){
 			obj = {title:{$regex:search_txt,$options:"$i"}}
 			aggregate_obj = {title:{$regex:search_txt,$options:"$i"}}
 		}
+		obj['review'] = 1
 		async.waterfall([
 			function(cb){
 				//get count
