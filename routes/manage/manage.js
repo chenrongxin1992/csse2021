@@ -300,7 +300,7 @@ router.get('/material',function(req,res){
 	console.log('material_update')
 	console.log(manageconfig.wx)
 	let othersaveparam = {trees:'179-181-',tag2:'计软新闻'}
-	let saveparam = ['title','titleEN','pageContent','pageContentEN','isTop','timeAdd','timeEdit','fujianPath','leixing','trees'];
+	let saveparam = ['title','titleEN','pageContent','pageContentEN','isTop','timeAdd','timeEdit','fujianPath','leixing','leixing1','trees'];
 	commonfunc.DataUpdate(req,res,cmsContent,saveparam,othersaveparam)
 	
 }).post('/material_upload',function(req,res){
@@ -4274,7 +4274,7 @@ router.get('/slider',function(req,res){
 }).get('/jrnews',function(req,res){
 	res.render('manage/syfb/jrxw',{search_param:manageconfig.search_param.jrxw})
 }).get('/news_data',function(req,res){
-	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.jrxw,{'trees':'179-181-'})
+	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.jrxw,{'trees':'179-181-'},{isTop:-1,id:-1})
 }).get('/jrxwadd',function(req,res){
 	let id = req.query.id
 	console.log('cmsContent ID,',id)

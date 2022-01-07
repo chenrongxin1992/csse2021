@@ -26,9 +26,9 @@
     
             var dataBuffer = Buffer.from(imgData, 'base64');
             //写入文件
-            let newfilename =  basedir +'/attachment/word/'+'wordimg'+'_'+moment().unix()+'_'+ index + '_' + '.jpg'
+            let newfilename =  '/attachment/word/'+'wordimg'+'_'+moment().unix()+'_'+ index + '_' + '.jpg'
             let actualnewfilename =attachmentuploaddir + newfilename
-            //console.log(newfilename)
+            console.log(newfilename)
             fs.writeFile(actualnewfilename, dataBuffer, function(err){
                 count++
                 if(err){
@@ -36,7 +36,7 @@
                 }else{
                     console.log("item:"+item)
                     console.log("newfilename:"+newfilename)
-                    str = str.replace(item,newfilename);
+                    str = str.replace(item,basedir +newfilename);
                 }
                 if(count==imglist.length){
                     //console.log(str)

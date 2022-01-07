@@ -117,6 +117,7 @@ router.get('/', function(req, res, next) {
 					docs.forEach(function(item){
 						item.month = checkMonth(item.timeAdd.slice(5,7))
 						console.log('item.month-----',item.month)
+						console.log('item.title--------------->',item.title)
 					})
 					data.notice = docs
 					cb()

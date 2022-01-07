@@ -154,6 +154,7 @@ layui.use(['jquery','table','form','element'], function(){
 	    layer.confirm('确定删除吗?',{closeBtn: 0}, function(index){
 	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
 	      layer.close(index);
+		  data.pageContent=''
 	      //向服务端发送删除指令
 	       $.ajax({
                //本地与服务器

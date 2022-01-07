@@ -257,8 +257,8 @@ const  GetSingleMaterial =  async function(userreq,media_id,callback){
                articleid:item.articleid,
 					timeAdd:item.update_time,
 					timeEdit:item.update_time,
-					tag2:'计软新闻',
-               trees:'179-181-',
+					//tag2:'计软新闻',
+               //trees:'179-181-',
                fromwx:1,
                isDisplay:0
 				})

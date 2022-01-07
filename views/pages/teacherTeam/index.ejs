@@ -135,10 +135,12 @@
                                                 
                                                     <%=item.zhiwu%> 
                                                 
-                                                <%if(item.zhicheng!='专职研究人员'){%>
-                                                <%=item.zhicheng%>
-                                                <%}%></p>
-                                            <p class="c_666"><%=item.suoxi%></p>
+                                                
+                                            </p>
+                                            <%if(item.suoxi=='其它'){%>
+                                            <%}else{%>
+                                                <p class="c_666"><%=item.suoxi%></p>
+                                            <%}%>
                                         </div>
                                         <div class="skill"><%if(!item.yjly){%>
                                             <%}else{%><%=item.yjly%><%}%></div>

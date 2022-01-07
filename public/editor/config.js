@@ -24,5 +24,6 @@ CKEDITOR.editorConfig = function( config ) {
     config.extraPlugins = 'uploadimage,image2'
     config.fullPage = true
 	config.filebrowserImageUploadUrl ='./ckupload?'
+	config.removePlugins = 'image,exportpdf';
 	config.removeButtons = 'About,NewPage,ExportPdf,Preview,Templates,Replace,Find,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Outdent,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,SpecialChar,PageBreak,Iframe,Styles,ShowBlocks';
 };
