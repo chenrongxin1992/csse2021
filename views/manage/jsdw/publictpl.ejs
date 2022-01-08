@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：科研成果 > 成果录入</div> <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 10px;" id="szgk">师资概况</button>
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：师资队伍</div> <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 10px;" id="szgk">师资概况</button>
 		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增人员</button>
   </blockquote>
 
@@ -32,7 +32,7 @@
        <div class="layui-inline">
 	    	<select name="jstype" id="jstype" lay-filter="jstype" >
           		<option value="">人员类别</option>
-				  <option value="1" peopleid="1">杰出人才</option>
+				  <!-- <option value="1" peopleid="1">杰出人才</option> -->
 				  <option value="2" peopleid="2">教授</option>
 				  <option value="3" peopleid="3">副教授</option>
 				  <option value="4" peopleid="4">讲师</option>
@@ -73,6 +73,8 @@ layui.use(['jquery','table','form'], function(){
 	      {type:'numbers', title: '序号',width:90,align:'center',sort:true}
 	      ,{field: 'userName', title: '姓名',width:120,align:'center',sort:true}
 		  ,{field: 'suoxi', title: '所/系',align:'center',sort:true}
+		  ,{field: 'rongyujibiename', title: '荣誉级别',align:'center',sort:true}
+		  ,{field: 'rongyuname', title: '荣誉',align:'center',sort:true}
 		  ,{field: 'zhicheng', title: '职称',width:140,align:'center',sort:true}
 	      ,{field: 'account', title: '登录账号', width:140,align:'center',sort:true}
 	      ,{field: 'power', title: '角色',width:140, align:'center',sort:true}

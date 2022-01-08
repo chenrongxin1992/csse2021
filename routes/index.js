@@ -1037,11 +1037,19 @@ router.get('/pages/teacherTeam/index',function(req,res){
 		console.log('搜索----------------',search_txt)
 		if(zhicheng&&suoxi){
 			console.log('职称 && 所系')
-			searchobj = {display:1,peopleid:zhicheng,suoxiid:suoxi,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			if(zhicheng==1){
+				searchobj = {display:1,rongyujibie:{$ne:null,$exists:true},suoxiid:suoxi,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			}else{
+				searchobj = {display:1,peopleid:zhicheng,suoxiid:suoxi,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			}
 		}
 		if(zhicheng&&!suoxi){
 			console.log('职称')
-			searchobj = {display:1,peopleid:zhicheng,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			if(zhicheng==1){
+				searchobj = {display:1,rongyujibie:{$ne:null,$exists:true},userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			}else{
+				searchobj = {display:1,peopleid:zhicheng,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+			}
 		}
 		if(!zhicheng&&suoxi){
 			console.log('所系')
@@ -1080,7 +1088,13 @@ router.get('/pages/teacherTeam/index',function(req,res){
 				//统计职称人数
 				async.eachLimit(myarr1,1,function(item,cbb){
 					console.log('item-------',item)
-					let search = user.find({peopleid:item,display:1,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search
+					if(item==1){
+						search = user.find({rongyujibie:{$ne:null,$exists:true},display:1,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}else{
+						search = user.find({peopleid:item,display:1,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}
+					
 						search.exec(function(err,count){
 							if(err){
 								cbb(err)
@@ -1164,11 +1178,19 @@ router.get('/pages/teacherTeam/index',function(req,res){
 		console.log('字母筛选----------------',i)
 		if(zhicheng&&suoxi){
 			console.log('职称 && 所系')
-			searchobj = {peopleid:zhicheng,suoxiid:suoxi,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			if(zhicheng==1){
+				searchobj = {rongyujibie:{$ne:null,$exists:true},suoxiid:suoxi,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			}else{
+				searchobj = {peopleid:zhicheng,suoxiid:suoxi,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			}
 		}
 		if(zhicheng&&!suoxi){
 			console.log('职称')
-			searchobj = {peopleid:zhicheng,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			if(zhicheng==1){
+				searchobj = {rongyujibie:{$ne:null,$exists:true},display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			}else{
+				searchobj = {peopleid:zhicheng,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+			}
 		}
 		if(!zhicheng&&suoxi){
 			console.log('所系')
@@ -1207,7 +1229,13 @@ router.get('/pages/teacherTeam/index',function(req,res){
 				//统计职称人数
 				async.eachLimit(myarr1,1,function(item,cbb){
 					console.log('item-------',item)
-					let search = user.find({peopleid:item,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search
+					if(item==1){
+						search = user.find({rongyujibie:{$ne:null,$exists:true},display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}else{
+						search = user.find({peopleid:item,display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}
+					
 						search.exec(function(err,count){
 							if(err){
 								cbb(err)
@@ -1294,7 +1322,13 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			async.waterfall([
 				function(cb){
 					//get count
-					let search = user.find({peopleid:zhicheng,suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search 
+					if(zhicheng==1){
+						search = user.find({rongyujibie:{$ne:null,$exists:true},suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}else{
+						search = user.find({peopleid:zhicheng,suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}
+					
 						search.exec(function(err,count){
 							if(err){
 								console.log('user get total err',err)
@@ -1319,7 +1353,13 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					//统计职称人数
 					async.eachLimit(myarr1,1,function(item,cbb){
 						console.log('item-------',item)
-						let search = user.find({peopleid:item,suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						let search
+						if(item==1){
+							search = user.find({rongyujibie:{$ne:null,$exists:true},suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						}else{
+							search = user.find({peopleid:item,suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						}
+						
 							search.exec(function(err,count){
 								if(err){
 									cbb(err)
@@ -1370,7 +1410,13 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					console.log('aaa')
 					let numSkip = (page-1)*limit
 						limit = parseInt(limit)
-					let search = user.find({peopleid:zhicheng,suoxiid:suoxi,$or:[{power:'教职工'},{power:'管理员'}]})
+					let search
+					if(zhicheng==1){
+						search = user.find({rongyujibie:{$ne:null,$exists:true},suoxiid:suoxi,$or:[{power:'教职工'},{power:'管理员'}]})
+					}else{
+						search = user.find({peopleid:zhicheng,suoxiid:suoxi,$or:[{power:'教职工'},{power:'管理员'}]})
+					}
+					
 						search.where({'display':1})	
 						search.sort({'userName_py':1})
 						search.sort({'userName':1})
@@ -1405,7 +1451,12 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			async.waterfall([
 				function(cb){
 					//get count
-					let search = user.find({peopleid:zhicheng,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					let search
+					if(zhicheng==1){
+						search = user.find({rongyujibie:{$ne:null,$exists:true},display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}else{
+						search = user.find({peopleid:zhicheng,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}
 						search.exec(function(err,count){
 							if(err){
 								console.log('user get total err',err)
@@ -1428,22 +1479,52 @@ router.get('/pages/teacherTeam/index',function(req,res){
 				},
 				function(cb){
 					//统计职称人数
-					let search = user.aggregate([
-						{$match:{peopleid:{$ne:null,$exists: true},display:1,$or:[{power:'教职工'},{power:'管理员'}]}},
-						//{$match:{$or:[{power:'教职工'},{power:'管理员'}]}},
-						{$group:{'_id':'$peopleid',num:{$sum:1}}},
-						{$sort:{_id:1}}
-					])
-					search.exec(function(err,docs){
-						if(err){
-							cb(err)
+					console.log('----------------- 分步统计职称人数 ----------------')
+					async.waterfall([
+						function(cbb){
+							console.log('正常统计职称人数')
+							let search = user.aggregate([
+								{$match:{display:1,$or:[{power:'教职工'},{power:'管理员'}]}},
+								{$group:{'_id':'$peopleid',num:{$sum:1}}},
+								{$sort:{_id:1}}
+							])
+							search.exec(function(err,docs){
+								if(err){
+									cbb(err)
+								}
+								console.log('check -------',docs)
+								docs.forEach(function(item,index){
+									console.log('1    ----------------------------')
+									console.log(item._id)
+									item.zc = checkjstype(item._id)
+								})
+								data.zhichengNum = docs
+								console.log(data.zhichengNum)
+								console.log('----------------------------')
+								cbb()
+							})
+						},
+						function(cbb){
+							console.log('统计杰出人才数量')
+							let search = user.find({display:1,rongyujibie:{$ne:null,$exists:true},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+								search.exec(function(err,count){
+									if(err){
+										console.log('user get total err',err)
+										cbb(err)
+									}
+									console.log('user count',count)
+									let tempobj = {'_id':1,num:count,'zc':'杰出人才'}
+									data.zhichengNum.unshift(tempobj)
+									//(data.zhichengNum).sort(sort_id)
+									console.log('最终zhihengNum  ----------------------------')
+									console.log(data.zhichengNum)
+									cbb(null)
+								})
 						}
-						console.log('check -------',docs)
-						docs.forEach(function(item,index){
-							item.zc = checkjstype(item._id)
-						})
-						data.zhichengNum = docs
-						console.log(data.zhichengNum)
+					],function(error,results){
+						if(error){
+							cb(error)
+						}
 						cb()
 					})
 				},
@@ -1451,7 +1532,13 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					//统计所系人数
 					async.eachLimit(myarr,1,function(item,cbb){
 						console.log('item-------',item)
-						let search = user.find({peopleid:zhicheng,suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						let search
+						if(zhicheng == 1){
+							search = user.find({rongyujibie:{$ne:null,$exists:true},suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						}else{
+							search = user.find({peopleid:zhicheng,suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						}
+						
 							search.exec(function(err,count){
 								if(err){
 									cbb(err)
@@ -1476,7 +1563,13 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					console.log('aaa')
 					let numSkip = (page-1)*limit
 						limit = parseInt(limit)
-					let search = user.find({peopleid:zhicheng,$or:[{power:'教职工'},{power:'管理员'}]})
+					let search
+					if(zhicheng==1){
+						search = user.find({rongyujibie:{$ne:null,$exists:true},$or:[{power:'教职工'},{power:'管理员'}]})
+					}else{
+						search = user.find({peopleid:zhicheng,$or:[{power:'教职工'},{power:'管理员'}]})
+					}
+					
 						search.where({'display':1})	
 						search.sort({'userName_py':1})
 						
@@ -1544,7 +1637,13 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					//统计职称人数
 					async.eachLimit(myarr1,1,function(item,cbb){
 						console.log('item-------',item)
-						let search = user.find({peopleid:item,suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						let search
+						if(item==1){
+							search = user.find({rongyujibie:{$ne:null,$exists:true},suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						}else{
+							search = user.find({peopleid:item,suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						}
+						
 							search.exec(function(err,count){
 								if(err){
 									cbb(err)
@@ -1651,35 +1750,55 @@ router.get('/pages/teacherTeam/index',function(req,res){
 				},
 				function(cb){
 					//统计职称人数
-					let search = user.aggregate([
-						{$match:{display:1,$or:[{power:'教职工'},{power:'管理员'}]}},
-						{$group:{'_id':'$peopleid',num:{$sum:1}}},
-						{$sort:{_id:1}}
-					])
-					search.exec(function(err,docs){
-						if(err){
-							cb(err)
+					console.log('----------------- 分步统计职称人数 ----------------')
+					async.waterfall([
+						function(cbb){
+							console.log('正常统计职称人数')
+							let search = user.aggregate([
+								{$match:{display:1,$or:[{power:'教职工'},{power:'管理员'}]}},
+								{$group:{'_id':'$peopleid',num:{$sum:1}}},
+								{$sort:{_id:1}}
+							])
+							search.exec(function(err,docs){
+								if(err){
+									cbb(err)
+								}
+								console.log('check -------',docs)
+								docs.forEach(function(item,index){
+									console.log('1    ----------------------------')
+									console.log(item._id)
+									item.zc = checkjstype(item._id)
+								})
+								data.zhichengNum = docs
+								console.log(data.zhichengNum)
+								console.log('----------------------------')
+								cbb()
+							})
+						},
+						function(cbb){
+							console.log('统计杰出人才数量')
+							let search = user.find({display:1,rongyujibie:{$ne:null,$exists:true},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+								search.exec(function(err,count){
+									if(err){
+										console.log('user get total err',err)
+										cbb(err)
+									}
+									console.log('user count',count)
+									let tempobj = {'_id':1,num:count,'zc':'杰出人才'}
+									data.zhichengNum.unshift(tempobj)
+									//data.zhichengNum.sort(sort_id)
+									console.log('最终zhihengNum  ----------------------------')
+									console.log(data.zhichengNum)
+									cbb(null)
+								})
 						}
-						console.log('check -------',docs)
-						docs.forEach(function(item,index){
-							console.log('1    ----------------------------')
-							console.log(item._id)
-							item.zc = checkjstype(item._id)
-						})
-						data.zhichengNum = docs
-						console.log(data.zhichengNum)
-						console.log('----------------------------')
-						console.log(data.zhichengNum[0]._id)
-						console.log(data.zhichengNum[1]._id)
-						console.log(data.zhichengNum[2]._id)
-						console.log(data.zhichengNum[3]._id)
-						console.log(data.zhichengNum[4]._id)
-						console.log(data.zhichengNum[5]._id)
-						console.log(data.zhichengNum[6]._id)
-						console.log(data.zhichengNum[7]._id)
-						console.log(data.zhichengNum[8]._id)
+					],function(error,results){
+						if(error){
+							cb(error)
+						}
 						cb()
 					})
+					
 				},
 				function(cb){
 					//统计所系人数
@@ -1740,6 +1859,9 @@ router.get('/pages/teacherTeam/index',function(req,res){
 		}
 	}	
 })
+function sort_id(a,b){
+	return a._id - b._id
+}
 //个人主页
 router.get('/pages/user/index',function(req,res){
 	let id = req.query.id

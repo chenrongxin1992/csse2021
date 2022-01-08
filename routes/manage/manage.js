@@ -3997,7 +3997,10 @@ router.post('/usertx',function(req,res){
 		yjly:req.body.yjly,
 		yjly1:req.body.yjly1,
 		peopleid:req.body.peopleid,
-		suoxiid:req.body.suoxiid
+		suoxiid:req.body.suoxiid,
+		rongyujibie:parseInt(req.body.rongyujibie),
+		rongyujibiename:req.body.rongyujibiename,
+		rongyuname:req.body.rongyuname
 	}
 	console.log('obj',updateobj)
 	//return false

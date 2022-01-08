@@ -830,65 +830,7 @@
 		{
 			"title": "教师队伍",
 			"icon": "&#xe613;",
-			"href": "",
-			"spread": false,
-			"children": [
-				{
-					"title": "杰出人才",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?peopleid=1",
-					"spread": false
-				},
-				{
-					"title": "教授",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?peopleid=2",
-					"spread": false,
-					"target": ""
-				},
-				{
-					"title": "副教授",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?peopleid=3",
-					"spread": false
-				},
-				{
-					"title": "讲师",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?peopleid=4",
-					"spread": false
-				},
-				{
-					"title": "助理教授",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?peopleid=5",
-					"spread": false
-				},
-				{
-					"title": "专职研究人员",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?type=6",
-					"spread": false
-				},
-				{
-					"title": "博士后",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?peopleid=7",
-					"spread": false
-				},
-				{
-					"title": "技术/管理人员",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?peopleid=8",
-					"spread": false
-				},
-				{
-					"title": "研究/辅助管理",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jsdw?peopleid=9",
-					"spread": false
-				}
-			]
+			"href": "/csse/manage/jsdw?peopleid=1"
 		},
 		{
 			"title": "招生招聘",
