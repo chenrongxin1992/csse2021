@@ -21,7 +21,7 @@
     <br>
     <div style="clear:both;"></div> 
 	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：首页发布 > 轮动图 </div><button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
-	<%- include('../search.ejs', {realod_id: 'table_slider'}); %>
+	<%# include('../search.ejs', {realod_id: 'table_slider'}); %>
 	<table id="slider_table" lay-filter="slider_table"></table>
 
 <script type="text/javascript" src="../manage/js/thirdpart.js"></script>
@@ -40,7 +40,7 @@ layui.use(['jquery','table','form'], function(){
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:90,align:'center',sort:true}
 	      ,{field: 'title', title: '标题',align:'center',sort:true}
-	      ,{field: 'title1', title: '标题(EN)',align:'center',sort:true}
+	    //   ,{field: 'title1', title: '标题(EN)',align:'center',sort:true}
 	      ,{field: 'pic', title: '图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
 	      ,{field: 'url', title: '链接', align:'center',sort:true}
 	      //,{field: 'isDisplay', title: '是否显示', align:'center',templet:'#displaytpl'}

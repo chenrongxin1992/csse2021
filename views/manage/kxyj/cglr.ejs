@@ -207,7 +207,7 @@ layui.use(['jquery','table','form','element'], function(){
 	  	let src = ''+ data.fujianPath
 	  	layer.photos({ photos: {"data": [{"src": src}]} });
 	  }else if(layEvent === 'detailpreview'){
-		AddTab('预览'+data.id,'details'+ obj.data.id,'/pages/research/details?id='+data.id)
+		AddTab('预览'+data.id,'details'+ obj.data.id,'/csse/pages/research/details?id='+data.id)
 	  }
 	});
 });

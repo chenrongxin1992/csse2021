@@ -938,6 +938,7 @@ em {
 	background: #4137a5;
 	width: 100%;
 	height: 50px;
+	line-height: 50px;
 	display: block;
 	position: relative;
 	z-index: 1;
@@ -963,6 +964,16 @@ em {
 .header .nav_site ul li ol li a {
 	background-color: #fff;
 	color: #0062ac;
+}
+
+.header .nav_site .link{
+	text-indent: 0;
+	padding: 0 10px;
+}
+.header .nav_site .link img,
+.header .nav_site .link span{
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .mobile-nav .action {

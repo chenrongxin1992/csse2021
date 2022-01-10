@@ -65,10 +65,10 @@
 					<div class="form-item-inline" >
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
-				    <label class="layui-form-label" >标题(EN)</label>
+				    <!-- <label class="layui-form-label" >标题(EN)</label>
 				    <div class="form-item-inline" >
 				      <input type="text" name="title1"  autocomplete="off" class="layui-input" id="title1">
-				    </div>
+				    </div> -->
 				   
 				</div>
 			</div>
@@ -172,7 +172,6 @@ $(function(){
 	}else{
 		console.log('编辑',id)
 		$('#title').val('<%-data.title%>')
-		$('#title1').val('<%-data.title1%>')
         $('#url').val('<%-data.url%>')
 		// $('#demo1').attr('src', ''+'<%-data.pic%>')
 		//初始化封面图
@@ -244,7 +243,7 @@ $(function(){
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()
       data.field.url = $('#url').val()
-	  data.field.title1 = $('#title1').val()
+	//   data.field.title1 = $('#title1').val()
 	  if($('#fmpic').attr('src')){
 	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
 	  	data.field.pic = $('#fmpic').attr('src')//.slice(8)//去掉

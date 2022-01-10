@@ -109,7 +109,8 @@ login_date:{type:String,default:moment().format('YYYY-MM-DD')},//限制登录
 login_num:{type:Number,default:0},
 rongyujibie:{type:Number},
 rongyujibiename:{type:String},
-rongyuname:{type:String}
+rongyuname:{type:String},
+rongyuname1:{type:String}//en
 },{collection:'allUser'})
 const cmsContentSchema = new Schema({
  id:{type:Number},
@@ -181,7 +182,8 @@ const cmsSliderSchema = new Schema({
  idAdd:{type:Number},
  accountAdd:{type:String},
  jianjie:{type:String,default:'无'},
- jianjie1:{type:String,}
+ jianjie1:{type:String},
+ isen:{type:Number,default:0}
 },{collection:'cmsSlider'})
 const xrldSchema = new Schema({ 
  id:{type:Number},

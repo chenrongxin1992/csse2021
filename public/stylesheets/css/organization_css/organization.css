@@ -626,7 +626,7 @@
 
 
 .area-desc p {
-	text-indent: 2em;
+	/* text-indent: 2em; */
 }
 .area-desc p:nth-child(1),
 .area-desc p:nth-child(2),

@@ -159,7 +159,7 @@
 					<label class="layui-form-label">荣誉级别</label>
 					<div class="form-item-inline" >
 						<select name="rongyujibie" lay-filter="rongyujibie" id="rongyujibie">
-							<option value="0" >请选择</option>
+							<option value="" >请选择</option>
 							<option value="1" jibiename="院士">院士</option>
 							<option value="2" jibiename="国家专家级">国家专家级</option>
 							<option value="3" jibiename="国家青年级">国家青年级</option>
@@ -176,7 +176,16 @@
 				    </div>
 				</div>
 			</div>
-
+			<%if(username=='刘晔'||username=='王佳岱'||username=='陈荣鑫'){%>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label" >Honor</label>
+						<div class="form-item-inline" >
+							<input type="text" id="rongyuname1" class="layui-input" value="<%=user.rongyuname1%>">
+						</div>
+					</div>
+				</div>
+			<%}%>
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">所/中心</label>
@@ -381,7 +390,16 @@ layui.use(['jquery','layer','upload','form'], function(){
 		$('#yjly1').val('<%=user.yjly1%>')
 		$('#suoxi').val('<%=user.suoxi%>')
 		$('#suoxi1').val('<%=user.suoxi1%>')
-
+		//20211230添加
+		if('<%=username%>' != '王佳岱' && '<%=username%>' != '陈荣鑫' && '<%=username%>' != '刘晔' ){
+			console.log('只有管理员能修改select')
+			$("select[name=zhicheng]").attr("disabled", "disabled")
+			$("select[name=zhicheng1]").attr("disabled", "disabled")
+			$("select[name=suoxi]").attr("disabled", "disabled")
+			$("select[name=suoxi1]").attr("disabled", "disabled")
+			$("select[name=rongyujibie]").attr("disabled", "disabled")
+			$("#rongyuname").attr("disabled", "disabled")
+		}
 		introduceValue = CKEDITOR.replace("introduceValue");
 		eintroduceValue = CKEDITOR.replace("eintroduceValue");
 		form.render('select')
@@ -511,6 +529,8 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  data.field.zhicheng1=$('#zhicheng1 option:selected').val()
 	  data.field.rongyujibie=$('#rongyujibie option:selected').val()
 	  data.field.rongyujibiename=$('#rongyujibie option:selected').attr('jibiename')
+	  data.field.rongyuname = $('#rongyuname').val()
+	  data.field.rongyuname1 = $('#rongyuname1').val()
 	  data.field.phoneOffice=$('#phoneOffice').val()
 	  data.field.email=$('#email').val()
 	  data.field.personalLink=$('#personalLink').val()

@@ -19,7 +19,7 @@
             <div class="head-left">
                 <a href="/" class="home-img">
                     <img src="../../image/common/logo_school.png" class="logo_school" />
-                    <img src="../../image/common/logo_collage .png" class="logo_collage" />
+                    <img src="../../image/common/logo_collage.png" class="logo_collage" />
                 </a>
                 <div class="head-txt">
                     <div class="name b">深圳大学计算机与软件学院</div>
@@ -29,7 +29,7 @@
             <div class="head-right">
                 <div class="pc-con">
                     <div class="head-nav1">
-                        <a class="lang" href=""  id="changeL">
+                        <a class="lang changeL" href=""  id="changeL">
                             <img class="lang_icon" src="../../image/common/lang-icon.png" />
                             CN
                         </a>
@@ -105,8 +105,14 @@
         </div>
         <div class="nav_site mobile-nav" style="display: none;">
             <ul class="mobile_navs">
+                <li>
+                    <a href="#" class="link changeL">
+                      <img class="lang_icon" src="../../image/common/lang-icon.png" />
+                      <span>CN</span>
+                    </a>
+                  </li> 
               <li>
-                <a href="../../index">Home</a>
+                <a href="/csse">Home</a>
               </li>
               <li class="first">
                   <a href="../../pages/university/index">About</a>
@@ -355,7 +361,7 @@
       <script src="../../javascripts/js/brcheck.js"></script>
       <script>
         $(document).ready(function () {
-            $('#changeL').click(function(){
+            $('.changeL').click(function(){
                 console.log('change to en')
                 $.get('/csse/setLanguage', {
                     language:'1'

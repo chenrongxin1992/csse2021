@@ -1,0 +1,219 @@
+.university{
+    background-color: #352C84;
+}
+.university .contain{
+    overflow: hidden;
+}
+/* banner */
+.banner{
+    position: relative;
+}
+.banner .b_bg{
+    width: 100%;
+}
+.banner .b_txt{
+    position: absolute;
+    left: 10%;
+    top: 44%;
+    height: 37%;
+}
+.banner .mimg{
+    display: none;
+}
+
+
+.contain{
+    background-color: #f3f3f3;
+}
+.contain-area{
+    width: 83.3333%;
+    margin: 0 auto;
+}
+.contain-area .nav-list{
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    color: #433b95;
+    justify-content: center;
+    padding: 20px 0;
+}
+.contain-area .nav-list .nav{
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    color: #433b95;
+    font-size: 18px;
+    margin: 0 30px;
+    word-break: keep-all;
+}
+.contain-area .nav-list .active,.contain-area .nav-list .nav:hover{
+    color: #CCA84D;
+    border-bottom-color: #CCA84D;
+}
+
+.cont{
+    font-size: 0;
+    padding: 100px 0 0;
+    position: relative;
+}
+.cont .img-file{
+    position: absolute;
+    left: 6.5%;
+    top: 3%;
+    width: 53.6%;
+}
+.area-desc,
+.area-img{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+}
+.area-img{
+    padding-top: 6.8542%;
+    padding-right: 15px;
+    text-align: right;
+}
+.area-img .img1{
+    position: absolute;
+    width: 32.375%;
+    left: 21%;
+    top: 12%;
+    z-index: 5;
+}
+.area-img .img2{
+    position: absolute;
+    width: 40.127%;
+    left: 56%;
+    top: 62%;
+}
+.area-img .img3{
+    position: absolute;
+    width: 58.31%;
+    left: 23%;
+    top: 40%;
+}
+.area-img .img4{
+    position: absolute;
+    width: 24.83%;
+    left: 68%;
+    top: 0%;
+}
+.area-img .img5{
+    position: relative;
+    z-index: 2;
+    width: 62.5%;
+    border-radius: 50%;
+}
+
+.area-desc{
+    padding: 0 6.25% 0 3.75%;
+    font-size: 18px;
+    color: #333333;
+}
+.area-desc .tit{
+    font-size: 48px;
+}
+.area-desc .txt{
+    text-align: justify;
+    margin-bottom: 25px;
+}
+.area-desc .img-left,
+.area-desc .img-right{
+    width: 34px;
+}
+.area-desc .img-left{
+    margin-bottom: 15px;
+}
+.area-desc .img-right{
+    position: absolute;
+    right: 11.25%;
+    bottom: -15px;
+}
+
+.area-desc .msg{
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+.area-desc .msg .p1{
+    margin: 0 auto;
+    width: 350px;
+}
+.area-desc .msg .p2{
+    text-align: right;
+}
+
+.contain-area .intro{
+    width: 75.78125%;
+    margin: 0 auto;
+    padding: 45px 0 130px;
+}
+.contain-area .intro p{
+    text-align: center;
+    font-size: 32px;
+    color: #cca84d;
+    font-weight: bold;
+    line-height: 1.75;
+    margin-bottom: 80px;
+}
+.contain-area .intro div{
+    font-size: 18px;
+    color: #333;
+}
+.contain-area .intro span{
+    display: inline-block;
+    text-align: justify;
+}
+.contain-area .intro .d1{
+    color: white;
+    float: left;
+    background-color: #cca84d;
+    border-radius: 15px;
+    padding: 0 12px;
+    margin-right: 5px;
+}
+
+.contain-area .intro a{
+    color: #cca84d;
+    display: inline-block;
+}
+
+@media only screen and (max-width:1200px){
+    .area-desc,
+    .area-img{
+        width: 100%;
+    }
+    .area-desc{
+        padding: 0 3%;
+    }
+    /* university */
+	.university .contain-area .nav-list {
+		display: none;
+	}
+    .cont{
+        display: block;
+        padding-bottom: 0;
+        padding-top: 37px;
+    }
+
+    .contain-area{
+        width: 100%;
+    }
+    .cont .img-file{
+        width: 85%;
+    }
+    .contain-area .intro p{
+        font-size: 24px;
+    }
+    .contain-area .intro{
+        width: 94%;
+    }
+}
+@media only screen and (max-width: 767px){
+    .banner .pimg{
+        display: none;
+    }
+    .banner .mimg{
+        display: block;
+    }
+}

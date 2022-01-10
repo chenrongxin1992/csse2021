@@ -4000,7 +4000,8 @@ router.post('/usertx',function(req,res){
 		suoxiid:req.body.suoxiid,
 		rongyujibie:parseInt(req.body.rongyujibie),
 		rongyujibiename:req.body.rongyujibiename,
-		rongyuname:req.body.rongyuname
+		rongyuname:req.body.rongyuname,
+		rongyuname1:req.body.rongyuname1
 	}
 	console.log('obj',updateobj)
 	//return false
@@ -4053,9 +4054,107 @@ router.post('/usertx',function(req,res){
 //首页发布
 router.get('/slider',function(req,res){
 	res.render('manage/syfb/slider',{search_param:manageconfig.search_param.slider})
+}).get('/slider1',function(req,res){
+	res.render('manage/syfb/slider1',{search_param:manageconfig.search_param.slider})
 }).get('/slider_data',function(req,res){
-	commonfunc.DataSearch(req,res,slider,manageconfig.search_param.slider)
-	
+	//commonfunc.DataSearch(req,res,slider,manageconfig.search_param.slider)
+	console.log('router slider_data')
+	let page = req.query.page,
+		limit = req.query.limit
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = slider.find({isen:0}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('slider_data get total err',err)
+						cb(err)
+					}
+					console.log('slider_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){//$or:[{year:2018},{year:/2018/}]//{$or:[{name:name},{principal:principal},{year:year},{year:{$regex:year}}]}
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+				console.log('不带搜索参数')
+				let search = slider.find({isen:0})
+					//search.where('isDisplay').equals(0)
+					//search.sort({'publishyear':-1})//正序
+					search.limit(limit)
+					search.skip(numSkip)
+					search.sort({'id':-1})
+					search.exec(function(error,docs){
+						if(error){
+							console.log('slider_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			
+		}
+	],function(error,result){
+		if(error){
+			console.log('slider_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('slider_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).get('/slider_data1',function(req,res){
+	console.log('router tdgl_data')
+	let page = req.query.page,
+		limit = req.query.limit
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	async.waterfall([
+		function(cb){
+			//get count
+			let search = slider.find({isen:1}).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('slider_data get total err',err)
+						cb(err)
+					}
+					console.log('slider_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){//$or:[{year:2018},{year:/2018/}]//{$or:[{name:name},{principal:principal},{year:year},{year:{$regex:year}}]}
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)
+				console.log('不带搜索参数')
+				let search = slider.find({isen:1})
+					//search.where('isDisplay').equals(0)
+					//search.sort({'publishyear':-1})//正序
+					search.limit(limit)
+					search.skip(numSkip)
+					search.sort({'id':-1})
+					search.exec(function(error,docs){
+						if(error){
+							console.log('slider_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})
+			
+		}
+	],function(error,result){
+		if(error){
+			console.log('slider_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('slider_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
 }).post('/changedisplay',function(req,res){
 	console.log(req.body)
 	let obj = {	isDisplay:req.body.isDisplay }
@@ -4086,6 +4185,26 @@ router.get('/slider',function(req,res){
 		})
 	}else{
 		res.render('manage/syfb/slideradd',{data:{}})
+	}
+}).get('/slideradd1',function(req,res){
+	let id = req.query.id
+	console.log('slider ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let search = slider.findOne({})
+		search.where('id').equals(id)
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			if(doc){
+				res.render('manage/syfb/slideradd1',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/syfb/slideradd1',{data:{}})
+			}
+		})
+	}else{
+		res.render('manage/syfb/slideradd1',{data:{}})
 	}
 }).post('/sliderupload',function(req,res){
 	console.log('sliderimgupload')
@@ -4165,11 +4284,12 @@ router.get('/slider',function(req,res){
 				let slideradd = new slider({
 					id:id,
 					title:req.body.title,//加入权限后需要更新
-					title1:req.body.title1,
+					// title1:req.body.title1,
 					jianjie:req.body.jianjie,
 					jianjie1:req.body.jianjie,
 					pic:req.body.pic,
-					url:req.body.url
+					url:req.body.url,
+					isen:0
 				})
 				slideradd.save(function(error,doc){
 					if(error){
@@ -4194,11 +4314,99 @@ router.get('/slider',function(req,res){
 			function(cb){
 				let obj = {
 					title:req.body.title,//加入权限后需要更新
+					// title1:req.body.title1,
+					jianjie:req.body.jianjie,
+					jianjie1:req.body.jianjie1,
+					pic:req.body.pic,
+					url:req.body.url,
+					isen:0
+				}
+				slider.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('slideradd update error',error)
+						cb(error)
+					}
+					console.log('slideradd update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('slideradd async error',error)
+				return res.end(error)
+			}
+			console.log('slideradd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
+}).post('/slideradd1',function(req,res){
+	console.log('slideradd------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 slideradd')
+		async.waterfall([
+			function(cb){
+				let search = slider.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let slideradd = new slider({
+					id:id,
+					// title:req.body.title,//加入权限后需要更新
+					title1:req.body.title1,
+					jianjie:req.body.jianjie,
+					jianjie1:req.body.jianjie,
+					pic:req.body.pic,
+					url:req.body.url,
+					isen:1
+				})
+				slideradd.save(function(error,doc){
+					if(error){
+						console.log('slideradd save error',error)
+						cb(error)
+					}
+					console.log('slideradd save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('slideradd async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('slideradd',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					// title:req.body.title,//加入权限后需要更新
 					title1:req.body.title1,
 					jianjie:req.body.jianjie,
 					jianjie1:req.body.jianjie1,
 					pic:req.body.pic,
-					url:req.body.url
+					url:req.body.url,
+					isen:1
 				}
 				slider.updateOne({id:req.body.id},obj,function(error){
 					if(error){

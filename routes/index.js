@@ -62,9 +62,15 @@ router.get('/', function(req, res, next) {
 	let data = {}
 	async.waterfall([
 		function(cb){
-			let search = slider.find({})
+			let search
+			if(req.query['L']==1){
+				console.log('-----------------cn slider--------------------')
+				search = slider.find({isen:0})
+			}else{
+				search = slider.find({isen:1})
+			}
 				search.where({'isDisplay':1})
-				search.sort({'id':-1})
+				//search.sort({'id':-1})
 				search.limit(5)
 			search.exec(function(err,docs){
 				if(err){
@@ -83,8 +89,10 @@ router.get('/', function(req, res, next) {
 				]
 			}
 			let search = cmsContent.find(_filter)
-				search.sort({'id':-1})
-				search.sort({'isTop':-1})
+				//search.sort({'id':-1})
+				search.sort({'isTop':-1})//正序
+				search.sort({'timeAdd':-1})
+				//search.sort({'isTop':-1})
 				search.limit(2)
 				search.exec(function(err,docs){
 					if(err){
@@ -136,13 +144,17 @@ router.get('/', function(req, res, next) {
 			// 		data.kycgstr = encodeURIComponent(JSON.stringify(docs))//js中用
 			// 		cb()
 			// 	})
-			let search = cglr.aggregate([{$sample:{size:5}}])
+			let search = cglr.aggregate([{$match:{review:'1'}},{$sample:{size:5}}])
 				search.exec(function(err,docs){
 					if(err){
 						cb(err)
 					}
 					data.kycg = docs//循环用
-					data.kycg1 = docs[0]//第一次用
+					console.log('cglr',docs)
+					if(docs.length>0)
+					    data.kycg1 = docs[0]//第一次用
+					else
+					    data.kycg1 = []
 					data.kycgstr = encodeURIComponent(JSON.stringify(docs))//js中用
 					cb()
 				})
@@ -889,6 +901,7 @@ router.get('/pages/research/index1',function(req,res){
 			obj = {}
 			aggregate_obj = {}
 		}
+		obj['review'] = 1
 		async.waterfall([
 			function(cb){
 				//get count
@@ -2466,10 +2479,10 @@ router.get('/pages/news/index',function(req,res){
 				console.log('不带搜索参数')
 				let search = cmsContent.find(obj)
 					search.where('isDelete').equals(0)
-					search.sort({'id':-1})
+					//search.sort({'id':-1})
 					search.sort({'isTop':-1})//正序
 					search.sort({'timeAdd':-1})
-					search.sort({'isDisplay':1})
+					//search.sort({'isDisplay':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -2835,7 +2848,7 @@ router.get('/pages/recruitment/doctor',function(req,res){
 router.get('/pages/organization/departments',function(req,res){
 	let data = {},type = req.query.t,content={}
 	console.log('type----',type)
-	if(!type){type = '软件工程系'}
+	if(!type){type = '计算机科学与技术系'}
 	async.waterfall([
 		function(cb){
 			console.log('不带搜索参数')
@@ -2892,7 +2905,7 @@ router.get('/pages/organization/departments',function(req,res){
 				search.where('isDelete').equals(0)
 				search.sort({'id':-1})
 				search.sort({'isTop':-1})//正序
-				search.sort({'timeAdd':-1})
+				search.sort({'timeAdd':1})
 				search.sort({'isDisplay':1})
 				search.exec(function(error,docs){
 					if(error){

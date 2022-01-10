@@ -1,2 +1,2 @@
-views根目录的headcom.ejs 是其它页面的头部，链接，公共文件修改在此修改，然后直接替换其它文件夹的headcom.ejs
+views根目录的headcom.ejs 是pages页面的头部，链接，公共文件修改在此修改，然后直接替换其它文件夹的headcom.ejs
 

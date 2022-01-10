@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Slider</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style>
+		.layui-table-cell{
+            height: auto !important;
+			max-height: 100px !important;
+        }
+	</style>
+</head>
+    <br>
+    <div style="clear:both;"></div> 
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：英文首页发布 > 英文轮动图 </div><button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
+	<%# include('../search.ejs', {realod_id: 'table_slider'}); %>
+	<table id="slider_table" lay-filter="slider_table"></table>
+
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form'], function(){ 
+    let $ = layui.$ //重点处
+    let table = layui.table,
+    	form = layui.form
+    table.render({
+	    elem: '#slider_table'
+	    ,id:'table_slider'//重载需要
+	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+        //,url: '/manage/slider_data' //数据接口
+	    ,url: '<%=base_url%>slider_data1' //数据接口
+	    ,page: true //开启分页
+	    ,cols: [[ //表头
+	      {type:'numbers', title: '序号',width:90,align:'center',sort:true}
+	      //,{field: 'title', title: '标题',align:'center',sort:true}
+	      ,{field: 'title1', title: '标题(EN)',align:'center',sort:true}
+	      ,{field: 'pic', title: '图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
+	      ,{field: 'url', title: '链接', align:'center',sort:true}
+	      //,{field: 'isDisplay', title: '是否显示', align:'center',templet:'#displaytpl'}
+	      //,{field: 'timeEdit', title: '修改时间', align:'center'}
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+	    ]]
+	  });
+    //数据重载
+
+    $('#newsadd').on('click', function(){
+		AddTab('新增'+$("title").text(),'table_slider'+ 'new',"slideradd1")
+    	
+    })
+    //监听工具条
+	table.on('tool(slider_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	  console.log('dddd')
+	  if(layEvent === 'edit'){ //查看
+		AddTab('编辑'+$("title").text(),'slider_table'+ obj.data.id,"slideradd1?id="+data.id)
+	    //do somehing
+	   
+	  } else if(layEvent === 'del'){ //删除
+	    layer.confirm('确定删除吗?',{skin: 'layui-layer-molv' //样式类名
+				                     ,closeBtn: 0}, function(index){
+	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+	      layer.close(index);
+	      //向服务端发送删除指令
+	       $.ajax({
+				url:'<%=base_url%>sliderdel',
+				//url:'/manage/sliderdel',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('del success')		
+						  layer.msg('已删除')	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+			  	}
+			})
+	    });
+	  } else if(layEvent === 'preview'){
+	  	console.log('preview')
+	  	let src = ''+ data.pic
+	  	layer.photos({ photos: {"data": [{"src": src}]} });
+	  }else if(layEvent === 'inuse'){//设置前台是否显示
+	  	console.log('inuse')
+	  	console.log('data------',data)
+	  	if($(this).text()=='隐藏'){
+	  		console.log('不显示')
+	  		data.isDisplay=0
+	  		let _this = $(this)
+	  		$.ajax({
+                //本地与服务器
+                //url:'/manage/hidept',
+			  	url:'<%=base_url%>changedisplay',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('hide success',_this)
+			  			_this.text('显示')		
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax hide error msg',msg)
+			  	}
+			})
+	  	}else{
+	  		console.log('显示平台')
+	  		data.isDisplay=1
+	  		let _this = $(this)
+	  		$.ajax({
+			  	//本地与服务器
+                //url:'/manage/hidept',
+                url:'<%=base_url%>changedisplay',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('view success',_this)		
+			  			_this.text('隐藏')	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax view error msg',msg)
+			  	}
+			})
+	  	}
+	  	return false
+	  }
+	});
+});
+</script>
+<script type="text/html" id="yjfxbar">
+  {{# if(d.isDisplay == 1){ }}
+  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='1'>隐藏</a>
+  {{# }else{ }}
+  	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='0'>显示</a>
+  {{# } }}
+  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="sytpimg">
+	<img src="{{d.pic}}" style="height: 100px;max-width: 100%;" class="previewimg" />
+</script>
+
+</body>
+</html>

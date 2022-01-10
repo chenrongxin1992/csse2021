@@ -1,3 +1,4 @@
+<!-- page目录下的footercom是所有英文页面的共用文件 -->
 <div class="footer">
     <div class="pc_footer">
       <div class="foot_cont">
@@ -131,7 +132,7 @@
   <script src="../../javascripts/js/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-        $('#changeL').click(function(){
+        $('.changeL').click(function(){
             console.log('change to en')
             $.get('/csse/setLanguage', {
                 language:'0'

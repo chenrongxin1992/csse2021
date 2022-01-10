@@ -32,7 +32,7 @@
             <div class="head-right">
                 <div class="pc-con">
                     <div class="head-nav1">
-                        <a class="lang" href=""  id="changeL">
+                        <a class="lang changeL" href=""  id="changeL">
                             <img class="lang_icon" src="../../image/common/lang-icon.png" />
                             CN
                         </a>
@@ -109,7 +109,13 @@
         <div class="nav_site mobile-nav" style="display: none;">
             <ul class="mobile_navs">
               <li>
-                <a href="../../index">Home</a>
+                <a href="#" class="link changeL">
+                  <img class="lang_icon" src="../../image/common/lang-icon.png" />
+                  <span>CN</span>
+                </a>
+              </li>
+              <li>
+                <a href="/csse">Home</a>
               </li>
               <li class="first">
                   <a href="../../pages/university/index">About</a>
@@ -465,7 +471,7 @@
       $('.mynum').countUp()
     })
     $(document).ready(function () {
-        $('#changeL').click(function(){
+        $('.changeL').click(function(){
             console.log('change to en')
             $.get('/csse/setLanguage', {
                 language:'1'
