@@ -295,6 +295,7 @@
 
 .area-right .mess-list .details {
 	width: 83.3333%;
+    max-width: 775px;
 }
 
 .mess-list .talents-tit {

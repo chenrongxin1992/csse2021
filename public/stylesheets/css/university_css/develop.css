@@ -48,7 +48,8 @@
 }
 
 .area1 .pic-list{
-    width: 83%;
+    width: 83.3333%;
+    max-width: 1600px;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;

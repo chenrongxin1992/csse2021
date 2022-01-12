@@ -20,9 +20,9 @@
 }
 
 .cont{
-    width: 80%;
+    width: 83.3333%;
+    max-width: 1600px;
     margin: 0 auto;
-    padding-bottom: 0 !important;
 	margin-bottom: 60px;
 }
 

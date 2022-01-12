@@ -21,7 +21,7 @@ CKEDITOR.editorConfig = function( config ) {
         '方正舒体/FZShuTi;方正姚体/FZYaoti;细明体/MingLiU;新细明体/PMingLiU;微软雅黑/Microsoft YaHei;微软正黑/Microsoft JhengHei;'+  
         'Arial Black/Arial Black;'+ config.font_names;  
 	config.allowedContent = true
-    config.extraPlugins = 'uploadimage,image2,tableresize,contextmenu'
+    config.extraPlugins = 'uploadimage,image2,tableresize,contextmenu,lineheight'
     config.fullPage = true
 	config.filebrowserImageUploadUrl ='./ckupload?'
 	config.removePlugins = 'image,exportpdf';

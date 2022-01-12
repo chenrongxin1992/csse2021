@@ -12,7 +12,7 @@
 CKEDITOR.dialog.add( 'image2', function( editor ) {
 
 	// RegExp: 123, 123px, empty string ""
-	var regexGetSizeOrEmpty = /(^\s*(\d+)(px)?\s*$)|^$/i,
+	var regexGetSizeOrEmpty = /(^\s*(\d+)(px|%|rem|em)?\s*$)|^$/i,
 
 		lockButtonId = CKEDITOR.tools.getNextId(),
 		resetButtonId = CKEDITOR.tools.getNextId(),

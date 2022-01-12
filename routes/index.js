@@ -89,10 +89,9 @@ router.get('/', function(req, res, next) {
 				]
 			}
 			let search = cmsContent.find(_filter)
-				//search.sort({'id':-1})
-				search.sort({'isTop':-1})//正序
 				search.sort({'timeAdd':-1})
-				//search.sort({'isTop':-1})
+				search.sort({'isTop':-1})//正序
+				search.sort({'timeAddStamp':-1})
 				search.limit(2)
 				search.exec(function(err,docs){
 					if(err){
@@ -109,14 +108,17 @@ router.get('/', function(req, res, next) {
 		},
 		function(cb){
 			let _filter = {
+				leixing1:'学术讲座',
+				isDisplay:1,
 				$or:[
 					{tag2:'通知公告'},
 					{trees:'179-182-'}
 				]
 			}
 			let search = cmsContent.find(_filter)
-				search.sort({'id':-1})
-				search.sort({'isTop':-1})
+				search.sort({'timeAdd':-1})
+				search.sort({'isTop':-1})//正序
+				search.sort({'timeAddStamp':-1})
 				search.limit(3)
 				search.exec(function(err,docs){
 					if(err){
@@ -311,7 +313,13 @@ router.get('/pages/university/index',function(req,res){
 		if(error){
 			return res.json(error.message)
 		}
-		res.render('pages/university/message',{L:req.query['L'],data:data})
+		if(req.query['L']=='1'){
+			res.render('pages/university/message',{L:req.query['L'],data:data})
+		}
+		else{
+			res.render('pages/university/messageen',{L:req.query['L'],data:data})
+		}
+		
 	})
 }).get('/pages/university/develop',function(req,res){
 	res.render('pages/university/develop',{L:req.query['L']})
@@ -2478,10 +2486,10 @@ router.get('/pages/news/index',function(req,res){
 				limit = parseInt(limit)
 				console.log('不带搜索参数')
 				let search = cmsContent.find(obj)
-					search.where('isDelete').equals(0)
-					//search.sort({'id':-1})
-					search.sort({'isTop':-1})//正序
+					//search.where('isDelete').equals(0)
 					search.sort({'timeAdd':-1})
+					search.sort({'isTop':-1})//正序
+					search.sort({'timeAddStamp':-1})
 					//search.sort({'isDisplay':1})
 					search.limit(limit)
 					search.skip(numSkip)
@@ -2504,6 +2512,9 @@ router.get('/pages/news/index',function(req,res){
 		}
 		console.log('news async waterfall success')
 		let totalpage = Math.ceil(total/limit)
+		if(leixing=='国际交流'){
+			leixing = '合作交流'
+		}
 		res.render('pages/news/index',{L:req.query['L'],data:data,leixing:leixing,count:total,page:page,totalpage:totalpage})
 	})
 }).get('/pages/news/details',function(req,res){

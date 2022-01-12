@@ -23,6 +23,7 @@
 
 .cont{
     width: 83.3333%;
+	max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 60px;
 }

@@ -261,7 +261,8 @@ em {
 	display: flex;
 	box-sizing: border-box;
 	color: #fff;
-	max-width: 1570px;
+	width: 83.3333%;
+	max-width: 1600px;
 	position: relative;
 }
 
@@ -1114,6 +1115,10 @@ em {
 	}
 	.pc_footer .foot-row .tit {
 		font-size: 16px;
+	}
+	
+	.header .head-cont{
+		width: 100%;
 	}
 }
 

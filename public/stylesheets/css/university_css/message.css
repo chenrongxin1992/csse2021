@@ -99,6 +99,7 @@
     /*margin-left: 12.4%;
     margin-right: 7.84%;*/
     margin: 0 6.5%;
+    max-width: 745px;
 }
 .area-desc .tit{
     margin-bottom: 28px;
@@ -131,6 +132,7 @@
     width: 75.78125%;
     margin: 0 auto;
     padding: 45px 0 130px;
+    max-width: 1500px;
 }
 .contain-area .intro p{
     text-align: center;

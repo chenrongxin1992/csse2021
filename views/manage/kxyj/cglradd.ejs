@@ -128,7 +128,7 @@
 			
 			<div class="layui-form-item">
 				<label class="layui-form-label">详情</label>
-				<div class="layui-input-block" id="intro_bk">
+				<div class="layui-input-block" id="intro_bk"  style='max-width: 1150px;margin:0 auto'>
 					<textarea id="pageContent"  value="<%=data.pageContent%>" /><%=data.pageContent%></textarea>
 					
 				</div>
@@ -140,7 +140,7 @@
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">详情(EN)</label>
-				<div class="layui-input-block" id="eintro_bk">
+				<div class="layui-input-block" id="eintro_bk"  style='max-width: 1150px;margin:0 auto'>
 					<textarea id="pageContentEN"  value="<%=data.pageContentEN%>" /><%=data.pageContentEN%></textarea>
 					
 				</div>
@@ -306,7 +306,7 @@ $(function(){
 		if(patharr.length!=0){
 			console.log('patharr----->',patharr)
 			patharr.forEach(function(item,index){
-				$('#fujian').append('<p id="pid'+index+'" path='+item+'>' + namearr[index] + '<a id="fileindex'+ index +'" class="layui-btn layui-btn-danger layui-btn-xs filedelbtn"> 删除 </p>')
+				$('#fujian').append('<p id="pid'+index+'" path='+item+' name='+namearr[index]+'>' + namearr[index] + '<a id="fileindex'+ index +'" class="layui-btn layui-btn-danger layui-btn-xs filedelbtn"> 删除 </p>')
 				$('#fileindex'+index).bind('click',function(){
 			      		$(this).parent().remove();
 			     })

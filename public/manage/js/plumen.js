@@ -70,7 +70,7 @@
 						console.log(val);
 						if(val != ""){
 							for(var i in data){
-								if(data[i]['name'].indexOf(val) != -1){
+								if(data[i]['name'].toUpperCase().indexOf(val.toUpperCase()) != -1){
 									dataSelect.push(data[i]);
 								}
 							}

@@ -206,7 +206,8 @@ router.get('/login', function(req, res, next) {
 					}
 				}
 				if(!doc){
-					console.log('用户不存在')
+					console.log('用户不存在，移除session验证码')
+					req.session["randomcode"] = null
 					return res.json({'code':-1,msg:'用户不存在'})
 				}
 			})
@@ -3998,8 +3999,8 @@ router.post('/usertx',function(req,res){
 		yjly1:req.body.yjly1,
 		peopleid:req.body.peopleid,
 		suoxiid:req.body.suoxiid,
-		rongyujibie:parseInt(req.body.rongyujibie),
-		rongyujibiename:req.body.rongyujibiename,
+		rongyujibie:req.body.rongyujibie?parseInt(req.body.rongyujibie):null,
+		rongyujibiename:req.body.rongyujibiename?req.body.rongyujibiename:null,
 		rongyuname:req.body.rongyuname,
 		rongyuname1:req.body.rongyuname1
 	}
@@ -4007,7 +4008,7 @@ router.post('/usertx',function(req,res){
 	//return false
 	user.updateOne({'id':req.body.id},updateobj,function(err){
 		if(err){
-			console.log('update userinfo err')
+			console.log('update userinfo err',err)
 			return res.json({'code':-1,'msg':err})
 		}else{
 			console.log('update success')
@@ -4485,7 +4486,7 @@ router.get('/slider',function(req,res){
 }).get('/jrnews',function(req,res){
 	res.render('manage/syfb/jrxw',{search_param:manageconfig.search_param.jrxw})
 }).get('/news_data',function(req,res){
-	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.jrxw,{'trees':'179-181-'},{isTop:-1,id:-1})
+	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.jrxw,{'trees':'179-181-'},{timeAdd:-1,isTop:-1,timeAddStamp:-1})
 }).get('/jrxwadd',function(req,res){
 	let id = req.query.id
 	console.log('cmsContent ID,',id)

@@ -50,8 +50,8 @@
 				
 				<div class="downlonds">
           <%namearr.forEach(function(item,index){%>
-            <a href="<%=patharr[index]%>" class="pdf" download>
-              <span><%=item.slice(11)%></span>
+            <a href="../../../<%=patharr[index]%>" class="pdf" download style="line-height: 40px;font-family: Times New Roman;font-size: 18px;font-weight: bold;">
+              <span>Full Text<!--<%=item.slice(11)%>--></span>
             </a>
           <%})%>
         </div>

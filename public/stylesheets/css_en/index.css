@@ -124,6 +124,7 @@
     justify-content: space-between;
     margin: 4.7292% auto 11.3333%;
     width: 83.3333%;
+    max-width: 1600px;
     padding: 0 4.375%;
 }
 .about .img-file{
@@ -550,7 +551,8 @@
     z-index: 800;
 }
 .high-list{
-    width: 84%;
+    width: 83.3333%;
+	max-width: 1600px;
     margin: 0 auto;
     display: flex;
     padding-top:  30px;

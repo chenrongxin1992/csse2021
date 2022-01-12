@@ -23,7 +23,8 @@
     background-color: #f3f3f3;
 }
 .info .info-cont{
-    width: 80%;
+    width: 83.3333%;
+	max-width: 1600px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -70,7 +71,8 @@
 }
 
 .cont{
-    width: 80%;
+    width: 83.3333%;
+	max-width: 1600px;
     margin: 0 auto;
     padding-bottom: 60px;
     padding-left: .5%;
@@ -222,7 +224,7 @@
 .area-right .page-list .row-right .more .more_img{
     margin-left: 5px;
     width: 26px;
-    vertical-align: bottom;
+    vertical-align: middle;
 }
 
 @media only screen and (max-width:1200px){

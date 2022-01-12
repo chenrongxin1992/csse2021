@@ -38,7 +38,7 @@
 					<label class="layui-form-label">类别</label>
 					<div class="form-item-inline" >
 						<input type="radio" name="leixing" value="科研动态" title="科研动态" checked>
-						<input type="radio" name="leixing" value="国际交流" title="国际交流">
+						<input type="radio" name="leixing" value="合作交流" title="合作交流">
 						<input type="radio" name="leixing" value="学生工作" title="学生工作">
 						<input type="radio" name="leixing" value="党务行政" title="党务行政">
 				    </div>
@@ -225,6 +225,9 @@ $(function(){
 	   data.field.pageContent =pageContent.getData()
 	  data.field.pageContentEN = pageContentENEditor.getData()
 	  data.field.leixing = $("input[name='leixing']:checked").val();
+	  if(data.field.leixing=='合作交流'){
+		data.field.leixing = '国际交流'
+	  }
 	  //data.field.eleaderintro = editor4.txt.html()
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()

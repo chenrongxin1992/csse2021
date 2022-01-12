@@ -147,6 +147,7 @@
 .news .news-list{
     display: flex;
     width: 83.3333%;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 13px 100px;
     justify-content: space-between;
@@ -603,7 +604,8 @@
     z-index: 800;
 }
 .high-list{
-    width: 84%;
+    width: 83.3333%;
+    max-width: 1600px;
     margin: 0 auto;
     display: flex;
     padding-top:  30px;
