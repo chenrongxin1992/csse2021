@@ -13,6 +13,14 @@
             <div class="layui-inline">
                 <% if(item.type == 'url_select'){ %>
                 <input type="text" id="<%=item.field%>" name='<%=item.field%>' class="selectpage layui-input" showField='<%=item.showField%>' keyField='<%=item.keyField%>' url='<%=item.url%>' value=""  data-init="" > 
+                <% } else if(item.type == 'select'){ %>
+                    
+                    <select name="<%=item.field%>" lay-filter="<%=item.field%>" id="<%=item.field%>" style='height: 38px;'>
+                        <% item.list.forEach(function(listitem){ %>
+                           <option value='<%=listitem.value%>' ><%=listitem.title%></option>
+                        <%})%>
+                    </select>
+
                 <% } else if (item.type == 'url_input'){  %>
                 <div class="input-box">
                   <input class="layui-input wx-input" id="<%=item.field%>" name='<%=item.field%>'  showField='<%=item.showField%>' keyField='<%=item.keyField%>' url='<%=item.url%>' autocomplete="off">
@@ -36,7 +44,7 @@
     //数据重载
 $('#search_btn,#refresh_btn').on('click', function(){
     var whereparam = {};
-    $(".searchbox input").each(function(){
+    $(".searchbox input,select").each(function(){
         whereparam[$(this).attr('name')] = $(this).val()
     });
     layui.use(['jquery','table'], function(){ 

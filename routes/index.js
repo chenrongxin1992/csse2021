@@ -152,7 +152,7 @@ router.get('/', function(req, res, next) {
 						cb(err)
 					}
 					data.kycg = docs//循环用
-					console.log('cglr',docs)
+					//console.log('cglr',docs)
 					if(docs.length>0)
 					    data.kycg1 = docs[0]//第一次用
 					else
@@ -169,7 +169,7 @@ router.get('/', function(req, res, next) {
 						cb(err)
 					}
 					data.hzhb = docs
-					//console.log('docs',docs)
+					console.log('docs',docs)
 					cb()
 				})
 		},
@@ -689,7 +689,7 @@ router.get('/pages/research/index1',function(req,res){
 			data = doc
 			// data.zuozhe_arr = zuozhe_arr
 			// data.danwei_arr = danwei_arr
-			let patharr,namearr
+			let patharr=[],namearr=[]
 			if(doc.patharr){
 				patharr = (doc.patharr).split(',')
 				namearr = (doc.namearr).split(',')
@@ -954,7 +954,7 @@ router.get('/pages/research/index1',function(req,res){
 								data.yearNum = docs
 								data.beforeyear = parseInt(moment().format('YYYY')-5) //近5年
 								data.beforeyearNum = tempcount
-								console.log('check -------',data.yearNum)
+								console.log('check -------',data.yearNum,data.beforeyear)
 								cbb()
 							})
 						},
@@ -980,7 +980,7 @@ router.get('/pages/research/index1',function(req,res){
 								if(error){
 									cbb(error)
 								}
-								console.log('temparr-----',temparr)
+								console.log('belongstoNum-----',temparr)
 								data.belongstoNum = temparr
 								temparr=[]
 								cbb()
@@ -2275,7 +2275,7 @@ router.get('/pages/regulation/index',function(req,res){
 				//search.where('isDelete').equals(0)
 				//search.sort({'id':-1})
 				//search.sort({'isTop':-1})//正序
-				search.sort({'timeEdit':-1})
+				search.sort({'timeAdd':-1})
 				//search.sort({'isDisplay':1})
 				search.limit(limit)
 				search.skip(numSkip)

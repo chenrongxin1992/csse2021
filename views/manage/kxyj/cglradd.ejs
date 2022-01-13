@@ -70,7 +70,7 @@
 						<label class="layui-form-label">研究所</label>
 						<div class="form-item-inline" >
 							<select name="belongsto" lay-filter="belongsto" id="belongsto">
-								<option value="其它"  belongstoid="10" belongsto1="">其它</option>
+								<option value="软件工程研究中心"  belongstoid="11" belongsto1="Software Engineering Research Center">软件工程研究中心</option>
 								<option value="教学系" suoxiid="9" belongsto1="">教学系</option>
 								<option value="高性能计算研究所" belongstoid="1" belongsto1="National High Performance Computing Center (NHPCC) at Shenzhen">高性能计算研究所</option>
 								<option value="大数据技术与应用研究所"  belongstoid="2" belongsto1="Big Data Institute">大数据技术与应用研究所</option>
@@ -222,7 +222,7 @@ $(function(){
 		  $('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
                     '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
-                    '<img style="height: 150px;" id="fmpic" src='+'../'+ res.data +'>' +
+                    '<img style="height: 150px;" id="fmpic" src='+ res.data +'>' +
                     '</div>'
                 );
           layer.msg('图片上传成功')
@@ -232,6 +232,7 @@ $(function(){
 	      layer.msg('上传失败，请联系CRX')
 	    }
 	  });*/
+	  let fileindex = 0;
 	  upload.render({
 	    elem: '#tzggupload'
 	    ,url: '<%=base_url%>cglrupload'
@@ -243,10 +244,14 @@ $(function(){
 	    	console.log('files',files)
 	    	let filelist = []
    			obj.preview(function(index, file, result){
+				layer.msg('附件上传中，请等待提示完成。。。')
    			 	console.log(index); //得到文件索引
       			console.log(file); //得到文件对象
+				fileindex = index
       			//console.log(result); //得到文件base64编码，比如图片
       			//这里还可以做一些 append 文件列表 DOM 的操作
+				//$('#fujian').append('<p id="pid'+index+'" path='+files[index]+' name='+file.name+'>' + file.name + '<a id="fileindex'+ index +'" class="layui-btn layui-btn-danger layui-btn-xs filedelbtn"> 删除 </p>')
+
       			$('#fujian').append('<p id="pid'+index+'">' + file.name + '<a id="fileindex'+ index +'" class="layui-btn layui-btn-danger layui-btn-xs filedelbtn"> 删除 </p>')
       			$('#fileindex'+index).bind('click',function(){
       				console.log('delete file',files)
@@ -269,10 +274,13 @@ $(function(){
 	      //假设code=0代表上传成功
 	      //let filelist = []
 		    if(res.errno == 0){
+				layer.msg('附件上传成功')
 				console.log((res.data),(res.returnfilename)[0])
-		    	$('#pid'+index).attr('path',(res.data))
-		    	$('#pid'+index).attr('name',(res.returnfilename)[0])	
-		    }
+		    	$('#pid'+fileindex).attr('path',(res.data))
+		    	$('#pid'+fileindex).attr('name',(res.returnfilename)[0])	
+		    }else{
+				layer.msg('附件上传失败')
+			}
 	    }
 	});
     let form = layui.form,layer = layui.layer
@@ -303,7 +311,7 @@ $(function(){
 			namearr = '<%=data.namearr%>'
 		patharr = patharr.split(',')
 		namearr = namearr.split(',')
-		if(patharr.length!=0){
+		if(patharr.length!=0&&patharr[0]!=''){
 			console.log('patharr----->',patharr)
 			patharr.forEach(function(item,index){
 				$('#fujian').append('<p id="pid'+index+'" path='+item+' name='+namearr[index]+'>' + namearr[index] + '<a id="fileindex'+ index +'" class="layui-btn layui-btn-danger layui-btn-xs filedelbtn"> 删除 </p>')
@@ -371,7 +379,10 @@ $(function(){
 		  layer.msg('请上传封面图')
 		  return false
 	  }
-
+	  if(!data.field.year){
+		  layer.msg('请选择年份')
+		  return false
+	  }
 	  console.log('提交数据',data.field)
      //return false
 	  $.ajax({

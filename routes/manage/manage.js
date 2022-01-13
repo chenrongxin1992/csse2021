@@ -2005,8 +2005,9 @@ router.get('/hzhb',function(req,res){
     		fs.renameSync(item.path,imgpath+'\\'+ moment().unix() + '_' + item.originalFilename);
     		returnfilename.push(moment().unix() + '_' + item.originalFilename)
     	})
-		
-		returnimgurl = basedir+returnimgurl
+		//现在有csse,加上路径，后续去除
+		returnimgurl = '/csse'+returnimgurl
+		//returnimgurl = basedir+returnimgurl
     	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
     })
 }).get('/hzhbsort',function(req,res){

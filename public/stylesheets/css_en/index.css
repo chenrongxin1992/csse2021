@@ -820,7 +820,7 @@
 
 @media only screen and (max-width:480px) {
     .research .slick-slider {
-        width: 92%;
+        width: 78%;
     }
     .research_banner .slick-next, .research_banner .slick-prev{
         width: 30px;

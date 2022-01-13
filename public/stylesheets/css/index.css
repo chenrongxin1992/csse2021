@@ -249,17 +249,17 @@
 .research{
     display: flex;
     position: relative;
-    top: -50%;
 }
 .research_cont{
     background-color: #fff;
     flex:1;
-    width: 55%;
+    width: 56.5104%;
     position: relative;
-    z-index: 100;
+    z-index: 90;
+    padding: 0 45px;
 }
 .research .img_bg{
-    width: 45%;
+    width: 43.4895%;
     position: relative;
 }
 .research .img_bg .img{
@@ -291,7 +291,7 @@
     position: absolute;
     left: 47%;
     transform: translateX(-50%);
-    bottom: 6%;
+    bottom: 10%;
     font-size: 24px;
     
     color: #CCA84D;
@@ -308,33 +308,32 @@
     z-index: 100;
     width: 7.5%;
     left: 30%;
-    top: 5%;
+    top: -5%;
 }
 .research .semicircle2{
     position: absolute;
     z-index: 100;
     width: 4.5%;
-    left: 42%;
-    bottom: 18%;
+    left: 21%;
+    bottom: -2%;
 }
 .research .semicircle3{
     position: absolute;
     z-index: 100;
     width: 10%;
-    bottom: 0%;
-    left: 63%;
+    bottom: -5%;
+    left: 72.5%;
 }
 
 .research .slick-slide img{
     width: 100%;
 }
 .research .slick-slider{
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 }
 .research_banner{
     position: relative;
-    left: -20%;
 }
 .research_banner .research_tit{
     font-size: 48px;
@@ -344,9 +343,8 @@
 }
 
 .research_desc{
-    width: 65%;
-    margin-left: 7%;
-    padding-top: 3%;
+    width: 100%;
+    padding: 3% 10px 0;
     font-size: 24px;
 }
 .research_desc .txt{
@@ -758,6 +756,7 @@
 .m-area .research_cont{
     width: 100%;
     z-index: 9;
+    padding: 0;
 }
 .m-area .research_banner{
     left: 0;
@@ -775,7 +774,8 @@
     font-weight: 400;
     color: #CCA84D;
     line-height: 27px;
-    width: 87%;
+    width: 100%;
+    padding: 2% 5%;
 }
 .m-area .research_desc .small{
     font-size: 24px;
@@ -1114,11 +1114,11 @@
     .m-area .news-txt .txt,.m-area .news .news-row3 .txt,.m-area .recruitment_cont .r-row .txt{
         font-size: 16px;
     }
-    .m-area .research_banner .research_tit,.m-area .recruitment_cont .tit,.m-area .internationality_cont .tit{
+    .m-area .research_banner .research_tit,.m-area .recruitment_cont .tit,.m-area .internationality_cont .tit{9
         font-size: 30px;
     }
     .research .slick-slider {
-        width: 80%;
+        width: 78%;
     }
     .research_banner .slick-next, .research_banner .slick-prev{
         width: 30px;
