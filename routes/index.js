@@ -964,7 +964,7 @@ router.get('/pages/research/index1',function(req,res){
 							let temp = {},temparr=[]
 							async.eachLimit(myarr,1,function(item,callback){
 								console.log('item-------',item)
-								let search = cglr.find({belongstoid:item}).count()
+								let search = cglr.find({belongstoid:item,review:1}).count()
 									search.exec(function(err,count){
 										if(err){
 											callback(err)

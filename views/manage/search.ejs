@@ -16,6 +16,7 @@
                 <% } else if(item.type == 'select'){ %>
                     
                     <select name="<%=item.field%>" lay-filter="<%=item.field%>" id="<%=item.field%>" style='height: 38px;'>
+                        <option value='''></option>
                         <% item.list.forEach(function(listitem){ %>
                            <option value='<%=listitem.value%>' ><%=listitem.title%></option>
                         <%})%>

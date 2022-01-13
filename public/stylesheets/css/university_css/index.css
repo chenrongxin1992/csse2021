@@ -73,7 +73,7 @@
     padding: 90px 1.04%;
     color: #333;
     font-size: 18px;
-    text-indent: 2em;
+    /* text-indent: 2em; */
     position: relative;
 }
 .cont-txt .m40{

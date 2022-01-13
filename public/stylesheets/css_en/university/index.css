@@ -73,7 +73,7 @@
     padding: 90px 0;
     color: #333;
     font-size: 18px;
-    text-indent: 2em;
+    /* text-indent: 2em; */
     position: relative;
     margin: 0 auto;
 }

@@ -61,7 +61,7 @@ const search_param = {
     {field: 'zuozhe', title: '作者',type:'input'},
     {field: 'pageContent', title: '详情',type:'input'},
     {field: 'pageContentEN', title: '详情(EN)',type:'input'},
-    {field: 'belongsto', title: '研究所',type:'select',list:[{title:'其它',value:'其它'},{title:'教学系',value:'教学系'},{title:'高性能计算研究所',value:'高性能计算研究所'},{title:'大数据技术与应用研究所',value:'大数据技术与应用研究所'},{title:'未来媒体技术与计算研究所',value:'未来媒体技术与计算研究所'},{title:'网络与信息安全研究所',value:'网络与信息安全研究所'},{title:'计算机视觉研究所',value:'计算机视觉研究所'},{title:'智能技术与系统集成研究所',value:'智能技术与系统集成研究所'},{title:'物联网研究中心',value:'物联网研究中心'},{title:'可视计算研究中心',value:'可视计算研究中心'}]}
+    {field: 'belongsto', title: '研究所',type:'select',list:[{title:'软件工程研究中心',value:'软件工程研究中心'},{title:'教学系',value:'教学系'},{title:'高性能计算研究所',value:'高性能计算研究所'},{title:'大数据技术与应用研究所',value:'大数据技术与应用研究所'},{title:'未来媒体技术与计算研究所',value:'未来媒体技术与计算研究所'},{title:'网络与信息安全研究所',value:'网络与信息安全研究所'},{title:'计算机视觉研究所',value:'计算机视觉研究所'},{title:'智能技术与系统集成研究所',value:'智能技术与系统集成研究所'},{title:'物联网研究中心',value:'物联网研究中心'},{title:'可视计算研究中心',value:'可视计算研究中心'},{title:'其它',value:'其它'}]}
   ],
    xrld:[
     {field: 'name', title: '姓名',type:'input'},
