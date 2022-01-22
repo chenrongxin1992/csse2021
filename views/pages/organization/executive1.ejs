@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/css/organization_css/organization.css" />
+  <link rel="stylesheet" type="text/css" href="../../stylesheets/css/organization_css/executive.css" />
+  <script src="../../javascripts/js/jquery.min.js"></script>
+</head>
+<body class="organization">
+<%if(L=='1'){%>
+	<%include headcom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+	<%include ../../headcom.ejs%>
+<%}%>
+  <div class="banner">
+    <img src="../../image/organization_image/banner.png" class="b_bg lazy_img pimg" />
+    <img src="../../image/organization_image/m-banner.png" class="b_bg lazy_img mimg" />
+  </div>
+
+  <div class="contain">
+    <div class="contain-area clearfix">
+        <div class="l area-nav">
+            <div class="tit b">机构设置</div>
+            <ul>
+              <li>
+                <a href="index">研究所/中心</a>
+              </li>
+              <li ><a href="departments">教学系</a></li>
+              <li class="active"><a href="javascript:;">行政办公室</a></li>
+              <li class=""><a href="periodical">期刊编辑部</a></li>
+              <li><a href="http://csse.szu.edu.cn/cpct">实验中心</a></li>
+              <li><a href="https://bdsc.szu.edu.cn">国家工程实验室</a></li>
+            </ul>
+        </div>
+      <div class="area-cont area1">
+        <div class="ress_nav">
+            当前位置：<a href="/csse">首页</a>
+            >
+            <a href="index">组织机构</a>
+            
+            >
+            <a href="executive">行政办公室</a>
+        </div>
+        
+        <div>
+            <%if(data.dw_ry.length){%>
+                <div class="item-title">
+                    <span>党务工作</span>
+                </div>
+                <div class="user-list">
+                    <%data.dw_ry.forEach(function(item){%>
+                        <div class="item">
+                            <div class="avatar">
+                                <img src="<%=item.avatar%>" alt="">
+                            </div>
+                            <div class="con">
+                                <ul>
+                                    <li>
+                                        <span class="name"><%=item.userName%></span>
+                                    </li>
+                                    <li class="intro"><%=item.zhiwu%></li>
+                                    <li class="c_cca84d">TEL：<%if(item.phoneOffice){%> <%=item.phoneOffice%> <%}%></li>
+                                    <li class="c_cca84d">E-mail：<%if(item.email){%> <%=item.email%> <%}%></li>
+                                </ul>
+                            </div>
+                        </div>
+                    <%})%>
+                </div>
+            <%}%>
+            <%if(data.jw_ry.length){%>
+                <div class="item-title">
+                    <span>教学业务</span>
+                </div>
+                <div class="user-list">
+                    <%data.jw_ry.forEach(function(item){%>
+                        <div class="item">
+                            <div class="avatar">
+                                <img src="<%=item.avatar%>" alt="">
+                            </div>
+                            <div class="con">
+                                <ul>
+                                    <li>
+                                        <span class="name"><%=item.userName%></span>
+                                    </li>
+                                    <li class="intro"><%=item.zhiwu%></li>
+                                    <li class="c_cca84d">TEL：<%if(item.phoneOffice){%> <%=item.phoneOffice%> <%}%></li>
+                                    <li class="c_cca84d">E-mail：<%if(item.email){%> <%=item.email%> <%}%></li>
+                                </ul>
+                            </div>
+                        </div>
+                    <%})%>
+                </div>
+            <%}%>
+            <%if(data.sy_ry.length){%>
+                <div class="item-title">
+                    <span>实验教学中心</span>
+                </div>
+                <div class="user-list">
+                    <%data.sy_ry.forEach(function(item){%>
+                        <div class="item">
+                            <div class="avatar">
+                                <img src="<%=item.avatar%>" alt="">
+                            </div>
+                            <div class="con">
+                                <ul>
+                                    <li>
+                                        <span class="name"><%=item.userName%></span>
+                                    </li>
+                                    <li class="intro"><%=item.zhiwu%></li>
+                                    <li class="c_cca84d">TEL：<%if(item.phoneOffice){%> <%=item.phoneOffice%> <%}%></li>
+                                    <li class="c_cca84d">E-mail：<%if(item.email){%> <%=item.email%> <%}%></li>
+                                </ul>
+                            </div>
+                        </div>
+                    <%})%>
+                </div>
+            <%}%>
+            <%if(data.fdy_ry.length){%>
+                <div class="item-title">
+                    <span>辅导员</span>
+                </div>
+                <div class="user-list">
+                    <%data.fdy_ry.forEach(function(item){%>
+                        <div class="item">
+                            <div class="avatar">
+                                <img src="<%=item.avatar%>" alt="">
+                            </div>
+                            <div class="con">
+                                <ul>
+                                    <li>
+                                        <span class="name"><%=item.userName%></span>
+                                    </li>
+                                    <li class="intro"><%=item.zhiwu%></li>
+                                    <li class="c_cca84d">TEL：<%if(item.phoneOffice){%> <%=item.phoneOffice%> <%}%></li>
+                                    <li class="c_cca84d">E-mail：<%if(item.email){%> <%=item.email%> <%}%></li>
+                                </ul>
+                            </div>
+                        </div>
+                    <%})%>
+                </div>
+            <%}%>
+            <%if(data.qt_ry.length){%>
+                <div class="item-title">
+                    <span>其他业务</span>
+                </div>
+                <div class="user-list">
+                    <%data.qt_ry.forEach(function(item){%>
+                        <div class="item">
+                            <div class="avatar">
+                                <img src="<%=item.avatar%>" alt="">
+                            </div>
+                            <div class="con">
+                                <ul>
+                                    <li>
+                                        <span class="name"><%=item.userName%></span>
+                                    </li>
+                                    <li class="intro"><%=item.zhiwu%></li>
+                                    <li class="c_cca84d">TEL：<%if(item.phoneOffice){%> <%=item.phoneOffice%> <%}%></li>
+                                    <li class="c_cca84d">E-mail：<%if(item.email){%> <%=item.email%> <%}%></li>
+                                </ul>
+                            </div>
+                        </div>
+                    <%})%>
+                </div>
+            <%}%>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  <!-- <div id="footer"></div> -->
+  <%if(L=='1'){%>
+    <%include ../../footercom.ejs%>
+<%}%>
+<%if(L!='1'){%>
+    <%include ../../footercom.ejs%>
+<%}%>
+<script src="../../javascripts/js/jquery.min.js"></script>
+<script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+<script src="../../javascripts/js/common.js"></script>
+
+<script src="../../javascripts/js/brcheck.js"></script>
+
+</body>
+</html>

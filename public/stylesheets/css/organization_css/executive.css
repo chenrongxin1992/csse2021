@@ -1,0 +1,102 @@
+
+.area-nav{
+	flex-shrink: 0;
+}
+.area-cont{
+	flex-shrink: 1;
+	width: auto;
+	flex: auto;
+	padding: 0 !important;
+	background-color: transparent;
+}
+.item-title{
+    width: 100%;
+    padding: 35px 0;
+    text-align: center;
+    position: relative;
+}
+.item-title span{
+    display: inline-block;
+    padding: 0 35px;
+    font-size: 24px;
+    color: #cca84d;
+    font-weight: bold;
+    background-color: white;
+    position: relative;
+    z-index: 5;
+}
+.item-title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 1px;
+    background-color: #eee;
+}
+
+.user-list{
+	width: 100%;
+	padding: 0 10px;
+	font-size: 0;
+}
+.user-list .item{
+	display: inline-flex;
+	vertical-align: top;
+	width: 50%;
+	padding-right: 5%;
+	align-items: center;
+	margin-bottom: 45px;
+}
+.user-list .item .avatar{
+	width: 22.8%;
+	flex-shrink: 0;
+	position: relative;
+	padding-top: 22.8%;
+	overflow: hidden;
+	min-width: 130px;
+	min-height: 130px;
+}
+.user-list .item .avatar img{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	object-fit: cover;
+}
+.user-list .item .con{
+	margin-left: 20px;
+	width: 100%;
+	flex-shrink: 1;
+}
+.user-list .item ul{
+	width: 100%;
+	font-size: 16px;
+	color: #333333;
+}
+.user-list .item .name{
+	font-size: 22px;
+	color: #010101;
+	font-weight: bold;
+}
+.user-list .item li{
+	width: 100%;
+	/* overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
+	padding: 2px 0;
+}
+.user-list .item .c_cca84d{
+	font-size: 14px;
+}
+.user-list .item .intro{
+	padding: 5px 0;
+}
+
+@media screen and (max-width: 1200px) {
+	.user-list .item{
+		width: 100%;
+	}
+}

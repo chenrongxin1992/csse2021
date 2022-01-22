@@ -75,7 +75,7 @@ layui.use(['jquery','table','form'], function(){
 		  ,{field: 'suoxi', title: '所/系',align:'center',sort:true}
 		//   ,{field: 'rongyujibiename', title: '荣誉级别',align:'center',sort:true}
 		//   ,{field: 'rongyuname', title: '荣誉',align:'center',sort:true}
-		  ,{field: 'zhicheng', title: '职称',width:300,align:'center',sort:true,templet:'#review'}
+		  ,{field: 'zhicheng', title: '职称',width:0,align:'center',sort:true,templet:'#review'}
 	      ,{field: 'account', title: '登录账号', width:140,align:'center',sort:true}
 	      ,{field: 'power', title: '角色',width:140, align:'center',sort:true}
 	      ,{title:'操作', align:'center',width:450, toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
@@ -90,7 +90,8 @@ layui.use(['jquery','table','form'], function(){
 				where: {
 					userName: $('#userName').val(),
 					power: $('#power option:selected').val(),
-					peopleid: $('#jstype option:selected').attr('peopleid')
+					peopleid:$('#jstype option:selected').val()
+					//peopleid: $('#jstype option:selected').attr('peopleid')
 				}
 			});
     })

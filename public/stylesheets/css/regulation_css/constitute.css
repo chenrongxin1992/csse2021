@@ -8,6 +8,7 @@
 }
 .area-right .area-list .txt img{
 	max-width: 100%;
+	height: auto;
 }
 
 .area-right .area-list .txt p {

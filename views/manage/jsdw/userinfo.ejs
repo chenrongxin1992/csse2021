@@ -161,8 +161,8 @@
 						<select name="rongyujibie" lay-filter="rongyujibie" id="rongyujibie">
 							<option value="" >请选择</option>
 							<option value="1" jibiename="院士">院士</option>
-							<option value="2" jibiename="国家专家级">国家专家级</option>
-							<option value="3" jibiename="国家青年级">国家青年级</option>
+							<option value="2" jibiename="国家级人才">国家级人才</option>
+							<option value="3" jibiename="国家青年人才">国家青年人才</option>
 							<option value="4" jibiename="国家其他">国家其他</option>
 							<option value="5" jibiename="国际荣耀">国际荣耀</option>
 							<option value="6" jibiename="广东省杰出人才">广东省杰出人才</option>
@@ -183,6 +183,17 @@
 						<div class="form-item-inline" >
 							<input type="text" id="rongyuname1" class="layui-input" value="<%=user.rongyuname1%>">
 						</div>
+						<label class="layui-form-label">业务口</label>
+						<div class="form-item-inline" >
+							<select name="yewukou" lay-filter="yewukou" id="yewukou">
+								<option value="" >请选择</option>
+								<option value="1" yewukouname="党务工作" yewukouname1=''>党务工作</option>
+								<option value="2" yewukouname="教学业务" yewukouname1=''>教学业务</option>
+								<option value="3" yewukouname="实验教学中心" yewukouname1=''>实验教学中心</option>
+								<option value="4" yewukouname="其他业务" yewukouname1=''>其他业务</option>
+								<option value="5" yewukouname="辅导员" yewukouname1=''>辅导员</option>
+							</select>
+				    	</div>
 					</div>
 				</div>
 			<%}%>
@@ -384,6 +395,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 		$('#zhicheng1').val('<%=user.zhicheng1%>')
 		$('#rongyujibie').val('<%=user.rongyujibie%>')
 		$('#rongyujibie').val('<%=user.rongyujibie%>')
+		$('#yewukou').val('<%=user.yewukouid%>')
 		$('#zhiwu').val('<%=user.zhiwu%>')
 		$('#zhiwu1').val('<%=user.zhiwu1%>')
 		$('#yjly').val('<%=user.yjly%>')
@@ -529,6 +541,9 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  data.field.zhicheng1=$('#zhicheng1 option:selected').val()
 	  data.field.rongyujibie=$('#rongyujibie option:selected').val()
 	  data.field.rongyujibiename=$('#rongyujibie option:selected').attr('jibiename')
+	  data.field.yewukouid=parseInt($('#yewukou option:selected').val())
+	  data.field.yewukouname=$('#yewukou option:selected').attr('yewukouname')
+	  data.field.yewukouname1=$('#yewukou option:selected').attr('yewukouname1')
 	  data.field.rongyuname = $('#rongyuname').val()
 	  data.field.rongyuname1 = $('#rongyuname1').val()
 	  data.field.phoneOffice=$('#phoneOffice').val()

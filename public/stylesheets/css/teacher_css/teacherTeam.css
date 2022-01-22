@@ -21,7 +21,32 @@
 .banner .mimg{
 	display: none;
 }
-
+.item-title{
+    width: 100%;
+    padding: 35px 0;
+    text-align: center;
+    position: relative;
+}
+.item-title span{
+    display: inline-block;
+    padding: 0 35px;
+    font-size: 24px;
+    color: #cca84d;
+    font-weight: bold;
+    background-color: white;
+    position: relative;
+    z-index: 5;
+}
+.item-title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 1px;
+    background-color: #eee;
+}
 /*info*/
 .info{
     background-color: #f3f3f3;
@@ -171,12 +196,19 @@
     flex-shrink: 1;
     flex: auto;
 }
+.area-right .page-list{
+    display: flex;
+    flex-wrap: wrap;
+}
 .area-right .page-list .page{
     width: 30%;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     background-color: #EDEFF1;
     text-align: center;
     position: relative;
+}
+.area-right .page-list .page:not(:nth-child(3n-2)){
+    margin-left: 5%;
 }
 .area-right .page-list .page.page2{
     margin: 0 5% 40px 5%;
@@ -218,6 +250,22 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+.page-list .page .avatar{
+    margin: 0 auto;
+    width: 44.7368%;
+    padding-top: 44.7368%;
+    position: relative;
+    min-width: 100px;
+    min-height: 100px;
+}
+.page-list .page .avatar img{
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .area-right .row2{
@@ -266,17 +314,6 @@
     color: #FFFFFF;
 }
 
-@media only screen and (max-width:1440px){
-    .area-right .page-list .page{
-        width: 48%;
-    }
-    .area-right .page-list .page.page2{
-        margin: 0 0 40px 0;
-    }
-    .area-right .page-list .page:nth-child(2n){
-        margin-left: 4%;
-    }
-}
 @media only screen and (max-width:1200px){
     .area-left,
     .cont .top-nav{
@@ -294,6 +331,16 @@
         width: 100%;
         margin-top: 20px;
     }
+    .cont{
+        width: 97%;
+    }
+    .area-right .page-list .page{
+        width: 32%;
+        margin-bottom: 20px;
+    }
+    .area-right .page-list .page:not(:nth-child(3n-2)){
+        margin-left: 2%;
+    }
 }
 @media only screen and (max-width: 767px){
     .banner .pimg{
@@ -301,9 +348,6 @@
     }
     .banner .mimg{
         display: block;
-    }
-    .cont{
-        width: 95%;
     }
 }
 @media only screen and (max-width:480px){
@@ -322,6 +366,7 @@
     }
     .info-cont .img{
         width: 30%;
+        display: none;
     }
     .area-right .page-list .page .name{
         font-size: 16px;

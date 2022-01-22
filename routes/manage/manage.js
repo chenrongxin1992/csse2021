@@ -141,7 +141,7 @@ router.get('/login', function(req, res, next) {
 						req.session.username = doc.userName
 						req.session.avatar = doc.avatar
 						req.session.power = doc.power
-						req.session.cookie.expires= new Date(Date.now() + 60 * 60 * 1000);
+						req.session.cookie.expires= new Date(Date.now() + 60 * 60 * 24 * 1000);
 						//在这里指定各类管理员类型，党群的目前张芯蕾
 						if(doc.power=='管理员'){
 							if(doc.userName == '张芯蕾'){
@@ -3970,7 +3970,7 @@ router.post('/usertx',function(req,res){
 	console.log('-----------------------')
 	let updateobj = {
 		userName:req.body.userName,
-		userName1:req.body.userName,
+		userName1:req.body.userName1,
 		sex:req.body.sex,
 		sex1:req.body.sex1,
 		// jstype:req.body.jstype,
@@ -4003,8 +4003,11 @@ router.post('/usertx',function(req,res){
 		suoxiid:req.body.suoxiid,
 		rongyujibie:req.body.rongyujibie?parseInt(req.body.rongyujibie):null,
 		rongyujibiename:req.body.rongyujibiename?req.body.rongyujibiename:null,
-		rongyuname:req.body.rongyuname,
-		rongyuname1:req.body.rongyuname1
+		rongyuname:req.body.rongyuname?req.body.rongyuname:null,
+		rongyuname1:req.body.rongyuname1?req.body.rongyuname1:null,
+		yewukouid:(!req.body.yewukouid)?req.body.yewukouid:null,
+		yewukouname:req.body.yewukouname?req.body.yewukouname:null,
+		yewukouname1:req.body.yewukouname1?req.body.yewukouname1:null
 	}
 	console.log('obj',updateobj)
 	//return false

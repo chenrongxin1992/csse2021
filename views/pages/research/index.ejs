@@ -10,6 +10,13 @@
   <link rel="stylesheet" href="../../stylesheets/css/common.css">
   <link rel="stylesheet" href="../../stylesheets/css/research_css/research.css">
   <script src="../../javascripts/js/jquery.min.js"></script>
+  <style>
+    @media screen and (max-width:960px){
+      #clear_choose{
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body class="research">
 <%if(L=='1'){%>
@@ -49,7 +56,7 @@
                     <img src="../../image/research_image/search.png" class="search-img" />
                 </div>
                 <div class="list">
-                  <i id="clear_choose" style="cursor:pointer;">清空筛选</i>
+                  <!-- <i id="clear_choose" style="cursor:pointer;">清空筛选</i> -->
               </div>
             </div>
             <div class="area">
@@ -75,7 +82,7 @@
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[5]._id%>">智能技术与系统集成研究所(<%=data.belongstoNum[5].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[6]._id%>">物联网研究中心(<%=data.belongstoNum[6].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[7]._id%>">可视计算研究中心(<%=data.belongstoNum[7].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[8]._id%>">教学系(<%=data.belongstoNum[8].num%>)</a></li>
+                          <!-- <li><a href="" class="a_sx" id="<%=data.belongstoNum[8]._id%>">教学系(<%=data.belongstoNum[8].num%>)</a></li> -->
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[10]._id%>">软件工程研究中心(<%=data.belongstoNum[10].num%>)</a></li>
                         </ul>
                     </div>

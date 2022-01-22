@@ -110,7 +110,10 @@ login_num:{type:Number,default:0},
 rongyujibie:{type:Number},
 rongyujibiename:{type:String},
 rongyuname:{type:String},
-rongyuname1:{type:String}//en
+rongyuname1:{type:String},//en
+yewukouid:{type:Number},
+yewukouname:{type:String},
+yewukouname1:{type:String}
 },{collection:'allUser'})
 const cmsContentSchema = new Schema({
  id:{type:Number},

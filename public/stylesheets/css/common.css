@@ -1090,6 +1090,17 @@ em {
 	color: #fff;
 }
 
+@media only screen and (max-width: 1500px) {
+	.head-nav2{
+		font-size: 14px;
+	}
+}
+
+@media only screen and (max-width: 1300px) {
+	.head-nav2{
+		font-size: 12px;
+	}
+}
 
 @media only screen and (max-width: 1200px) {
 	.banner {

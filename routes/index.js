@@ -371,6 +371,323 @@ function mysort(attr,rev){
 		return 0;
 	}
 }
+//research 页面老何要分开检索条件20220113,20220117完成
+router.get('/pages/research/index',function(req,res){
+	let page = req.query.p,
+		limit = req.query.limit,
+		search_txt = req.query.s,
+		year = req.query.y,
+		belongstoid = req.query.b
+	if(!page){page = 1}
+	if(!limit){limit = 8 }//8
+	let total = 0,data = {},totalpage = 0
+	console.log('page limit',page,limit,search_txt,year,belongstoid,typeof(year))
+	let obj = {},aggregate_obj = {}
+	let myarr = [1,2,3,4,5,6,7,8,9,10,11]//目前11个所/系
+	if(search_txt){
+		console.log('-------------- 有搜索条件 --------------')
+		if(year){
+			console.log('------------------------ 还有年份 -----------------------------')
+			if(year=='Before'){
+				year = parseInt(moment().format('YYYY')-6)
+				obj = {year:{$lte:year},title:{$regex:search_txt,$options:"$i"}}
+			}else{
+				year = parseInt(year)
+				obj = {year:year,title:{$regex:search_txt,$options:"$i"}}
+			}
+			aggregate_obj = {title:{$regex:search_txt,$options:"$i"},review:'1'}
+		}
+		if(belongstoid){
+			console.log('------------------------ 只有所 ----------------------------')
+			obj = {belongstoid:belongstoid,title:{$regex:search_txt,$options:"$i"}}
+			aggregate_obj = {title:{$regex:search_txt,$options:"$i"},review:'1'}
+		}
+		if(!year && !belongstoid){
+			console.log('----------------------- 没有限制年 所 -------------------------')
+			obj = {title:{$regex:search_txt,$options:"$i"}}
+			aggregate_obj = {title:{$regex:search_txt,$options:"$i"},review:'1'}
+		}
+		obj['review'] = 1
+		console.log('check obj aggregate_obj ----------------->',obj,aggregate_obj)
+		async.waterfall([
+			function(cb){
+				//get count
+				let search = cglr.find(obj).count()
+					search.exec(function(err,count){
+						if(err){
+							console.log('research get total err',err)
+							cb(err)
+						}
+						console.log('research count',count)
+						total = count
+						cb(null)
+					})
+			},
+			function(cb){
+				let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+					console.log('obj-----------------',obj)
+					async.waterfall([
+						function(cbb){
+							console.log('year -------')
+							let search = cglr.aggregate([
+								{$match:aggregate_obj},
+								{$sort:{year:1}},
+								{$group:{'_id':'$year',num:{$sum:1}}}
+								
+							])
+							search.exec(function(err,docs){
+								if(err){
+									cbb(err)
+								}
+								let tempcount = 0
+								docs.forEach(function(item,index){
+									if(item._id<parseInt(moment().format('YYYY')-5)){
+										tempcount += item.num
+									}
+								})
+								data.yearNum = docs
+								data.beforeyear = parseInt(moment().format('YYYY')-5) //近5年
+								data.beforeyearNum = tempcount
+								console.log('check data.yearNum -----------------',data.yearNum)
+								cbb()
+							})
+						},
+						function(cbb){
+							console.log('belongsto -------')
+							//统计所系人数
+							let temp = {},temparr=[]
+							async.eachLimit(myarr,1,function(item,callback){
+								console.log('item-------',item)
+								let search = cglr.find({belongstoid:item,title:{$regex:search_txt,$options:"$i"}}).count()
+									search.exec(function(err,count){
+										if(err){
+											callback(err)
+										}
+										temp.num = count
+										temp.sx = checksuotype(item)
+										temp._id = item
+										temparr.push(temp)
+										temp={}
+										callback()
+									})
+							},function(error){
+								if(error){
+									cbb(error)
+								}
+								console.log('check belongstoNum ------------',temparr)
+								data.belongstoNum = temparr
+								temparr=[]
+								cbb()
+							})
+						},
+						function(cbb){
+							console.log('aaa')
+							let search = cglr.find(obj)
+								search.sort({'year':-1})
+								search.sort({'timeAdd':-1})
+								search.limit(limit)
+								search.skip(numSkip)
+								search.exec(function(error,docs){
+									if(error){
+										console.log('error',error)
+										cb(error)
+									}		
+									data.kycg = docs
+									cbb(null)
+								})
+						},
+						function(cbb){
+							let search = cmsContent.findOne({'tag2':'成果概况'})
+								search.exec(function(err,doc){
+									if(err){
+										cb(err)
+									}
+									data.cggk = doc
+									cbb()
+								})
+						}
+					],function(error,result){
+						if(error){
+							return cb(error)
+						}
+						console.log('总页数------->',total,limit)
+						totalpage = Math.ceil(total/limit)
+						console.log('总页数------->',totalpage)
+						cb()
+					})
+			}
+		],function(error,result){
+			if(error){
+				console.log('cglr_data async waterfall error',error)
+				return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+			}
+			console.log('check year ------',year)
+			if(year==parseInt(moment().format('YYYY')-6) ){
+				year = 'Before'
+			}
+			console.log('check year ------',year)
+			if(req.query['L']=='1'){
+				res.render('pages/research/indextest',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			}else{
+				res.render('pages/research/indextesten',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			}	
+		})
+	}else{
+		if(year){
+			console.log('------------------------ 只有年份 -----------------------------')
+			if(year=='Before'){
+				year = parseInt(moment().format('YYYY')-6)
+				obj = {year:{$lte:year}}
+				aggregate_obj = {}
+				//aggregate_obj = {year:{$lte:year}}
+			}else{
+				year = parseInt(year)
+				obj = {year:year}
+				aggregate_obj = {}
+			}
+		}
+		if(belongstoid){
+			console.log('------------------------ 只有所 ----------------------------')
+			obj = {belongstoid:belongstoid}
+			aggregate_obj = {}
+			//aggregate_obj = {belongstoid:parseInt(belongstoid)}
+		}
+		if(!year && !belongstoid){
+			console.log('----------------------- 没有限制条件 -------------------------')
+			obj = {}
+			aggregate_obj = {}
+		}
+		obj['review'] = 1
+		console.log('check obj,aggregate_obj---------------------------->',obj,aggregate_obj)
+		async.waterfall([
+			function(cb){
+				//get count
+				let search = cglr.find(obj).count()
+					search.exec(function(err,count){
+						if(err){
+							console.log('research get total err',err)
+							cb(err)
+						}
+						console.log('research count---------------->',count)
+						total = count
+						cb(null)
+					})
+			},
+			function(cb){
+				let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+					console.log('obj-----------------',obj,aggregate_obj)
+					async.waterfall([
+						function(cbb){
+							//统计年份数据
+							console.log('----------------- 统计年份数据 ------------------')
+							let search = cglr.aggregate([
+								{$match:{review:'1'}},
+								{$sort:{year:1}},
+								{$group:{'_id':'$year',num:{$sum:1}}}	
+							])
+							
+							search.exec(function(err,docs){
+								if(err){
+									cbb(err)
+								}
+								let tempcount = 0
+								docs = docs.sort(mysort('_id',false))
+								docs.forEach(function(item,index){
+									if(item._id<parseInt(moment().format('YYYY')-5)){//2021 2017即小于2017为before
+										tempcount += item.num
+									}
+								})
+								data.yearNum = docs
+								data.beforeyear = parseInt(moment().format('YYYY')-5) //近5年
+								data.beforeyearNum = tempcount
+								console.log('check data.yearNum,data.beforeyear------->',data.yearNum,data.beforeyear)
+								cbb()
+							})
+						},
+						function(cbb){
+							console.log('---------------------- 统计所系数据 --------------------')
+							let temp = {},temparr=[]
+							async.eachLimit(myarr,1,function(item,callback){
+								console.log('item-------',item)
+								let search = cglr.find({belongstoid:item,review:1}).count()
+									search.exec(function(err,count){
+										if(err){
+											callback(err)
+										}
+										temp.num = count
+										temp.sx = checksuotype(item)
+										temp._id = item
+										temparr.push(temp)
+										temp={}
+										callback()
+									})
+							},function(error){
+								if(error){
+									cbb(error)
+								}
+								console.log('chenck belongstoNum   ---------- >',temparr)
+								data.belongstoNum = temparr
+								temparr=[]
+								cbb()
+							})
+						},
+						function(cbb){
+							console.log('aaa')
+							let search = cglr.find(obj)
+								search.sort({'year':-1})
+								search.sort({'timeAdd':-1})
+								search.limit(limit)
+								search.skip(numSkip)
+								search.exec(function(error,docs){
+									if(error){
+										console.log('error',error)
+										cb(error)
+									}		
+									data.kycg = docs
+									cbb(null)
+								})
+						},
+						function(cbb){
+							let search = cmsContent.findOne({'tag2':'成果概况'})
+								search.exec(function(err,doc){
+									if(err){
+										cb(err)
+									}
+									data.cggk = doc
+									cbb()
+								})
+						}
+					],function(error,result){
+						if(error){
+							return cb(error)
+						}
+						console.log('总页数------->',total,limit)
+						totalpage = Math.ceil(total/limit)
+						console.log('总页数------->',totalpage)
+						cb()
+					})
+			}
+		],function(error,result){
+			if(error){
+				console.log('cglr_data async waterfall error',error)
+				return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+			}
+			console.log('check year ------',year)
+			if(year==parseInt(moment().format('YYYY')-6) ){
+				year = 'Before'
+			}
+			console.log('check year ------',year)
+			if(req.query['L']=='1'){
+				res.render('pages/research/indextest',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			}else{
+				res.render('pages/research/indextesten',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+			}
+			
+		})
+	}
+})
 router.get('/pages/research/index1',function(req,res){
 	let page = req.query.p,
 		limit = req.query.limit,
@@ -701,7 +1018,9 @@ router.get('/pages/research/index1',function(req,res){
 			}	
 			
 		})
-}).get('/pages/research/index',function(req,res){
+}).get('/pages/research/index---详情见备注',function(req,res){
+	// 该路由是联合条件搜索，可用，当不需要分开检索条件时直接使用------20220117-crx
+	//views中index.ejs/indexen.ejs也是联合检索条件可用版本,分开检索条件使用的是indextest.ejs/indextesten.ejs
 	let page = req.query.p,
 		limit = req.query.limit,
 		search_txt = req.query.s,
@@ -1041,7 +1360,7 @@ router.get('/pages/research/index1',function(req,res){
 		})
 	}
 })
-router.get('/pages/teacherTeam/index',function(req,res){
+router.get('/pages/teacherTeam/index-2022',function(req,res){
 	//6 9 10 为专职研究人员
 	let data={},total=0,totalpage=0,myarr=[1,2,3,4,5,6,7,8,9,10,11],myarr1=[1,2,3,4,5,6,7,8,9,10]//myarr1根人员类别数量相对应，myarr跟所系数量对应
 	let page = req.query.p,
@@ -1052,6 +1371,7 @@ router.get('/pages/teacherTeam/index',function(req,res){
 	if(!page){page = 1}
 	if(!i){i = ''}
 	let temp = {},temparr=[],obj,limit = 9
+	let jsdw_ys = [],jsdw_gjzj = [],jsdw_gjqn = [],jsdw_gjqt = [],jsdw_gjry = []
 	console.log('------------------------------------')
 	if(search_txt){
 		let searchobj = {}
@@ -1178,6 +1498,26 @@ router.get('/pages/teacherTeam/index',function(req,res){
 						}	
 						//console.log('docs-----',docs)	
 						data.jsdw = docs
+						if(zhicheng==1){
+							console.log('------------ 杰出人才 --------------')
+							docs.forEach(function(item){
+								if(parseInt(item.rongyujibie)==1){
+									jsdw_ys.push(item)
+								}
+								if(parseInt(item.rongyujibie)==2){
+									jsdw_gjzj.push(item)
+								}
+								if(parseInt(item.rongyujibie)==3){
+									jsdw_gjqn.push(item)
+								}
+								if(parseInt(item.rongyujibie)==4){
+									jsdw_gjqt.push(item)
+								}
+								if(parseInt(item.rongyujibie)==5){
+									jsdw_gjry.push(item)
+								}
+							})
+						}
 						cb(null)
 					})
 			},
@@ -1188,9 +1528,9 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			totalpage = Math.ceil(total/limit)
 			console.log('总页数------->',totalpage)
 			if(req.query['L']=='1'){
-				res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt})
+				res.render('pages/teacherTeam/index',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 			}else{
-				res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt})
+				res.render('pages/teacherTeam/indexen',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 			}
 		})
 	}
@@ -1319,6 +1659,26 @@ router.get('/pages/teacherTeam/index',function(req,res){
 						}	
 						//console.log('docs-----',docs)	
 						data.jsdw = docs
+						if(zhicheng==1){
+							console.log('------------ 杰出人才 --------------')
+							docs.forEach(function(item){
+								if(parseInt(item.rongyujibie)==1){
+									jsdw_ys.push(item)
+								}
+								if(parseInt(item.rongyujibie)==2){
+									jsdw_gjzj.push(item)
+								}
+								if(parseInt(item.rongyujibie)==3){
+									jsdw_gjqn.push(item)
+								}
+								if(parseInt(item.rongyujibie)==4){
+									jsdw_gjqt.push(item)
+								}
+								if(parseInt(item.rongyujibie)==5){
+									jsdw_gjry.push(item)
+								}
+							})
+						}
 						cb(null)
 					})
 			},
@@ -1330,9 +1690,9 @@ router.get('/pages/teacherTeam/index',function(req,res){
 			console.log('总页数------->',totalpage)
 			console.log('i-------------------',i)
 			if(req.query['L']=='1'){
-				res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				res.render('pages/teacherTeam/index',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 			}else{
-				res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				res.render('pages/teacherTeam/indexen',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 			}
 			
 		})
@@ -1451,6 +1811,27 @@ router.get('/pages/teacherTeam/index',function(req,res){
 							}	
 							console.log('docs-----',docs)	
 							data.jsdw = docs
+							if(zhicheng==1){
+								console.log('------------ 杰出人才 --------------')
+								docs.forEach(function(item){
+									if(parseInt(item.rongyujibie)==1){
+										jsdw_ys.push(item)
+									}
+									if(parseInt(item.rongyujibie)==2){
+										jsdw_gjzj.push(item)
+									}
+									if(parseInt(item.rongyujibie)==3){
+										jsdw_gjqn.push(item)
+									}
+									if(parseInt(item.rongyujibie)==4){
+										jsdw_gjqt.push(item)
+									}
+									if(parseInt(item.rongyujibie)==5){
+										jsdw_gjry.push(item)
+									}
+								})
+							}
+							console.log('jsdw--------------------->',jsdw_ys.length,jsdw_gjzj.length,jsdw_gjqn.length,jsdw_gjqt.length,jsdw_gjry.length)
 							cb(null)
 						})
 				},
@@ -1461,9 +1842,9 @@ router.get('/pages/teacherTeam/index',function(req,res){
 				totalpage = Math.ceil(total/limit)
 				console.log('总页数------->',totalpage)
 				if(req.query['L']=='1'){
-					res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/index',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}else{
-					res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/indexen',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}
 			})
 		}
@@ -1586,14 +1967,12 @@ router.get('/pages/teacherTeam/index',function(req,res){
 						limit = parseInt(limit)
 					let search
 					if(zhicheng==1){
-						search = user.find({rongyujibie:{$ne:null,$exists:true},$or:[{power:'教职工'},{power:'管理员'}]})
+						search = user.find({display:1,rongyujibie:{$ne:null,$exists:true},$or:[{power:'教职工'},{power:'管理员'}]})
+						search.sort({'rongyujibie':1})
 					}else{
-						search = user.find({peopleid:zhicheng,$or:[{power:'教职工'},{power:'管理员'}]})
+						search = user.find({display:1,peopleid:zhicheng,$or:[{power:'教职工'},{power:'管理员'}]})
 					}
-					
-						search.where({'display':1})	
 						search.sort({'userName_py':1})
-						
 						search.limit(limit)
 						search.skip(numSkip)
 						search.exec(function(error,docs){
@@ -1612,6 +1991,28 @@ router.get('/pages/teacherTeam/index',function(req,res){
 								}
 							})
 							data.jsdw = docs
+							
+							if(zhicheng==1){
+								console.log('------------ 杰出人才 --------------')
+								docs.forEach(function(item){
+									if(parseInt(item.rongyujibie)==1){
+										jsdw_ys.push(item)
+									}
+									if(parseInt(item.rongyujibie)==2){
+										jsdw_gjzj.push(item)
+									}
+									if(parseInt(item.rongyujibie)==3){
+										jsdw_gjqn.push(item)
+									}
+									if(parseInt(item.rongyujibie)==4){
+										jsdw_gjqt.push(item)
+									}
+									if(parseInt(item.rongyujibie)==5){
+										jsdw_gjry.push(item)
+									}
+								})
+							}
+							console.log('jsdw--------------------->',jsdw_ys.length,jsdw_gjzj.length,jsdw_gjqn.length,jsdw_gjqt.length,jsdw_gjry.length)
 							cb(null)
 						})
 				},
@@ -1620,9 +2021,9 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					return res.json(error)
 				}
 				totalpage = Math.ceil(total/limit)
-				console.log('总页数------->',totalpage)
+				console.log('总页数------->',totalpage,zhicheng)
 				if(req.query['L']=='1'){
-					res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/index',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}else{
 					res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}
@@ -1875,6 +2276,730 @@ router.get('/pages/teacherTeam/index',function(req,res){
 					res.render('pages/teacherTeam/index',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}else{
 					res.render('pages/teacherTeam/indexen',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}				
+			})
+		}
+	}	
+}).get('/pages/teacherTeam/index',function(req,res){
+	//6 9 10 为专职研究人员
+	//该接口为条件分开检索，搜索独立，字母独立，所系独立，职称独立，可用
+	//20220121新写，views中indextest和indextesten可用，如果到时候要分开
+	//直接把该接口改为/index即可,index-2022是联合条件搜索接口
+	let data={},total=0,totalpage=0,myarr=[1,2,3,4,5,6,7,8,9,10,11],myarr1=[1,2,3,4,5,6,7,8,9,10]//myarr1根人员类别数量相对应，myarr跟所系数量对应
+	let page = req.query.p,
+		search_txt = req.query.s,
+		zhicheng = req.query.zc,//peopleid
+		suoxi = req.query.sx,//suoxiid
+		i = req.query.i ///字母搜索
+	if(!page){page = 1}
+	if(!i){i = ''}
+	let temp = {},temparr=[],obj,limit = 9
+	let jsdw_ys = [],jsdw_gjzj = [],jsdw_gjqn = [],jsdw_gjqt = [],jsdw_gjry = []
+	console.log('------------------------------------')
+	if(search_txt){
+		let searchobj = {}
+		console.log('单独搜索----------------',search_txt)
+
+		searchobj = {display:1,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+		
+		console.log('check searchobj --------',searchobj)
+		async.waterfall([
+			function(cb){
+				//get count
+				let search = user.find(searchobj).count()
+					search.exec(function(err,count){
+						if(err){
+							console.log('user get total err',err)
+							cb(err)
+						}
+						console.log('user count',count)
+						total = count
+						cb(null)
+					})
+			},
+			function(cb){
+				let search = cmsContent.findOne({'tag2':'师资概况'})
+					search.exec(function(err,doc){
+						if(err){
+							cb(err)
+						}
+						data.szgk = doc
+						cb()
+					})
+			},
+			function(cb){
+				//统计职称人数
+				async.eachLimit(myarr1,1,function(item,cbb){
+					console.log('item-------',item)
+					let search
+					if(item==1){
+						search = user.find({rongyujibie:{$ne:null,$exists:true},display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}else{
+						search = user.find({peopleid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}
+					
+						search.exec(function(err,count){
+							if(err){
+								cbb(err)
+							}
+							temp.num = count
+							temp.zc = checkjstype(item)
+							temp._id = item
+							temparr.push(temp)
+							temp={}
+							cbb()
+						})
+				},function(error){
+					if(error){
+						cb(error)
+					}
+					console.log('职称人数统计----------',temparr)
+					data.zhichengNum = temparr
+					temparr = []
+					cb()
+				})
+			},
+			function(cb){
+				//统计所系人数
+				async.eachLimit(myarr,1,function(item,cbb){
+					console.log('item-------',item)
+					let search = user.find({suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						search.exec(function(err,count){
+							if(err){
+								cbb(err)
+							}
+							temp.num = count
+							temp.sx = checksuotype(item)
+							temp._id = item
+							temparr.push(temp)
+							temp={}
+							cbb()
+						})
+				},function(error){
+					if(error){
+						cb(error)
+					}
+					console.log('所系人数----------',temparr)
+					data.suoxiNum = temparr
+					cb()
+				})
+			},
+			function(cb){
+				console.log('aaa')
+				let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+				let search = user.find(searchobj)
+					search.where({'display':1})
+					search.sort({'userName_py':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('error',error)
+							cb(error)
+						}	
+						//console.log('docs-----',docs)	
+						data.jsdw = docs
+						if(zhicheng==1){
+							console.log('------------ 杰出人才 --------------')
+							docs.forEach(function(item){
+								if(parseInt(item.rongyujibie)==1){
+									jsdw_ys.push(item)
+								}
+								if(parseInt(item.rongyujibie)==2){
+									jsdw_gjzj.push(item)
+								}
+								if(parseInt(item.rongyujibie)==3){
+									jsdw_gjqn.push(item)
+								}
+								if(parseInt(item.rongyujibie)==4){
+									jsdw_gjqt.push(item)
+								}
+								if(parseInt(item.rongyujibie)==5){
+									jsdw_gjry.push(item)
+								}
+							})
+						}
+						cb(null)
+					})
+			},
+		],function(error,result){
+			if(error){
+				return res.json(error)
+			}
+			totalpage = Math.ceil(total/limit)
+			console.log('总页数------->',totalpage)
+			if(req.query['L']=='1'){
+				res.render('pages/teacherTeam/indextest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+			}else{
+				res.render('pages/teacherTeam/indexentest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+			}
+		})
+	}
+	else if(i){
+		let searchobj = {}
+		console.log('单独字母筛选----------------',i)
+
+		searchobj = {display:1,userName_py:{$regex:i,$options:"$i"},$or:[{power:'教职工'},{power:'管理员'}]}
+		
+		console.log('check searchobj --------',searchobj)
+		async.waterfall([
+			function(cb){
+				//get count
+				let search = user.find(searchobj).count()
+					search.exec(function(err,count){
+						if(err){
+							console.log('user get total err',err)
+							cb(err)
+						}
+						console.log('user count',count)
+						total = count
+						cb(null)
+					})
+			},
+			function(cb){
+				let search = cmsContent.findOne({'tag2':'师资概况'})
+					search.exec(function(err,doc){
+						if(err){
+							cb(err)
+						}
+						data.szgk = doc
+						cb()
+					})
+			},
+			function(cb){
+				//统计职称人数
+				async.eachLimit(myarr1,1,function(item,cbb){
+					console.log('item-------',item)
+					let search
+					if(item==1){
+						search = user.find({rongyujibie:{$ne:null,$exists:true},display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}else{
+						search = user.find({peopleid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}
+						search.exec(function(err,count){
+							if(err){
+								cbb(err)
+							}
+							temp.num = count
+							temp.zc = checkjstype(item)
+							temp._id = item
+							temparr.push(temp)
+							temp={}
+							cbb()
+						})
+				},function(error){
+					if(error){
+						cb(error)
+					}
+					console.log('职称人数统计----------',temparr)
+					data.zhichengNum = temparr
+					temparr = []
+					cb()
+				})
+			},
+			function(cb){
+				//统计所系人数
+				async.eachLimit(myarr,1,function(item,cbb){
+					console.log('item-------',item)
+					let search = user.find({suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						search.exec(function(err,count){
+							if(err){
+								cbb(err)
+							}
+							temp.num = count
+							temp.sx = checksuotype(item)
+							temp._id = item
+							temparr.push(temp)
+							temp={}
+							cbb()
+						})
+				},function(error){
+					if(error){
+						cb(error)
+					}
+					console.log('所系人数----------',temparr)
+					data.suoxiNum = temparr
+					cb()
+				})
+			},
+			function(cb){
+				console.log('aaa')
+				let numSkip = (page-1)*limit
+					limit = parseInt(limit)
+				let search = user.find(searchobj)
+					search.where({'display':1})
+					search.sort({'userName_py':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('error',error)
+							cb(error)
+						}	
+						//console.log('docs-----',docs)	
+						data.jsdw = docs
+						if(zhicheng==1){
+							console.log('------------ 杰出人才 --------------')
+							docs.forEach(function(item){
+								if(parseInt(item.rongyujibie)==1){
+									jsdw_ys.push(item)
+								}
+								if(parseInt(item.rongyujibie)==2){
+									jsdw_gjzj.push(item)
+								}
+								if(parseInt(item.rongyujibie)==3){
+									jsdw_gjqn.push(item)
+								}
+								if(parseInt(item.rongyujibie)==4){
+									jsdw_gjqt.push(item)
+								}
+								if(parseInt(item.rongyujibie)==5){
+									jsdw_gjry.push(item)
+								}
+							})
+						}
+						cb(null)
+					})
+			},
+		],function(error,result){
+			if(error){
+				return res.json(error)
+			}
+			totalpage = Math.ceil(total/limit)
+			console.log('总页数------->',totalpage)
+			console.log('i-------------------',i)
+			if(req.query['L']=='1'){
+				res.render('pages/teacherTeam/indextest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+			}else{
+				res.render('pages/teacherTeam/indexentest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+			}
+			
+		})
+	}
+	else{
+		console.log('------------------')
+		if(zhicheng){
+			console.log('只有职称---------',zhicheng)
+			async.waterfall([
+				function(cb){
+					//get count
+					let search
+					if(zhicheng==1){
+						search = user.find({rongyujibie:{$ne:null,$exists:true},display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}else{
+						search = user.find({peopleid:zhicheng,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+					}
+						search.exec(function(err,count){
+							if(err){
+								console.log('user get total err',err)
+								cb(err)
+							}
+							console.log('user count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let search = cmsContent.findOne({'tag2':'师资概况'})
+						search.exec(function(err,doc){
+							if(err){
+								cb(err)
+							}
+							data.szgk = doc
+							cb()
+						})
+				},
+				function(cb){
+					//统计职称人数
+					console.log('----------------- 分步统计职称人数 ----------------')
+					async.waterfall([
+						function(cbb){
+							console.log('正常统计职称人数')
+							let search = user.aggregate([
+								{$match:{display:1,$or:[{power:'教职工'},{power:'管理员'}]}},
+								{$group:{'_id':'$peopleid',num:{$sum:1}}},
+								{$sort:{_id:1}}
+							])
+							search.exec(function(err,docs){
+								if(err){
+									cbb(err)
+								}
+								console.log('check -------',docs)
+								docs.forEach(function(item,index){
+									console.log('1    ----------------------------')
+									console.log(item._id)
+									item.zc = checkjstype(item._id)
+								})
+								data.zhichengNum = docs
+								console.log(data.zhichengNum)
+								console.log('----------------------------')
+								cbb()
+							})
+						},
+						function(cbb){
+							console.log('统计杰出人才数量')
+							let search = user.find({display:1,rongyujibie:{$ne:null,$exists:true},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+								search.exec(function(err,count){
+									if(err){
+										console.log('user get total err',err)
+										cbb(err)
+									}
+									console.log('user count',count)
+									let tempobj = {'_id':1,num:count,'zc':'杰出人才'}
+									data.zhichengNum.unshift(tempobj)
+									//(data.zhichengNum).sort(sort_id)
+									console.log('最终zhihengNum  ----------------------------')
+									console.log(data.zhichengNum)
+									cbb(null)
+								})
+						}
+					],function(error,results){
+						if(error){
+							cb(error)
+						}
+						cb()
+					})
+				},
+				function(cb){
+					//统计所系人数
+					async.eachLimit(myarr,1,function(item,cbb){
+						console.log('统计所系人数---item-------',item)
+						let search = user.find({suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+							search.exec(function(err,count){
+								if(err){
+									cbb(err)
+								}
+								temp.num = count
+								temp.sx = checksuotype(item)
+								temp._id = item
+								temparr.push(temp)
+								temp={}
+								cbb()
+							})
+					},function(error){
+						if(error){
+							cb(error)
+						}
+						console.log('统计所系人数---temparr-----',temparr)
+						data.suoxiNum = temparr
+						cb()
+					})
+				},
+				function(cb){
+					console.log('aaa')
+					let numSkip = (page-1)*limit
+						limit = parseInt(limit)
+					let search
+					if(zhicheng==1){
+						search = user.find({display:1,rongyujibie:{$ne:null,$exists:true},$or:[{power:'教职工'},{power:'管理员'}]})
+						search.sort({'rongyujibie':1})
+					}else{
+						search = user.find({display:1,peopleid:zhicheng,$or:[{power:'教职工'},{power:'管理员'}]})
+					}
+						search.sort({'userName_py':1})
+						search.limit(limit)
+						search.skip(numSkip)
+						search.exec(function(error,docs){
+							if(error){
+								console.log('error',error)
+								cb(error)
+							}	
+							//console.log('docs-----',docs)	
+							let check = new RegExp('院')//院长，院长助理
+							let check1 = new RegExp('所')//所长
+
+							docs.forEach(function(item){
+								if(!item.zhiwu.match(check)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+							})
+							data.jsdw = docs
+							
+							if(zhicheng==1){
+								console.log('------------ 杰出人才 --------------')
+								docs.forEach(function(item){
+									if(parseInt(item.rongyujibie)==1){
+										jsdw_ys.push(item)
+									}
+									if(parseInt(item.rongyujibie)==2){
+										jsdw_gjzj.push(item)
+									}
+									if(parseInt(item.rongyujibie)==3){
+										jsdw_gjqn.push(item)
+									}
+									if(parseInt(item.rongyujibie)==4){
+										jsdw_gjqt.push(item)
+									}
+									if(parseInt(item.rongyujibie)==5){
+										jsdw_gjry.push(item)
+									}
+								})
+							}
+							console.log('jsdw--------------------->',jsdw_ys.length,jsdw_gjzj.length,jsdw_gjqn.length,jsdw_gjqt.length,jsdw_gjry.length)
+							cb(null)
+						})
+				},
+			],function(error,result){
+				if(error){
+					return res.json(error)
+				}
+				totalpage = Math.ceil(total/limit)
+				console.log('总页数------->',totalpage,zhicheng)
+				if(req.query['L']=='1'){
+					res.render('pages/teacherTeam/indextest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}else{
+					res.render('pages/teacherTeam/indexentest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}
+			})
+		}
+		if(suoxi){
+			console.log('只有所系---------------',suoxi)
+			async.waterfall([
+				function(cb){
+					//get count
+					let search = user.find({suoxiid:suoxi,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						search.exec(function(err,count){
+							if(err){
+								console.log('user get total err',err)
+								cb(err)
+							}
+							console.log('user count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let search = cmsContent.findOne({'tag2':'师资概况'})
+						search.exec(function(err,doc){
+							if(err){
+								cb(err)
+							}
+							data.szgk = doc
+							cb()
+						})
+				},
+				function(cb){
+					//统计职称人数
+					async.eachLimit(myarr1,1,function(item,cbb){
+						console.log('item-------',item)
+						let search
+						if(item==1){
+							search = user.find({rongyujibie:{$ne:null,$exists:true},display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						}else{
+							search = user.find({peopleid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						}
+							search.exec(function(err,count){
+								if(err){
+									cbb(err)
+								}
+								temp.num = count
+								temp.sx = checkjstype(item)
+								temp._id = item
+								temparr.push(temp)
+								temp={}
+								cbb()
+							})
+					},function(error){
+						if(error){
+							cb(error)
+						}
+						console.log('temparr-----',temparr)
+						data.zhichengNum = temparr
+						temparr = []
+						cb()
+					})
+				},
+				function(cb){
+					//统计所系人数
+					async.eachLimit(myarr,1,function(item,cbb){
+						console.log('item-------',item)
+						let search = user.find({suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+							search.exec(function(err,count){
+								if(err){
+									cbb(err)
+								}
+								temp.num = count
+								temp.sx = checksuotype(item)
+								temp._id = item
+								temparr.push(temp)
+								temp={}
+								cbb()
+							})
+					},function(error){
+						if(error){
+							cb(error)
+						}
+						console.log('temparr-----',temparr)
+						data.suoxiNum = temparr
+						cb()
+					})
+				},
+				function(cb){
+					console.log('aaa')
+					let numSkip = (page-1)*limit
+						limit = parseInt(limit)
+					let search = user.find({suoxiid:suoxi,$or:[{power:'教职工'},{power:'管理员'}]})
+						search.where({'display':1})	
+						search.sort({'userName_py':1})
+						search.limit(limit)
+						search.skip(numSkip)
+						search.exec(function(error,docs){
+							if(error){
+								console.log('error',error)
+								cb(error)
+							}	
+							//console.log('docs-----',docs)	
+							data.jsdw = docs
+							cb(null)
+						})
+				},
+			],function(error,result){
+				if(error){
+					return res.json(error)
+				}
+				totalpage = Math.ceil(total/limit)
+				console.log('总页数------->',totalpage)
+				if(req.query['L']=='1'){
+					res.render('pages/teacherTeam/indextest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}else{
+					res.render('pages/teacherTeam/indexentest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}
+			})
+		}
+		if(!zhicheng&&!suoxi){
+			console.log('----- 没有限制条件-----')
+			async.waterfall([
+				function(cb){
+					//get count
+					let search = user.find({display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+						search.exec(function(err,count){
+							if(err){
+								console.log('user get total err',err)
+								cb(err)
+							}
+							console.log('user count',count)
+							total = count
+							cb(null)
+						})
+				},
+				function(cb){
+					let search = cmsContent.findOne({'tag2':'师资概况'})
+						search.exec(function(err,doc){
+							if(err){
+								cb(err)
+							}
+							data.szgk = doc
+							cb()
+						})
+				},
+				function(cb){
+					//统计职称人数
+					console.log('----------------- 分步统计职称人数 ----------------')
+					async.waterfall([
+						function(cbb){
+							console.log('正常统计职称人数')
+							let search = user.aggregate([
+								{$match:{display:1,$or:[{power:'教职工'},{power:'管理员'}]}},
+								{$group:{'_id':'$peopleid',num:{$sum:1}}},
+								{$sort:{_id:1}}
+							])
+							search.exec(function(err,docs){
+								if(err){
+									cbb(err)
+								}
+								console.log('check -------',docs)
+								docs.forEach(function(item,index){
+									console.log('1    ----------------------------')
+									console.log(item._id)
+									item.zc = checkjstype(item._id)
+								})
+								data.zhichengNum = docs
+								console.log(data.zhichengNum)
+								console.log('----------------------------')
+								cbb()
+							})
+						},
+						function(cbb){
+							console.log('统计杰出人才数量')
+							let search = user.find({display:1,rongyujibie:{$ne:null,$exists:true},$or:[{power:'教职工'},{power:'管理员'}]}).count()
+								search.exec(function(err,count){
+									if(err){
+										console.log('user get total err',err)
+										cbb(err)
+									}
+									console.log('user count',count)
+									let tempobj = {'_id':1,num:count,'zc':'杰出人才'}
+									data.zhichengNum.unshift(tempobj)
+									//data.zhichengNum.sort(sort_id)
+									console.log('最终zhihengNum  ----------------------------')
+									console.log(data.zhichengNum)
+									cbb(null)
+								})
+						}
+					],function(error,results){
+						if(error){
+							cb(error)
+						}
+						cb()
+					})
+					
+				},
+				function(cb){
+					//统计所系人数
+					async.eachLimit(myarr,1,function(item,cbb){
+						console.log('item-------',item)
+						let search = user.find({suoxiid:item,display:1,$or:[{power:'教职工'},{power:'管理员'}]}).count()
+							search.exec(function(err,count){
+								if(err){
+									cbb(err)
+								}
+								temp.num = count
+								temp.sx = checksuotype(item)
+								temp._id = item
+								temparr.push(temp)
+								temp={}
+								cbb()
+							})
+					},function(error){
+						if(error){
+							cb(error)
+						}
+						console.log('temparr-----',temparr)
+						data.suoxiNum = temparr
+						cb()
+					})
+				},
+				function(cb){
+					console.log('aaa')
+					let numSkip = (page-1)*limit
+						limit = parseInt(limit)
+					let search = user.find({$or:[{power:'教职工'},{power:'管理员'}]})
+						search.where({'display':1})
+						search.sort({'userName_py':1})
+						search.limit(limit)
+						search.skip(numSkip)
+						search.exec(function(error,docs){
+							if(error){
+								console.log('error',error)
+								cb(error)
+							}	
+							//console.log('docs-----',docs)	
+							data.jsdw = docs
+							cb(null)
+						})
+				},
+			],function(error,result){
+				if(error){
+					return res.json(error)
+				}
+				totalpage = Math.ceil(total/limit)
+				console.log('总页数------->',totalpage)
+				if(req.query['L']=='1'){
+					res.render('pages/teacherTeam/indextest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				}else{
+					res.render('pages/teacherTeam/indexentest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}				
 			})
 		}
@@ -2960,7 +4085,7 @@ router.get('/pages/organization/departments',function(req,res){
 			}
 			
 		})
-}).get('/pages/organization/executive',function(req,res){
+}).get('/pages/organization/executive1',function(req,res){
 	console.log('in executive')
 	let search = cmsContent.findOne({})
 		search.where('tag2').equals('行政办公室')
@@ -2970,6 +4095,76 @@ router.get('/pages/organization/departments',function(req,res){
 			}
 			res.render('pages/organization/executive',{L:req.query['L'],data:doc})
 		})
+}).get('/pages/organization/executive',function(req,res){
+	console.log('in executive')
+	let data={},dw_ry=[],jw_ry=[],sy_ry=[],qt_ry=[],fdy_ry=[]
+	async.waterfall([
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(1)
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.dw_ry = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(2)
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.jw_ry = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(3)
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.sy_ry = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(4)
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.qt_ry = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(5)
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.fdy_ry = docs
+					cb()
+				})
+		}		
+	],function(error,result){
+		if(error){
+			return res.json(error)
+		}
+		res.render('pages/organization/executive1',{L:req.query['L'],data:data})
+	})
 })
 
 
@@ -3142,5 +4337,8 @@ router.get('/index1',function(req,res){
 	// 	console.log('check language---->',req.query['L'],typeof(req.query['L']))
 	// 	res.render('info',{'data':data,'L':req.query["L"]})
 	// })	
+})
+router.get('/remove_csse',function(req,res){
+
 })
 module.exports = router;

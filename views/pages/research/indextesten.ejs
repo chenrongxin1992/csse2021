@@ -8,10 +8,10 @@
     <meta http-equiv="x-rim-auto-match" content="none">
   <title>College of Computer Science and Software Engineering, SZU</title>
   <link rel="stylesheet" href="../../stylesheets/css_en/common.css">
-  <link rel="stylesheet" href="../../stylesheets/css_en/teacher/teacherTeam.css">
+  <link rel="stylesheet" href="../../stylesheets/css_en/research/research.css">
   <script src="../../javascripts/js/jquery.min.js"></script>
 </head>
-<body class="teacherTeam">
+<body class="research">
   
     <div class="header">
         <div class="head-cont">
@@ -69,11 +69,11 @@
                               </div>
                           </div>
                         </div>
-                        <div class="nav active">
+                        <div class="nav">
                             <a href="../../pages/teacherTeam/index?zc=1">People</a>
                             <div class="nav-area w150">
                                 <div class="nav-area-row tc fl-1">
-                                  <a href="../../pages/teacherTeam/index?zc=1">Outstanding Talent</a>
+                                    <a href="../../pages/teacherTeam/index?zc=1">Outstanding Talent</a>
                                   <a href="../../pages/teacherTeam/index?zc=2">Professor</a>
                                   <a href="../../pages/teacherTeam/index?zc=3">Associate Professor</a>
                                   <a href="../../pages/teacherTeam/index?zc=4">Lecturer</a>
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="nav">
+                        <div class="nav active">
                             <a href="../../pages/research/index">Research</a>
                         </div>
                         <div class="nav">
@@ -110,7 +110,7 @@
                       <img class="lang_icon" src="../../image/common/lang-icon.png" />
                       <span>CN</span>
                     </a>
-                  </li>
+                </li>
               <li>
                 <a href="/csse">Home</a>
               </li>
@@ -195,141 +195,84 @@
             </div>
         </div>
       </div>
-
+      
   <div class="banner">
-    <img src="../../image/en/teacher_image/banner.png" class="b_bg lazy_img pimg" />
-    <img src="../../image/en/teacher_image/m-banner.png" class="b_bg lazy_img mimg" />
+    <img  src="../../image/en/research_image/banner.png" class="b_bg"/>
+    <!-- <img  src="image/bannerText.png" class="b_txt"/> -->
   </div>
   <div class="contain">
-    <div class="p-area contain-area clearfix">
+    <div class="contain-area clearfix">
         <div class="info">
             <div class="info-cont">
-                <img class="img" src="../../image/en/teacher_image/infoPerson.png" />
-                <div class="txt">
-                  The college has 116 full-time faculty members, 110 of which hold Ph.D. degrees.  Outstanding members include one academician of the Chinese Academy of Sciences, two Canadian academicians, one Chang Jiang Scholar, three National Distinguished Experts, one National Merit Young Scholar, two Changjiang Young Scholars, etc. The college especially pays attention to the introduction and training of overseas excellent teachers, of which 67 have overseas study or work experience.
+                <img class="img" src="../../image/en/research_image/infoComputer.png" />
+                <div class="txt">	
+                  <div class="txt-title">
+                    <p>
+                        <%-data.cggk.csrankingsEN-%>
+                      <a href="http://csrankings.org/" class="csr" target="_blank">
+                        About CSRankings
+                        <img src="../../image/en/research_image/icon_right.png" />
+                      </a>
+                    </p>
+                  </div>
+                  <p><%-data.cggk.pageContentEN-%></p>
                 </div>
             </div>
         </div>
         <div class="cont">
             <div class="top-nav">
-                <div class="tit c_cca84d">People</div>
+                <div class="tit c_cca84d">Research</div>
                 <div class="search-input">
-                    <input type="text" placeholder="Name" class="search" id="search">
-                    <img src="../../image/en/teacher_image/search.png" class="search-img" />
-                </div>
-                <div class="list">
-                    <div>Filter by letter：</div>
-                    <i class="choose_i">A</i>
-                    <i class="choose_i">B</i>
-                    <i class="choose_i">C</i>
-                    <i class="choose_i">D</i>
-                    <i class="choose_i">E</i>
-                    <i class="choose_i">F</i>
-                    <i class="choose_i">G</i>
-                    <i class="choose_i">H</i>
-                    <i class="choose_i">I</i>
-                    <i class="choose_i">J</i>
-                    <i class="choose_i">K</i>
-                    <i class="choose_i">L</i>
-                    <i class="choose_i">M</i>
-                    <i class="choose_i">N</i>
-                    <i class="choose_i">O</i>
-                    <i class="choose_i">P</i>
-                    <i class="choose_i">Q</i>
-                    <i class="choose_i">R</i>
-                    <i class="choose_i">S</i>
-                    <i class="choose_i">T</i>
-                    <i class="choose_i">U</i>
-                    <i class="choose_i">V</i>
-                    <i class="choose_i">W</i>
-                    <i class="choose_i">X</i>
-                    <i class="choose_i">Y</i>
-                    <i class="choose_i">Z</i>
-                    <i id="clear_choose" style="cursor:pointer;">清空筛选</i>
+                    <input type="text" placeholder="Keywords" class="search" id="search">
+                    <img src="../../image/research_image/search.png" class="search-img" />
                 </div>
             </div>
             <div class="area">
                 <div class="area-left">
                     <div class="area-nav">
-                        <div class="tit b">By Title</div>
-                        <ul>
-                          <li><a href="" class="a_zc" id="<%=data.zhichengNum[0]._id%>">Outstanding Talent(<%=data.zhichengNum[0].num%>)</a></li>
-                          <li><a href="" class="a_zc" id="<%=data.zhichengNum[1]._id%>">Professor(<%=data.zhichengNum[1].num%>)</a></li>
-                          <li><a href="" class="a_zc" id="<%=data.zhichengNum[2]._id%>">Associate Professor(<%=data.zhichengNum[2].num%>)</a></li>
-                          <li><a href="" class="a_zc" id="<%=data.zhichengNum[3]._id%>">Lecturer(<%=data.zhichengNum[3].num%>)</a></li>
-                          <li><a href="" class="a_zc" id="<%=data.zhichengNum[4]._id%>">Assistant Professor(<%=data.zhichengNum[4].num%>)</a></li>
-                          <!-- <li><a href="" class="a_zc" id="<%=data.zhichengNum[5]._id%>">Researcher(<%=data.zhichengNum[5].num%>)</a></li> -->
-                          <li class="third">
-                            <span>Researcher & Admin(<%=data.zhichengNum[5].num+data.zhichengNum[9].num+data.zhichengNum[8].num%>)</span>
-                            <div>
-                                <a href="" class="a_zc" id="<%=data.zhichengNum[5]._id%>">Researcher(<%=data.zhichengNum[5].num%>)</a>
-                            </div>
-                            <div>
-                                <a href="" class="a_zc" id="<%=data.zhichengNum[9]._id%>">Associate Researcher(<%=data.zhichengNum[9].num%>)</a>
-                            </div>
-                            <div>
-                                <a href="" class="a_zc" id="<%=data.zhichengNum[8]._id%>">Research/Admin Assistant(<%=data.zhichengNum[8].num%>)</a>
-                            </div>
-                        </li>  
-                          <li><a href="" class="a_zc" id="<%=data.zhichengNum[6]._id%>">Postdoctoral Researcher(<%=data.zhichengNum[6].num%>)</a></li>
-                          <!-- <li><a href="" class="a_zc" id="<%=data.zhichengNum[7]._id%>">Tech/Admin Staff(<%=data.zhichengNum[7].num%>)</a></li> -->
-                          <!-- <li><a href="" class="a_zc" id="<%=data.zhichengNum[8]._id%>">Research/Admin Assistant(<%=data.zhichengNum[8].num%>)</a></li> -->
+                        <div class="tit b">By Year</div>
+                        <ul id='year_ul'>
+                            <%data.yearNum.forEach(function(item,index){%>
+                                <%if(item._id>=data.beforeyear){%>
+                                <li><a href="" class="a_year" id="<%=item._id%>"><%=item._id%> (<%=item.num%>)</a></li>
+                              <%}})%>
+                              <li><a href="" class="a_year"  id="Before">Before (<%=data.beforeyearNum%>)</a></li>
                         </ul>
                     </div>
                     <div class="area-nav">
                         <div class="tit b">By Institute</div>
                         <ul>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[0]._id%>">National High Performance Computing Center(<%=data.suoxiNum[0].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[1]._id%>">Big Data Institute(<%=data.suoxiNum[1].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[2]._id%>">Research Institute for Future Media Computing(<%=data.suoxiNum[2].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[3]._id%>">Research Institute of Network and Information Security(<%=data.suoxiNum[3].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[4]._id%>">Institute of Computer Vision(<%=data.suoxiNum[4].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[5]._id%>">Research Institute of IntelligenceTechnology and System Integration(<%=data.suoxiNum[5].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[6]._id%>">The IoT Research Center(<%=data.suoxiNum[6].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[7]._id%>">Visual Computing Research Center(<%=data.suoxiNum[7].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[8]._id%>">Departments(<%=data.suoxiNum[8].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[10]._id%>">Software Engineering Research Center(<%=data.suoxiNum[10].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[0]._id%>" >National High Performance Computing Center(<%=data.belongstoNum[0].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[1]._id%>">Big Data Institute(<%=data.belongstoNum[1].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[2]._id%>">Research Institute for Future Media Computing(<%=data.belongstoNum[2].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[3]._id%>">Research Institute of Network and Information Security(<%=data.belongstoNum[3].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[4]._id%>">Institute of Computer Vision(<%=data.belongstoNum[4].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[5]._id%>">Research Institute of IntelligenceTechnology and System Integra(<%=data.belongstoNum[5].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[6]._id%>">The IoT Research Center(<%=data.belongstoNum[6].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[7]._id%>">Visual Computing Research Center(<%=data.belongstoNum[7].num%>)</a></li>
+                          <!-- <li><a href="" class="a_sx" id="<%=data.belongstoNum[8]._id%>">Departments(<%=data.belongstoNum[8].num%>)</a></li> -->
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[10]._id%>">Software Engineering Research Center(<%=data.belongstoNum[10].num%>)</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="area-right">
                     <div class="page-list clearfix">
-                        <%data.jsdw.forEach(function(item,index){%>
-                            <%if(index==1||index==4||index==7){%>
-                                <div class="page">
-                            <%}else{%>
-                                <div class="page">
-                            <%}%>
-                       
+                        <%if(data.kycg.length == 0){%>No Results<%}%>
+                        <%data.kycg.forEach(function(item,index){%>
+                        <div class="page">
+                            <a href="details?id=<%=item.id%>">
                             <div class="row">
-                                <div class="name"><%=item.userName1%></div>
-                                <div class="avatar">
-                                    <img src="<%=item.avatar%>"/>
-                                </div>
-                                <div class="txt">
-                                    <p class="c_333"><%=item.zhiwu1%> <%=item.zhicheng1%></p>
-                                    <p class="c_666">
-                                        <%if(item.suoxi1=='other'){%>
-                                            <%}else{%>
-                                                <%=item.suoxi1%>
-                                            <%}%>
-                                    </p>
-                                </div>
-                                <div class="skill"><%if(!item.yjly1){%>
-                                    <%}else{%><%=item.yjly1%><%}%></div>
-                            </div>
-                            <div class="row row2">
-                                <div class="name"></div>
-                                <div class="avatar">
-                                    <img src="<%=item.avatar%>"/>
-                                </div>
-                                <a class="btn" href="../user/index?id=<%=item.id%>">
-                                    <span class="s-txt">HOMEPAGE</span>
-                                </a>
-                                <div class="email">
-                                    E-mail：<%=item.email%> <img class="img" src="../../image/teacher_image/documents@2x.png" />
+                                <img class="img" src="<%=item.fujianPath%>" />
+                                <div class="row-right">
+                                    <div class="row-tit"><%=item.title%></div>
+                                    <p class="c_666 small"><%=item.kanwu%></p>
+                                    <p class="c_666 small"><%=item.belongsto1%></p>
+                                    <div class="more">
+                                        Project page <img class="more_img" src="../../image/index/right.png" />
+                                    </div>
                                 </div>
                             </div>
+                        </a>
                         </div>
                         <%})%>
                         
@@ -340,111 +283,83 @@
                          <%}%>
                     </div>
                     <script type="text/javascript"> 
+                    
                         function getQueryString(name) {
                             var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
                             var r = window.location.search.substr(1).match(reg);
                             if (r != null) {
-                            return unescape(r[2]);
+                                return unescape(r[2]);
                             }
-                            return null;
+                            return '';
                         }
-                        $().ready(function() {  
-                            //三级菜单
-                            let check_zc = getQueryString('zc')
-                            console.log('check_zc-----',check_zc,typeof(check_zc))
-                            if(check_zc=='6'||check_zc=='9'||check_zc=='10'){
-                                $('.third').addClass('active')
-                            }
-                            $('.third').click(function(){
-                                $(this).addClass('active')
-                            }) 
-                            $('#search').bind('keydown',function(event){
-                                if(event.keyCode == "13") {
-                                    console.log('回车搜索',$('#search').val())
-                                    let reg = new RegExp("index", "g"); 
-                                    let url = "index"; 
-                                    window.location.href = url.replace(reg, 'index?p=1&zc=<%=zhicheng%>&sx=<%suoxi%>&s='+$('#search').val()); 
-                                }
-                            }); 
-                            $('.search-img').click(function(){
-                                console.log('search')
-                                if(!$('#search').val())
-                                return
-                                let reg = new RegExp("index", "g"); 
-                                let url = "index"; 
-                                window.location.href = url.replace(reg, 'index?p=1&zc=<%=zhicheng%>&sx=<%suoxi%>&s='+$('#search').val());  
-                            })
-                            if('<%=search_txt%>'){
-                             $('#search').val('<%=search_txt%>')
-                            }  
-                            $('.choose_i').click(function(){
-                                console.log('dddddddddddddd')
-                                let reg = new RegExp("index", "g"); 
-                                let url = "index"; 
-                                window.location.href = url.replace(reg, 'index?p=1&zc=<%=zhicheng%>&sx=<%suoxi%>&i='+$(this).text());
-                            })
-                            $('.choose_i').each(function(index,obj){
-                                if('<%=zimu%>' == $(obj).text()){
-                                    console.log('找到page,点中状态',$(obj).text())
-                                $(obj).css({'color':'#cca84d'})
+                        $().ready(function() {   
+                          $('#clear_choose').click(function(){
+                                  let reg = new RegExp("index", "g"); 
+                                  let url = "index"; 
+                                  window.location.href = url.replace(reg, "index"); 
+                              })   
+                          $('#search').bind('keydown',function(event){
+                              if(event.keyCode == "13") {
+                                  console.log('回车搜索',$('#search').val())
+                                  let reg = new RegExp("index", "g"); 
+                                  let url = "index"; 
+                                  window.location.href = url.replace(reg, 'index?p=<%=page%>&y=<%=year%>&b=<%belongsto%>&s='+$('#search').val()); 
                               }
-                            })
-                            $('#clear_choose').click(function(){
-                                let reg = new RegExp("index", "g"); 
-                                let url = "index"; 
-                                window.location.href = url.replace(reg, "index"); 
-                            })    
+                          }); 
+                          if('<%=search_txt%>'){
+                            $('#search').val('<%=search_txt%>')
+                          }                       
                             $('.num').each(function(index,obj){
                               if('<%=page%>' == $(obj).text()){
                                 console.log('找到page,点中状态',$(obj).text())
                                 $(obj).addClass('active')
                               }
                             })
-                            $('.num').click(function(){
-                                console.log('点击页面---->',$(this).text(),'构造url')        
-                                let reg = new RegExp("index", "g"); 
-                                let url = "index"; 
-                                console.log(url.replace(reg, "index?p=" + $(this).text()))
-                                window.location.href = url.replace(reg, "index?p=" + $(this).text() +'&zc=<%=zhicheng%>&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 
+                            $('.a_year').each(function(index,obj){
+                              console.log(parseInt($(obj).attr('id')))
+                              if('<%=year%>' == parseInt($(obj).attr('id'))){
+                                console.log('找到year,点中状态',$(obj).text())
+                                $(obj).parent().addClass('active')
+                              }
+                              if('<%=year%>' == 'Before'&& '<%=year%>'==$(obj).attr('id')){
+                                $(obj).parent().addClass('active')
+                              }
                             })
-                            $('.a_zc').click(function(){
-                                console.log('点击zhicheng---->',$(this),'点中状态，前端更新结果') 
-                                let reg = new RegExp("index", "g"); 
-                                let url = "index";                                 
-                                window.location.href = url.replace(reg, 'index?p=1&zc='+$(this).attr('id')+'&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 
-                                $(this).parent().siblings().removeClass('active')
-                                $(this).parent().addClass('active')
-                                return false
-                            })
-                            $('.a_zc').each(function(index,obj){
-                                console.log('传回来的职称----><%=zhicheng%>')
-                                
-                                if('<%=zhicheng%>' == $(obj).attr('id')){
-                                    console.log('找到,点中状态',$(obj).text())
-                                    if($(obj).attr('id')==6||$(obj).attr('id')==9||$(obj).attr('id')==10){
-                                        $(obj).addClass('active')
-                                    }
-                                    $(obj).parent().addClass('active')
-                                }
-                            })
-                            $('.a_sx').click(function(){
-                                console.log('点击suoxi---->',$(this),'点中状态，前端更新结果') 
-                                let reg = new RegExp("index", "g"); 
-                                let url = "index";                                 
-                                window.location.href = url.replace(reg, 'index?p=1&zc=<%=zhicheng%>&sx='+$(this).attr('id')+'&s=<%=search_txt%>&i=<%=zimu%>'); 
-                                $(this).parent().siblings().removeClass('active')
-                                $(this).parent().addClass('active')
-                                return false
-                            })
-                            $('.a_sx').each(function(index,obj){
-                                console.log($(obj).attr('id'))
-                                if('<%=suoxi%>' == $(obj).attr('id')){
-                                    console.log('找到,点中状态',$(obj).text())
-                                    $(obj).parent().addClass('active')
-                                }
-                            })
+                          $('.num').click(function(){
+                            console.log('点击页面---->',$(this).text(),'构造url')        
+                            let reg = new RegExp("index", "g"); 
+                            let url = "index"; 
+                            console.log(url.replace(reg, "index?page=" + $(this).text()))
+                            window.location.href = url.replace(reg, "index?p=" + $(this).text() +'&y=<%=year%>&b=<%=belongsto%>&s=<%=search_txt%>'); 
+                          })
+                          $('.a_year').click(function(){
+                            console.log('点击year---->',$(this),'点中状态，前端更新结果') 
+                            let reg = new RegExp("index", "g"); 
+                            let url = "index"; 
+                            console.log(url.replace(reg, "index?page=" + $(this).text()))
+                            window.location.href = url.replace(reg, 'index?p=<%=page%>&y='+$(this).attr('id')+'&s=<%=search_txt%>'); 
+                            $(this).parent().siblings().removeClass('active')
+                            $(this).parent().addClass('active')
+                            return false
+                          })
+                          $('.a_sx').click(function(){
+                            console.log('点击suoxi---->',$(this),'点中状态，前端更新结果') 
+                            let reg = new RegExp("index", "g"); 
+                            let url = "index";                                 
+                            window.location.href = url.replace(reg, 'index?p=<%=page%>&b='+$(this).attr('id')+'&s=<%=search_txt%>'); 
+                            $(this).parent().siblings().removeClass('active')
+                            $(this).parent().addClass('active')
+                            return false
+                              })
+                          $('.a_sx').each(function(index,obj){
+                            console.log($(obj).attr('id'))
+                            if('<%=belongsto%>' == $(obj).attr('id')){
+                                console.log('找到,点中状态',$(obj).text())
+                                $(obj).parent().addClass('active')
+                            }
+                          })
                         })
-                    </script>
+                      </script>
                 </div>
             </div>
         </div>

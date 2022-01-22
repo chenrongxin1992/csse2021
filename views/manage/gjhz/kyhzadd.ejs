@@ -29,7 +29,14 @@
 				    </div>
 				</div>
 			</div>
-
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">合作名称(EN)</label>
+					<div class="form-item-inline" >
+				      <input type="text" name="titleEN" lay-verify="required" autocomplete="off" class="layui-input" id="titleEN">
+				    </div>
+				</div>
+			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">封面图</label>
 				<button type="button" class="layui-btn" id="test1">上传</button>
@@ -145,7 +152,7 @@ $(function(){
 	}else{
          //初始化表单值
         $('#title').val('<%- data.title%>')
-     
+		$('#titleEN').val('<%- data.titleEN%>')
 		//初始化封面图
 		$('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
@@ -171,6 +178,7 @@ $(function(){
 	  //data.field.eleaderintro = editor4.txt.html()
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()
+	  data.field.titleEN = $('#titleEN').val()
 	  if($('#fmpic').attr('src')){
 	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
 	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉
