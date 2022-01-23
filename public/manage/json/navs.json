@@ -294,11 +294,6 @@
 			"title":"个人信息",
 			"icon": "&#xe612;",
 			"href": "/csse/manage/userinfo"
-		},
-		{
-			"title":"本科教学文档",
-			"icon": "",
-			"href": "/csse/manage/jxwd"
 		}
 	],
 	"enMenu": [
