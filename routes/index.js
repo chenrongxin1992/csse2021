@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const db = require('../db/db.js');
+//const db = require('../db/db.js');
 const async = require('async')
 const moment = require('moment')
 console.log()
