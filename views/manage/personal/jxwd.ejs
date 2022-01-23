@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>本科教学文档</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style>
+        .layui-table-cell{
+            height: auto !important;
+			max-height: 100px !important;
+        }
+    </style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：首页 > 本科教学文档 </div>
+        <%if(power=='管理员'){%>
+            <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 5px;" id="import">导入</button>
+            
+        <%}%>
+        <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
+	<div class="demoTable layui-form">
+		<div class="layui-inline">
+		  <input class="layui-input" name="userName" id="userName" autocomplete="off" placeholder="教师姓名">
+		</div>
+		 <div class="layui-inline">
+			  <select name="term" id="term" lay-filter="term" >
+					<option value="">学期</option>
+					<%term.forEach(function(item){%>
+						<option value="<%=item%>" ><%=item%></option>
+					<%})%>
+						<!-- 动态获取 -->
+			 </select>
+		</div>
+		<button class="layui-btn rc-search-btn" data-type="reload" id="kyxm_btn" ><i class="layui-icon">&#xe615;</i>搜索</button>
+		<!-- <button class="layui-btn btnfloat" id="ptglsort" style="float: right;" >人员排序(教师系列)</button> -->
+	</div>
+	<table id="oh_table" lay-filter="oh_table"></table>
+
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form','upload'], function(){ 
+    let $ = layui.$ //重点处
+	$(document).ready(function(){
+		if('<%=power%>'!='管理员'){
+			$('.demoTable').css('display','none')
+		}
+	})
+    let table = layui.table,
+    	form = layui.form,upload = layui.upload
+    let uploadInst = upload.render({
+	    elem: '#import',
+	    url: '<%=base_url%>jxwdimport',
+	    accept: 'file' ,//允许上传的文件类型
+	    exts: 'xlsx|xls',
+	    multiple: false,
+	    before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+	    	console.log('上传前',obj)
+	    	layer.msg('导入中...', {
+                        icon: 16,
+                        shade: 0.01,
+                        time: 0
+                     })
+		}
+	    ,done: function(res, index, upload){
+	      console.log('upload success',res)
+	      layer.closeAll()
+	      layer.msg('导入成功')
+	    }
+	    ,error: function(index, upload){
+	      //演示失败状态，并实现重传
+	      console.log('上传失败!!')
+	      layer.msg('导入失败!!!')
+	    }
+	  });
+    table.render({
+	    elem: '#oh_table'
+	    ,id:'table_oh'//重载需要
+	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    //本地与服务器
+        ,url: '<%=base_url%>jxwd_data' //数据接口
+	    ,page: true //开启分页
+        ,limits: [15,30,45]
+        ,limit: 15 //每页默认显示的数量
+	    ,cols: [[ //表头
+	      {type:'numbers', title: '序号',width:60,align:'center'}
+	      ,{field: 'cTerm', title: '学期',align:'center'}
+		  ,{title: '课程编号/名称',align:'center',templet:'#kcbh',width:250}
+          ,{field: 'cPoint', title: '学分',align:'center',width:60}
+          ,{ title: '课程类别/主选班级',align:'center',templet:'#kclb'}
+		  ,{field: 'cTeacher', title: '教师', align:'center'}
+          ,{field: 'jxdg', title: '教学大纲', align:'center',templet:'#jxdg'}
+	      ,{field: 'jxjdb', title: '教学进度表', align:'center',templet:'#jxjdb'}
+          ,{field: 'syjxdg', title: '实验教学大纲', align:'center',templet:'#syjxdg'}
+          ,{field: 'syjxapb', title: '实验教学安排表', align:'center',templet:'#syjxjdb'}
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+	    ]],
+        done:function(res,curr,count){
+            let uploadParam = {}
+            upload.render({
+
+                elem:'.uploadInfo',
+                url:'<%=base_url%>jxwdupload',
+                accept:"file",
+                exts:'doc|docx|xlsx|xls',
+                multiple:false,
+                before:function(obj){
+                    let tableelem = this.item
+                    uploadParam.id = tableelem.attr('value')
+                    uploadParam.mytype = tableelem.attr('mytype')
+                    console.log('uploadparam',uploadParam)
+                    layer.msg('上传中...', {
+                        icon: 16,
+                        shade: 0.01,
+                        time: 0
+                     })
+                },
+                data:{
+                    id:function(){
+                        return uploadParam.id
+                    },
+                    mytype:function(){
+                        return uploadParam.mytype
+                    }
+                }
+                ,done: function(res){
+                    console.log('upload res',res)
+                    layer.close(layer.msg());//关闭上传提示窗口
+                    console.log('upload success',res)
+                    layer.msg('上传成功')
+                //上传成功
+                }
+                ,error: function(){
+                    layer.msg('上传失败，请联系CRX')
+                }
+            })
+        }
+	  });
+    $('#newsadd').on('click', function(){
+		AddTab('新增'+$("title").text(),'table_oh'+ 'new',"jxwdadd")
+    	
+    })
+	//数据重载
+    $('#kyxm_btn').on('click', function(){
+			table.reload('table_oh', {
+				where: {
+					userName: $('#userName').val(),
+					term: $('#term option:selected').val()
+					//peopleid: $('#jstype option:selected').attr('peopleid')
+				}
+			});
+    })
+    //监听工具条
+	table.on('tool(oh_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	  console.log('dddd')
+	  
+	  if(layEvent === 'edit'){ //查看
+		AddTab('编辑'+$("title").text(),'oh_table'+ obj.data.id,"jxwdadd?id="+data.id)
+	    
+	  } else if(layEvent === 'del'){ //删除
+        console.log('data-----',data)
+	    layer.confirm('确定删除吗?',{closeBtn: 0}, function(index){
+	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+	      layer.close(index);
+	      //向服务端发送删除指令
+	       $.ajax({
+               //本地与服务器
+                //url:'/manage/newsdel',
+			  	url:'<%=base_url%>jxwddel',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('del success')		
+                          layer.msg('ok')	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+			  	}
+			})
+	    });
+	  } 
+	});
+    function screen(){
+        let width = $(window).width()
+        if(width>376){//iphone x
+            return 1
+        }
+        else{
+            return 2
+        }
+    }
+});
+
+</script>
+<script type="text/html" id="yjfxbar">
+  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="kcbh">
+	{{d.cCode + ' / ' + d.cName}}
+</script>
+<script type="text/html" id="kclb">
+	{{d.cType + ' / ' + d.cClass}}
+</script>
+<script type="text/html" id="sytpimg">
+	{{d.week + d.timeStart + ':' + d.timeEnd + '-' + d.timeStart1 + ':' + d.timeEnd1}}
+</script>
+<script type="text/html" id="jxdg">
+    {{# if(d.jxdg){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="download" href="{{d.jxdg}}" download="">下载</a>
+        <a class="layui-btn layui-btn-xs uploadInfo" lay-event="reupload" value="{{d.id}}" mytype="jxdg">重传</a>
+    {{# }else{ }}
+        <a class="layui-btn layui-btn-xs uploadInfo" lay-event="upload" value="{{d.id}}"  mytype="jxdg">上传</a>
+    {{# } }}
+</script>
+<script type="text/html" id="jxjdb">
+    {{# if(d.jxjdb){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="download">下载</a> 
+        <a class="layui-btn layui-btn-xs uploadInfo" lay-event="reupload" value="{{d.id}}"  mytype="jxjdb">重传</a>
+    {{# }else{ }}
+        <a class="layui-btn layui-btn-xs uploadInfo" lay-event="upload" value="{{d.id}}"  mytype="jxjdb">上传</a>
+    {{# } }}
+</script>
+<script type="text/html" id="syjxdg">
+    {{# if(d.syjxdg){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="download">下载</a> 
+        <a class="layui-btn layui-btn-xs uploadInfo" lay-event="reupload" value="{{d.id}}"  mytype="syjxdg">重传</a>
+    {{# }else{ }}
+        <a class="layui-btn layui-btn-xs uploadInfo" lay-event="upload" value="{{d.id}}"  mytype="syjxdg">上传</a>
+    {{# } }}
+</script>
+<script type="text/html" id="syjxjdb">
+    {{# if(d.syjxapb){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="download">下载</a> 
+        <a class="layui-btn layui-btn-xs uploadInfo" lay-event="reupload" value="{{d.id}}"  mytype="syjxjdb">重传</a>
+    {{# }else{ }}
+        <a class="layui-btn layui-btn-xs uploadInfo" lay-event="upload" value="{{d.id}}"  mytype="syjxjdb">上传</a>
+    {{# } }}
+</script>
+</body>
+</html>

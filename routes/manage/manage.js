@@ -17,12 +17,14 @@ const officehour = require('../../db/db_struct').officehour
 const cglr = require('../../db/db_struct').cglr
 const kanwu = require('../../db/db_struct').kanwu
 const forlog = require('../../db/db_struct').forlog
+const jxwd = require('../../db/db_struct').jxwd
 const manageconfig = require('./manageconfig')
 const wx = require('../../public/manage/js/wx')
 const commonfunc = require('../../public/manage/js/commonfunc')
 const path = require('path')
 const multiparty = require('multiparty')
 const fs = require('fs')
+const ejsExcel = require('ejsexcel')
 const moment  = require('moment')
 const attachmentuploaddir = path.resolve(__dirname, '../../public/attachment')//G:\spatial_lab\public\attachment
 fs.existsSync(attachmentuploaddir) || fs.mkdirSync(attachmentuploaddir)
@@ -5415,12 +5417,21 @@ router.get('/get_py',function(req,res){
 	})
 })
 router.get('/officehour',function(req,res){
-	res.render('manage/personal/officehour')
+	let search = officehour.distinct('term')
+		search.exec(function(err,docs){
+			if(err){
+				console.log('err',err)
+				return res.json(err)
+			}
+			console.log(docs)
+			res.render('manage/personal/officehour',{term:docs})
+		})
 }).get('/oh_data',function(req,res){
 	console.log('router oh_data',req.session)
 	let page = req.query.page,
 		limit = req.query.limit,
-		search_txt = req.query.search_txt
+		term  = req.query.term,
+		userName = req.query.userName
 	page ? page : 1;//当前页
 	limit ? limit : 15;//每页数据
 	let total = 0
@@ -5428,7 +5439,31 @@ router.get('/officehour',function(req,res){
 	async.waterfall([
 		function(cb){
 			//get count
-			let search = officehour.find({'account':req.session.account}).count()
+			let _obj = {}
+			if(req.session.power!='管理员'){
+				_obj = {
+					'account':req.session.account
+				}
+			}else{
+				if(userName){
+					_obj = {
+						'userName':userName
+					}
+				}
+				if(term){
+					_obj = {
+						'term':term
+					}
+				}
+				if(userName && term){
+					_obj = {
+						'term':term,
+						'userName':userName
+					}
+				}
+			}
+			console.log('_obj',_obj)
+			let search = officehour.find(_obj).count()
 				search.exec(function(err,count){
 					if(err){
 						console.log('oh_data get total err',err)
@@ -5441,11 +5476,29 @@ router.get('/officehour',function(req,res){
 		},
 		function(cb){
 			let _obj = {}
-			if(!req.session.power=='管理员'){
+			if(req.session.power!='管理员'){
 				_obj = {
 					'account':req.session.account
 				}
+			}else{
+				if(userName){
+					_obj = {
+						'userName':userName
+					}
+				}
+				if(term){
+					_obj = {
+						'term':term
+					}
+				}
+				if(userName && term){
+					_obj = {
+						'term':term,
+						'userName':userName
+					}
+				}
 			}
+			console.log('_obj',_obj)
 			let numSkip = (page-1)*limit
 			limit = parseInt(limit)			
 				let search = officehour.find(_obj)
@@ -5565,7 +5618,7 @@ router.get('/officehour',function(req,res){
 					timeStart1:req.body.timeStart1,
 					week:req.body.week,
 				}
-				officehourAdd.updateOne({id:req.body.id},obj,function(error){
+				officehour.updateOne({id:req.body.id},obj,function(error){
 					if(error){
 						console.log('officehourAdd update error',error)
 						cb(error)
@@ -5592,6 +5645,443 @@ router.get('/officehour',function(req,res){
 		}
 		return res.json({'code':'0','msg':'del ohdel success'})
 	})
+}).get('/oh_data_list',function(req,res){
+	console.log('router oh_data',req.session)
+	let page = req.query.page,
+		limit = req.query.limit
+
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	let nowyear = moment().year(),nowmonth = moment().month(),nowterm
+    console.log('----------------',nowyear,nowmonth)
+    if(nowmonth >= 7){
+        nowterm = nowyear + ' - ' + (nowyear+1) + '第一学期'
+    }else{
+        nowterm = (nowyear-1) + ' - '  + nowyear + '第二学期'
+    }
+    console.log('nowterm----',nowterm)
+	async.waterfall([
+		function(cb){
+			//get count
+			let _obj = {'term':nowterm}
+			console.log('_obj',_obj)
+			let search = officehour.find(_obj).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('oh_data get total err',err)
+						cb(err)
+					}
+					console.log('oh_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let _obj = {'term':nowterm}
+			console.log('_obj',_obj)
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)			
+				let search = officehour.find(_obj)
+					search.sort({'id':-1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('oh_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})	
+		}
+	],function(error,result){
+		if(error){
+			console.log('oh_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('oh_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).get('/officehourlist',function(req,res){
+	res.render('manage/personal/officehourlist')
+})
+//教学文档
+router.get('/jxwd',function(req,res){
+	let search = jxwd.distinct('cTerm')
+		search.exec(function(err,docs){
+			if(err){
+				console.log('err',err)
+				return res.json(err)
+			}
+			docs.sort()
+			docs.reverse()
+			console.log(docs)
+			res.render('manage/personal/jxwd',{term:docs})
+		})
+}).get('/jxwd_data',function(req,res){
+	console.log('router oh_data',req.session)
+	let page = req.query.page,
+		limit = req.query.limit,
+		term  = req.query.term,
+		userName = req.query.userName
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit,req.session.userName)
+	async.waterfall([
+		function(cb){
+			//get count
+			let _obj = {}
+			if(req.session.power!='管理员'){
+				_obj = {
+					'cTeacher':{$regex:req.session.username,$options:'$i'}
+				}
+			}else{
+				if(userName){
+					_obj = {
+						'cTeacher':{$regex:userName,$options:'$i'}//title:{$regex:q_word,$options:'$i'}
+					}
+				}
+				if(term){
+					_obj = {
+						'cTerm':term
+					}
+				}
+				if(userName && term){
+					_obj = {
+						'cTerm':term,
+						'cTeacher':{$regex:userName,$options:'$i'}
+					}
+				}
+			}
+			console.log('_obj',_obj)
+			let search = jxwd.find(_obj).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('oh_data get total err',err)
+						cb(err)
+					}
+					console.log('oh_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let _obj = {}
+			if(req.session.power!='管理员'){
+				_obj = {
+					'cTeacher':{$regex:req.session.username,$options:'$i'}
+				}
+			}else{
+				if(userName){
+					_obj = {
+						'cTeacher':{$regex:userName,$options:'$i'}
+					}
+				}
+				if(term){
+					_obj = {
+						'cTerm':term
+					}
+				}
+				if(userName && term){
+					_obj = {
+						'cTerm':term,
+						'cTeacher':{$regex:userName,$options:'$i'}
+					}
+				}
+			}
+			console.log('_obj',_obj)
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)			
+				let search = jxwd.find(_obj)
+					search.sort({'cTerm':-1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('oh_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})	
+		}
+	],function(error,result){
+		if(error){
+			console.log('oh_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('oh_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).get('/jxwdadd',function(req,res){
+	let id = req.query.id
+	console.log('jxwdadd ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let search = jxwd.findOne({})
+		search.where('id').equals(id)
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			if(doc){
+				res.render('manage/personal/jxwdadd',{data:doc})
+			}
+			if(!doc){
+				res.render('manage/personal/jxwdadd',{data:{}})
+			}
+		})
+	}else{
+		res.render('manage/personal/jxwdadd',{data:{}})
+	}
+}).post('/jxwdadd',function(req,res){
+	console.log('jxwdadd------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 jxwdadd')
+		async.waterfall([
+			function(cb){
+				let search = jxwd.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let jxwdAdd = new jxwd({
+					id:id,
+					cTerm:req.body.cTerm,//加入权限后需要更新
+					cTeacher:req.body.cTeacher,
+					cCode:req.body.cCode,
+					cName:req.body.cName,
+					cPoint:req.body.cPoint,
+					cType:req.body.cType,
+					cClass:req.body.cClass
+				})
+				jxwdAdd.save(function(error,doc){
+					if(error){
+						console.log('jxwdAdd save error',error)
+						cb(error)
+					}
+					console.log('jxwdAdd save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('jxwdAdd async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('officehourAdd',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					cTerm:req.body.cTerm,//加入权限后需要更新
+					cTeacher:req.body.cTeacher,
+					cCode:req.body.cCode,
+					cName:req.body.cName,
+					cPoint:req.body.cPoint,
+					cType:req.body.cType,
+					cClass:req.body.cClass
+				}
+				jxwd.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('jxwd update error',error)
+						cb(error)
+					}
+					console.log('jxwd update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('jxwd async error',error)
+				return res.end(error)
+			}
+			console.log('officehourAdd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
+}).post('/jxwdupload',function(req,res){
+	//G:\newcsse\public\attachment\hzhb 
+	console.log('req.body---------------',req.body,req.query,req.params,req.data)
+	let imgpath = attachmentuploaddir + '\\jxwd' //替换 
+	console.log('url---------------',imgpath)
+	fs.existsSync(imgpath) || fs.mkdirSync(imgpath) 
+	let form = new multiparty.Form();
+    form.encoding = 'utf-8';
+    form.uploadDir = imgpath 
+    let baseimgpath = imgpath.split('\\') 
+    	let baseimgpathlength = baseimgpath.length
+		
+    baseimgpath = baseimgpath[baseimgpathlength-2] + '/' + baseimgpath[baseimgpathlength-1]
+    form.parse(req, function(err, fields, files) {
+		console.log(fields.id,fields.mytype,typeof((fields.id)[0]))
+    	if(err){
+    		console.log('imgpath  parse err',err.stack)
+    	}
+
+    	let uploadfiles =  files.file
+    	let returnimgurl = [],
+    		returnfilename = []
+    	uploadfiles.forEach(function(item,index){
+			console.log('item------',item)
+			//1012更改，加入时间戳，防止同名文件覆盖
+			returnimgurl.push('/'+baseimgpath+'/'+ moment().unix() + '_' + item.originalFilename)
+    		fs.renameSync(item.path,imgpath+'\\'+ moment().unix() + '_' + item.originalFilename);
+    		returnfilename.push(moment().unix() + '_' + item.originalFilename)
+    	})
+		console.log('basedir------------------',basedir)
+		console.log('returnimgurl------------------',returnimgurl)
+		returnimgurl = '/csse'+returnimgurl
+		console.log('req.body-----',req.body)
+		let checkuploadfile = (fields.mytype)[0],_obj={},id=(fields.id)[0]
+		console.log('checkuploadtype-----',checkuploadfile,id)
+		//return
+		if(checkuploadfile=='syjxjdb'){
+			console.log('实验教学进度表')
+			_obj = {syjxapb:returnimgurl}
+		}
+		if(checkuploadfile=='jxdg'){
+			console.log('教学大纲')
+			_obj = {jxdg:returnimgurl}
+		}
+		if(checkuploadfile=='jxjdb'){
+			console.log('教学进度表')
+			_obj = {jxjdb:returnimgurl}
+		}
+		if(checkuploadfile=='syjxdg'){
+			console.log('实验教学大纲')
+			_obj = {syjxdg:returnimgurl}
+		}
+		console.log('_obj-----',_obj)
+		jxwd.updateOne({'id':parseInt((fields.id)[0])},_obj,function(error){
+			if(error){
+				console.log('jxwdupload  error',error)
+				return res.json({'errno':'-1','msg':error})
+			}
+			return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
+		})
+    })
+}).post('/jxwdimport',function(req,res){
+	let imgpath = attachmentuploaddir + '\\jxwd' //替换 
+	console.log('url---------------',imgpath)
+	fs.existsSync(imgpath) || fs.mkdirSync(imgpath) 
+
+	console.log('in excelimport router')
+	var form = new multiparty.Form();
+    //设置编码
+    form.encoding = 'utf-8';
+    //设置文件存储路径
+    form.uploadDir = imgpath
+    //设置单文件大小限制
+    //form.maxFilesSize = 2 * 1024 * 1024;
+    //form.maxFields = 1000;  设置所以文件的大小总和
+    form.parse(req, function(err, fields, files) {
+    	if(err){
+    		console.log('parse err',err.stack)
+    	}
+    })
+ 	 form.on('file', (name, file, ...rest) => { // 接收到文件参数时，触发file事件
+	    console.log('-------------',name, file)
+	    let exBuf=fs.readFileSync(file.path)
+		    console.log('exBuf-->',exBuf)
+		    //使用ejsExcel的getExcelArr将buffer读取为数组
+		    ejsExcel.getExcelArr(exBuf).then(exlJson=>{
+		    	console.log("---------------- read success:getExcelArr ----------------");
+			    let workBook=exlJson;
+			    let workSheets=workBook[0];//第一个工作表
+			    console.log('workBook-->',workBook)
+			    console.log('workSheets-->',workSheets)
+			    //res.end(workSheets)
+			    //return false
+			    let count = 0//计数，排除第一行
+				let id 
+				let search = jxwd.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+							console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							id = doc.id + 1
+							console.log('最新id ----- ',id)
+							async.eachLimit(workSheets,1,function(item,cb){
+								console.log('当前id------',id)
+								if(count === 0){
+									count++
+									cb()
+								}else{					   
+									console.log('check item-->',item.length)
+									
+									if(item.length!=0){
+										let	new_jxwd = new jxwd({
+											id:id,
+											cTerm : item[0].trim(),
+											cCode : item[1].trim(),
+											cName : item[2].trim(),
+											cPoint : item[3].trim(),
+											cTeacher : item[7].trim(),
+											cType : item[8].trim(),
+											cClass : item[9].trim(),
+										})
+										console.log('new_jxwd-----',new_jxwd)
+										new_jxwd.save(function(err){
+											if(err){						    	
+												cb(err)
+											}
+											id ++
+											cb()
+										})
+									}else{
+										cb()
+									}
+								}//排除第一行
+							},function(err){
+								if(err){
+									console.log('async err')
+									return res.json({'code':-1,'msg':err.stack})
+								}else{
+									   //删除上传的文件
+									console.log('----- 删除上传文件 -----')
+									fs.unlinkSync(file.path)
+									return res.json({'code':0,'msg':'导入成功'})
+								}
+						})
+						}
+					})
+			    //async	 			    
+			}).catch(error=>{
+				console.log("************** 读表 error!");
+				console.log(error); 
+				return res.json({'code':-1,'msg':error})
+			});
+	  })
+
+  	form.on('close', () => {  // 表单数据解析完成，触发close事件
+	    console.log('表单数据解析完成')
+	  })
 })
 //20220105
 router.get('/czjl',function(req,res){

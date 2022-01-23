@@ -299,6 +299,23 @@ const forlogSchema = new Schema({
     user : {type:String}
 },{collection:'forlog'})
 
+//20220122 教学文档
+const jxwdSchema = new Schema({ 
+    id:{type:Number},
+    cTerm :{type:String},//
+    cCode :{type:String},//
+    cName : {type:String},//
+    cPoint : {type:Number},//
+    cType : {type:String},
+    cClass : {type:String},
+    cTeacher : {type:String},//
+    jxdg : {type:String},//教学大纲路径
+    jxjdb : {type:String},//教学进度表
+    syjxdg : {type:String},//实验教学大纲
+    syjxapb : {type:String},//实验教学安排表
+    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
+   },{collection:'jxwd'})
 exports.forlog = mongoose.model('forlog',forlogSchema)
 exports.cglr = mongoose.model('cglr',cglrSchema)//成果录入
 exports.kanwu = mongoose.model('kanwu',kanwu)//成果录入
@@ -310,3 +327,4 @@ exports.xrld = mongoose.model('xrld',xrldSchema)//现任领导
 exports.user = mongoose.model('allUser',userSchema)
 exports.cmsContent = mongoose.model('cmsContent',cmsContentSchema)
 exports.cmsSlider = mongoose.model('cmsSlider',cmsSliderSchema)
+exports.jxwd = mongoose.model('jxwd',jxwdSchema)//本科招生
