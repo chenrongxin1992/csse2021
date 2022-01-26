@@ -240,7 +240,7 @@
 }
 
 .area-right .mess-list .mess {
-	line-height: 48px;
+	line-height: 40px;
 	height: 40px;
 	font-size: 16px;
 }
@@ -271,6 +271,12 @@
 	}
 	.contain-area .line{
 		display: none;
+	}
+	.mess .time{
+		display: none;
+	}
+	.mess .txt{
+		width: 94%;
 	}
 }
 
@@ -390,11 +396,7 @@
 
 	.area-right .mess-list .mess .txt {
 		height: 30px;
-		width: 60%;
-		font-size: 16px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+		font-size: 14px;
 		line-height: 30px;
 	}
 
@@ -437,17 +439,13 @@
 	}
 
 	.bread-crumbs {
-		font-size: 18px;
+		font-size: 14px;
 	}
 }
 
 @media only screen and (max-width:400px) {
 	.details .details_nav {
 		font-size: 12px;
-	}
-
-	.mess .txt {
-		width: 55%;
 	}
 }
 

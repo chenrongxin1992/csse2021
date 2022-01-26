@@ -1,3 +1,6 @@
+.txt-more .more_img{
+	width: 24px;
+}
 @media screen and (min-width: 1680px) {
 
 	.area-row .txt {
@@ -19,11 +22,6 @@
 	.area-row .txt div:first-child {
 		height: 105px;
 	}
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		font-size: 16px;
-		line-height: 27px;
-	}
 
 	.area-row .img-txt {
 		font-size: 22px;
@@ -32,12 +30,6 @@
 
 @media screen and (max-width: 1579px) {
 
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		font-size: 15px;
-		line-height: 25px;
-	}
-
 	.area-row .img-txt {
 		font-size: 21px;
 	}
@@ -45,75 +37,37 @@
 	.area-row .img-txt div:last-child {
 		width: 90% !important;
 	}
-	.area-row .txt .txt-more img {
-		width: 32%;
-	}
 	
 	.area-row .txt div:first-child {
-		height: 95px;
+		height: 100px;
+	}
+	.txt-more .more_img{
+		width: 20px;
 	}
 }
 
-@media screen and (max-width: 1479px) { 
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		font-size: 14px;
-		line-height: 23px;
-	}
-}
 
 @media screen and (max-width: 1379px) {
-
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		line-height: 21px;
-	}
-
 	.area-row .img-txt {
 		font-size: 20px;
-	}
-	.area-row .txt .txt-more img {
-		width: 30%;
-	}
-	.area-row .txt div:first-child {
-		height: 85px;
 	}
 }
 
 @media screen and (max-width: 1279px) {
-
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		font-size: 14px;
-		line-height: 19px;
-	}
-
 	.area-row .img-txt {
 		font-size: 19px;
 	}
-	.area-row .txt .txt-more img {
-		width: 28%;
-	}
 	.area-row .txt div:first-child {
-		height: 78px;
+		height: 76px;
 	}
 }
 
 @media screen and (max-width: 1179px) {
-
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		line-height: 18px;
-	}
-
 	.area-row .img-txt {
 		font-size: 18px;
 	}
-	.area-row .txt .txt-more img {
-		width: 26%;
-	}
 	.area-row .txt div:first-child {
-		height: 74px;
+		height: 80px;
 	}
 
 	.area-row {
@@ -125,69 +79,14 @@
 
 @media screen and (max-width: 1079px) {
 
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		font-size: 13px;
-		line-height: 17px;
-	}
-
 	.area-row .img-txt {
 		font-size: 17px;
 	}
 	.area-row .img-txt div:last-child {
 		width: 95% !important;
 	}
-	.area-row .txt .txt-more img {
-		width: 24%;
-	}
-	.area-row .txt div:first-child {
-		height: 65px;
-	}
 }
 
-@media screen and (max-width: 979px) {
-
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		font-size: 13px;
-		line-height: 16px;
-	}
-	.area-row .img-txt {
-		font-size: 16px;
-	}
-
-}
-
-@media screen and (max-width: 909px) {
-
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		line-height: 15px;
-	}
-	.area-row .img-txt {
-		font-size: 15px;
-	}
-	
-	.area-row .txt div:first-child {
-		height: 60px;
-	}
-
-}
-
-@media screen and (max-width: 809px) {
-
-	.area-row .txt .txt-detail,
-	.area-row .txt .txt-more {
-		line-height: 14px;
-	}
-	.area-row .img-txt {
-		font-size: 14px;
-	}
-	.area-row .txt div:first-child {
-		height: 55px;
-	}
-
-}
 
 @media screen and (max-width: 767px) {
 	.contain-area {
@@ -208,11 +107,6 @@
 		overflow: hidden;
 		text-overflow: clip;
 		white-space: inherit;
-	}
-	
-	.area-row .txt .txt-detail{
-		font-size: 24px;
-		line-height: 36px;
 	}
 
 	.area-row .txt {
@@ -254,7 +148,7 @@
 
 	.area-cont .area-tit {
 		font-size: 30px;
-		padding: 15px 0 42px 0 !important;
+		padding: 20px 0 30px 0;
 		text-align: center;
 	}
 
@@ -264,7 +158,7 @@
 
 
 	.area-row .txt .txt-more img {
-		margin-left: 3% !important
+		margin-left: 3%;
 	}
 
 	.area-row .txt .txt-more {
@@ -274,10 +168,6 @@
 
 	.area-row .txt {
 		width: 65%;
-	}
-
-	.area-row .img-txt {
-		top: 55% !important;
 	}
 
 	.area-row :nth-child(1) .img-txt div:last-child,
@@ -317,15 +207,6 @@
 		height: 140px;
 	}
 	
-	
-	.area-row .txt .txt-more {
-		position: relative !important;
-		top: 20%;
-	}
-	
-	.area-row .txt .txt-more .more_img {
-		width: 10%;
-	}
 
 	.banner .pimg{
         display: none;
@@ -473,11 +354,12 @@
 .area-row .img-txt {
 	position: absolute;
 	color: #fff;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	top: 0;
+	left: 0;
 	width: 100%;
+	height: 100%;
 	text-align: center;
+	padding: 15px 0;
 }
 
 .area-row .txt {
@@ -545,13 +427,6 @@
 	width: 100%;
 }
 
-.area-row:nth-child(3) .img-txt div:first-child,
-.area-row:nth-child(4) .img-txt div:first-child,
-.area-row:nth-child(5) .img-txt div:first-child,
-.area-row:nth-child(6) .img-txt div:first-child {
-	width: 0;
-}
-
 .area-row .img-txt div:first-child img {
 	width: 42%;
 }
@@ -578,7 +453,7 @@
 
 .area-row .txt .txt-more {
 	position: absolute;
-	bottom: 12%;
+	bottom: 4%;
 }
 
 .area-cont {
@@ -604,7 +479,6 @@
 }
 
 .area-row .img-txt {
-	height: 80%;
 	text-align: center;
 	display: flex;
 	flex-wrap: wrap;
@@ -640,8 +514,7 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail {
+	.area-cont .ress_nav{
 		font-size: 24px;
 		line-height: 32px;
 	}
@@ -655,18 +528,13 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail {
+	.area-cont .ress_nav{
 		font-size: 22px;
 		line-height: 30px;
 	}
 
 	.area-row .txt div:first-child {
 		height: 120px;
-	}
-
-	.txt-more .more_img {
-		width: 24px;
 	}
 
 	.area-cont .area-tit {
@@ -682,18 +550,13 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail {
+	.area-cont .ress_nav{
 		font-size: 20px;
 		line-height: 28px;
 	}
 
 	.area-row .txt div:first-child {
 		height: 110px;
-	}
-
-	.txt-more .more_img {
-		width: 22px;
 	}
 
 	.area-cont .area-tit {
@@ -705,8 +568,7 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail {
+	.area-cont .ress_nav {
 		font-size: 18px;
 		line-height: 26px;
 	}
@@ -719,11 +581,6 @@
 		height: 100px;
 	}
 
-
-	.txt-more .more_img {
-		width: 20px;
-	}
-
 	.area-cont .area-tit {
 		font-size: 24px;
 	}
@@ -733,18 +590,13 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail{
+	.area-cont .ress_nav{
 		font-size: 17px;
 		line-height: 24px;
 	}
 
 	.area-row .txt div:first-child {
 		height: 95px;
-	}
-
-	.txt-more .more_img {
-		width: 19px;
 	}
 
 	.area-cont .area-tit {
@@ -756,8 +608,7 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail {
+	.area-cont .ress_nav {
 		font-size: 16px;
 		line-height: 22px;
 	}
@@ -770,10 +621,6 @@
 		font-size: 15px;
 	}
 
-	.txt-more .more_img {
-		width: 18px;
-	}
-
 	.area-cont .area-tit {
 		font-size: 21px;
 	}
@@ -783,18 +630,13 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail {
+	.area-cont .ress_nav {
 		font-size: 15px;
 		line-height: 20px;
 	}
 
 	.area-row .txt div:first-child {
 		height: 80px;
-	}
-
-	.txt-more .more_img {
-		width: 17px;
 	}
 
 	.area-cont .area-tit {
@@ -806,8 +648,7 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail {
+	.area-cont .ress_nav {
 		font-size: 14px;
 		line-height: 19px;
 	}
@@ -820,10 +661,6 @@
 		font-size: 14px;
 	}
 
-	.txt-more .more_img {
-		width: 16px;
-	}
-
 	.area-cont .area-tit {
 		font-size: 19px;
 	}
@@ -833,8 +670,7 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail{
+	.area-cont .ress_nav{
 		font-size: 13px;
 		line-height: 18px;
 	}
@@ -843,16 +679,8 @@
 		font-size: 20px;
 	}
 
-	.area-row .txt div:first-child {
-		height: 70px;
-	}
-
 	.area-row .txt .txt-more {
 		font-size: 13px;
-	}
-
-	.txt-more .more_img {
-		width: 15px;
 	}
 
 	.area-cont .area-tit {
@@ -864,18 +692,9 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail{
+	.area-cont .ress_nav{
 		font-size: 12px;
 		line-height: 17px;
-	}
-
-	.area-row .txt div:first-child {
-		height: 67px;
-	}
-
-	.txt-more .more_img {
-		width: 14px;
 	}
 
 	.area-cont .area-tit {
@@ -883,9 +702,9 @@
 	}
 
 
-	.area-row .txt .txt-more {
+	/* .area-row .txt .txt-more {
 		top: 8% !important;
-	}
+	} */
 
 	.area-cont .area-tit {
 		font-size: 17px;
@@ -896,22 +715,13 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail{
+	.area-cont .ress_nav{
 		font-size: 11px;
 		line-height: 16px;
 	}
 
-	/* .area-row .txt div:first-child {
-		height: 63px;
-	} */
-
 	.area-row .txt .txt-more {
 		font-size: 12px;
-	}
-
-	.txt-more .more_img {
-		width: 13px;
 	}
 
 	.area-cont .area-tit {
@@ -923,18 +733,9 @@
 
 	.area-row .txt,
 	.img-txt div,
-	.area-cont .ress_nav,
-	.area-row .txt .txt-detail{
+	.area-cont .ress_nav{
 		font-size: 10px;
 		line-height: 15px;
-	}
-
-	.area-row .txt div:first-child {
-		height: 58px;
-	}
-
-	.txt-more .more_img {
-		width: 12px;
 	}
 }
 

@@ -233,16 +233,6 @@
 	background-color: #FFFFFF;
 }
 
-.area-right .area-txt p,
-.area-right .area-txt td{
-	padding-bottom: 20px;
-	font-size: 18px;
-	font-family: Microsoft YaHei;
-	font-weight: 400;
-	color: #333333;
-	line-height: 30px;
-}
-
 .area-right .area-txt th {
 	font-size: 20px;
 }
@@ -346,11 +336,6 @@
 	.area-right .area-tit {
 		font-size: 28px;
 	}
-	.area-right .area-txt th,
-	.area-right .area-txt p{
-	    font-size: 18px;
-		padding: 8px 15px;
-	}
 }
 @media only screen and (max-width:560px){
 	.m-area .bread-crumbs {
@@ -367,11 +352,6 @@
 	.m-area .nav-area .nav-cont .btn {
 		margin-bottom: 15px;
 	}
-	.area-right .area-txt th,
-	.area-right .area-txt p{
-	    font-size: 17px;
-		padding: 7px 12px;
-	}
 }
 
 @media only screen and (max-width:479px) {
@@ -385,11 +365,6 @@
 	}
 	.area-right .area-tit {
 		font-size: 24px;
-	}
-	.area-right .area-txt th,
-	.area-right .area-txt p{
-	    font-size: 16px;
-		padding: 6px 11px;
 	}
 	.area-txt td {
 		font-size: 14px;
@@ -414,10 +389,4 @@
 	.m-area .nav-area .nav-cont .btn {
 		margin-bottom: 10px;
 	}
-	.area-right .area-txt th,
-	.area-right .area-txt p{
-	    font-size: 15px;
-		padding: 5px 9px;
-	}
-	
 }

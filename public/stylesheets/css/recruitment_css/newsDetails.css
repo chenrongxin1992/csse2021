@@ -25,14 +25,12 @@
 	font-weight: 400;
 	color: #333333;
 	line-height: 27px;
+	margin-top: 30px;
 }
 .banner .mimg{
 	display: none;
 }
 
-.news-title .content p {
-	margin-bottom: 23px;
-}
 
 @media screen and (max-width: 767px) {
 	.news-title {

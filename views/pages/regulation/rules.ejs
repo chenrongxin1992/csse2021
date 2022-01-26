@@ -51,7 +51,7 @@
 							</div>
 						</div>
 						<div class="area-right">
-							<div class="area-tit c_cca84d bb">规则制度</div>
+							<div class="area-tit c_cca84d bb">规章制度</div>
 							<div class="area-list">
 								<div class="mess-list">
 									<!-- <div class="tit c_cca84d b">资料下载</div> -->
@@ -61,10 +61,15 @@
 										<span class="txt"><%=item.title%></span>
 									</div></a>
 									<%})%>
-									<div class="page-num">
-										<% for(var i=0;i < totalpage ;i++){%>
-											<span class="num"><%=i+1%></span>
-										 <%}%>
+									<div class="pagination">
+										<span class="num first">首页</span>
+										<span class="num prev">&lt;&lt;上一页</span>
+										<span class="num next">下一页&gt;&gt;</span>
+										<span class="num last">尾页</span>
+										<i>页码 <%=page%>/<%=totalpage%></i>
+										<i>跳转到</i>
+										<input type="number" class="myinput">
+										<i>页</i>
 									</div>
 								</div>
 								<script type="text/javascript"> 
@@ -74,13 +79,54 @@
 										$(obj).addClass('active')
 										}
 									})
-									$('.num').click(function(){
+								$('.myinput').bind('keydown',function(event){
+									if(event.keyCode == "13") {
 										console.log('点击页面---->',$(this).text(),'构造url')        
 										let reg = new RegExp("rules", "g"); 
 										let url = "rules"; 
 										console.log(url.replace(reg, "rules?page=" + $(this).text()))
-										window.location.href = url.replace(reg, "rules?p=" + $(this).text() ); 
-									})
+										window.location.href = url.replace(reg, "rules?p=" +$('.myinput').val() )										
+									}
+								}); 
+								$('.pagination .prev').click(function(){
+									let page =  Number('<%=page%>')//当前页
+									if(page==1)return
+									page = 1          
+									console.log('点击页面---->',$(this).text(),'构造url')        
+									let reg = new RegExp("rules", "g"); 
+									let url = "rules"; 
+									console.log(url.replace(reg, "rules?page=" + $(this).text()))
+									window.location.href = url.replace(reg, "rules?p=" +page )
+								})
+								$('.pagination .next').click(function(){
+									let page =  Number('<%=page%>')//当前页
+									let allpage = '<%=totalpage%>'
+									page = page + 1
+									if(page>allpage){return}                  
+									let reg = new RegExp("/rules", "g"); 
+									let url = "/rules"; 
+									window.location.href = url.replace(reg, "rules?p=" +page )
+								})
+								$('.pagination .last').click(function(){
+									console.log('last')
+									let page =  Number('<%=page%>')//当前页
+									let count = allpage = '<%=totalpage%>'
+									if(page>=allpage){return}     
+									page = allpage             
+									let reg = new RegExp("/rules", "g"); 
+									let url = "/rules"; 
+									window.location.href = url.replace(reg, "rules?p=" +page )
+								})
+								$('.pagination .first').click(function(){
+									let page =  Number('<%=page%>')//当前页
+									if(page==1)return
+									page = 1          
+									console.log('点击页面---->',$(this).text(),'构造url')        
+									let reg = new RegExp("rules", "g"); 
+									let url = "rules"; 
+									console.log(url.replace(reg, "rules?page=" + $(this).text()))
+									window.location.href = url.replace(reg, "rules?p=" +page )
+								})
 									</script>
 								<div class="pic-area">
 									<img class="img img3" src="../../image/regulation_image/rules/img_center.png" />

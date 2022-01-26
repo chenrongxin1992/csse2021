@@ -30,9 +30,6 @@
 	display: none;
 }
 
-.news-title .content p {
-	margin-bottom: 23px;
-}
 
 @media screen and (max-width: 767px) {
 	.news-title {

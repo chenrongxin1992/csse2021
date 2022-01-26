@@ -35,6 +35,9 @@
   </div>
   <div class="contain">
     <div class="contain-area clearfix">
+      <div class="bread-crumbs">
+        当前位置：<a href="/csse">首页</a> &gt; <a href="index">新闻动态</a> &gt; <a href="javascript:;"><%=leixing%></a>
+      </div>
       <div class="cont">
         <div class="area">
           <div class="area-left">
@@ -70,70 +73,130 @@
                 </div>
                 <%})%>
 
-                <div class="page-num">
+                <!-- <div class="page-num">
                   <span class="num first">首页</span>
                   <span class="num prev">上一页</span>
                   <span class="num"><%=page%></span>
                   <span class="num next">下一页</span>
                   <span class="num">尾页</span>
                   <span>共<%=totalpage%>页</span>
+                </div> -->
+
+                <div class="pagination">
+                  <span class="first">首页</span>
+                  <span class="prev">&lt;&lt;上一页</span>
+                  <span class="next">下一页&gt;&gt;</span>
+                  <span class="last">尾页</span>
+                  <i>页码 <%=page%>/<%=totalpage%></i>
+                  <i>跳转到</i>
+                  <input type="number" class="myinput">
+                  <i>页</i>
                 </div>
               </div>
               <script type="text/javascript">
-                $('.num').each(function(index,obj){
-									if('<%=page%>' == $(obj).text()){
-									console.log('找到page,点中状态',$(obj).text())
-									$(obj).addClass('active')
-									}
-								})
-                $('.num').click(function(){
+                // $('.num').each(function(index,obj){
+								// 	if('<%=page%>' == $(obj).text()){
+								// 	console.log('找到page,点中状态',$(obj).text())
+								// 	$(obj).addClass('active')
+								// 	}
+								// })
+                $('.myinput').bind('keydown',function(event){
+                    if(event.keyCode == "13") {
+                        console.log('回车',$('.myinput').val())
+                        let reg = new RegExp("index", "g"); 
+                        let url = "index"; 
+                        let str = '&type=<%=leixing%>'
+                        window.location.href = url.replace(reg, "index?p=" + $('.myinput').val() + str );
+                         
+                    }
+                }); 
+                $('.pagination .first').click(function(){
 									console.log('点击页面---->',$(this).text(),'构造url')   
-                  if($(this).text()=='首页'){
-                    let page =  Number('<%=page%>')//当前页
-                    if(page==1)return
-                    page = 1                        
-                    let reg = new RegExp("/index", "g"); 
-                    let url = "/index"; 
-                    let str = '&type=<%=leixing%>'
-                    window.location.href = url.replace(reg, "index?p=" + page + str ); 
-                  }
-                  if($(this).text()=='下一页'){
-                    let page =  Number('<%=page%>')//当前页
-                    let allpage = '<%=totalpage%>'
-                    page = page + 1
-                    if(page>allpage){return}                  
-                    let reg = new RegExp("/index", "g"); 
-                    let url = "/index"; 
-                    let str = '&type=<%=leixing%>'
-                    window.location.href = url.replace(reg, "index?p=" + page + str ); 
-                  }
-                  if($(this).text()=='上一页'){
-                    console.log('prev')
-                    let page =  Number('<%=page%>')//当前页
-                    if(page==1){return}     
-                    if(page>1){page = page - 1}                   
-                    let reg = new RegExp("/index", "g"); 
-                    let url = "/index"; 
-                    let str = '&type=<%=leixing%>'
-                    window.location.href = url.replace(reg, "index?p=" + page + str ); 
-                  }
-                  if($(this).text()=='尾页'){
-                    console.log('last')
-                    let page =  Number('<%=page%>')//当前页
-                    let count = allpage = '<%=totalpage%>'
-                    if(page>=allpage){return}     
-                    page = allpage             
-                    let reg = new RegExp("/index", "g"); 
-                    let url = "/index"; 
-                    let str = '&type=<%=leixing%>'
-                    window.location.href = url.replace(reg, "index?p=" + page + str ); 
-                  }
-									// let reg = new RegExp("index", "g"); 
-									// let url = "index"; 
-									// console.log(url.replace(reg, "index?p=" + $(this).text()))
-                  // let str = '&type=<%=leixing%>'
-									// window.location.href = url.replace(reg, "index?p=" + $(this).text() + str ); 
-								})
+                  let page =  Number('<%=page%>')//当前页
+                  if(page==1)return
+                  page = 1                        
+                  let reg = new RegExp("/index", "g"); 
+                  let url = "/index"; 
+                  let str = '&type=<%=leixing%>'
+                  window.location.href = url.replace(reg, "index?p=" + page + str );
+                })
+                $('.pagination .prev').click(function(){
+									let page =  Number('<%=page%>')//当前页
+                  if(page==1){return}     
+                  if(page>1){page = page - 1}                   
+                  let reg = new RegExp("/index", "g"); 
+                  let url = "/index"; 
+                  let str = '&type=<%=leixing%>'
+                  window.location.href = url.replace(reg, "index?p=" + page + str ); 
+                })
+                $('.pagination .next').click(function(){
+									let page =  Number('<%=page%>')//当前页
+                  let allpage = '<%=totalpage%>'
+                  page = page + 1
+                  if(page>allpage){return}                  
+                  let reg = new RegExp("/index", "g"); 
+                  let url = "/index"; 
+                  let str = '&type=<%=leixing%>'
+                  window.location.href = url.replace(reg, "index?p=" + page + str );
+                })
+                $('.pagination .last').click(function(){
+									let page =  Number('<%=page%>')//当前页
+                  let count = allpage = '<%=totalpage%>'
+                  if(page>=allpage){return}     
+                  page = allpage             
+                  let reg = new RegExp("/index", "g"); 
+                  let url = "/index"; 
+                  let str = '&type=<%=leixing%>'
+                  window.location.href = url.replace(reg, "index?p=" + page + str ); 
+                })
+                // $('.pagination span').click(function(){
+								// 	console.log('点击页面---->',$(this).text(),'构造url')   
+                //   if($(this).text()=='首页'){
+                //     let page =  Number('<%=page%>')//当前页
+                //     if(page==1)return
+                //     page = 1                        
+                //     let reg = new RegExp("/index", "g"); 
+                //     let url = "/index"; 
+                //     let str = '&type=<%=leixing%>'
+                //     window.location.href = url.replace(reg, "index?p=" + page + str ); 
+                //   }
+                //   if($(this).text()=='下一页'){
+                //     let page =  Number('<%=page%>')//当前页
+                //     let allpage = '<%=totalpage%>'
+                //     page = page + 1
+                //     if(page>allpage){return}                  
+                //     let reg = new RegExp("/index", "g"); 
+                //     let url = "/index"; 
+                //     let str = '&type=<%=leixing%>'
+                //     window.location.href = url.replace(reg, "index?p=" + page + str ); 
+                //   }
+                //   if($(this).text()=='上一页'){
+                //     console.log('prev')
+                //     let page =  Number('<%=page%>')//当前页
+                //     if(page==1){return}     
+                //     if(page>1){page = page - 1}                   
+                //     let reg = new RegExp("/index", "g"); 
+                //     let url = "/index"; 
+                //     let str = '&type=<%=leixing%>'
+                //     window.location.href = url.replace(reg, "index?p=" + page + str ); 
+                //   }
+                //   if($(this).text()=='尾页'){
+                //     console.log('last')
+                //     let page =  Number('<%=page%>')//当前页
+                //     let count = allpage = '<%=totalpage%>'
+                //     if(page>=allpage){return}     
+                //     page = allpage             
+                //     let reg = new RegExp("/index", "g"); 
+                //     let url = "/index"; 
+                //     let str = '&type=<%=leixing%>'
+                //     window.location.href = url.replace(reg, "index?p=" + page + str ); 
+                //   }
+								// 	// let reg = new RegExp("index", "g"); 
+								// 	// let url = "index"; 
+								// 	// console.log(url.replace(reg, "index?p=" + $(this).text()))
+                //   // let str = '&type=<%=leixing%>'
+								// 	// window.location.href = url.replace(reg, "index?p=" + $(this).text() + str ); 
+								// })
                 $('.a_news').each(function(index,obj){
 									if('<%=leixing%>' == $(obj).text()){
 									console.log('找到leixing,点中状态',$(obj).text())

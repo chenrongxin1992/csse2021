@@ -186,6 +186,12 @@
     z-index: 30;
 
 }
+
+.bread-crumbs{
+    padding: 16px 4.3% 0 4.3%;
+    font-size: 22px;
+    display: none;
+}
 @media only screen and (max-width:1200px){
 	.p-area .area-nav{
         display: none;
@@ -204,6 +210,9 @@
 		width: 100%;
         padding-top: 30px;
 	}
+    .bread-crumbs{
+        display: block;
+    }
 }
 @media screen and (max-width: 767px) {
 	.contain {
@@ -249,7 +258,7 @@
 	}
 	
 	.area-tit {
-		padding: 15px 0 25px 0;
+		padding: 15px 0 5px;
 	}
 	
 	.contain-area {
@@ -280,9 +289,6 @@
     }
 }
 
-@media only screen and (max-width:700px){
-
-}
 @media only screen and (max-width:560px){
 
 	.area-right .mess-list .mess {

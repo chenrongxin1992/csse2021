@@ -461,6 +461,12 @@
     .content .QR-code div{
         margin-top: 5px;
     }
+    .mess .time{
+        display: none;
+    }
+    .mess .txt {
+        width: 100%;
+    }
 }
 @media only screen and (max-width:767px){
     .banner .pimg{
@@ -492,11 +498,4 @@
 	.bread-crumbs {
 		font-size: 14px;
 	}
-    .mess .txt {
-        width: 70%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: inline-block;
-    }
 }

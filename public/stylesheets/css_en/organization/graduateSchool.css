@@ -138,10 +138,11 @@
 .area-row .img-txt {
 	position: absolute;
 	color: #fff;
-	left: 50%;
-	bottom: 0;
-	transform: translateX(-50%);
+	left: 0%;
+	top: 0;
 	width: 100%;
+	height: 100%;
+	padding: 15px 0;
 	text-align: center;
 }
 
@@ -220,10 +221,6 @@
 	top: 20%;
 }
 
-.area-row .img-txt div:last-child {
-	margin: 15px 0 10px;
-	white-space: normal;
-}
 
 .area-row .txt .txt-more {
 	position: absolute;
@@ -253,7 +250,6 @@
 }
 
 .area-row .img-txt {
-	/* height: 80%; */
 	text-align: center;
 	display: flex;
 	flex-wrap: wrap;

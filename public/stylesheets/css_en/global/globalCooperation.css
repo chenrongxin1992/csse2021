@@ -114,8 +114,8 @@
     text-align: center;
 }
 .area-row .img{
-    margin: 0 20px 0 10px;
-    width: 240px;
+    margin: 0 20px 0 0;
+    width: 355px;
 }
 .area-row .txt{
     flex: 1;
@@ -141,9 +141,6 @@
         display: block;
         padding: 20px;
     }
-    .area-row .txt{
-        padding-top: 15px;
-    }
     .area-cont .line,
     .area-nav{
         display: none;
@@ -159,6 +156,13 @@
     }
     .bread-crumbs{
         display: block;
+    }
+    .area-row .txt{
+        padding-top: 10px;
+    }
+    .area-row .img{
+        width: 60%;
+        margin-right: 0;
     }
 }
 
@@ -184,12 +188,8 @@
     }
     .area-row .txt .c_cca84d{
         font-size: 20px;
-        padding: 23px 0 12px 0;
     }
     .area-row .txt{
         font-size: 16px;
-    }
-    .area-row .img{
-        width: 60%;
     }
 }

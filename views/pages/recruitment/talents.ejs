@@ -109,10 +109,15 @@
 											<span class="time c_999"><%=item.timeAdd%></span>
 										</div>
 										<%})%>
-										<div class="page-num">
-											<% for(var i=0;i < totalpage ;i++){%>
-												<span class="num"><%=i+1%></span>
-											 <%}%>
+										<div class="pagination">
+											<span class="num first">首页</span>
+											<span class="num prev">&lt;&lt;上一页</span>
+											<span class="num next">下一页&gt;&gt;</span>
+											<span class="num last">尾页</span>
+											<i>页码 <%=page%>/<%=totalpage%></i>
+											<i>跳转到</i>
+											<input type="number" class="myinput">
+											<i>页</i>
 										</div>
 										<script type="text/javascript"> 
 											$('.num').each(function(index,obj){
@@ -121,12 +126,54 @@
 												$(obj).addClass('active')
 												}
 											})
-											$('.num').click(function(){
+											$('.myinput').bind('keydown',function(event){
+												if(event.keyCode == "13") {
+													console.log('点击页面---->',$(this).text(),'构造url')        
+													let reg = new RegExp("talents", "g"); 
+													let url = "talents"; 
+													console.log(url.replace(reg, "talents?page=" + $(this).text()))
+													window.location.href = url.replace(reg, "talents?p=" + $('.myinput').val() + '&t=<%=type%>'); 
+																							
+												}
+											}); 
+											$('.pagination .prev').click(function(){
+												let page =  Number('<%=page%>')//当前页
+												if(page==1)return
+												page = 1          
 												console.log('点击页面---->',$(this).text(),'构造url')        
 												let reg = new RegExp("talents", "g"); 
 												let url = "talents"; 
 												console.log(url.replace(reg, "talents?page=" + $(this).text()))
-												window.location.href = url.replace(reg, "talents?p=" + $(this).text() + '&t=<%=type%>'); 
+												window.location.href = url.replace(reg, "talents?p=" + page + '&t=<%=type%>'); 
+											})
+											$('.pagination .next').click(function(){
+												let page =  Number('<%=page%>')//当前页
+												let allpage = '<%=totalpage%>'
+												page = page + 1
+												if(page>allpage){return}                  
+												let reg = new RegExp("/talents", "g"); 
+												let url = "/talents"; 
+												window.location.href = url.replace(reg, "talents?p=" + page + '&t=<%=type%>'); 
+											})
+											$('.pagination .last').click(function(){
+												console.log('last')
+												let page =  Number('<%=page%>')//当前页
+												let count = allpage = '<%=totalpage%>'
+												if(page>=allpage){return}     
+												page = allpage             
+												let reg = new RegExp("/talents", "g"); 
+												let url = "/talents"; 
+												window.location.href = url.replace(reg, "talents?p=" + page + '&t=<%=type%>'); 
+											})
+											$('.pagination .first').click(function(){
+												let page =  Number('<%=page%>')//当前页
+												if(page==1)return
+												page = 1          
+												console.log('点击页面---->',$(this).text(),'构造url')        
+												let reg = new RegExp("talents", "g"); 
+												let url = "talents"; 
+												console.log(url.replace(reg, "talents?page=" + $(this).text()))
+												window.location.href = url.replace(reg, "talents?p=" + page + '&t=<%=type%>'); 
 											})
 											$('.nav1').each(function(index,obj){
 												console.log($(obj).attr('id'))

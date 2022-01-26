@@ -493,11 +493,16 @@
                             <%})%>
                         </div><!-- page-list -->
                     <%}%>
-                    <div class="page-num">
-                        <% for(var i=0;i < totalpage ;i++){%>
-                            <span class="num"><%=i+1%></span>
-                         <%}%>
-                    </div>  
+                    <div class="pagination">
+                        <span class="num first">首页</span>
+                        <span class="num prev">&lt;&lt;上一页</span>
+                        <span class="num next">下一页&gt;&gt;</span>
+                        <span class="num last">尾页</span>
+                        <i>页码 <%=page%>/<%=totalpage%></i>
+                        <i>跳转到</i>
+                        <input type="number" class="myinput">
+                        <i>页</i>
+                    </div>
                 </div>
                 <script type="text/javascript"> 
                     function getQueryString(name) {
@@ -560,13 +565,56 @@
                             $(obj).addClass('active')
                           }
                         })
-                        $('.num').click(function(){
-                            console.log('点击页面---->',$(this).text(),'构造url')        
-                            let reg = new RegExp("index", "g"); 
-                            let url = "index"; 
-                            console.log(url.replace(reg, "index?p=" + $(this).text()))
-                            window.location.href = url.replace(reg, "index?p=" + $(this).text() +'&zc=<%=zhicheng%>&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 
-                        })
+                        $('.myinput').bind('keydown',function(event){
+												if(event.keyCode == "13") {
+													console.log('点击页面---->',$(this).text(),'构造url')        
+													let reg = new RegExp("index", "g"); 
+													let url = "index"; 
+													console.log(url.replace(reg, "index?page=" ))
+													
+													window.location.href = url.replace(reg, "index?p=" + $('.myinput').val() +'&zc=<%=zhicheng%>&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 									
+												}
+											}); 
+											$('.pagination .prev').click(function(){
+												let page =  Number('<%=page%>')//当前页
+												if(page==1)return
+												page = 1          
+												console.log('点击页面---->',$(this).text(),'构造url')        
+												let reg = new RegExp("index", "g"); 
+												let url = "index"; 
+												console.log(url.replace(reg, "index?page=" + page))
+												window.location.href = url.replace(reg, "index?p=" + page +'&zc=<%=zhicheng%>&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 
+											})
+											$('.pagination .next').click(function(){
+												let page =  Number('<%=page%>')//当前页
+												let allpage = '<%=totalpage%>'
+												page = page + 1
+												if(page>allpage){return}                  
+												let reg = new RegExp("/index", "g"); 
+												let url = "/index"; 
+												window.location.href = url.replace(reg, "index?p=" + page +'&zc=<%=zhicheng%>&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 
+											})
+											$('.pagination .last').click(function(){
+												console.log('last')
+												let page =  Number('<%=page%>')//当前页
+												let count = allpage = '<%=totalpage%>'
+												if(page>=allpage){return}     
+												page = allpage             
+												let reg = new RegExp("/index", "g"); 
+												let url = "/index"; 
+												window.location.href = url.replace(reg, "index?p=" + page +'&zc=<%=zhicheng%>&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 
+											})
+											$('.pagination .first').click(function(){
+												let page =  Number('<%=page%>')//当前页
+												if(page==1)return
+												page = 1          
+												console.log('点击页面---->',$(this).text(),'构造url')        
+												let reg = new RegExp("index", "g"); 
+												let url = "index"; 
+												console.log(url.replace(reg, "index?page=" + page))
+                                                window.location.href = url.replace(reg, "index?p=" + page +'&zc=<%=zhicheng%>&sx=<%=suoxi%>&s=<%=search_txt%>&i=<%=zimu%>'); 
+												
+											})
                         $('.a_zc').click(function(){
                             console.log('点击zhicheng---->',$(this),'点中状态，前端更新结果') 
                             let reg = new RegExp("index", "g"); 

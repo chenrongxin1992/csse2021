@@ -14,11 +14,49 @@ const highlight = require('../db/db_struct').highlight
 const bkzs = require('../db/db_struct').bkzs
 const bkzsinfo = require('../db/db_struct').bkzsinfo
 const cglr = require('../db/db_struct').cglr
+const co_images = require('images')
+const fs = require('fs')
+const path = require('path')
+const attachmentuploaddir = path.resolve(__dirname, '../public/attachment/slider')//G:\spatial_lab\public\attachment
 //result.recordsets[[{}]]
 //result.output{}
 //result.rowsAffected[5]
 //result.returnValue:number
 /* GET home page. */
+function compress_images(arg){
+	console.log('----------------- attachmentuploaddir ------------------',attachmentuploaddir)
+	fs.readdir(arg, function(err, files){    
+        if(err){
+            console.log('---------------------error:\n' + err);
+            return;
+        }
+		console.log('files--------------------------------',files)
+	//	return false
+ 
+        files.forEach(function(file){
+            fs.stat(arg + '/' + file, function(err, stat){
+                if(err){console.log(err); return;}
+                if(stat.isDirectory()){                
+                    // 如果是文件夹遍历
+                    compress_images(arg + '\\' + file);
+                }else{
+                     //遍历图片
+                    console.log('文件名:' + arg + '\\' + file);
+                    var name = arg + '\\' + file;
+                    var outName =  arg + '\\' +file
+					console.log('outNmae-------------------',outName)
+					//return 
+					co_images(name) .save(outName, {            
+                        quality : 82                    //保存图片到文件,图片质量为50
+                    });
+                }              
+            });
+        });
+    });
+}
+router.get('/co_images',function(req,res){
+	compress_images(attachmentuploaddir)
+})
 function checkMonth(arg){
 	if(arg=='1'||arg=='01'){
 		return 'Jan'
@@ -2722,28 +2760,28 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 								console.log('error',error)
 								cb(error)
 							}
-							let check = new RegExp('讲师')//院长，院长助理
-							let check1 = new RegExp('研究员')//所长
-							let check2 = new RegExp('教授')
-							let check3 = new RegExp('博士后')
-							docs.forEach(function(item){
-								if(item.zhiwu.match(check)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-								if(item.zhiwu.match(check1)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-								if(item.zhiwu.match(check2)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-								if(item.zhiwu.match(check3)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-							})	
+							// let check = new RegExp('讲师')//院长，院长助理
+							// let check1 = new RegExp('研究员')//所长
+							// let check2 = new RegExp('教授')
+							// let check3 = new RegExp('博士后')
+							// docs.forEach(function(item){
+							// 	if(item.zhiwu.match(check)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// 	if(item.zhiwu.match(check1)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// 	if(item.zhiwu.match(check2)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// 	if(item.zhiwu.match(check3)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// })	
 							//console.log('docs-----',docs)	
 							// let check = new RegExp('院')//院长，院长助理
 							// let check1 = new RegExp('所')//所长
@@ -2890,28 +2928,28 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 								cb(error)
 							}	
 							//console.log('docs-----',docs)	
-							let check = new RegExp('讲师')//院长，院长助理
-							let check1 = new RegExp('研究员')//所长
-							let check2 = new RegExp('教授')
-							let check3 = new RegExp('博士后')
-							docs.forEach(function(item){
-								if(item.zhiwu.match(check)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-								if(item.zhiwu.match(check1)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-								if(item.zhiwu.match(check2)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-								if(item.zhiwu.match(check3)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-							})
+							// let check = new RegExp('讲师')//院长，院长助理
+							// let check1 = new RegExp('研究员')//所长
+							// let check2 = new RegExp('教授')
+							// let check3 = new RegExp('博士后')
+							// docs.forEach(function(item){
+							// 	if(item.zhiwu.match(check)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// 	if(item.zhiwu.match(check1)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// 	if(item.zhiwu.match(check2)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// 	if(item.zhiwu.match(check3)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// })
 							data.jsdw = docs
 							cb(null)
 						})
@@ -3047,28 +3085,28 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 								cb(error)
 							}	
 							//console.log('docs-----',docs)	
-							let check = new RegExp('讲师')//院长，院长助理
-							let check1 = new RegExp('研究员')//所长
-							let check2 = new RegExp('教授')
-							let check3 = new RegExp('博士后')
-							docs.forEach(function(item){
-								if(item.zhiwu.match(check)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-								if(item.zhiwu.match(check1)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-								if(item.zhiwu.match(check2)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-								if(item.zhiwu.match(check3)){
-									//console.log('----item',item)
-									item.zhiwu=''
-								}
-							})
+							// let check = new RegExp('讲师')//院长，院长助理
+							// let check1 = new RegExp('研究员')//所长
+							// let check2 = new RegExp('教授')
+							// let check3 = new RegExp('博士后')
+							// docs.forEach(function(item){
+							// 	if(item.zhiwu.match(check)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// 	if(item.zhiwu.match(check1)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// 	if(item.zhiwu.match(check2)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// 	if(item.zhiwu.match(check3)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// })
 							data.jsdw = docs
 							cb(null)
 						})

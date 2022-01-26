@@ -75,6 +75,7 @@
     font-size: 18px;
     /* text-indent: 2em; */
     position: relative;
+    text-align: justify;
 }
 .cont-txt .m40{
     margin-bottom: 40px;
@@ -93,9 +94,6 @@
     width: 83.3333%;
     max-width: 1600px;
     box-sizing: border-box;
-}
-.info-list p{
-    word-break: keep-all;
 }
 .info-list .row{
     width: 29%;
@@ -221,7 +219,7 @@
             padding: 0 37px;
         }
         .info-list .row,.info-list .row.row1,.info-list .row.row2{
-            width: 76%;
+            width: 100%;
             margin: 0;
             padding-bottom: 44px;
         }

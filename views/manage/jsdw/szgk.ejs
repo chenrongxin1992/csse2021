@@ -25,13 +25,13 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">师资概况</label>
 				<div class="layui-input-inline" style="width: 540px;">
-                    <textarea placeholder="师资概况" class="layui-textarea" id="cggk" style="height: 200px;"><%=data.pageContent%></textarea>
+					<textarea id="cggk"  value="<%=data.pageContent%>" /><%=data.pageContent%></textarea>
 		       </div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">师资概况(EN)</label>
 				<div class="layui-input-inline" style="width: 540px;">
-                    <textarea placeholder="英文" class="layui-textarea" id="cggk1" style="height: 200px;"><%=data.pageContentEN%></textarea>
+					<textarea id="cggk1"  value="<%=data.pageContentEN%>" /><%=data.pageContentEN%></textarea>
 		       </div>
 			</div>
 			<div class="layui-form-item">
@@ -59,12 +59,17 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 		$('#password').val('111111')
 		return false
 	})
+	let cggk = "";
+	let cggk1 ="";
+	cggk = CKEDITOR.replace("cggk");
+	cggk1 = CKEDITOR.replace("cggk1");
+
     form.on('submit(update)', function(data){
     	//checkbox
 
 		 data.field.id = id
-		 data.field.pageContent = $('#cggk').val()//
-		 data.field.pageContentEN = $('#cggk1').val()//
+		 data.field.pageContent = cggk.getData()
+		 data.field.pageContentEN =cggk1.getData()
 	     console.log('data.field',data.field)
 		 //return false
 	     //console.log('submit data',data)

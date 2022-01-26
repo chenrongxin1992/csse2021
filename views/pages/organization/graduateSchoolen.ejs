@@ -229,12 +229,14 @@
 					<div class="area-row">
 						<div class="img-wrap">
 							<img class="img lazy_img" src="<%=item.img1%>" />
-							<span class="img-txt b">
+							<div class="img-txt b">
+                                <% if(item.img2) { %>
 								<div>
 									<img src="<%=item.img2%>" />
 								</div>
+                                <% } %>
 								<div><%=item.titleEN%></div>
-							</span>
+							</div>
 						</div>
 						<div class="txt">
 							<div class="txt-detail">
