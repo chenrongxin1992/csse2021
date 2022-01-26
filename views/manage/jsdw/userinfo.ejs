@@ -272,12 +272,12 @@
 				    </div>
 				    <label class="layui-form-label" >Education</label>
 				    <div class="form-item-inline" >
-						<textarea placeholder="教育背景" class="layui-textarea" id="jybj" ><%=user.jybj%></textarea>
+						<textarea placeholder="教育背景" class="layui-textarea" id="jybj1" ><%=user.jybj1%></textarea>
 				    </div>
 				</div>
 			</div>
 
-			<div class="layui-form-item">
+			<!-- <div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">政治面貌</label>
 					<div class="form-item-inline" >
@@ -298,8 +298,19 @@
 						</select>
 				    </div>
 				</div>
+			</div> -->
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">办公电话</label>
+					<div class="form-item-inline" >
+						<input type="text" id="phoneOffice" class="layui-input"  value="<%=user.phoneOffice%>">
+				    </div>
+				    <label class="layui-form-label" >邮箱</label>
+				    <div class="form-item-inline" >
+						<input type="text" id="email" class="layui-input"  value="<%=user.email%>">
+				    </div>
+				</div>
 			</div>
-
 
 			<div class="layui-form-item">
 				<div class="layui-inline">
@@ -411,6 +422,8 @@ layui.use(['jquery','layer','upload','form'], function(){
 			$("select[name=suoxi1]").attr("disabled", "disabled")
 			$("select[name=rongyujibie]").attr("disabled", "disabled")
 			$("#rongyuname").attr("disabled", "disabled")
+			$("#zhiwu").attr("disabled", "disabled")
+			$("#zhiwu1").attr("disabled", "disabled")
 		}
 		introduceValue = CKEDITOR.replace("introduceValue");
 		eintroduceValue = CKEDITOR.replace("eintroduceValue");
@@ -429,22 +442,22 @@ layui.use(['jquery','layer','upload','form'], function(){
 			}
 			form.render()
 		})
-		form.on('select(inDang)',function (data) {
-			console.log('select inDang',data)
-			if(data.value == '中共党员'){
-				$("#inDang1").find("option[value='Party Member']").attr("selected",true);
-			}
-			if(data.value == '团员'){
-				$("#inDang1").find("option[value='League Member']").attr("selected",true);
-			}
-			if(data.value == '群众'){
-				$("#inDang1").find("option[value='The Masses']").attr("selected",true);
-			}
-			if(data.value == ''){
-				$("#inDang1").find("option[value='']").attr("selected",true);
-			}
-			form.render()
-		})
+		// form.on('select(inDang)',function (data) {
+		// 	console.log('select inDang',data)
+		// 	if(data.value == '中共党员'){
+		// 		$("#inDang1").find("option[value='Party Member']").attr("selected",true);
+		// 	}
+		// 	if(data.value == '团员'){
+		// 		$("#inDang1").find("option[value='League Member']").attr("selected",true);
+		// 	}
+		// 	if(data.value == '群众'){
+		// 		$("#inDang1").find("option[value='The Masses']").attr("selected",true);
+		// 	}
+		// 	if(data.value == ''){
+		// 		$("#inDang1").find("option[value='']").attr("selected",true);
+		// 	}
+		// 	form.render()
+		// })
 		
 		//初始化上传按钮  
 		//let uploadbtn = '<button type="button" class="layui-btn" id="uploadbtn">上传头像</button><button type="button" class="layui-btn" id="editbtn">编辑头像</button>'
@@ -525,6 +538,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 	   		ue2.setContent(htmlStr,false)
 	    })*/
     })
+	
 	form.on('submit(update)', function(data){
 	  //更新
 	  data.field.id = id
@@ -541,7 +555,7 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  data.field.zhicheng1=$('#zhicheng1 option:selected').val()
 	  data.field.rongyujibie=$('#rongyujibie option:selected').val()
 	  data.field.rongyujibiename=$('#rongyujibie option:selected').attr('jibiename')
-	  data.field.yewukouid=parseInt($('#yewukou option:selected').val())
+	  data.field.yewukouid=$('#yewukou option:selected').val()
 	  data.field.yewukouname=$('#yewukou option:selected').attr('yewukouname')
 	  data.field.yewukouname1=$('#yewukou option:selected').attr('yewukouname1')
 	  data.field.rongyuname = $('#rongyuname').val()
@@ -565,8 +579,8 @@ layui.use(['jquery','layer','upload','form'], function(){
 	  data.field.yjly=$('#yjly').val()
 	  data.field.yjly1=$('#yjly1').val()
 	  console.log('update data field',data.field)
-	  data.field.inDang=$('#inDang option:selected').val()
-	  data.field.inDang1=$('#inDang1 option:selected').val()
+	//   data.field.inDang=$('#inDang option:selected').val()
+	//   data.field.inDang1=$('#inDang1 option:selected').val()
 	  //return false
 	  $.ajax({
 	  	//本地与服务器

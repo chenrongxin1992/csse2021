@@ -188,6 +188,9 @@
     padding: 10px 20px;
     font-size: 18px;
 }
+.area-right .area-txt img{
+    max-width: 100%;
+}
 .area-right .area-txt .b{
     font-size: 24px;
 	color: #cca84d;

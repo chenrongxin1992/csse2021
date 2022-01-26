@@ -13,7 +13,9 @@
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：师资队伍</div> <button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 10px;" id="szgk">师资概况</button>
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：师资队伍</div> 
+		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 10px;" id="ywksort">业务口人员排序</button>
+		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 10px;" id="szgk">师资概况</button>
 		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增人员</button>
   </blockquote>
 
@@ -81,7 +83,25 @@ layui.use(['jquery','table','form'], function(){
 	      ,{title:'操作', align:'center',width:450, toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
-	
+	$('#ywksort').on('click', function(){
+    	//do somehing
+    	console.log('业务口排序')
+	    let index = layui.layer.open({
+            title : "伙伴排序",
+            type : 2,
+            area: ['70%', '400px'],
+            content : "ywksort",
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_jsdw', {
+					where: {
+						//search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
+    })
     //数据重载
     $('#kyxm_btn').on('click', function(){
     	console.log('power',$('#power option:selected').val())

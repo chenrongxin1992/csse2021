@@ -206,6 +206,7 @@
     background-color: #EDEFF1;
     text-align: center;
     position: relative;
+    overflow: hidden;
 }
 .area-right .page-list .page:not(:nth-child(3n-2)){
     margin-left: 5%;
@@ -242,6 +243,9 @@
     padding-bottom: 8px;
     font-size: 18px;
     height: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .area-right .page-list .page .txt .c_666{
     height: 32px;
@@ -362,7 +366,9 @@
         padding-left: 0;
         font-size: 16px;
         line-height: 30px;
-        width: inherit;
+        width: 100%;
+        padding-top: 0;
+        margin-top: 0;
     }
     .info-cont .img{
         width: 30%;
@@ -373,14 +379,26 @@
         height: 42px;
         padding: 12px 0;
     }
-    .area-right .page-list .page .skill{
+    .area-right .page-list .page .txt .c_333{
         font-size: 16px;
+        height: 32px;
+        line-height: 32px;
+    }
+    .area-right .page-list .page .txt .c_666{
+        height: 28px;
+        line-height: 28px;
+    }
+    .area-right .page-list .page .skill{
+        font-size: 14px;
+        height: 45px;
     }
     .area-right .page-list .page .avatar{
         margin-bottom: 10px;
+        min-width: 85px;
+        min-height: 85px;
     }
     .area-right .page-list .page .txt{
-        font-size: 16px;
+        font-size: 14px;
     }
     .area-right .page-list .page{
         margin-bottom: 20px;

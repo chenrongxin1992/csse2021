@@ -29,7 +29,7 @@ const moment  = require('moment')
 const attachmentuploaddir = path.resolve(__dirname, '../../public/attachment')//G:\spatial_lab\public\attachment
 fs.existsSync(attachmentuploaddir) || fs.mkdirSync(attachmentuploaddir)
 const async = require('async')
-const basedir = '/csse/'
+const basedir = '/csse'
 //参数code表示退出码
 process.on("exit",function(code){
 	//进行一些清理工作
@@ -1516,6 +1516,7 @@ router.get('/cglr',function(req,res){
 			
 	// 	})
 }).get('/cglr_data',function(req,res){
+	console.log('cglr_data')
 	commonfunc.DataSearch(req,res,cglr,manageconfig.search_param.cglr,{},{review:1,id:-1})
 	/*console.log('router cglr_data')
 	let page = req.query.page,
@@ -3896,6 +3897,13 @@ router.get('/jsdw',function(req,res){
 	return res.render('manage/jsdw/usertx',{imgsrc:req.query.imgsrc,userid:req.query.userid})
 })
 const jimp = require('jimp')
+function isNaN(n) {
+	if(typeof(n) === "number" && isNaN(n)) {
+		return true;
+	} else {
+		return false;
+	}
+}
 router.post('/usertx',function(req,res){
 	let search = user.findOne({'id':req.body.id})
 		search.exec(function(err,doc){
@@ -3967,16 +3975,22 @@ router.post('/usertx',function(req,res){
     	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
     })
 }).post('/userinfo',function(req,res){
-	console.log(req.body.jstype)
-	console.log(req.body.jstype1)
+	console.log(req.body.yewukouid)
+	let yewukouid 
+	
+	if(!req.body.yewukouid){
+		console.log('业务口没有选')
+		yewukouid = 0
+	}else{
+		yewukouid = parseInt(req.body.yewukouid)
+	}
+
 	console.log('-----------------------')
 	let updateobj = {
 		userName:req.body.userName,
 		userName1:req.body.userName1,
 		sex:req.body.sex,
 		sex1:req.body.sex1,
-		// jstype:req.body.jstype,
-		// jstype1:req.body.jstype1,
 		zhicheng:req.body.zhicheng,
 		zhicheng1:req.body.zhicheng1,
 		phoneOffice:req.body.phoneOffice,
@@ -3984,10 +3998,6 @@ router.post('/usertx',function(req,res){
 		AddressOffice:req.body.AddressOffice,
 		AddressOffice1:req.body.AddressOffice1,
 		personalLink:req.body.personalLink,
-		// xuewei:req.body.xuewei,
-		// xuewei1:req.body.xuewei1,
-		// xueli:req.body.xueli,
-		// xueli1:req.body.xueli1,
 		suoxi:req.body.suoxi,
 		suoxi1:req.body.suoxi1,
 		jybj:req.body.jybj,
@@ -3997,19 +4007,19 @@ router.post('/usertx',function(req,res){
 		avatar:req.body.avatar,
 		zhiwu:req.body.zhiwu,
 		zhiwu1:req.body.zhiwu1,
-		inDang:req.body.inDang,
-		inDang1:req.body.inDang1,
+		//inDang:req.body.inDang,
+		//inDang1:req.body.inDang1,
 		yjly:req.body.yjly,
 		yjly1:req.body.yjly1,
 		peopleid:req.body.peopleid,
 		suoxiid:req.body.suoxiid,
 		rongyujibie:req.body.rongyujibie?parseInt(req.body.rongyujibie):null,
-		rongyujibiename:req.body.rongyujibiename?req.body.rongyujibiename:null,
-		rongyuname:req.body.rongyuname?req.body.rongyuname:null,
-		rongyuname1:req.body.rongyuname1?req.body.rongyuname1:null,
-		yewukouid:(!req.body.yewukouid)?req.body.yewukouid:null,
-		yewukouname:req.body.yewukouname?req.body.yewukouname:null,
-		yewukouname1:req.body.yewukouname1?req.body.yewukouname1:null
+		rongyujibiename:req.body.rongyujibiename?req.body.rongyujibiename:'',
+		rongyuname:req.body.rongyuname?req.body.rongyuname:'',
+		rongyuname1:req.body.rongyuname1?req.body.rongyuname1:'',
+		yewukouid:yewukouid,
+		yewukouname:req.body.yewukouname?req.body.yewukouname:'',
+		yewukouname1:req.body.yewukouname1?req.body.yewukouname1:''
 	}
 	console.log('obj',updateobj)
 	//return false
@@ -4045,7 +4055,7 @@ router.post('/usertx',function(req,res){
 			res.render('manage/jsdw/szgk',{data:doc})
 		})
 }).post('/szgkadd',function(req,res){
-	console.log('id------------------',req.body.id,req.body.pageContent)
+	console.log('id------------------',req.body.id,req.body.pageContentEN)
 	let obj = {
 		pageContent:req.body.pageContent,
 		pageContentEN:req.body.pageContentEN
@@ -6144,5 +6154,284 @@ router.get('/czjl',function(req,res){
 		return res.json({'code':'0','msg':'resetloginnum success'})
 	})
 })
-
+//20220124 业务口排序
+router.get('/ywksort',function(req,res){
+	console.log('in executive')
+	let data={},dw_ry=[],jw_ry=[],sy_ry=[],qt_ry=[],fdy_ry=[]
+	async.waterfall([
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(1)
+				search.sort({'yewukousort':1})
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.dw_ry = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(2)
+				search.sort({'yewukousort':1})
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.jw_ry = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(3)
+				search.sort({'yewukousort':1})
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.sy_ry = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(4)
+				search.sort({'yewukousort':1})
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.qt_ry = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({yewukouid:{$ne:null,$exists:true}})
+				search.where('yewukouid').equals(5)
+				search.sort({'yewukousort':1})
+				search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.fdy_ry = docs
+					cb()
+				})
+		}		
+	],function(error,result){
+		if(error){
+			return res.json(error)
+		}
+		res.render('manage/jsdw/ywksort',{L:req.query['L'],data:data})
+	})
+}).post('/ywksort',function(req,res){
+	console.log('排序信息',req.body)
+	async.waterfall([
+		function(cb){
+			console.log('---------- 党务 ---------',req.body.dw_sortarr)
+			async.eachLimit(req.body.dw_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yewukousort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('---------- 教务 ---------')
+			async.eachLimit(req.body.jw_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yewukousort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('---------- 实验 ---------')
+			async.eachLimit(req.body.sy_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yewukousort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('---------- 其他 ---------')
+			async.eachLimit(req.body.qt_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yewukousort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('---------- 辅导员 ---------')
+			async.eachLimit(req.body.fdy_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yewukousort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		}
+	],function(error,result){
+		if(error){
+			return res.json({'code':-1,'msg':error})
+		}
+		return res.json({'code':0,'msg':'ok'})
+	})
+})
+//20220124本科招生 中共用信息
+router.get('/binfo',function(req,res){
+	let search = bkzsinfo.findOne({})
+		search.exec(function(error,doc){
+			if(error){
+				return res.json(err)
+			}
+			res.render('manage/zsjy/binfo',{L:req.query['L'],data:doc})
+		})
+}).post('/bkzsinfo',function(req,res){
+	let _obj = {
+		xuefei:req.body.xuefei,
+		jxj:req.body.jxj,
+		jiuye:req.body.jiuye,
+		xyhj:req.body.xyhj,
+		lxfs:req.body.lxfs,
+		zsqk:req.body.zsqk
+	}
+	console.log('_obj',_obj)
+	bkzsinfo.updateOne({'id':req.body.id},_obj,function(error){
+		if(error){
+			console.log(error)
+			return res.json({'code':-1,'msg':error})
+		}
+		return res.json({'code':0,'msg':'ok'})
+	})
+}).get('/bsort',function(req,res){
+	console.log('本科专业排序')
+	let search = bkzs.find({})
+		search.sort({'bsort':1})
+		search.exec(function(error,docs){
+			if(error){
+				console.log('伙伴排序 error',error)
+				return error
+			}
+			res.render('manage/zsjy/bsort',{'data':docs})
+		})
+}).post('/bsort',function(req,res){
+	console.log('排序信息',req.body.sortarr)
+	async.eachLimit(req.body.sortarr,1,function(item,callback){
+		console.log('item',item,item.split(','))
+		let temp = item.split(',')
+		let tempid = temp[1],
+			tempsort = parseInt(temp[2])
+		let obj = {
+			hbsort : tempsort
+		}
+		console.log(tempid,tempsort)
+		bkzs.updateOne({_id:tempid},obj,function(error){
+			if(error){
+				console.log('ptgl sort update error',error)
+				callback(error)
+			}
+			console.log('ptgl sort update success')
+			callback(null)
+		})
+	},function(error){
+		if(error){
+			onsole.log('eachLimit update sort error',error)
+			return res.json({'code':-1,'msg':error})
+		}
+		return res.json({'code':0})
+	})
+})
 module.exports = router;

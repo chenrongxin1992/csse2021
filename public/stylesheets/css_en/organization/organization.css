@@ -359,11 +359,10 @@
 		display: none;
 	}
 
-	.area-row:nth-child(2) {
+	.area-row.active {
 		width: 100%;
 		margin-left: 0;
 		display: flex;
-		background-color: #FFFFFF;
 	}
 	.area-cont .line {
 		display: none;

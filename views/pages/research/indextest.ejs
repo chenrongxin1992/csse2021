@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="../../stylesheets/css/common.css">
   <link rel="stylesheet" href="../../stylesheets/css/research_css/research.css">
   <script src="../../javascripts/js/jquery.min.js"></script>
+  <style>
+     .page-num .num{
+       width: 40px;
+     }
+  </style>
 </head>
 <body class="research">
 <%if(L=='1'){%>
@@ -72,10 +77,10 @@
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[2]._id%>">未来媒体技术与计算研究所(<%=data.belongstoNum[2].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[3]._id%>">网络与信息安全研究所(<%=data.belongstoNum[3].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[4]._id%>">计算机视觉研究所(<%=data.belongstoNum[4].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[5]._id%>">智能技术与系统集成研究所(<%=data.belongstoNum[5].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[6]._id%>">物联网研究中心(<%=data.belongstoNum[6].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[7]._id%>">可视计算研究中心(<%=data.belongstoNum[7].num%>)</a></li>
-                          <!-- <li><a href="" class="a_sx" id="<%=data.belongstoNum[8]._id%>">教学系(<%=data.belongstoNum[8].num%>)</a></li> -->
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[6]._id%>">物联网研究中心(<%=data.belongstoNum[6].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[5]._id%>">智能技术与系统集成研究所(<%=data.belongstoNum[5].num%>)</a></li>
+                         <!-- <li><a href="" class="a_sx" id="<%=data.belongstoNum[8]._id%>">教学系(<%=data.belongstoNum[8].num%>)</a></li> -->
                           <li><a href="" class="a_sx" id="<%=data.belongstoNum[10]._id%>">软件工程研究中心(<%=data.belongstoNum[10].num%>)</a></li>
                         </ul>
                     </div>
@@ -102,9 +107,12 @@
                        <%})%>
                     </div>
                     <div class="page-num">
-                      <% for(var i=0;i < totalpage ;i++){%>
-                        <span class="num"><%=i+1%></span>
-                     <%}%>
+                      <span class="num first">First</span>
+                      <span class="num prev">Prev</span>
+                      <span class="num"><%=page%></span>
+                      <span class="num next">Next</span>
+                      <span class="num">Last</span>
+                      <span>共<%=totalpage%>页</span>
                     </div>
                     <script type="text/javascript"> 
                     
@@ -139,6 +147,7 @@
                               $(obj).addClass('active')
                             }
                           })
+
                           $('.a_year').each(function(index,obj){
                             console.log(parseInt($(obj).attr('id')))
                             if('<%=year%>' == parseInt($(obj).attr('id'))){
@@ -149,13 +158,59 @@
                               $(obj).parent().addClass('active')
                             }
                           })
-                        $('.num').click(function(){
-                          console.log('点击页面---->',$(this).text(),'构造url')        
-                          let reg = new RegExp("index", "g"); 
-                          let url = "index"; 
-                          console.log(url.replace(reg, "index?page=" + $(this).text()))
-                          window.location.href = url.replace(reg, "index?p=" + $(this).text() +'&y=<%=year%>&b=<%=belongsto%>&s=<%=search_txt%>'); 
-                        })
+                          $('.num').click(function(){
+                            console.log('点击页面---->',$(this).text(),'构造url')   
+                            if($(this).text()=='First'){
+                              let page =  Number('<%=page%>')//当前页
+                              if(page==1)return
+                              page = 1          
+                              console.log('点击页面---->',$(this).text(),'构造url')        
+                              let reg = new RegExp("index", "g"); 
+                               let url = "index"; 
+                              console.log(url.replace(reg, "index?page=" + $(this).text()))
+                               window.location.href = url.replace(reg, "index?p=" +page +'&y=<%=year%>&b=<%=belongsto%>&s=<%=search_txt%>');               
+                              
+                            }
+                            if($(this).text()=='Next'){
+                              let page =  Number('<%=page%>')//当前页
+                              let allpage = '<%=totalpage%>'
+                              page = page + 1
+                              if(page>allpage){return}                  
+                              let reg = new RegExp("/index", "g"); 
+                              let url = "/index"; 
+                              
+                              window.location.href = url.replace(reg, "index?p=" +page +'&y=<%=year%>&b=<%=belongsto%>&s=<%=search_txt%>' ); 
+                            }
+                            if($(this).text()=='Prev'){
+                              console.log('prev')
+                              let page =  Number('<%=page%>')//当前页
+                              if(page==1){return}     
+                              if(page>1){page = page - 1}                   
+                              let reg = new RegExp("/index", "g"); 
+                              let url = "/index"; 
+                              
+                              window.location.href = url.replace(reg, "index?p=" +page +'&y=<%=year%>&b=<%=belongsto%>&s=<%=search_txt%>' ); 
+                            }
+                            if($(this).text()=='Last'){
+                              console.log('last')
+                              let page =  Number('<%=page%>')//当前页
+                              let count = allpage = '<%=totalpage%>'
+                              if(page>=allpage){return}     
+                              page = allpage             
+                              let reg = new RegExp("/index", "g"); 
+                              let url = "/index"; 
+                              
+                              window.location.href = url.replace(reg, "index?p=" +page +'&y=<%=year%>&b=<%=belongsto%>&s=<%=search_txt%>' ); 
+                            }
+                            
+                          })
+                        // $('.num').click(function(){
+                        //   console.log('点击页面---->',$(this).text(),'构造url')        
+                        //   let reg = new RegExp("index", "g"); 
+                        //   let url = "index"; 
+                        //   console.log(url.replace(reg, "index?page=" + $(this).text()))
+                        //   window.location.href = url.replace(reg, "index?p=" + $(this).text() +'&y=<%=year%>&b=<%=belongsto%>&s=<%=search_txt%>'); 
+                        // })
                         $('.a_year').click(function(){
                           console.log('点击year---->',$(this),'点中状态，前端更新结果') 
                           let reg = new RegExp("index", "g"); 

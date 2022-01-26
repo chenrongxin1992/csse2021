@@ -322,7 +322,7 @@
     position: relative;
 }
 .mess .txt{
-    width: 60%;
+    width: 75%;
     overflow:hidden;
     text-overflow: ellipsis;
 	white-space: nowrap;
@@ -492,4 +492,11 @@
 	.bread-crumbs {
 		font-size: 14px;
 	}
+    .mess .txt {
+        width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+    }
 }

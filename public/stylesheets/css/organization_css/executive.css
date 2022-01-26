@@ -99,4 +99,7 @@
 	.user-list .item{
 		width: 100%;
 	}
+	.item-title span{
+		background-color: #f9f9f9;
+	}
 }

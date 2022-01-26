@@ -175,6 +175,7 @@
     .contain-area{
         width: 92%;
         margin: 0 auto;
+        padding: 40px 0;
     }
     .area-cont{
         margin-left: 0;

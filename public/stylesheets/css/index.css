@@ -249,6 +249,7 @@
 .research{
     display: flex;
     position: relative;
+    align-items: stretch;
 }
 .research_cont{
     background-color: #fff;
@@ -264,6 +265,7 @@
 }
 .research .img_bg .img{
     width: 100%;
+    height: 100%;
     vertical-align: bottom;
     position: relative;
     z-index: 100;
@@ -344,7 +346,7 @@
 
 .research_desc{
     width: 100%;
-    padding: 3% 10px 0;
+    padding: 3% 10px 2%;
     font-size: 24px;
 }
 .research_desc .txt{

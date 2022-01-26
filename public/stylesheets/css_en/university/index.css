@@ -226,7 +226,7 @@
             top: 0;
         }
         .cont-txt{
-            width: 90%;
+            width: 96%;
         }
         .info{
             padding: 0;
@@ -234,7 +234,7 @@
         }
         .info-list{
             display: block;
-            width: 90%;
+            width: 96%;
         }
         .info-list .row,.info-list .row.row1,.info-list .row.row2{
             width: 100%;
@@ -272,7 +272,6 @@
 }
 	@media only screen and (max-width:479px){
         .cont-txt{
-            padding: 20px 15px;
             font-size: 16px;
         }
         .info-list{

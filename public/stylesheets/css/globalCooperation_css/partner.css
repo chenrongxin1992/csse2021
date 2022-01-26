@@ -157,6 +157,7 @@
         display: none;
     }
     .contain-area{
+        padding: 40px 0;
         width: 90%;
         margin: 0 5%;
     }

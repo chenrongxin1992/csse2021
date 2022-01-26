@@ -47,7 +47,7 @@
 }
 
 .cont{
-    height: 50.2vw;
+    /* height: 50.2vw; */
     position: relative;
     padding: 40px 0 100px 0;
 }
@@ -111,7 +111,7 @@
         width: 75%;
     }
 }
-@media only screen and (max-width:1440px){
+/* @media only screen and (max-width:1440px){
     .cont{
        height: auto;
     }
@@ -121,7 +121,7 @@
     .leader-list .col{
         width: 15%;
     }
-}
+} */
 @media only screen and (max-width:1200px){
     .leader-list .row.row1{
         margin-top: 0;
@@ -129,6 +129,7 @@
         margin-bottom: 20px;
     }
     .leader-list .row{
+        width: 100%;
         flex-flow: wrap;
     }
     .leader-list .col{

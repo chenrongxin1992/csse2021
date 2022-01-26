@@ -111,9 +111,9 @@
                             <li><a href="" class="a_sx" id="<%=data.suoxiNum[2]._id%>">未来媒体技术与计算研究所(<%=data.suoxiNum[2].num%>)</a></li>
                             <li><a href="" class="a_sx" id="<%=data.suoxiNum[3]._id%>">网络与信息安全研究所(<%=data.suoxiNum[3].num%>)</a></li>
                             <li><a href="" class="a_sx" id="<%=data.suoxiNum[4]._id%>">计算机视觉研究所(<%=data.suoxiNum[4].num%>)</a></li>
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[5]._id%>">智能技术与系统集成研究所(<%=data.suoxiNum[5].num%>)</a></li>
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[6]._id%>">物联网研究中心(<%=data.suoxiNum[6].num%>)</a></li>
                             <li><a href="" class="a_sx" id="<%=data.suoxiNum[7]._id%>">可视计算研究中心(<%=data.suoxiNum[7].num%>)</a></li> 
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[6]._id%>">物联网研究中心(<%=data.suoxiNum[6].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[5]._id%>">智能技术与系统集成研究所(<%=data.suoxiNum[5].num%>)</a></li>
                             <li><a href="" class="a_sx" id="<%=data.suoxiNum[8]._id%>">教学系(<%=data.suoxiNum[8].num%>)</a></li>     
                             <li><a href="" class="a_sx" id="<%=data.suoxiNum[10]._id%>">软件工程研究中心(<%=data.suoxiNum[10].num%>)</a></li>                      
                         </ul>
@@ -137,17 +137,13 @@
                                                 </div>
                                                 <div class="txt">
                                                     <p class="c_333">
-                                                        <%=item.zhiwu%> 
+                                                        
                                                     </p>
                                                     <p class="c_666">
-                                                        <%if(item.suoxi=='其它'){%>
-                                                        <%}else{%>
-                                                            <%=item.suoxi%>
-                                                        <%}%>
+                                                        <%=item.rongyuname%>
                                                     </p>
                                                 </div>
-                                                <div class="skill"><%if(!item.yjly){%>
-                                                    <%}else{%><%=item.yjly%><%}%></div>
+                                                <div class="skill"></div>
                                                 </div><!-- row --><!--  -->
                                             <div class="row row2">
                                                 <div class="name"></div>
@@ -155,7 +151,7 @@
                                                     <img src="<%=item.avatar%>"/>
                                                 </div>
                                                 <%if(item.userName=='黄惠'){%>
-                                                    <a class="btn" href="https://vcc.tech/~huihuang">
+                                                    <a class="btn" href="https://vcc.tech/~huihuang" target="_blank">
                                                     <span class="s-txt">HOMEPAGE</span>
                                                      </a>
                                                 <%}else{%>
@@ -190,17 +186,13 @@
                                                 </div>
                                                 <div class="txt">
                                                     <p class="c_333">
-                                                        <%=item.zhiwu%> 
+                                                        
                                                     </p>
                                                     <p class="c_666">
-                                                        <%if(item.suoxi=='其它'){%>
-                                                        <%}else{%>
-                                                            <%=item.suoxi%>
-                                                        <%}%>
+                                                        <%=item.rongyuname%>
                                                     </p>
                                                 </div>
-                                                <div class="skill"><%if(!item.yjly){%>
-                                                    <%}else{%><%=item.yjly%><%}%></div>
+                                                <div class="skill"></div>
                                                 </div><!-- row --><!--  -->
                                             <div class="row row2">
                                                 <div class="name"></div>
@@ -208,7 +200,7 @@
                                                     <img src="<%=item.avatar%>"/>
                                                 </div>
                                                 <%if(item.userName=='黄惠'){%>
-                                                    <a class="btn" href="https://vcc.tech/~huihuang">
+                                                    <a class="btn" href="https://vcc.tech/~huihuang" target="_blank">
                                                     <span class="s-txt">HOMEPAGE</span>
                                                      </a>
                                                 <%}else{%>
@@ -243,17 +235,13 @@
                                                 </div>
                                                 <div class="txt">
                                                     <p class="c_333">
-                                                        <%=item.zhiwu%> 
+                                                        
                                                     </p>
                                                     <p class="c_666">
-                                                        <%if(item.suoxi=='其它'){%>
-                                                        <%}else{%>
-                                                            <%=item.suoxi%>
-                                                        <%}%>
+                                                        <%=item.rongyuname%>
                                                     </p>
                                                 </div>
-                                                <div class="skill"><%if(!item.yjly){%>
-                                                    <%}else{%><%=item.yjly%><%}%></div>
+                                                <div class="skill"></div>
                                                 </div><!-- row --><!--  -->
                                             <div class="row row2">
                                                 <div class="name"></div>
@@ -261,7 +249,7 @@
                                                     <img src="<%=item.avatar%>"/>
                                                 </div>
                                                 <%if(item.userName=='黄惠'){%>
-                                                    <a class="btn" href="https://vcc.tech/~huihuang">
+                                                    <a class="btn" href="https://vcc.tech/~huihuang" target="_blank">
                                                     <span class="s-txt">HOMEPAGE</span>
                                                      </a>
                                                 <%}else{%>
@@ -314,7 +302,7 @@
                                                 <img src="<%=item.avatar%>"/>
                                             </div>
                                             <%if(item.userName=='黄惠'){%>
-                                                <a class="btn" href="https://vcc.tech/~huihuang">
+                                                <a class="btn" href="https://vcc.tech/~huihuang" target="_blank">
                                                 <span class="s-txt">HOMEPAGE</span>
                                                  </a>
                                             <%}else{%>

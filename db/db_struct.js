@@ -53,37 +53,37 @@ userName1:{type:String},//英文名
 password:{type:String},
 sex:{type:String},
 sex1:{type:String},
-avatar:{type:String},//头像
+avatar:{type:String,default:''},//头像
 idCardNO:{type:String},
-email:{type:String},
+email:{type:String,default:''},
 qq:{type:String},
-mobile:{type:String},
-mobileSZU:{type:String},
-phoneOffice:{type:String},
-AddressOffice:{type:String},
-AddressOffice1:{type:String},
-zhicheng:{type:String},
-zhicheng1:{type:String},
+mobile:{type:String,default:''},
+mobileSZU:{type:String,default:''},
+phoneOffice:{type:String,default:''},
+AddressOffice:{type:String,default:''},
+AddressOffice1:{type:String,default:''},
+zhicheng:{type:String,default:''},
+zhicheng1:{type:String,default:''},
 xuewei:{type:String},
 xuewei1:{type:String},
 xueli:{type:String},
 xueli1:{type:String},
 biyeSchool:{type:String},
 biyeSchool1:{type:String},
-zhiwu:{type:String},
-zhiwu1:{type:String},
-intro:{type:String},
-intro1:{type:String},
-introNaked:{type:String},
-intro1Naked:{type:String},
-inXi:{type:String},
-inxi1:{type:String},
-inSuo:{type:String},
-inSuo1:{type:String},
-inDang:{type:String},
-inDang1:{type:String},
-urlJump:{type:String},
-urlJumpBool:{type:String},
+zhiwu:{type:String,default:''},
+zhiwu1:{type:String,default:''},
+intro:{type:String,default:''},
+intro1:{type:String,default:''},
+introNaked:{type:String,default:''},
+intro1Naked:{type:String,default:''},
+inXi:{type:String,default:''},
+inxi1:{type:String,default:''},
+inSuo:{type:String,default:''},
+inSuo1:{type:String,default:''},
+inDang:{type:String,default:''},
+inDang1:{type:String,default:''},
+urlJump:{type:String,default:''},
+urlJumpBool:{type:String,default:''},
 isVerify:{type:String},
 isDelete:{type:String},
 timeAdd:{type:String},
@@ -93,27 +93,28 @@ idAdd:{type:String},
 accountAdd:{type:String},
 personalLink:{type:String},//个人主页，新增
 personalLink_switch:{type:Number,default:1},//是否展示个人主页
-suoxi:{type:String},//所/系，新增
-suoxi1:{type:String},
-jybj:{type:String},//教育背景，新增
-jybj1:{type:String},
-yjly:{type:String},//研究领域 新增
-yjly1:{type:String},
-jstype1:{type:String},
+suoxi:{type:String,default:''},//所/系，新增
+suoxi1:{type:String,default:''},
+jybj:{type:String,default:''},//教育背景，新增
+jybj1:{type:String,default:''},
+yjly:{type:String,default:''},//研究领域 新增
+yjly1:{type:String,default:''},
+jstype1:{type:String,default:''},
 jstype:{type:String,default:''},//教师队伍类别，新增
-userName_py:{type:String},
+userName_py:{type:String,default:''},
 display:{type:Number,default:0},//默认显示
 peopleid:{type:Number,default:11},//人员类别，用来排序 1杰出2教授3副教授4讲师5助理教授6研究员7博后8技术管理9助理10副研11为其它
 suoxiid:{type:Number},//所系id，排序
 login_date:{type:String,default:moment().format('YYYY-MM-DD')},//限制登录
 login_num:{type:Number,default:0},
 rongyujibie:{type:Number},
-rongyujibiename:{type:String},
-rongyuname:{type:String},
-rongyuname1:{type:String},//en
+rongyujibiename:{type:String,default:''},
+rongyuname:{type:String,default:''},
+rongyuname1:{type:String,default:''},//en
 yewukouid:{type:Number},
-yewukouname:{type:String},
-yewukouname1:{type:String}
+yewukouname:{type:String,default:''},
+yewukouname1:{type:String,default:''},
+yewukousort:{type:Number,default:20}
 },{collection:'allUser'})
 const cmsContentSchema = new Schema({
  id:{type:Number},
@@ -122,9 +123,9 @@ const cmsContentSchema = new Schema({
  trees:{type:String},//分类 学院介绍153-227-
  title:{type:String},
  titleEN:{type:String},
- pageContent:{type:String},
- pageContentNaked:{type:String},
- pageContentEN:{type:String},
+ pageContent:{type:String,default:''},
+ pageContentNaked:{type:String,default:''},
+ pageContentEN:{type:String,default:''},
  viewsInt:{type:Number,default:0},
  viewsCount:{type:Number}, 
  timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
@@ -136,33 +137,33 @@ const cmsContentSchema = new Schema({
  isDisplay:{type:Number,default:1},
  isCas:{type:Number,default:0},
  isDelete:{type:Number,default:0},
- url:{type:String},
-    content_source_url:{type:String},
-    digest:{type:String},
+ url:{type:String,default:''},
+    content_source_url:{type:String,default:''},
+    digest:{type:String,default:''},
  idAdd:{type:Number},
  accountAdd:{type:String},
- fujianName:{type:String},//附件
- fujianPath:{type:String},
+ fujianName:{type:String,default:''},//附件
+ fujianPath:{type:String,default:''},
  leixing :{type:String,default:'科研动态'},//21年 新闻类型，新闻类型
  leixing1 :{type:String,default:'学术讲座'},//21年 新闻类型，通知公告类型
  year:{type:Number},//21年 成果年份
- kanwu:{type:String},//21年，刊物
- zuozhe:{type:String},//21年，作者
- danwei:{type:String},//21年，论文单位
- belongsto:{type:String},//所属研究所
- zhur:{type:String},//21主任,用于教学系
- fuzhur:{type:String},//21副主任，用于教学系
- zhur1:{type:String},//21主任,用于教学系
- fuzhur1:{type:String},//21副主任，用于教学系
- zplx:{type:String},//21新增，招聘类型
+ kanwu:{type:String,default:''},//21年，刊物
+ zuozhe:{type:String,default:''},//21年，作者
+ danwei:{type:String,default:''},//21年，论文单位
+ belongsto:{type:String,default:''},//所属研究所
+ zhur:{type:String,default:''},//21主任,用于教学系
+ fuzhur:{type:String,default:''},//21副主任，用于教学系
+ zhur1:{type:String,default:''},//21主任,用于教学系
+ fuzhur1:{type:String,default:''},//21副主任，用于教学系
+ zplx:{type:String,default:''},//21新增，招聘类型
  timeAddStamp:{type:String,default:moment().format('X')},//主要用于排序
- csrankings:{type:String},
- csrankingsEN:{type:String},
- pyxm:{type:String},//国际合作培养项目
- pyxm1:{type:String},//国际合作培养项目
+ csrankings:{type:String,default:''},
+ csrankingsEN:{type:String,default:''},
+ pyxm:{type:String,default:''},//国际合作培养项目
+ pyxm1:{type:String,default:''},//国际合作培养项目
  hbsort:{type:Number},//合作伙伴排序
- tag1:{type:String},//2021新增字段，标识所属一级菜单
-    tag2:{type:String},//2021新增字段，标识当前菜单
+ tag1:{type:String,default:''},//2021新增字段，标识所属一级菜单
+    tag2:{type:String,default:''},//2021新增字段，标识当前菜单
     review:{type:String,default:0},//审核状态,
     fromwx:{type:String,default:0},//是否来自于微信
     mediaid:{type:String},//素材id
@@ -176,16 +177,16 @@ const cmsSliderSchema = new Schema({
  title:{type:String},
  title1:{type:String},
  pic:{type:String},
- url:{type:String},
+ url:{type:String,default:'#'},
  urlTarget:{type:String},
- memo:{type:String},
- memo1:{type:String},
+ memo:{type:String,default:''},
+ memo1:{type:String,default:''},
  timeAdd:{type:String,default:moment(new Date()).format('YYYY-MM-DD HH:mm')},
  timeEdit:{type:String,default:moment(new Date()).format('YYYY-MM-DD HH:mm')},
  idAdd:{type:Number},
  accountAdd:{type:String},
  jianjie:{type:String,default:'无'},
- jianjie1:{type:String},
+ jianjie1:{type:String,default:''},
  isen:{type:Number,default:0}
 },{collection:'cmsSlider'})
 const xrldSchema = new Schema({ 
@@ -202,33 +203,33 @@ const xrldSchema = new Schema({
  timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'xrld'})
 const highlightSchema = new Schema({ 
- ruanke :{type:String},//软科
- usnews : {type:String},//USNEWS
- csrankings : {type:String},//CSRANKINGS
- taiws : {type:String},//泰晤士
- qs : {type:String},//qs排名
- esc : {type:String},//esc排名
- zhuanzjs : {type:String},//专职教师
- benks : {type:String},//本科生
- yanjs : {type:String},//研究所
- guojjxm : {type:String},//国家级项目
- guojjpt : {type:String},//国家级平台
- guojjrc : {type:String},//国家级人才
- xueymj : {type:String},//总面积
- shebjz : {type:String},//设备价值
+ ruanke :{type:String,default:''},//软科
+ usnews : {type:String,default:''},//USNEWS
+ csrankings : {type:String,default:''},//CSRANKINGS
+ taiws : {type:String,default:''},//泰晤士
+ qs : {type:String,default:''},//qs排名
+ esc : {type:String,default:''},//esc排名
+ zhuanzjs : {type:String,default:''},//专职教师
+ benks : {type:String,default:''},//本科生
+ yanjs : {type:String,default:''},//研究所
+ guojjxm : {type:String,default:''},//国家级项目
+ guojjpt : {type:String,default:''},//国家级平台
+ guojjrc : {type:String,default:''},//国家级人才
+ xueymj : {type:String,default:''},//总面积
+ shebjz : {type:String,default:''},//设备价值
  timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
  timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'highlight'})
 const bkzsSchema = new Schema({ 
  id:{type:Number},
  bsort:{type:String},
- zhuanye :{type:String},//
- neirong :{type:String},//
- xuefei : {type:String},//
- jxj : {type:String},//
- jiuye : {type:String},
- xyhj : {type:String},//
- lxfs : {type:String},//
+ zhuanye :{type:String,default:''},//
+ neirong :{type:String,default:''},//
+ xuefei : {type:String,default:''},//
+ jxj : {type:String,default:''},//
+ jiuye : {type:String,default:''},
+ xyhj : {type:String,default:''},//
+ lxfs : {type:String,default:''},//
  patharr:{type:Array,default:[]},//附件路径，用，隔开
  namearr:{type:Array,default:[]},//附件名，用，隔开
  timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
@@ -237,12 +238,12 @@ const bkzsSchema = new Schema({
 },{collection:'bkzs'})
 const bkzsinfoSchema = new Schema({ 
  id:{type:Number},
- xuefei : {type:String},//
- jxj : {type:String},//
- jiuye : {type:String},
- xyhj : {type:String},//
- lxfs : {type:String},//
- zsqk : {type:String},//
+ xuefei : {type:String,default:''},//
+ jxj : {type:String,default:''},//
+ jiuye : {type:String,default:''},
+ xyhj : {type:String,default:''},//
+ lxfs : {type:String,default:''},//
+ zsqk : {type:String,default:''},//
  timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
  timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
  timeStamp:{type:String,default:moment().format('X')}
@@ -269,16 +270,16 @@ const cglrSchema = new Schema({
  id:{type:Number},
  title :{type:String},//
  year :{type:Number},//
- yearid:{type:String},
- kanwu : {type:String},//
- zuozhe : {type:String},//
- belongsto : {type:String},
- belongsto1:{type:String},
+ yearid:{type:String,default:''},
+ kanwu : {type:String,default:''},//
+ zuozhe : {type:String,default:''},//
+ belongsto : {type:String,default:''},
+ belongsto1:{type:String,default:''},
  belongstoid : {type:Number},//
- danwei : {type:String},//
- fujianPath : {type:String},//
- pageContent:{type:String},
- pageContentEN:{type:String},
+ danwei : {type:String,default:''},//
+ fujianPath : {type:String,default:''},//
+ pageContent:{type:String,default:''},
+ pageContentEN:{type:String,default:''},
  patharr:{type:String,default:null},//附件路径，用，隔开
  namearr:{type:String,default:null},//附件名，用，隔开
     review:{type:String,default:0},//审核状态

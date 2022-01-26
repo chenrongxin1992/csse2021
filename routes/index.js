@@ -57,6 +57,16 @@ function checkMonth(arg){
 		return 'Dec'
 	}
 }
+function getRandomArrayElements(arr, count) {
+    var shuffled = arr.slice(0), i = arr.length, min = i - count, temp, index;
+    while (i-- > min) {
+        index = Math.floor((i + 1) * Math.random());
+        temp = shuffled[index];
+        shuffled[index] = shuffled[i];
+        shuffled[i] = temp;
+    }
+    return shuffled.slice(min);
+}
 router.get('/', function(req, res, next) {
 	//首页
 	let data = {}
@@ -134,32 +144,37 @@ router.get('/', function(req, res, next) {
 				})
 		},
 		function(cb){
-			// let search = cglr.find({})
-			// 	search.sort({'year':-1})
-			// 	search.limit(5)
+			let search = cglr.find({})
+				search.sort({'year':-1})
+				search.sort({'timeAdd':-1})
+				search.limit(50)
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.kycg = getRandomArrayElements(docs,5)//循环用
+					data.kycg.forEach(function(item){
+						console.log('item-----year-----',item.year)
+					})
+					data.kycg1 = docs[0]//第一次用
+					data.kycgstr = encodeURIComponent(JSON.stringify(docs))//js中用
+					cb()
+				})
+			//let search_year = moment()
+			// let search = cglr.aggregate([{$match:{review:'1'}},{$sample:{size:5}}])
 			// 	search.exec(function(err,docs){
 			// 		if(err){
 			// 			cb(err)
 			// 		}
 			// 		data.kycg = docs//循环用
-			// 		data.kycg1 = docs[0]//第一次用
+			// 		//console.log('cglr',docs)
+			// 		if(docs.length>0)
+			// 		    data.kycg1 = docs[0]//第一次用
+			// 		else
+			// 		    data.kycg1 = []
 			// 		data.kycgstr = encodeURIComponent(JSON.stringify(docs))//js中用
 			// 		cb()
 			// 	})
-			let search = cglr.aggregate([{$match:{review:'1'}},{$sample:{size:5}}])
-				search.exec(function(err,docs){
-					if(err){
-						cb(err)
-					}
-					data.kycg = docs//循环用
-					//console.log('cglr',docs)
-					if(docs.length>0)
-					    data.kycg1 = docs[0]//第一次用
-					else
-					    data.kycg1 = []
-					data.kycgstr = encodeURIComponent(JSON.stringify(docs))//js中用
-					cb()
-				})
 		},
 		function(cb){
 			let search = cmsContent.find({'tag2':'合作伙伴'})
@@ -169,7 +184,7 @@ router.get('/', function(req, res, next) {
 						cb(err)
 					}
 					data.hzhb = docs
-					console.log('docs',docs)
+					//console.log('docs',docs)
 					cb()
 				})
 		},
@@ -191,7 +206,7 @@ router.get('/', function(req, res, next) {
 					if(err){
 						return res.send(err)
 					}
-					console.log(doc)	
+					//console.log(doc)	
 					data.yzjy = doc
 					cb()
 				})
@@ -2399,6 +2414,7 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 							cb(error)
 						}	
 						//console.log('docs-----',docs)	
+						
 						data.jsdw = docs
 						if(zhicheng==1){
 							console.log('------------ 杰出人才 --------------')
@@ -2692,6 +2708,7 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 						limit = parseInt(limit)
 					let search
 					if(zhicheng==1){
+						limit = 20
 						search = user.find({display:1,rongyujibie:{$ne:null,$exists:true},$or:[{power:'教职工'},{power:'管理员'}]})
 						search.sort({'rongyujibie':1})
 					}else{
@@ -2704,17 +2721,39 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 							if(error){
 								console.log('error',error)
 								cb(error)
-							}	
-							//console.log('docs-----',docs)	
-							let check = new RegExp('院')//院长，院长助理
-							let check1 = new RegExp('所')//所长
-
+							}
+							let check = new RegExp('讲师')//院长，院长助理
+							let check1 = new RegExp('研究员')//所长
+							let check2 = new RegExp('教授')
+							let check3 = new RegExp('博士后')
 							docs.forEach(function(item){
-								if(!item.zhiwu.match(check)){
+								if(item.zhiwu.match(check)){
 									//console.log('----item',item)
 									item.zhiwu=''
 								}
-							})
+								if(item.zhiwu.match(check1)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+								if(item.zhiwu.match(check2)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+								if(item.zhiwu.match(check3)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+							})	
+							//console.log('docs-----',docs)	
+							// let check = new RegExp('院')//院长，院长助理
+							// let check1 = new RegExp('所')//所长
+
+							// docs.forEach(function(item){
+							// 	if(!item.zhiwu.match(check)){
+							// 		//console.log('----item',item)
+							// 		item.zhiwu=''
+							// 	}
+							// })
 							data.jsdw = docs
 							
 							if(zhicheng==1){
@@ -2750,7 +2789,7 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 				if(req.query['L']=='1'){
 					res.render('pages/teacherTeam/indextest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}else{
-					res.render('pages/teacherTeam/indexentest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/indexentest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}
 			})
 		}
@@ -2851,6 +2890,28 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 								cb(error)
 							}	
 							//console.log('docs-----',docs)	
+							let check = new RegExp('讲师')//院长，院长助理
+							let check1 = new RegExp('研究员')//所长
+							let check2 = new RegExp('教授')
+							let check3 = new RegExp('博士后')
+							docs.forEach(function(item){
+								if(item.zhiwu.match(check)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+								if(item.zhiwu.match(check1)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+								if(item.zhiwu.match(check2)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+								if(item.zhiwu.match(check3)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+							})
 							data.jsdw = docs
 							cb(null)
 						})
@@ -2986,6 +3047,28 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 								cb(error)
 							}	
 							//console.log('docs-----',docs)	
+							let check = new RegExp('讲师')//院长，院长助理
+							let check1 = new RegExp('研究员')//所长
+							let check2 = new RegExp('教授')
+							let check3 = new RegExp('博士后')
+							docs.forEach(function(item){
+								if(item.zhiwu.match(check)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+								if(item.zhiwu.match(check1)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+								if(item.zhiwu.match(check2)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+								if(item.zhiwu.match(check3)){
+									//console.log('----item',item)
+									item.zhiwu=''
+								}
+							})
 							data.jsdw = docs
 							cb(null)
 						})
@@ -4102,6 +4185,7 @@ router.get('/pages/organization/departments',function(req,res){
 		function(cb){
 			let search = user.find({yewukouid:{$ne:null,$exists:true}})
 				search.where('yewukouid').equals(1)
+				search.sort({'yewukousort':1})
 				search.sort({'userName_py':1})
 				search.exec(function(err,docs){
 					if(err){
@@ -4114,6 +4198,7 @@ router.get('/pages/organization/departments',function(req,res){
 		function(cb){
 			let search = user.find({yewukouid:{$ne:null,$exists:true}})
 				search.where('yewukouid').equals(2)
+				search.sort({'yewukousort':1})
 				search.sort({'userName_py':1})
 				search.exec(function(err,docs){
 					if(err){
@@ -4126,6 +4211,7 @@ router.get('/pages/organization/departments',function(req,res){
 		function(cb){
 			let search = user.find({yewukouid:{$ne:null,$exists:true}})
 				search.where('yewukouid').equals(3)
+				search.sort({'yewukousort':1})
 				search.sort({'userName_py':1})
 				search.exec(function(err,docs){
 					if(err){
@@ -4138,6 +4224,7 @@ router.get('/pages/organization/departments',function(req,res){
 		function(cb){
 			let search = user.find({yewukouid:{$ne:null,$exists:true}})
 				search.where('yewukouid').equals(4)
+				search.sort({'yewukousort':1})
 				search.sort({'userName_py':1})
 				search.exec(function(err,docs){
 					if(err){
@@ -4150,6 +4237,7 @@ router.get('/pages/organization/departments',function(req,res){
 		function(cb){
 			let search = user.find({yewukouid:{$ne:null,$exists:true}})
 				search.where('yewukouid').equals(5)
+				search.sort({'yewukousort':1})
 				search.sort({'userName_py':1})
 				search.exec(function(err,docs){
 					if(err){
@@ -4172,6 +4260,8 @@ router.get('/setLanguage',function(req,res){
 	console.log('check req.query[L]',req.query.language,typeof(req.query.language))
 	res.cookie("L", parseInt(req.query.language), { maxAge: 6 * 60 * 60 * 1000 });//中文
 	req.query["L"] = req.query.language;
+	console.log('设置之后------------------ --------------------------------',req.query["L"] )
+	console.log()
 	res.json({
 		success: 1
 	});

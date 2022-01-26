@@ -95,8 +95,11 @@ app.use(session({
 }));
 
 app.use(function(req,res,next){
-	//console.log('----设置语言-----')
-	if (!req.cookies["L"]) {
+  console.log('---------------- 设置语言 req.cookies["L"] ------------- ',req.cookies["L"])
+  console.log('---------------- 设置语言 req.query["L"]------------- ',req.query["L"])
+	//console.log('----设置语言-----') typeof(reValue) == “undefined”
+ if (!req.cookies["L"]) {
+	//if (typeof(req.cookies["L"]) == "undefined") {
 		  console.log('------- 没设置，默认1 -------')
       res.cookie("L", 1, {maxAge: 6*60*60*1000, httpOnly: true});//中文
       req.query["L"] = 1

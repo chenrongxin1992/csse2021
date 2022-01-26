@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>业务口人员排序</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">党务工作</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.dw_ry.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 200px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input dw_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+				    	<label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="dw_yewukousort" disabled="disabled" value="<%=item.yewukousort%>">
+				    	</div>
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input dw_nsort" id="new_dw_yewukousort" value="<%=item.yewukousort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">教学业务</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.jw_ry.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 200px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input jw_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+				    	<label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="jw_yewukousort" disabled="disabled" value="<%=item.yewukousort%>">
+				    	</div>
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input jw_nsort" id="new_jw_yewukousort" value="<%=item.yewukousort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">实验教学中心</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.sy_ry.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 200px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input sy_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+				    	<label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="sy_yewukousort" disabled="disabled" value="<%=item.yewukousort%>">
+				    	</div>
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input sy_nsort" id="new_sy_yewukousort" value="<%=item.yewukousort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">其他业务</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.qt_ry.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 200px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input qt_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+				    	<label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="qt_yewukousort" disabled="disabled" value="<%=item.yewukousort%>">
+				    	</div>
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input qt_nsort" id="new_qt_yewukousort" value="<%=item.yewukousort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">辅导员</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.fdy_ry.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 200px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input fdy_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+				    	<label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="fdy_yewukousort" disabled="disabled" value="<%=item.yewukousort%>">
+				    	</div>
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input fdy_nsort" id="new_fdy_yewukousort" value="<%=item.yewukousort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1" style="text-align:center;">
+					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+function isRepeat(arr) {
+    let hash = {};
+    for (var i in arr) {
+        if (hash[arr[i]]){
+            return true; 
+        }
+        hash[arr[i]] = true;
+    }
+    return false;
+}
+$(function(){
+	layui.use(['jquery','layer','form','layedit','upload'], function(){ 
+	    let $ = layui.$, //重点处
+	    	layedit = layui.layedit,
+	    	upload = layui.upload
+	    let form = layui.form,layer = layui.layer
+	    let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	    console.log('当前iframe层的索引',frameindex)
+	    
+	    form.on('submit(update)', function(data){
+	    	//获取对应的排序序号
+	    	console.log($('.nsort'))
+            let dw_sortarr = [],jw_sortarr = [],sy_sortarr = [],qt_sortarr = [],fdy_sortarr = [] //存储结果数组
+            let dw_nsort = $('.dw_nsort'),jw_nsort = $('.jw_nsort'),sy_nsort = $('.sy_nsort'),qt_nsort = $('.qt_nsort'),fdy_nsort = $('.fdy_nsort')
+	    	let dw_temparr = [],jw_temparr = [],sy_temparr = [],qt_temparr = [],fdy_temparr = []//判断排序是否重复
+            $.each(dw_nsort,function(index,ele){
+	    		console.log('dw_nsort----------',index,ele,$($('.dw_name')[index]).val(),$($('.dw_name')[index]).attr('_id'))
+	    		dw_sortarr.push($($('.dw_name')[index]).val()+','+$($('.dw_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		dw_temparr.push($(ele).val())
+	    	})
+            $.each(jw_nsort,function(index,ele){
+	    		console.log('jw_nsort----------',index,ele,$($('.jw_name')[index]).val(),$($('.jw_name')[index]).attr('_id'))
+	    		jw_sortarr.push($($('.jw_name')[index]).val()+','+$($('.jw_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		jw_temparr.push($(ele).val())
+	    	})
+            $.each(sy_nsort,function(index,ele){
+	    		console.log('sy_nsort----------',index,ele,$($('.sy_name')[index]).val(),$($('.sy_name')[index]).attr('_id'))
+	    		sy_sortarr.push($($('.sy_name')[index]).val()+','+$($('.sy_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		sy_temparr.push($(ele).val())
+	    	})
+            $.each(qt_nsort,function(index,ele){
+	    		console.log('qt_nsort----------',index,ele,$($('.qt_name')[index]).val(),$($('.qt_name')[index]).attr('_id'))
+	    		qt_sortarr.push($($('.qt_name')[index]).val()+','+$($('.qt_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		qt_temparr.push($(ele).val())
+	    	})
+            $.each(fdy_nsort,function(index,ele){
+	    		console.log('fdy_nsort----------',index,ele,$($('.fdy_name')[index]).val(),$($('.fdy_name')[index]).attr('_id'))
+	    		fdy_sortarr.push($($('.fdy_name')[index]).val()+','+$($('.fdy_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		fdy_temparr.push($(ele).val())
+	    	})
+
+	    	console.log('结果',dw_sortarr,jw_sortarr,sy_sortarr,qt_sortarr,fdy_sortarr,'判断',dw_temparr,jw_temparr,sy_temparr,qt_temparr,fdy_temparr)
+	    	if(isRepeat(dw_temparr)){
+	    		console.log('党务重复')
+	    		layer.alert('党务口有序号重复')
+	    		return false
+	    	}
+            if(isRepeat(jw_temparr)){
+	    		console.log('教务重复')
+	    		layer.alert('教务口有序号重复')
+	    		return false
+	    	}
+            if(isRepeat(sy_temparr)){
+	    		console.log('实验重复')
+	    		layer.alert('实验中心有序号重复')
+	    		return false
+	    	}
+            if(isRepeat(qt_temparr)){
+	    		console.log('其他重复')
+	    		layer.alert('其他业务口有序号重复')
+	    		return false
+	    	}
+            if(isRepeat(fdy_temparr)){
+	    		console.log('辅导员重复')
+	    		layer.alert('辅导员有序号重复')
+	    		return false
+	    	}
+
+	    	console.log('序号没问题 sortarr-----',dw_sortarr,jw_sortarr,sy_sortarr,qt_sortarr,fdy_sortarr)
+	    	data.field.dw_sortarr = dw_sortarr
+            data.field.jw_sortarr = jw_sortarr
+            data.field.sy_sortarr = sy_sortarr
+            data.field.qt_sortarr = qt_sortarr
+            data.field.fdy_sortarr = fdy_sortarr
+	    	console.log('data.field',data.field)
+            
+	    		//ajax
+	    		$.ajax({
+				  	url:'<%=base_url%>ywksort',
+				  	type:'POST',
+				  	data:{dw_sortarr:dw_sortarr,jw_sortarr:jw_sortarr,sy_sortarr:sy_sortarr,qt_sortarr:qt_sortarr,fdy_sortarr:fdy_sortarr},
+				  	dataType : "json",
+				  	traditional:true,
+				  	success:function(result){
+				  		if(result.code == 0){
+				  			console.log('update success')
+				  			//墨绿深蓝风
+							let frameindex = layer.alert('保存成功', {
+							  skin: 'layui-layer-molv' //样式类名
+							  ,closeBtn: 0
+							}, function(){
+								layer.close(frameindex);
+							});	  			
+				  		}
+				  	},
+				  	error:function(msg){
+				  		console.log('ajax error msg',msg)
+				  	}
+				  })
+	    	
+	    	return false
+		});
+	})
+})
+
+</script>
+</body>
+</html>

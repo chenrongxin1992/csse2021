@@ -244,6 +244,7 @@
     .info .info-cont{
         flex-direction: column;
         align-items: flex-start;
+        width: 95%;
     }
     .info .info-cont .txt{
         width: 100%;
@@ -258,6 +259,13 @@
     }
     .area-right .page-list .row-right{
         padding-left: 25px;
+    }
+    .cont .top-nav{
+        display: block;
+        text-align: center;
+    }
+    .cont .top-nav .tit{
+        margin: 0;
     }
 }
 @media only screen and (max-width:959px){
@@ -278,7 +286,8 @@
 @media only screen and (max-width:479px){
     .info .info-cont .txt{
         text-align: left;
-        padding-top: 20px;
+        padding-top: 0px;
+        padding-right: 0;
         font-size: 16px;
         line-height: 30px;
     }

@@ -32,43 +32,37 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">招生情况</label>
 				<div class="layui-input-block">
-					<input id="zsqk"  value="<%=data.zsqk%>" type="hidden" />
-					<script id="zsqk1" type="text/plain" ></script>
+					<textarea id="zsqk"  value="<%=data.zsqk%>" /><%=data.zsqk%></textarea>
 				</div>
 			</div>
             <div class="layui-form-item">
 				<label class="layui-form-label">学费与住宿</label>
 				<div class="layui-input-block">
-					<input id="xuefei"  value="<%=data.xuefei%>" type="hidden" />
-					<script id="xuefei1" type="text/plain" ></script>
+					<textarea id="xuefei"  value="<%=data.xuefei%>" /><%=data.xuefei%></textarea>
 				</div>
 			</div>
             <div class="layui-form-item">
 				<label class="layui-form-label">奖学金</label>
 				<div class="layui-input-block">
-					<input id="jxj"  value="<%=data.jxj%>" type="hidden" />
-					<script id="jxj1" type="text/plain" ></script>
+					<textarea id="jxj"  value="<%=data.jxj%>" /><%=data.jxj%></textarea>
 				</div>
 			</div>
             <div class="layui-form-item">
 				<label class="layui-form-label">就业情况</label>
 				<div class="layui-input-block">
-					<input id="jiuye"  value="<%=data.jiuye%>" type="hidden" />
-					<script id="jiuye1" type="text/plain" ></script>
+					<textarea id="jiuye"  value="<%=data.jiuye%>" /><%=data.jiuye%></textarea>
 				</div>
 			</div>
             <div class="layui-form-item">
 				<label class="layui-form-label">校园环境</label>
 				<div class="layui-input-block">
-					<input id="xyhj"  value="<%=data.xyhj%>" type="hidden" />
-					<script id="xyhj1" type="text/plain" ></script>
+					<textarea id="xyhj"  value="<%=data.xyhj%>" /><%=data.xyhj%></textarea>
 				</div>
 			</div>
             <div class="layui-form-item">
 				<label class="layui-form-label">联系方式</label>
 				<div class="layui-input-block">
-					<input id="lxfs"  value="<%=data.lxfs%>" type="hidden" />
-					<script id="lxfs1" type="text/plain" ></script>
+					<textarea id="lxfs"  value="<%=data.lxfs%>" /><%=data.lxfs%></textarea>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -79,12 +73,12 @@
 			</div>
 		</div>
 	</form>
-
-<script type="text/javascript" src="../layui/layui.js"></script>
+	<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<!-- <script type="text/javascript" src="../layui/layui.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.js"> </script>
-<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"> </script> -->
 <!-- <script type="text/javascript" src="newsAdd.js"></script> -->
 <script type="text/javascript">
 		
@@ -99,43 +93,12 @@ $(function(){
 	
     //先得到当前iframe层的索引
     let id = '<%-data.id%>'
-    let ue2,ue3,ue4,ue5,ue6,ue7
-		ue2 = UE.getEditor('xuefei1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue2.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#xuefei").val();
-	   		ue2.setContent(htmlStr,false)
-	    });
-        ue3 = UE.getEditor('jxj1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue3.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#jxj").val();
-	   		ue3.setContent(htmlStr,false)
-	    });
-        ue4 = UE.getEditor('jiuye1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue4.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#jiuye").val();
-	   		ue4.setContent(htmlStr,false)
-	    });
-       ue5 = UE.getEditor('xyhj1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue5.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#xyhj").val();
-	   		ue5.setContent(htmlStr,false)
-	    });
-       ue6 = UE.getEditor('lxfs1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue6.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#lxfs").val();
-	   		ue6.setContent(htmlStr,false)
-	    });
-		ue7 = UE.getEditor('zsqk1',{'initialFrameHeight':'250','initialFrameWidth':'100%'})
-		ue6.ready(function () {//简介  content = content.replace(new RegExp("<","g"),"<").replace(new RegExp(">","g"),">").replace(new RegExp("\"","g"),""");
-	   		console.log('pageContentEN...')
-	   		let htmlStr = $("#zsqk").val();
-	   		ue7.setContent(htmlStr,false)
-	    });
+	let zsqk = CKEDITOR.replace("zsqk");
+	let xuefei = CKEDITOR.replace("xuefei");
+	let jxj = CKEDITOR.replace("jxj");
+	let jiuye = CKEDITOR.replace("jiuye");
+	let xyhj = CKEDITOR.replace("xyhj");
+	let lxfs = CKEDITOR.replace("lxfs");
 		
     if(id==''||id==null||typeof(id)=='undefined'){
 		console.log('新增',id)
@@ -146,12 +109,12 @@ $(function(){
     form.on('submit(update)', function(data){
 
 	  data.field.id = id
-	  data.field.xuefei = ue2.getContent()
-	  data.field.jxj = ue3.getContent()
-	  data.field.jiuye = ue4.getContent()
-	  data.field.xyhj =ue5.getContent()
-	  data.field.lxfs = ue6.getContent()
-	  data.field.zsqk = ue7.getContent()
+	  data.field.xuefei = xuefei.getData()
+	  data.field.jxj = jxj.getData()
+	  data.field.jiuye = jiuye.getData()
+	  data.field.xyhj =xyhj.getData()
+	  data.field.lxfs = lxfs.getData()
+	  data.field.zsqk = zsqk.getData()
 
 	  console.log('提交数据',data.field)
       

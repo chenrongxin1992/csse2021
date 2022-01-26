@@ -151,10 +151,11 @@
     .contain-area{
         width: 92%;
         margin: 0 auto;
+        padding: 40px 0;
     }
     .area-cont{
         margin-left: 0;
-        padding: 30px 2% 50px;
+        padding: 0 2% 10px;
     }
     .bread-crumbs{
         display: block;

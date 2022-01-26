@@ -21,6 +21,32 @@
 .banner .mimg{
 	display: none;
 }
+.item-title{
+    width: 100%;
+    padding: 35px 0;
+    text-align: center;
+    position: relative;
+}
+.item-title span{
+    display: inline-block;
+    padding: 0 35px;
+    font-size: 24px;
+    color: #cca84d;
+    font-weight: bold;
+    background-color: white;
+    position: relative;
+    z-index: 5;
+}
+.item-title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 1px;
+    background-color: #eee;
+}
 
 /*info*/
 .info{
@@ -220,6 +246,9 @@
     padding-bottom: 8px;
     font-size: 18px;
     height: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .area-right .page-list .page .txt .c_666{
     height: 32px;
@@ -339,11 +368,12 @@
     }
     .info .info-cont .txt{
         text-align: left;
-        padding-top: 20px;
+        padding-top: 0px;
         padding-left: 0;
+        margin-top: 0;
         font-size: 16px;
         line-height: 30px;
-        width: inherit;
+        width: 100%;
     }
     .info-cont .img{
         width: 30%;
@@ -359,6 +389,8 @@
     }
     .area-right .page-list .page .avatar{
         margin-bottom: 10px;
+        min-width: 85px;
+        min-height: 85px;
     }
     .area-right .page-list .page .txt{
         font-size: 14px;

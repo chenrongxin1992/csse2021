@@ -14,7 +14,11 @@
 </head>
 <body class="childrenBody">
 
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：招生招聘 > 本科生招生</div><button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：招生招聘 > 本科生招生</div>
+		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 5px;" id="bsort"><i class="layui-icon">&#xe654;</i>专业排序</button>
+		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 5px;" id="binfo"><i class="layui-icon">&#xe654;</i>共用信息</button>
+		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button>
+	</blockquote>
 	<%- include('../search.ejs', {realod_id: 'table_bkzs'}); %>
 	<table id="bkzs_table" lay-filter="bkzs_table"></table>
 
@@ -51,7 +55,12 @@ layui.use(['jquery','table','form'], function(){
     })
     $('#newsadd').on('click', function(){
 		AddTab('新增'+$("title").text(),'table_bkzs'+ 'new',"bkzsadd")
-    	
+    })
+	$('#binfo').on('click', function(){
+		AddTab('共用信息','table_bkzs'+ 'new',"binfo")
+    })
+	$('#bsort').on('click', function(){
+		AddTab('专业排序','table_bkzs'+ 'new',"bsort")
     })
     //监听工具条
 	table.on('tool(bkzs_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
