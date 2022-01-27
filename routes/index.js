@@ -17,7 +17,7 @@ const cglr = require('../db/db_struct').cglr
 const co_images = require('images')
 const fs = require('fs')
 const path = require('path')
-const attachmentuploaddir = path.resolve(__dirname, '../public/attachment/slider')//G:\spatial_lab\public\attachment
+const attachmentuploaddir = path.resolve(__dirname, '../public/attachment/ueditor_images')//G:\spatial_lab\public\attachment
 //result.recordsets[[{}]]
 //result.output{}
 //result.rowsAffected[5]
@@ -42,13 +42,31 @@ function compress_images(arg){
                 }else{
                      //遍历图片
                     console.log('文件名:' + arg + '\\' + file);
-                    var name = arg + '\\' + file;
-                    var outName =  arg + '\\' +file
+                    let name = arg + '\\' + file;
+                    let outName =  arg + '\\' +file
 					console.log('outNmae-------------------',outName)
 					//return 
-					co_images(name) .save(outName, {            
-                        quality : 82                    //保存图片到文件,图片质量为50
-                    });
+					let check = new RegExp('pdf'),
+						check1 = new RegExp('xls'),
+						check2 = new RegExp('xlsx'),
+						check3 = new RegExp('doc'),
+						check4 = new RegExp('docx'),
+						check5 = new RegExp('gif')
+					if(!name.match(check)&&!name.match(check1)&&!name.match(check2)&&!name.match(check3)&&!name.match(check4)&&!name.match(check5)){
+						console.log('--------------- 排除PDF -----------------')
+						co_images(name) .save(outName, {            
+												quality : 82                    //保存图片到文件,图片质量为50
+											});
+						let staSync = fs.statSync(name).size;// 压缩后的图片大小
+						console.log('--------------------- 图片大小 -------------------',staSync)
+						if((staSync+"").length > 6){// 存储后的图片超过1MB，再重新压缩（上传我限制图片大小10MB）
+							console.log('--------------------- 太大，再次压缩 -------------------')
+							co_images(name).save(outName, {
+								quality : 80
+							});
+						}
+					}
+					
                 }              
             });
         });

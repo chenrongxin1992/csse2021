@@ -29,6 +29,7 @@ const moment  = require('moment')
 const attachmentuploaddir = path.resolve(__dirname, '../../public/attachment')//G:\spatial_lab\public\attachment
 fs.existsSync(attachmentuploaddir) || fs.mkdirSync(attachmentuploaddir)
 const async = require('async')
+const co_images = require('images')
 const basedir = '/csse'
 //参数code表示退出码
 process.on("exit",function(code){
