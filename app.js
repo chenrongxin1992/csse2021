@@ -18,6 +18,8 @@ const forlog = require('./db/db_struct').forlog
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 
+//for test
+const test_url = '/csse'
 //20210818
 var fs = require('fs')
 var FileStreamRotator = require('file-stream-rotator')
