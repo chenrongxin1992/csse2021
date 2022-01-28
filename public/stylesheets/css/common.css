@@ -786,7 +786,22 @@ em {
 	width: 100%;
 	line-height: 40px;
 	border-bottom: 1px solid #1c73b5;
-	background-color: #0062ac;
+	/* background-color: #0062ac; */
+}
+.header .nav_site li ol li.item{
+	height: auto;
+}
+.header .nav_site li ol li.item .third{
+	padding: 0 20px;
+}
+.nav_site .third a{
+	text-indent: 30px;
+}
+.nav_site .third a:first-child{
+	border-top: 1px solid #e5e5e5;
+}
+.nav_site .third a:last-child{
+	border-bottom: 1px solid #e5e5e5;
 }
 
 .header .nav_site li ol li a {
@@ -954,8 +969,7 @@ em {
 
 .header .nav_site ul li ol li {
 	position: relative;
-	border-bottom: 0;
-	border-top: 1px solid #e5e5e5;
+	border: none;
 	text-align: left;
 }
 

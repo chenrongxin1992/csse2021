@@ -285,7 +285,7 @@
     display: block;
 }
 .m-area .pic-list{
-    width: 91.44%;
+    width: 100%;
 }
 .m-area .pic-list .row1{
     width: 21.3%;
@@ -361,8 +361,9 @@
 	.university .contain-area .nav-list {
 		display: none;
 	}
-    .area1 .pic-list .row .txt{
+    .area1 .pic-list .row:not(.row3) .txt{
         word-break: break-all;
+        text-align: justify;
     }
 }
 @media only screen and (max-width: 767px){

@@ -95,7 +95,7 @@
                               <img class="img" src="<%=item.fujianPath%>" />
                               <div class="row-right">
                                   <div class="row-tit"><%=item.title%></div>
-                                  <p class="c_666 small"><%=item.kanwu%></p>
+                                  <p class="c_666 small"><%=item.kanwu%> <%=item.year%></p>
                                   <p class="c_666 small" style="font-size: 18px;"><%=item.belongsto%></p>
                                   <div class="more">
                                       Project page <img class="more_img" src="../../image/index/right.png" />
@@ -180,7 +180,7 @@
                           $('.pagination .prev').click(function(){
                             let page =  Number('<%=page%>')//当前页
                               if(page==1)return
-                              page = 1          
+                              page = page - 1          
                               console.log('点击页面---->',$(this).text(),'构造url')        
                               let reg = new RegExp("index", "g"); 
                                let url = "index"; 

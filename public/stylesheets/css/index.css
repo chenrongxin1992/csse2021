@@ -31,6 +31,13 @@
     opacity: 0.8;filter:alpha(opacity=80);transition:all ease-in .3s;
 }
 .banner .slick-arrow:hover{opacity: 1!important;filter:alpha(opacity=100)!important;}
+.banner .slider-img{
+    height: 100%;
+}
+.banner .slider-img img{
+    width: 100%;
+    height: 100%;
+}
 
 .banner .slick-dots{
     position: absolute;
@@ -65,17 +72,29 @@
     font-size: 30px;
 }
 
-.banner-video {
-    padding-top: 38.5417%;
+.banner{
+    padding-top: 39.3229%;
     position: relative;
+    overflow: hidden;
+}
+.banner-video {
+    width: 100%;
+    height: 100%;
 }
 .banner-video video{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+.banner .slider{
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    object-fit: fill;
+}
+.banner .slick-list, .banner .slick-track{
+    height: 100%;
 }
 
 .research_banner .slick-next,.research_banner .slick-prev{font-size: 0;position:absolute;
@@ -294,16 +313,19 @@
     left: 47%;
     transform: translateX(-50%);
     bottom: 10%;
-    font-size: 24px;
-    
-    color: #CCA84D;
+    font-size: 20px;
+    background-color: #CCA84D;
+    color: white;
     z-index: 100;
+    border-radius: 25px;
+    padding: 2px 15px;
+    display: flex;
+    align-items: center;
 }
-.research .research_btn .btn{
-    width: 30px;
-    height: 30px;
-    margin-left: 13px;
+.research .research_btn img{
+    margin-left: 10px;
 }
+
 
 .research .semicircle1{
     position: absolute;
@@ -327,12 +349,33 @@
     left: 72.5%;
 }
 
-.research .slick-slide img{
+.research .slide img{
     width: 100%;
 }
-.research .slick-slider{
+.research .slider{
     width: 100%;
     margin: 0 auto;
+    position: relative;
+    padding-top: 45.9132%;
+    overflow: hidden;
+}
+.research .slider .item{
+    width: 100%;
+    height: 100%;
+}
+.research .slick-list{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.research .slick-track{
+    height: 100%;
+}
+.research .slider .slider-img{
+    height: 100%;
+    object-fit: cover;
 }
 .research_banner{
     position: relative;
@@ -485,6 +528,7 @@
     position: relative;
     padding-top: 12%;
     margin-bottom: 5px;
+    z-index: 5;
 }
 .internationality_cont .img img{
     max-height: 80%;
@@ -891,7 +935,8 @@
     position: absolute;
     width: 84%;
     left: 8%;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .m-area .internationality_cont .img-bg img{
     width: 50%;
@@ -922,14 +967,6 @@
     .research .research_txt{
         font-size: 25px;
     }
-    .research .research_btn{
-        font-size: 22px;
-    }
-    .research .research_btn .btn{
-        width: 28px;
-        height: 28px;
-        margin-left: 10px;
-    }
 }
 
 @media only screen and (max-width:1440px){
@@ -943,10 +980,6 @@
     .research .research_btn{
         font-size: 18px;
     }
-    .research .research_btn .btn{
-        width: 24px;
-        height: 24px;
-    }
 }
 @media only screen and (max-width:1200px){
     .banner .slick-next, .banner .slick-prev{
@@ -959,20 +992,12 @@
     .research .research_btn{
         font-size: 16px;
     }
-    .research .research_btn .btn{
-        width: 20px;
-        height: 20px;
-    }
     .m-area .research .research_txt{
         font-size: 36px;
         top: 47%;
     }
     .m-area .research_btn{
-        font-size: 30px;
-    }
-    .m-area .research .research_btn .btn{
-        width: 34px;
-        height: 34px;
+        font-size: 20px;
     }
     .p-area{
         display: none;
@@ -1021,19 +1046,18 @@
     .internationality_logo .img{
         width: 50%;
         margin-bottom: 15px;
+        padding-top: 15%;
+    }
+    
+    .research .slick-slider {
+        width: 78%;
+        overflow: visible;
     }
 }
 @media only screen and (max-width:959px){
     .m-area .research .research_txt{
         font-size: 28px;
         top: 47%;
-    }
-    .m-area .research_btn{
-        font-size: 24px;
-    }
-    .m-area .research .research_btn .btn{
-        width: 28px;
-        height: 28px;
     }
 }
 @media only screen and (max-width: 768px) {
@@ -1047,13 +1071,6 @@
         font-size: 24px;
         top: 47%;
     }
-    .m-area .research_btn{
-        font-size: 20px;
-    }
-    .m-area .research .research_btn .btn{
-        width: 24px;
-        height: 24px;
-    }
 }
 @media only screen and (max-width: 620px) {
     .m-area .research .research_txt{
@@ -1061,11 +1078,8 @@
         top: 47%;
     }
     .m-area .research_btn{
-        font-size: 16px;
-    }
-    .m-area .research .research_btn .btn{
-        width: 20px;
-        height: 20px;
+        font-size: 14px;
+        padding: 2px 10px;
     }
 }
 @media only screen and (max-width:479px) {
@@ -1074,11 +1088,8 @@
         top: 47%;
     }
     .m-area .research_btn{
-        font-size: 14px;
-    }
-    .m-area .research .research_btn .btn{
-        width: 18px;
-        height: 18px;
+        font-size: 12px;
+        padding: 2px 5px;
     }
     .m-area .news .news-list{
         display: block;
@@ -1116,11 +1127,8 @@
     .m-area .news-txt .txt,.m-area .news .news-row3 .txt,.m-area .recruitment_cont .r-row .txt{
         font-size: 16px;
     }
-    .m-area .research_banner .research_tit,.m-area .recruitment_cont .tit,.m-area .internationality_cont .tit{9
+    .m-area .research_banner .research_tit,.m-area .recruitment_cont .tit,.m-area .internationality_cont .tit{
         font-size: 30px;
-    }
-    .research .slick-slider {
-        width: 78%;
     }
     .research_banner .slick-next, .research_banner .slick-prev{
         width: 30px;
@@ -1157,12 +1165,5 @@
         font-size: 12px;
         top: 47%;
         min-width: 144px;
-    }
-    .m-area .research_btn{
-        font-size: 12px;
-    }
-    .m-area .research .research_btn .btn{
-        width: 13px;
-        height: 13px;
     }
 }

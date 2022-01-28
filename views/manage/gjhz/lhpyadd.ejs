@@ -27,6 +27,10 @@
 					<div class="form-item-inline" >
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
+					<label class="layui-form-label">School</label>
+					<div class="form-item-inline" >
+				      <input type="text" name="titleEN" lay-verify="required" autocomplete="off" class="layui-input" id="titleEN">
+				    </div>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -35,8 +39,13 @@
 					<div class="form-item-inline" >
 				      <input type="text" name="pyxm" lay-verify="required" autocomplete="off" class="layui-input" id="pyxm">
 				    </div>
+					<label class="layui-form-label">Program</label>
+					<div class="form-item-inline" >
+				      <input type="text" name="pyxm1" lay-verify="required" autocomplete="off" class="layui-input" id="pyxm1" value="<%=data.pyxm1%>">
+				    </div>
 				</div>
 			</div>
+
 			<div class="layui-form-item">
 				<label class="layui-form-label">封面图</label>
 				<button type="button" class="layui-btn" id="test1">上传</button>
@@ -156,6 +165,7 @@ $(function(){
          //初始化表单值
         $('#title').val('<%- data.title%>')
 		$('#pyxm').val('<%- data.pyxm%>')
+		$('#titleEN').val('<%- data.titleEN%>')
      
 		//初始化封面图
 		let fujianarr = ('<%=data.fujianPath%>').split(';')
@@ -186,6 +196,8 @@ $(function(){
 	  //data.field.bgcolor = $('#bgcolor').val()
 	  data.field.title = $('#title').val()
 	  data.field.pyxm = $('#pyxm').val()
+	  data.field.titleEN = $('#titleEN').val()
+	  data.field.pyxm1 = $('#pyxm1').val()
 	  if($('.fmpic').length!=0){
 	  	//20211030
 		let fujianstr = ''

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>业务口人员排序</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style type="text/css">
+		
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-row layui-col-space10">
+		<div class="layui-col-md12 layui-col-xs12">
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">高性能计算研究所</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.gxn_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input gxn_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yanjiusuosort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input gxn_nsort" id="new_gxn_yanjiusuosort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">大数据技术与应用研究所</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.dsj_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input dsj_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yewukousort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input dsj_nsort" id="new_gxn_yewukousort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">未来媒体技术与计算研究所</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.mts_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input mts_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yewukousort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input mts_nsort" id="new_gxn_yewukousort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">网络与信息安全研究所</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.wls_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input wls_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;" >
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yewukousort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input wls_nsort" id="new_gxn_yewukousort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">计算机视觉研究所</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.sjs_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input sjs_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yewukousort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input sjs_nsort" id="new_gxn_yewukousort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">可视计算研究中心</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.vcc_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input vcc_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yewukousort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input vcc_nsort" id="new_gxn_yewukousort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">物联网研究中心</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.wlw_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input wlw_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yewukousort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input wlw_nsort" id="new_gxn_yewukousort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">智能技术与系统集成研究所</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.zns_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input zns_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yewukousort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input zns_nsort" id="new_gxn_yewukousort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">软件工程研究中心</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.rgs_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input rgs_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yewukousort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input rgs_nsort" id="new_gxn_yewukousort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+            <blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">教学系</div> </blockquote>
+			<div class="layui-form-item">
+				<%data.jxx_arr.forEach(function(item,index){%>
+					<div class="layui-inline">
+						<label class="layui-form-label">姓名</label>
+						<div class="layui-input-inline" style="width: 120px;">
+				      		<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input jxx_name" id="userName" disabled="disabled" value="<%=item.userName%>" _id="<%=item._id%>">
+				    	</div>
+                        <label class="layui-form-label" >职务</label>
+				    	<div class="layui-input-inline" style="width: 120px;" >
+				      		<input type="text" name="zhiwu"  autocomplete="off" class="layui-input" id="zhiwu" disabled="disabled" value="<%=item.zhiwu%>">
+				    	</div>
+				    	<!-- <label class="layui-form-label" >原序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				      		<input type="text" name="sort"  autocomplete="off" class="layui-input" id="gxn_yewukousort" disabled="disabled" value="<%=item.yanjiusuosort%>">
+				    	</div> -->
+				    	<label class="layui-form-label" >新序号</label>
+				    	<div class="layui-input-inline" style="width: 80px;">
+				     	 	<input type="text" name="nsort"  autocomplete="off" class="layui-input jxx_nsort" id="new_gxn_yewukousort" value="<%=item.yanjiusuosort%>"> 
+				    	</div>
+					</div>
+				<%})%>
+			</div>
+			<div class="layui-form-item">
+				<hr class="layui-bg-gray" />
+				<div class="layui-col-md-offset1" style="text-align:center;">
+					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				</div>
+			</div>
+		</div>
+	</form>
+
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+function isRepeat(arr) {
+    let hash = {};
+    for (var i in arr) {
+        if (hash[arr[i]]){
+            return true; 
+        }
+        hash[arr[i]] = true;
+    }
+    return false;
+}
+$(function(){
+	layui.use(['jquery','layer','form','layedit','upload'], function(){ 
+	    let $ = layui.$, //重点处
+	    	layedit = layui.layedit,
+	    	upload = layui.upload
+	    let form = layui.form,layer = layui.layer
+	    let frameindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	    console.log('当前iframe层的索引',frameindex)
+	    
+	    form.on('submit(update)', function(data){
+	    	//获取对应的排序序号
+	    	console.log($('.nsort'))
+            let gxn_sortarr = [],dsj_sortarr = [],mts_sortarr = [],wls_sortarr = [],sjs_sortarr = [],vcc_sortarr = [],
+                zns_sortarr = [],wlw_sortarr = [],jxx_sortarr = [],rgs_sortarr = [] //存储结果数组
+            let gxn_nsort = $('.gxn_nsort'),dsj_nsort = $('.dsj_nsort'),mts_nsort = $('.mts_nsort'),wls_nsort = $('.wls_nsort'),
+                sjs_nsort = $('.sjs_nsort'),vcc_nsort = $('.vcc_nsort'),zns_nsort = $('.zns_nsort'),wlw_nsort = $('.wlw_nsort'),
+                jxx_nsort = $('.jxx_nsort'),rgs_nsort = $('.rgs_nsort')
+	    	let gxn_temparr = [],dsj_temparr = [],mts_temparr = [],wls_temparr = [],sjs_temparr = [],//判断排序是否重复
+                vcc_temparr = [],zns_temparr = [],wlw_temparr = [],jxx_temparr = [],rgs_temparr = []
+            $.each(gxn_nsort,function(index,ele){
+	    		console.log('gxn_nsort----------',index,ele,$($('.gxn_name')[index]).val(),$($('.gxn_name')[index]).attr('_id'))
+	    		gxn_sortarr.push($($('.gxn_name')[index]).val()+','+$($('.gxn_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		gxn_temparr.push($(ele).val())
+	    	})
+            $.each(dsj_nsort,function(index,ele){
+	    		console.log('dsj_nsort----------',index,ele,$($('.dsj_name')[index]).val(),$($('.dsj_name')[index]).attr('_id'))
+	    		dsj_sortarr.push($($('.dsj_name')[index]).val()+','+$($('.dsj_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		dsj_temparr.push($(ele).val())
+	    	})
+            $.each(mts_nsort,function(index,ele){
+	    		console.log('mts_nsort----------',index,ele,$($('.mts_name')[index]).val(),$($('.mts_name')[index]).attr('_id'))
+	    		mts_sortarr.push($($('.mts_name')[index]).val()+','+$($('.mts_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		mts_temparr.push($(ele).val())
+	    	})
+            $.each(wls_nsort,function(index,ele){
+	    		console.log('wls_nsort----------',index,ele,$($('.wls_name')[index]).val(),$($('.wls_name')[index]).attr('_id'))
+	    		wls_sortarr.push($($('.wls_name')[index]).val()+','+$($('.wls_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		wls_temparr.push($(ele).val())
+	    	})
+            $.each(sjs_nsort,function(index,ele){
+	    		console.log('sjs_nsort----------',index,ele,$($('.sjs_name')[index]).val(),$($('.sjs_name')[index]).attr('_id'))
+	    		sjs_sortarr.push($($('.sjs_name')[index]).val()+','+$($('.sjs_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		sjs_temparr.push($(ele).val())
+	    	})
+            $.each(vcc_nsort,function(index,ele){
+	    		console.log('vcc_nsort----------',index,ele,$($('.vcc_name')[index]).val(),$($('.vcc_name')[index]).attr('_id'))
+	    		vcc_sortarr.push($($('.vcc_name')[index]).val()+','+$($('.vcc_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		vcc_temparr.push($(ele).val())
+	    	})
+            $.each(zns_nsort,function(index,ele){
+	    		console.log('zns_nsort----------',index,ele,$($('.zns_name')[index]).val(),$($('.zns_name')[index]).attr('_id'))
+	    		zns_sortarr.push($($('.zns_name')[index]).val()+','+$($('.zns_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		zns_temparr.push($(ele).val())
+	    	})
+            $.each(wlw_nsort,function(index,ele){
+	    		console.log('wlw_nsort----------',index,ele,$($('.wlw_name')[index]).val(),$($('.wlw_name')[index]).attr('_id'))
+	    		wlw_sortarr.push($($('.wlw_name')[index]).val()+','+$($('.wlw_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		wlw_temparr.push($(ele).val())
+	    	})
+            $.each(jxx_nsort,function(index,ele){
+	    		console.log('jxx_nsort----------',index,ele,$($('.jxx_name')[index]).val(),$($('.jxx_name')[index]).attr('_id'))
+	    		jxx_sortarr.push($($('.jxx_name')[index]).val()+','+$($('.jxx_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		jxx_temparr.push($(ele).val())
+	    	})
+            $.each(rgs_nsort,function(index,ele){
+	    		console.log('rgs_nsort----------',index,ele,$($('.rgs_name')[index]).val(),$($('.rgs_name')[index]).attr('_id'))
+	    		rgs_sortarr.push($($('.rgs_name')[index]).val()+','+$($('.rgs_name')[index]).attr('_id')+','+$(ele).val()+';')
+	    		rgs_temparr.push($(ele).val())
+	    	})
+	    	
+	    	// if(isRepeat(gxn_temparr)){
+            //     console.log('----',gxn_temparr)
+	    	// 	layer.alert('高性能有序号重复')
+	    	// 	return false
+	    	// }
+            // if(isRepeat(dsj_temparr)){
+	    	// 	layer.alert('大数据有序号重复')
+	    	// 	return false
+	    	// }
+            // if(isRepeat(mts_temparr)){
+	    	// 	console.log('实验重复')
+	    	// 	layer.alert('媒体所有序号重复')
+	    	// 	return false
+	    	// }
+            // if(isRepeat(wls_temparr)){
+	    	// 	console.log('其他重复')
+	    	// 	layer.alert('网络所有序号重复')
+	    	// 	return false
+	    	// }
+            // if(isRepeat(sjs_temparr)){
+	    	// 	console.log('辅导员重复')
+	    	// 	layer.alert('有序号重复')
+	    	// 	return false
+	    	// }
+            // if(isRepeat(vcc_temparr)){
+	    	// 	console.log('辅导员重复')
+	    	// 	layer.alert('vcc有序号重复')
+	    	// 	return false
+	    	// }
+            // if(isRepeat(zns_temparr)){
+	    	// 	console.log('辅导员重复')
+	    	// 	layer.alert('有序号重复')
+	    	// 	return false
+	    	// }
+            // if(isRepeat(wlw_temparr)){
+	    	// 	console.log('辅导员重复')
+	    	// 	layer.alert('物联网有序号重复')
+	    	// 	return false
+	    	// }
+            // if(isRepeat(jxx_temparr)){
+	    	// 	console.log('辅导员重复')
+	    	// 	layer.alert('教学系有序号重复')
+	    	// 	return false
+	    	// }
+            // if(isRepeat(rgs_temparr)){
+	    	// 	console.log('辅导员重复')
+	    	// 	layer.alert('软工有序号重复')
+	    	// 	return false
+	    	// }
+	    	data.field.gxn_sortarr = gxn_sortarr
+            data.field.dsj_sortarr = dsj_sortarr
+            data.field.mts_sortarr = mts_sortarr
+            data.field.wls_sortarr = wls_sortarr
+            data.field.sjs_sortarr = sjs_sortarr
+            data.field.vcc_sortarr = vcc_sortarr
+            data.field.zns_sortarr = zns_sortarr
+            data.field.wlw_sortarr = wlw_sortarr
+            data.field.jxx_sortarr = jxx_sortarr
+            data.field.rgs_sortarr = rgs_sortarr
+	    	console.log('data.field',data.field)
+            //return false
+	    		//ajax
+	    		$.ajax({
+				  	url:'<%=base_url%>yjssort',
+				  	type:'POST',
+				  	data:{gxn_sortarr:gxn_sortarr,dsj_sortarr:dsj_sortarr,mts_sortarr:mts_sortarr,wls_sortarr:wls_sortarr,sjs_sortarr:sjs_sortarr,
+                        vcc_sortarr:vcc_sortarr,zns_sortarr:zns_sortarr,wlw_sortarr:wlw_sortarr,jxx_sortarr:jxx_sortarr,rgs_sortarr:rgs_sortarr},
+				  	dataType : "json",
+				  	traditional:true,
+				  	success:function(result){
+				  		if(result.code == 0){
+				  			console.log('update success')
+				  			//墨绿深蓝风
+							let frameindex = layer.alert('保存成功', {
+							  skin: 'layui-layer-molv' //样式类名
+							  ,closeBtn: 0
+							}, function(){
+								layer.close(frameindex);
+							});	  			
+				  		}
+				  	},
+				  	error:function(msg){
+				  		console.log('ajax error msg',msg)
+				  	}
+				  })
+	    	
+	    	return false
+		});
+	})
+})
+
+</script>
+</body>
+</html>

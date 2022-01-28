@@ -150,7 +150,16 @@
                     <li><a href="../../pages/teacherTeam/index?zc=3">Associate Professor</a></li>
                     <li><a href="../../pages/teacherTeam/index?zc=4">Lecturer</a></li>
                     <li><a href="../../pages/teacherTeam/index?zc=5">Assistant Professor</a></li>
-                    <li><a href="../../pages/teacherTeam/index?zc=6">Researcher&Admin</a></li>
+                    <li class="item">
+                        <div>
+                          <a href="#">Researcher & Admin</a>
+                        </div>
+                        <div class="third">
+                          <a href="../../pages/teacherTeam/index?zc=6">Researcher</a>
+                          <a href="../../pages/teacherTeam/index?zc=10">Associate Researcher</a>
+                          <a href="../../pages/teacherTeam/index?zc=9">Tech/Admin Staff</a>
+                        </div>
+                    </li>
                     <li><a href="../../pages/teacherTeam/index?zc=7">Postdoctoral Researcher</a></li>
                   </ol>
               </li>
@@ -304,17 +313,19 @@
                         <li>
                             <div class="txt b">CSSE</div>
                             <img class="code_img lazy_img" src="../../image/common/csse.png" />
-                            <div class="txt">计软公众号</div>
+                            <div class="txt"></div>
                         </li>
-                        <li>
-                            <div class="txt b">Party-masses</div>
-                            <img class="code_img lazy_img" src="../../image/common/party-messes.png" />
-                            <div class="txt">党群公众号</div>
-                        </li>
+                        <%if(L=='1'){%>
+                            <li>
+                                <div class="txt b">Party-masses</div>
+                                <img class="code_img lazy_img" src="../../image/common/party-messes.png" />
+                                <div class="txt"></div>
+                            </li>
+                          <%}%>
                         <li>
                             <div class="txt b">SZU</div>
                             <img class="code_img lazy_img" src="../../image/common/szu.png" />
-                            <div class="txt">深圳大学</div>
+                            <div class="txt"></div>
                         </li>
                     </ul>
                 </div>

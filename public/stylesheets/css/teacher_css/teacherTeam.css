@@ -354,6 +354,9 @@
     .area-right .page-list .page:not(:nth-child(3n-2)){
         margin-left: 2%;
     }
+    .area-right .page:hover .row2{
+        display: none;
+    }
 }
 @media only screen and (max-width: 767px){
     .banner .pimg{

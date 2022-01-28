@@ -152,7 +152,16 @@
                     <li><a href="../../pages/teacherTeam/index?zc=3">Associate Professor</a></li>
                     <li><a href="../../pages/teacherTeam/index?zc=4">Lecturer</a></li>
                     <li><a href="../../pages/teacherTeam/index?zc=5">Assistant Professor</a></li>
-                    <li><a href="../../pages/teacherTeam/index?zc=6">Researcher&Admin</a></li>
+                    <li class="item">
+                        <div>
+                          <a href="#">Researcher & Admin</a>
+                        </div>
+                        <div class="third">
+                          <a href="../../pages/teacherTeam/index?zc=6">Researcher</a>
+                          <a href="../../pages/teacherTeam/index?zc=10">Associate Researcher</a>
+                          <a href="../../pages/teacherTeam/index?zc=9">Tech/Admin Staff</a>
+                        </div>
+                    </li>
                     <li><a href="../../pages/teacherTeam/index?zc=7">Postdoctoral Researcher</a></li>
                   </ol>
               </li>
@@ -216,8 +225,12 @@
                             <div class="tit c_cca84d b"><%=data.userName1%></div>
                             <p class="p1 c_cca84d"><%=data.zhiwu1%> <%=data.zhicheng1%></p>
                             <p class="p2 c_cca84d"><%=data.suoxi1%></p>
-                            <p><%=data.phone%></p>
-                            <p><%=data.email%></p>
+                            <%if(data.phoneOffice!=''){%>
+                                <p>TEL:<%=data.phoneOffice%></p>
+                            <%}%>
+                            <%if(data.email!=''){%>
+                                <p>Email:<%=data.email%></p>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -225,6 +238,9 @@
                     <div class="area-tit c_cca84d bb"><%=data.userName1%></div>
                     <div class="area-txt">
                         <%-data.introEN-%>
+                        <%if(data.personalLink!=''){%>
+                            Homepage：<a href="<%=data.personalLink%>" target="_blank"><%=data.personalLink%></a>
+                        <%}%>
                         </div>
                     </div>
                 </div>
@@ -307,17 +323,20 @@
                         <li>
                             <div class="txt b">CSSE</div>
                             <img class="code_img lazy_img" src="../../image/common/csse.png" />
-                            <div class="txt">计软公众号</div>
+                            <div class="txt"></div>
                         </li>
-                        <li>
-                            <div class="txt b">Party-masses</div>
-                            <img class="code_img lazy_img" src="../../image/common/party-messes.png" />
-                            <div class="txt">党群公众号</div>
-                        </li>
+                        <%if(L=='1'){%>
+                            <li>
+                                <div class="txt b">Party-masses</div>
+                                <img class="code_img lazy_img" src="../../image/common/party-messes.png" />
+                                <div class="txt"></div>
+                            </li>
+                        <%}%>
+                        
                         <li>
                             <div class="txt b">SZU</div>
                             <img class="code_img lazy_img" src="../../image/common/szu.png" />
-                            <div class="txt">深圳大学</div>
+                            <div class="txt"></div>
                         </li>
                     </ul>
                 </div>

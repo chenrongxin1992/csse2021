@@ -288,6 +288,9 @@
     .area{
         margin-top: 30px;
     }
+    .area-right{
+        padding-bottom: 30px;
+    }
 }
 @media only screen and (max-width: 767px){
     .banner .pimg{

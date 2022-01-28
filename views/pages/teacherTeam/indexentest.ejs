@@ -151,7 +151,16 @@
                     <li><a href="../../pages/teacherTeam/index?zc=3">Associate Professor</a></li>
                     <li><a href="../../pages/teacherTeam/index?zc=4">Lecturer</a></li>
                     <li><a href="../../pages/teacherTeam/index?zc=5">Assistant Professor</a></li>
-                    <li><a href="../../pages/teacherTeam/index?zc=6">Researcher&Admin</a></li>
+                    <li class="item">
+                        <div>
+                          <a href="#">Researcher & Admin</a>
+                        </div>
+                        <div class="third">
+                          <a href="../../pages/teacherTeam/index?zc=6">Researcher</a>
+                          <a href="../../pages/teacherTeam/index?zc=10">Associate Researcher</a>
+                          <a href="../../pages/teacherTeam/index?zc=9">Tech/Admin Staff</a>
+                        </div>
+                    </li>
                     <li><a href="../../pages/teacherTeam/index?zc=7">Postdoctoral Researcher</a></li>
                   </ol>
               </li>
@@ -287,8 +296,9 @@
                           <li><a href="" class="a_sx" id="<%=data.suoxiNum[7]._id%>">Visual Computing Research Center(<%=data.suoxiNum[7].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.suoxiNum[6]._id%>">The IoT Research Center(<%=data.suoxiNum[6].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.suoxiNum[5]._id%>">Research Institute of IntelligenceTechnology and System Integration(<%=data.suoxiNum[5].num%>)</a></li>
-                        <li><a href="" class="a_sx" id="<%=data.suoxiNum[8]._id%>">Departments(<%=data.suoxiNum[8].num%>)</a></li>
                           <li><a href="" class="a_sx" id="<%=data.suoxiNum[10]._id%>">Software Engineering Research Center(<%=data.suoxiNum[10].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.suoxiNum[8]._id%>">Departments(<%=data.suoxiNum[8].num%>)</a></li>
+                          
                         </ul>
                     </div>
                 </div>
@@ -303,7 +313,7 @@
                                     <%}else{%>
                                         <div class="page">
                                     <%}%>
-                                            <div class="row">
+                                            <div class="row" peoname="<%=item.userName%>" peoid="<%=item.id%>" peolink="../user/index?id=<%=item.id%>" peolink1="https://vcc.tech/~huihuang" peolink2="<%=item.personalLink%>">
                                                 <div class="name"><%=item.userName1%></div>
                                                 <div class="avatar">
                                                     <img src="<%=item.avatar%>"/>
@@ -318,7 +328,7 @@
                                                 </div>
                                                 <div class="skill"></div>
                                                 </div><!-- row --><!--  -->
-                                            <div class="row row2">
+                                            <div class="row row2" peoname="<%=item.userName%>" peoid="<%=item.id%>" peolink="../user/index?id=<%=item.id%>" peolink1="https://vcc.tech/~huihuang">
                                                 <div class="name"></div>
                                                 <div class="avatar">
                                                     <img src="<%=item.avatar%>"/>
@@ -352,7 +362,7 @@
                                     <%}else{%>
                                         <div class="page">
                                     <%}%>
-                                            <div class="row">
+                                            <div class="row" peoname="<%=item.userName%>" peoid="<%=item.id%>" peolink="../user/index?id=<%=item.id%>" peolink1="https://vcc.tech/~huihuang" peolink2="<%=item.personalLink%>">
                                                 <div class="name"><%=item.userName1%></div>
                                                 <div class="avatar">
                                                     <img src="<%=item.avatar%>"/>
@@ -367,7 +377,7 @@
                                                 </div>
                                                 <div class="skill"></div>
                                                 </div><!-- row --><!--  -->
-                                            <div class="row row2">
+                                            <div class="row row2" peoname="<%=item.userName%>" peoid="<%=item.id%>" peolink="../user/index?id=<%=item.id%>" peolink1="https://vcc.tech/~huihuang">
                                                 <div class="name"></div>
                                                 <div class="avatar">
                                                     <img src="<%=item.avatar%>"/>
@@ -401,7 +411,7 @@
                                     <%}else{%>
                                         <div class="page">
                                     <%}%>
-                                            <div class="row">
+                                            <div class="row" peoname="<%=item.userName%>" peoid="<%=item.id%>" peolink="../user/index?id=<%=item.id%>" peolink1="https://vcc.tech/~huihuang" peolink2="<%=item.personalLink%>">
                                                 <div class="name"><%=item.userName1%></div>
                                                 <div class="avatar">
                                                     <img src="<%=item.avatar%>"/>
@@ -416,7 +426,7 @@
                                                 </div>
                                                 <div class="skill"></div>
                                                 </div><!-- row --><!--  -->
-                                            <div class="row row2">
+                                            <div class="row row2" peoname="<%=item.userName%>" peoid="<%=item.id%>" peolink="../user/index?id=<%=item.id%>" peolink1="https://vcc.tech/~huihuang">
                                                 <div class="name"></div>
                                                 <div class="avatar">
                                                     <img src="<%=item.avatar%>"/>
@@ -449,14 +459,14 @@
                                 <%}else{%>
                                     <div class="page">
                                 <%}%>
-                                        <div class="row">
+                                        <div class="row clickrow" peoname="<%=item.userName%>" peoid="<%=item.id%>" peolink="../user/index?id=<%=item.id%>" peolink1="https://vcc.tech/~huihuang" peolink2="<%=item.personalLink%>">
                                             <div class="name"><%=item.userName1%></div>
                                             <div class="avatar">
                                                 <img src="<%=item.avatar%>"/>
                                             </div>
                                             <div class="txt">
                                                 <p class="c_333">
-                                                   <%=item.zhiwu1%> 
+                                                   <%=item.zhicheng1%> 
                                                 </p>
                                                 <p class="c_666">
                                                     <%if(item.suoxi=='其它'){%>
@@ -469,13 +479,13 @@
                                                 <%}else{%><%=item.yjly1%><%}%>
                                             </div>
                                         </div><!-- row -->
-                                        <div class="row row2">
+                                        <div class="row row2"  peoname="<%=item.userName%>" peoid="<%=item.id%>" peolink="../user/index?id=<%=item.id%>" peolink1="https://vcc.tech/~huihuang">
                                             <div class="name"></div>
                                             <div class="avatar">
                                                 <img src="<%=item.avatar%>"/>
                                             </div>
                                             <%if(item.userName=='黄惠'){%>
-                                                <a class="btn" href="https://vcc.tech/~huihuang" target="_blank">
+                                                <a class="btn checkhh" href="https://vcc.tech/~huihuang" target="_blank" >
                                                 <span class="s-txt">HOMEPAGE</span>
                                                  </a>
                                             <%}else{%>
@@ -515,6 +525,36 @@
                     }
                     $().ready(function() {  
                         //三级菜单
+                        var system = {
+                            win: false,
+                            mac: false,
+                            xll: false,
+                            ipad:false
+                        };
+
+                        //检测平台
+                        var p = navigator.platform
+                        system.win = p.indexOf("Win") == 0;
+                        system.mac = p.indexOf("Mac") == 0;
+                        system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+                        system.ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false;
+                        if (system.win || system.mac || system.xll ||system.ipad) {
+                            console.log('pc不绑定')
+                            
+                        } else {
+                            console.log('移动，绑定')
+                            $('.row').bind("click", function(){
+                                console.log($(this))
+                                if($(this).attr('peoname')=='黄惠'||$(this).attr('peoname')=='Hui Huang'){
+                                    window.open($(this).attr('peolink1'))
+                                }else{
+                                    window.location.href = $(this).attr('peolink')
+                                }
+                                
+                            });
+                        //some code;
+                        }
+                        
                         let check_zc = getQueryString('zc')
                         console.log('check_zc-----',check_zc,typeof(check_zc))
                         if(check_zc=='6'||check_zc=='9'||check_zc=='10'){
@@ -578,7 +618,7 @@
 											$('.pagination .prev').click(function(){
 												let page =  Number('<%=page%>')//当前页
 												if(page==1)return
-												page = 1          
+                                                page = page - 1           
 												console.log('点击页面---->',$(this).text(),'构造url')        
 												let reg = new RegExp("index", "g"); 
 												let url = "index"; 
@@ -733,17 +773,19 @@
                         <li>
                             <div class="txt b">CSSE</div>
                             <img class="code_img lazy_img" src="../../image/common/csse.png" />
-                            <div class="txt">计软公众号</div>
+                            <div class="txt"></div>
                         </li>
-                        <li>
-                            <div class="txt b">Party-masses</div>
-                            <img class="code_img lazy_img" src="../../image/common/party-messes.png" />
-                            <div class="txt">党群公众号</div>
-                        </li>
+                        <%if(L=='1'){%>
+                            <li>
+                                <div class="txt b">Party-masses</div>
+                                <img class="code_img lazy_img" src="../../image/common/party-messes.png" />
+                                <div class="txt"></div>
+                            </li>
+                          <%}%>
                         <li>
                             <div class="txt b">SZU</div>
                             <img class="code_img lazy_img" src="../../image/common/szu.png" />
-                            <div class="txt">深圳大学</div>
+                            <div class="txt"></div>
                         </li>
                     </ul>
                 </div>

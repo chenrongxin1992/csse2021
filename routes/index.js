@@ -200,7 +200,7 @@ router.get('/', function(req, res, next) {
 				})
 		},
 		function(cb){
-			let search = cglr.find({})
+			let search = cglr.find({},{title:1,kanwu:1,year:1,id:1,fujianPath:1,belongsto:1})
 				search.sort({'year':-1})
 				search.sort({'timeAdd':-1})
 				search.limit(50)
@@ -213,7 +213,7 @@ router.get('/', function(req, res, next) {
 						console.log('item-----year-----',item.year)
 					})
 					data.kycg1 = docs[0]//第一次用
-					data.kycgstr = encodeURIComponent(JSON.stringify(docs))//js中用
+					data.kycgstr = encodeURIComponent(JSON.stringify(data.kycg))//js中用
 					cb()
 				})
 			//let search_year = moment()
@@ -271,7 +271,12 @@ router.get('/', function(req, res, next) {
 		if(error){
 			res.json(error)
 		}
-		return res.render('index',{L:req.query['L'],data:data})
+		if(req.query['L']==1){
+			return res.render('index',{L:req.query['L'],data:data})
+		}else{
+			return res.render('indexen',{L:req.query['L'],data:data})
+		}
+		
 	})
 	// async.waterfall([
 	// 	function(cb){
@@ -2461,6 +2466,7 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 					limit = parseInt(limit)
 				let search = user.find(searchobj)
 					search.where({'display':1})
+					
 					search.sort({'userName_py':1})
 					search.limit(limit)
 					search.skip(numSkip)
@@ -2601,6 +2607,7 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 					limit = parseInt(limit)
 				let search = user.find(searchobj)
 					search.where({'display':1})
+					search.sort({'zhiwu':-1})
 					search.sort({'userName_py':1})
 					search.limit(limit)
 					search.skip(numSkip)
@@ -2770,6 +2777,7 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 					}else{
 						search = user.find({display:1,peopleid:zhicheng,$or:[{power:'教职工'},{power:'管理员'}]})
 					}
+						// search.sort({'zhiwu':-1})
 						search.sort({'userName_py':1})
 						search.limit(limit)
 						search.skip(numSkip)
@@ -2937,7 +2945,9 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 						limit = parseInt(limit)
 					let search = user.find({suoxiid:suoxi,$or:[{power:'教职工'},{power:'管理员'}]})
 						search.where({'display':1})	
-						search.sort({'userName_py':1})
+						search.sort({'yanjiusuosort':1})
+						//search.sort({'userName_py':1})
+
 						search.limit(limit)
 						search.skip(numSkip)
 						search.exec(function(error,docs){
@@ -2968,6 +2978,7 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 							// 		item.zhiwu=''
 							// 	}
 							// })
+							//docs.sort(sort_yjs('yanjiusuosort'))
 							data.jsdw = docs
 							cb(null)
 						})
@@ -3144,6 +3155,16 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 		}
 	}	
 })
+function sort_yjs (keyName) {
+	return function (objectN, objectM) {
+	 var valueN = objectN[keyName]
+	 var valueM = objectM[keyName]
+	 if (valueN < valueM) return 1
+	 else if (valueN > valueM) return -1
+	 else return 0
+	}
+}
+
 function sort_id(a,b){
 	return a._id - b._id
 }

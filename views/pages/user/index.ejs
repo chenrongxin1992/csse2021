@@ -36,8 +36,13 @@
 								<div class="tit c_cca84d b"><%=data.userName%></div>
 								<p class="p1 c_cca84d"><%=data.zhiwu%> <%=data.zhicheng%></p>
 								<p class="p2 c_cca84d"><%=data.suoxi%></p>
-								<p><%=data.phone%></p>
-								<p><%=data.email%></p>
+								<%if(data.phoneOffice!=''){%>
+									<p>TEL:<%=data.phoneOffice%></p>
+								<%}%>
+								<%if(data.email!=''){%>
+									<p>Email:<%=data.email%></p>
+								<%}%>
+								
 							</div>
 						</div>
 					</div>
@@ -45,7 +50,10 @@
 						<div class="area-tit c_cca84d bb"><%=data.userName%></div>
 						<div class="area-txt">
 							<%-data.intro-%>
-							</div>
+							<%if(data.personalLink!=''){%>
+								个人主页：<a href="<%=data.personalLink%>" target="_blank"><%=data.personalLink%></a>
+							<%}%>
+						</div>
 						</div>
 					</div>
 				</div>

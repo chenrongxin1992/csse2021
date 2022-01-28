@@ -1,5 +1,5 @@
 .area-right .area-list .txt {
-	text-indent: 2em;
+	/* text-indent: 2em; */
 	font-size: 18px;
 	font-family: Microsoft YaHei;
 	font-weight: 400;
@@ -9,6 +9,7 @@
 .area-right .area-list .txt img{
 	max-width: 100%;
 	height: auto;
+	text-indent: 0;
 }
 
 .area-right .area-list .txt p {

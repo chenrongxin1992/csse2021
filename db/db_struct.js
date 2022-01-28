@@ -91,7 +91,7 @@ timeEdit:{type:String},
 ipAdd:{type:String},
 idAdd:{type:String},
 accountAdd:{type:String},
-personalLink:{type:String},//个人主页，新增
+personalLink:{type:String,default:''},//个人主页，新增
 personalLink_switch:{type:Number,default:1},//是否展示个人主页
 suoxi:{type:String,default:''},//所/系，新增
 suoxi1:{type:String,default:''},
@@ -114,7 +114,8 @@ rongyuname1:{type:String,default:''},//en
 yewukouid:{type:Number},
 yewukouname:{type:String,default:''},
 yewukouname1:{type:String,default:''},
-yewukousort:{type:Number,default:20}
+yewukousort:{type:Number,default:20},
+yanjiusuosort:{type:Number,default:10}//研究所对有职务的人排序
 },{collection:'allUser'})
 const cmsContentSchema = new Schema({
  id:{type:Number},

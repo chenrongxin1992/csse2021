@@ -65,14 +65,34 @@
     font-size: 30px;
 }
 
-.banner-video {
-    padding-top: 38.5417%;
+.banner{
+    padding-top: 39.3229%;
     position: relative;
+    overflow: hidden;
+}
+.banner-video {
+    width: 100%;
+    height: 100%;
 }
 .banner-video video{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+.banner .slider{
     position: absolute;
     left: 0;
     top: 0;
+    width: 100%;
+    height: 100%;
+}
+.banner .slick-list, .banner .slick-track{
+    height: 100%;
+}
+.banner .slider-img{
+    height: 100%;
+}
+.banner .slider-img img{
     width: 100%;
     height: 100%;
 }
@@ -263,14 +283,17 @@
     left: 47%;
     transform: translateX(-50%);
     bottom: 10%;
-    font-size: 24px;
-    color: #CCA84D;
+    font-size: 20px;
+    background-color: #CCA84D;
+    color: white;
     z-index: 100;
+    border-radius: 25px;
+    padding: 2px 15px;
+    display: flex;
+    align-items: center;
 }
-.research .research_btn .btn{
-    width: 30px;
-    height: 30px;
-    margin-left: 13px;
+.research .research_btn img{
+    margin-left: 10px;
 }
 
 .research .semicircle1{
@@ -295,12 +318,26 @@
     left: 72.5%;
 }
 
-.research .slick-slide img{
+.research .slide img{
     width: 100%;
 }
-.research .slick-slider{
+.research .slider{
     width: 100%;
     margin: 0 auto;
+    position: relative;
+    padding-top: 45.9132%;
+    overflow: hidden;
+}
+.research .slider .item{
+    width: 100%;
+    height: 100%;
+}
+.research .slick-list{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 .research_banner{
     position: relative;
@@ -628,14 +665,6 @@
     .research .research_txt{
         font-size: 25px;
     }
-    .research .research_btn{
-        font-size: 22px;
-    }
-    .research .research_btn .btn{
-        width: 28px;
-        height: 28px;
-        margin-left: 10px;
-    }
 }
 
 @media only screen and (max-width:1440px){
@@ -644,10 +673,6 @@
     }
     .research .research_btn{
         font-size: 18px;
-    }
-    .research .research_btn .btn{
-        width: 24px;
-        height: 24px;
     }
 }
 @media only screen and (max-width:1200px){
@@ -695,6 +720,10 @@
         bottom: -15%;
         left: 75%;
     }
+    
+    .research .research_btn{
+        font-size: 20px;
+    }
 
     .research_cont{
         width: 100%;
@@ -732,10 +761,6 @@
 
     .banner .slick-next, .banner .slick-prev{
         display: none !important;
-    }
-    .research .research_btn .btn{
-        width: 20px;
-        height: 20px;
     }
 
 	.banner .slick-dots {
@@ -783,6 +808,7 @@
     .internationality_logo .img{
         width: 50%;
         margin-bottom: 15px;
+        padding-top: 15%;
     }
     .internationality_cont .more{
         padding-bottom: 21px;
@@ -803,6 +829,13 @@
     .research_banner .slick-next{
         right: -40px;
     }
+    .research_banner .research_tit{
+        font-size: 40px;
+    }
+    .research .slick-slider {
+        overflow: visible;
+        width: 78%;
+    }
 }
 @media only screen and (max-width: 768px) {
     .about{
@@ -818,11 +851,16 @@
     .recruitment_cont .r-row .txt{
         font-size: 14px;
     }
+    .research .research_btn{
+        font-size: 14px;
+        padding: 2px 10px;
+    }
 }
 
 @media only screen and (max-width:480px) {
-    .research .slick-slider {
-        width: 78%;
+    .research_btn{
+        font-size: 12px;
+        padding: 2px 5px;
     }
     .research_banner .slick-next, .research_banner .slick-prev{
         width: 30px;

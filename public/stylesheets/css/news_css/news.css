@@ -127,7 +127,7 @@
 .area-right .mess-list{
     padding: 0 20px 10px 20px;
     flex: 1;
-	width: 60%;
+	/* width: 60%; */
 }
 .area-right .mess-list .ball{
     color: #cca84d;
@@ -152,7 +152,7 @@
     vertical-align: middle;
 }
 .mess .txt{
-    width: 80%;
+    width: 85%;
     overflow:hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -204,12 +204,12 @@
 }
 @media screen and (max-width: 1600px) {
     .mess .txt{
-        width: 75%;
+        width: 85%;
     }
 }
 @media screen and (max-width: 1440px) {
     .mess .txt{
-        width: 70%;
+        width: 85%;
     }
 }
 @media only screen and (max-width:1200px){
@@ -280,7 +280,7 @@
 		width: 80%;
 	}
 	.area-right .mess-list {
-		margin-top: 100px;
+		/* margin-top: 100px; */
         padding: 0 2% 10px;
 	}
 	

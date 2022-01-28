@@ -2116,6 +2116,7 @@ router.get('/hzhb',function(req,res){
 				let cmsContentadd = new cmsContent({
 					id:id,
 					title:req.body.title,//加入权限后需要更新
+					titleEN:req.body.titleEN,
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					tag2:'联合培养',
@@ -2146,6 +2147,7 @@ router.get('/hzhb',function(req,res){
 			function(cb){
 				let obj = {
 					title:req.body.title,//加入权限后需要更新
+					titleEN:req.body.titleEN,
 					pageContent:req.body.pageContent,
 					pageContentEN:req.body.pageContentEN,
 					tag2:'联合培养',
@@ -6153,6 +6155,408 @@ router.get('/czjl',function(req,res){
 			return res.json({'code':'-1','msg':error})
 		}
 		return res.json({'code':'0','msg':'resetloginnum success'})
+	})
+})
+//20220127 研究所排序
+router.get('/yjssort',function(req,res){
+	console.log('in yjssort')
+	let data={},gxn_arr=[],dsj_arr=[],mts_arr=[],wls_arr=[],sjs_arr=[],vcc_arr=[],zns_arr=[],wlw_arr=[],jxx_arr=[],rgs_arr=[]
+	async.waterfall([
+		function(cb){
+			let search = user.find({suoxiid:1})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.gxn_arr = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({suoxiid:2})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.dsj_arr = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({suoxiid:3})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.mts_arr = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({suoxiid:4})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.wls_arr = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({suoxiid:5})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.sjs_arr = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({suoxiid:6})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.zns_arr = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({suoxiid:7})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.wlw_arr = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({suoxiid:8})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.vcc_arr = docs
+					cb()
+				})
+		}	,
+		function(cb){
+			let search = user.find({suoxiid:9})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.jxx_arr = docs
+					cb()
+				})
+		},
+		function(cb){
+			let search = user.find({suoxiid:11})
+				search.sort({'yanjiusuosort':1})
+				//search.sort({'userName_py':1})
+				search.exec(function(err,docs){
+					if(err){
+						cb(err)
+					}
+					data.rgs_arr = docs
+					cb()
+				})
+		}
+	],function(error,result){
+		if(error){
+			return res.json(error)
+		}
+		res.render('manage/jsdw/yjssort',{L:req.query['L'],data:data})
+	})
+}).post('/yjssort',function(req,res){
+	console.log('排序信息',req.body)
+	//return 
+	async.waterfall([
+		function(cb){
+			console.log('------------------',req.body.gxn_sortarr)
+			async.eachLimit(req.body.gxn_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('------------------',req.body.dsj_sortarr)
+			async.eachLimit(req.body.dsj_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('------------------',req.body.mts_sortarr)
+			async.eachLimit(req.body.mts_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('------------------',req.body.wls_sortarr)
+			async.eachLimit(req.body.wls_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('------------------',req.body.sjs_sortarr)
+			async.eachLimit(req.body.sjs_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('------------------',req.body.vcc_sortarr)
+			async.eachLimit(req.body.vcc_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('------------------',req.body.zns_sortarr)
+			async.eachLimit(req.body.zns_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('------------------',req.body.wlw_sortarr)
+			async.eachLimit(req.body.wlw_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('------------------',req.body.jxx_sortarr)
+			async.eachLimit(req.body.jxx_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		},
+		function(cb){
+			console.log('------------------',req.body.rgs_sortarr)
+			async.eachLimit(req.body.rgs_sortarr,1,function(item,callback){
+				console.log('item',item,item.split(','))
+				let temp = item.split(',')
+				let tempid = temp[1],
+					tempsort = parseInt(temp[2])
+				let obj = {
+					yanjiusuosort : tempsort
+				}
+				console.log(tempid,tempsort)
+				user.updateOne({_id:tempid},obj,function(error){
+					if(error){
+						console.log('user sort update error',error)
+						callback(error)
+					}
+					console.log('user sort update success')
+					callback(null)
+				})
+			},function(error){
+				if(error){
+					cb(error)
+				}
+				cb()
+			})
+		}
+	],function(error,result){
+		if(error){
+			return res.json({'code':-1,'msg':error})
+		}
+		return res.json({'code':0,'msg':'ok'})
 	})
 })
 //20220124 业务口排序
