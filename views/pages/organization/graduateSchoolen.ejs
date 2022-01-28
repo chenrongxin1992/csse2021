@@ -226,7 +226,7 @@
 			</div>
 			<div class="area-cont area1">
 				<div class="ress_nav">
-					current position: <a href="/csse">Home</a>
+					Current position: <a href="/csse">Home</a>
 					>
 					<a href="index">Organization</a>
 					>
@@ -251,9 +251,11 @@
 							<div class="txt-detail">
 								<%-item.pageContentEN-%>
 							</div>
+                            <%if(item.url){%>
 							<a class="txt-more" href="<%=item.url%>" target="_blank">
 								More<img class="more_img" src="../../image/index/right.png" />
 							</a>
+                            <%}%>
 						</div>
 					</div>
                     <%})%>

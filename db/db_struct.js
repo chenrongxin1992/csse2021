@@ -163,6 +163,7 @@ const cmsContentSchema = new Schema({
  pyxm:{type:String,default:''},//国际合作培养项目
  pyxm1:{type:String,default:''},//国际合作培养项目
  hbsort:{type:Number},//合作伙伴排序
+ organizationsort:{type:Number,default:10},
  tag1:{type:String,default:''},//2021新增字段，标识所属一级菜单
     tag2:{type:String,default:''},//2021新增字段，标识当前菜单
     review:{type:String,default:0},//审核状态,

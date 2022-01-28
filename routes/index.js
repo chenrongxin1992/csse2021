@@ -4199,10 +4199,10 @@ router.get('/pages/organization/departments',function(req,res){
 			console.log('不带搜索参数')
 			let search = cmsContent.find({'tag2':'研究所'})
 				search.where('isDelete').equals(0)
-				search.sort({'id':-1})
-				search.sort({'isTop':-1})//正序
-				search.sort({'timeAdd':1})
-				search.sort({'isDisplay':1})
+				search.sort({'organizationsort':1})
+				//search.sort({'isTop':-1})//正序
+				//search.sort({'timeAdd':1})
+				//search.sort({'isDisplay':1})
 				search.exec(function(error,docs){
 					if(error){
 						console.log('error',error)
