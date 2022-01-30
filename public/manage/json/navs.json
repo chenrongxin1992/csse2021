@@ -287,6 +287,11 @@
 			"title":"本科教学文档",
 			"icon": "",
 			"href": "/csse/manage/jxwd"
+		},
+		{
+			"title":"工作量",
+			"icon": "",
+			"href": "/csse/manage/gzl"
 		}
 	],
 	"normalMenu":[
@@ -310,18 +315,6 @@
 					"spread": false
 				},
 				{
-					"title": "Dean’s Message",
-					"icon": "&#xe63c;",
-					"href": "/csse/manage/yzjy",
-					"spread": false
-				},
-				{
-					"title": "Collaboration",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/hzhb",
-					"spread": false
-				},
-				{
 					"title": "Highlights",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/highlights",
@@ -336,24 +329,6 @@
 			"href": "",
 			"spread": false,
 			"children": [	
-				{
-					"title": "General Information",
-					"icon": "&#xe62a;",
-					"href": "/csse/manage/xyjj",
-					"spread": false
-				},
-				{
-					"title": "Dean’s Message",
-					"icon": "&#xe63c;",
-					"href": "/csse/manage/yzjy",
-					"spread": false
-				},
-				{
-					"title": "Facts and Figures",
-					"icon": "&#xe62d;",
-					"href": "/csse/manage/figures",
-					"spread": false
-				},
 				{
 					"title": "Current Leaders",
 					"icon": "&#xe770;",
@@ -381,27 +356,9 @@
 					"spread": false
 				},
 				{
-					"title": "National Teaching Centers",
-					"icon": "&#xe620;",
-					"href": "/csse/manage/syzx",
-					"spread": false
-				},
-				{
-					"title": "Admin Office",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/xzbgs",
-					"spread": false
-				},
-				{
 					"title": "IJMLC Office",
 					"icon": "&#xe620;",
 					"href": "/csse/manage/qkbjb",
-					"spread": false
-				},
-				{
-					"title": "National Laboratory",
-					"icon": "&#xe620;",
-					"href": "/csse/manage/bdsc",
 					"spread": false
 				}				
 			]
@@ -410,42 +367,11 @@
 			"title": "People",
 			"icon": "&#xe613;",
 			"href": "/csse/manage/jsdw?peopleid=1"
-		},{
-			"title": "Admissions",
-			"icon": "&#xe60a;",
-			"href": "",
-			"spread": false,
-			"children": [	
-				{
-					"title": "Undergraduates",
-					"icon": "&#xe602;",
-					"href": "/csse/manage/bkszs",
-					"spread": false
-				},
-				{
-					"title": "Post-graduates",
-					"icon": "&#xe602;",
-					"href": "/csse/manage/ssszs",
-					"spread": false
-				},
-				{
-					"title": "Doctor Candidates",
-					"icon": "&#xe602;",
-					"href": "/csse/manage/bsszs",
-					"spread": false
-				}
-			]
 		},
 		{
 			"title": "Research",
 			"icon": "&#xe66c;",
 			"href": "/csse/manage/cglr"
-		},
-		{
-			"title": "Join Us",
-			"icon": "&#xe770;",
-			"href": "/csse/manage/zpxxen",
-			"spread": false
 		}
 	],
 	"dangqMenu":[
@@ -522,27 +448,9 @@
 					"spread": false
 				},
 				{
-					"title": "实验中心",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/syzx",
-					"spread": false
-				},
-				{
-					"title": "行政办公室",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/xzbgs",
-					"spread": false
-				},
-				{
 					"title": "期刊编辑部",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/qkbjb",
-					"spread": false
-				},
-				{
-					"title": "国家工程实验室",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/bdsc",
 					"spread": false
 				}
 			]
@@ -554,33 +462,9 @@
 			"spread": false,
 			"children": [
 				{
-					"title": "学院简介",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/xyjj",
-					"spread": false
-				},
-				{
-					"title": "院长寄语",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/yzjy",
-					"spread": false
-				},
-				{
-					"title": "发展沿革",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/fzyg",
-					"spread": false
-				},
-				{
 					"title": "现任领导",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/xrld",
-					"spread": false
-				},
-				{
-					"title": "学院标识",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/xybs",
 					"spread": false
 				}
 			]
@@ -682,13 +566,6 @@
 					"title": "通知公告",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/notice",
-					"spread": false,
-					"target": ""
-				},
-				{
-					"title": "计软风采",
-					"icon": "&#xe66c;",
-					"href": "/csse/manage/jrfc",
 					"spread": false,
 					"target": ""
 				},

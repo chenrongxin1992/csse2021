@@ -41,11 +41,11 @@ layui.use(['jquery','table','form'], function(){
         ,limit: 15 //每页默认显示的数量
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:60,align:'center',sort:true}
-	      ,{field: 'title', title: '伙伴名称',align:'center',width:350,sort:true}
+	      ,{field: 'title', title: '伙伴名称',align:'center',sort:true}
           ,{field: 'url', title: '伙伴链接',align:'center',sort:true}
 		  ,{field: 'hbsort', title: '排列顺序',align:'center',sort:true}
 		  ,{field: 'fujianPath', title: '伙伴logo', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
-	      ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,sort:true}
+	    //   ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,sort:true}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });

@@ -4144,7 +4144,12 @@ router.get('/pages/recruitment/doctor',function(req,res){
 router.get('/pages/organization/departments',function(req,res){
 	let data = {},type = req.query.t,content={}
 	console.log('type----',type)
-	if(!type){type = '计算机科学与技术系'}
+	if(req.query['L']=='1'){
+		if(!type){type = '计算机科学与技术系'}
+	}else{
+		if(!type){type = 'Department of Computer Science and Technology'}
+	}
+	
 	async.waterfall([
 		function(cb){
 			console.log('不带搜索参数')

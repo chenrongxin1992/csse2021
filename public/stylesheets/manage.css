@@ -61,7 +61,7 @@
     margin: 10px 5px;
 }
 .searchbox .searchbox-title{
-	width: 66px;
+	width: 70px;
 	/* display: inline; */
 	float: left;
 	line-height: 40px;
@@ -81,7 +81,9 @@
 	margin: 10px 5px;
 	line-height: 40px;
 }
-
+.searchbox select{
+	width: 100%;
+}
 .layui-inline-item{
 	width:50%;
 }
@@ -133,7 +135,7 @@
         margin: 10px 20%;
 	}
 	.searchbox .searchbox-title{
-		width: 66px;
+		width: 70px;
 		/* display: inline; */
 		float: left;
 		line-height: 40px;

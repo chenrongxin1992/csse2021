@@ -319,6 +319,25 @@ const jxwdSchema = new Schema({
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
     timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
    },{collection:'jxwd'})
+   //20220122 工作量
+const gzlSchema = new Schema({ 
+    id:{type:Number},
+    username :{type:String},//
+    year :{type:String},//
+    sortA : {type:String},//
+    addContent : {type:String},//
+    addPoint : {type:Number},
+    addName : {type:String},
+    addtime : {type:String},//
+    chkContent : {type:String},//教学大纲路径
+    chkPoint : {type:Number},//教学进度表
+    chkName : {type:String},//实验教学大纲
+    chkTime : {type:String},//实验教学安排表
+    finalPoint : {type:String},
+    isConfirm : {type:Number,default:0},
+    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
+   },{collection:'gzl'})
 exports.forlog = mongoose.model('forlog',forlogSchema)
 exports.cglr = mongoose.model('cglr',cglrSchema)//成果录入
 exports.kanwu = mongoose.model('kanwu',kanwu)//成果录入
@@ -331,3 +350,4 @@ exports.user = mongoose.model('allUser',userSchema)
 exports.cmsContent = mongoose.model('cmsContent',cmsContentSchema)
 exports.cmsSlider = mongoose.model('cmsSlider',cmsSliderSchema)
 exports.jxwd = mongoose.model('jxwd',jxwdSchema)//本科招生
+exports.gzl = mongoose.model('gzl',gzlSchema)//本科招生

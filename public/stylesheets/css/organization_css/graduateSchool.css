@@ -4,8 +4,6 @@
 @media screen and (min-width: 1680px) {
 
 	.area-row .txt {
-		font-size: 16px;
-		line-height: 27px;
 		padding: 3% 15px;
 	}
 
@@ -14,13 +12,13 @@
 	}
 	
 	.area-row .txt div:first-child {
-		height: 135px;
+		height: 148px;
 	}
 }
 
 @media screen and (max-width: 1679px) {
 	.area-row .txt div:first-child {
-		height: 105px;
+		height: 122px;
 	}
 
 	.area-row .img-txt {
@@ -67,7 +65,7 @@
 		font-size: 18px;
 	}
 	.area-row .txt div:first-child {
-		height: 80px;
+		height: 150px;
 	}
 
 	.area-row {
@@ -77,18 +75,9 @@
 	}
 }
 
-@media screen and (max-width: 1079px) {
-
-	.area-row .img-txt {
-		font-size: 17px;
-	}
-	.area-row .img-txt div:last-child {
-		width: 95% !important;
-	}
-}
 
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 780px) {
 	.contain-area {
 		width: 100% !important;
 		padding: 0 !important;
@@ -107,17 +96,6 @@
 		overflow: hidden;
 		text-overflow: clip;
 		white-space: inherit;
-	}
-
-	.area-row .txt {
-		text-align: left;
-		color: rgba(102, 102, 102, 1);
-		font-size: 16px;
-		line-height: 27px;
-		padding: 3% 3% !important;
-		font-size: 24px;
-		font-family: Microsoft YaHei;
-		font-weight: 400;
 	}
 
 	.contain {
@@ -156,7 +134,6 @@
 		display: none;
 	} */
 
-
 	.area-row .txt .txt-more img {
 		margin-left: 3%;
 	}
@@ -191,7 +168,6 @@
 		width: 100%;
 	}
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav {
 		font-size: 22px;
@@ -200,11 +176,6 @@
 
 	.area-row .txt .txt-more {
 		font-size: 18px;
-	}
-
-
-	.area-row .txt div:first-child {
-		height: 140px;
 	}
 	
 
@@ -512,7 +483,6 @@
 
 @media (max-width:727px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav{
 		font-size: 24px;
@@ -526,7 +496,6 @@
 
 @media (max-width:697px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav{
 		font-size: 22px;
@@ -548,7 +517,6 @@
 
 @media (max-width:667px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav{
 		font-size: 20px;
@@ -566,7 +534,6 @@
 
 @media (max-width:637px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav {
 		font-size: 18px;
@@ -588,7 +555,6 @@
 
 @media (max-width:607px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav{
 		font-size: 17px;
@@ -606,7 +572,6 @@
 
 @media (max-width:567px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav {
 		font-size: 16px;
@@ -614,7 +579,7 @@
 	}
 
 	.area-row .txt div:first-child {
-		height: 90px;
+		height: 123px;
 	}
 
 	.area-row .txt .txt-more {
@@ -628,7 +593,6 @@
 
 @media (max-width:527px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav {
 		font-size: 15px;
@@ -646,7 +610,6 @@
 
 @media (max-width:487px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav {
 		font-size: 14px;
@@ -654,7 +617,7 @@
 	}
 
 	.area-row .txt div:first-child {
-		height: 75px;
+		height: 97px;
 	}
 
 	.area-row .txt .txt-more {
@@ -668,7 +631,6 @@
 
 @media (max-width:447px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav{
 		font-size: 13px;
@@ -686,11 +648,13 @@
 	.area-cont .area-tit {
 		font-size: 18px;
 	}
+	.area-row .txt div:first-child {
+		height: 79px;
+	}
 }
 
 @media (max-width:407px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav{
 		font-size: 12px;
@@ -713,13 +677,14 @@
 
 @media (max-width:357px) {
 
-	.area-row .txt,
 	.img-txt div,
 	.area-cont .ress_nav{
 		font-size: 11px;
 		line-height: 16px;
 	}
-
+	.area-row .txt div:first-child {
+		height: 75px;
+	}
 	.area-row .txt .txt-more {
 		font-size: 12px;
 	}
@@ -729,15 +694,6 @@
 	}
 }
 
-@media (max-width:307px) {
-
-	.area-row .txt,
-	.img-txt div,
-	.area-cont .ress_nav{
-		font-size: 10px;
-		line-height: 15px;
-	}
-}
 
 .area-row .txt div:first-child {
 	overflow: hidden;

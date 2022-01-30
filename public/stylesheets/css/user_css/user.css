@@ -21,7 +21,7 @@
 
 .cont{
     width: 83.3333%;
-    max-width: 1600px;
+    max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 0 !important;
 	margin-bottom: 60px;
@@ -32,14 +32,17 @@
     margin-top: 60px;
 }
 .area-left{
-    margin-right: 30px;
+    margin-right: 55px;
+    flex-shrink: 0;
 }
 
 
 .area-right{
     color: #333;
-    padding-bottom: 200px;
+    padding-bottom: 100px;
 	position: relative;
+    flex:auto;
+    width: 100%;
 }
 
 .area-tit{

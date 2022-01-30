@@ -15,7 +15,9 @@
 .area-right .area-list .txt p {
 	margin-bottom: 20px;
 }
-
+.area-right .area-list .txt td p {
+    margin-bottom: 0px!important;
+}
 .area-right .img {
 	display: flex;
 	justify-content: center;
@@ -39,7 +41,9 @@
 	.area-right .area-list .txt p {
 		font-size: 20px;
 	}
-
+	.area-right .area-list .txt td p {
+		margin-top: 0px!important;
+	}
 	.area-right .area-list .txt p:first-child {
 		margin-top: 20px;
 	}

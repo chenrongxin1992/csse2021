@@ -240,7 +240,7 @@
           <div class="area-row">
             <div class="img-wrap">
                 <a href="departments?t=<%=item.titleEN%>"><img class="img lazy_img" src="<%=item.fujianPath%>" /></a>
-                <span class="img-txt b"><%=item.titleEN%></span>
+                <span class="img-txt b"><%-item.titleEN-%></span>
             </div>
             <div class="txt">
               <div>Director: <%=item.zhur1%></div>
@@ -250,7 +250,7 @@
           <%})%>
           <script type="text/javascript"> 
             $('.area-row').each(function(index,obj){
-                console.log('找到type,点中状态',$(obj).text())
+                console.log('找到type,点中状态',$(obj).text(),'<%=type%>')
               if('<%=type%>' == $(obj).find('.img-txt').text()){
               console.log('找到type,点中状态',$(obj).text())
                $(obj).addClass('active')

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>工作量</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style>
+        .layui-table-cell{
+            height: auto !important;
+			max-height: 100px !important;
+        }
+    </style>
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：首页 > 工作量 </div><button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
+	<%if(power!='管理员'){%>
+        <p>添加工作量总计：<span><%=add_sum%>;</span> 确认工作量总计：<span><%=confirm_sum%>;</span> 最终工作量总计：<span><%=final_sum%>;</span></p>
+        <p>1、对学院收集（课堂教学、实践教学、公共服务、科研项目等）已经添加的工作量进行审核确认，有遗漏也请自行加入</p>     
+        <p>2、科研的论文、获奖、专利等；教研的项目、获奖等工作量请自行添加，描述时请填入相关信息方便学院审核确认</p>     
+        <p>3、开始操作前，请仔细的阅读《计算机与软件学院教学酬金发放方案》最新（文件在微信通知时发出）</p>   
+    <%}%>
+    <div class="demoTable layui-form">
+		 <div class="layui-inline">
+			  <select name="year" id="year" lay-filter="year" >
+					<option value="2022">2022</option>
+					<option value="2021">2021</option>
+			 </select>
+		</div>
+		<button class="layui-btn rc-search-btn" data-type="reload" id="kyxm_btn" ><i class="layui-icon">&#xe615;</i>搜索</button>
+		<!-- <button class="layui-btn btnfloat" id="ptglsort" style="float: right;" >人员排序(教师系列)</button> -->
+	</div>
+	<table id="oh_table" lay-filter="oh_table"></table>
+
+<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+<script type="text/javascript">
+layui.use(['jquery','table','form'], function(){ 
+    let $ = layui.$ //重点处
+	$(document).ready(function(){
+		if('<%=power%>'!='管理员'){
+			$('.demoTable').css('display','none')
+		}
+	})
+    let table = layui.table,
+    	form = layui.form
+    table.render({
+	    elem: '#oh_table'
+	    ,id:'table_oh'//重载需要
+	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    //本地与服务器
+        ,url: '<%=base_url%>gzl_data' //数据接口
+	    ,page: true //开启分页
+        ,limits: [15,30,45]
+        ,limit: 15 //每页默认显示的数量
+	    ,cols: [[ //表头
+	      {type:'numbers', title: '序号',width:60,align:'center'}
+	      ,{field: 'year', title: '年度',align:'center'}
+		  ,{field: 'username', title: '教师',align:'center'}
+          ,{field: 'sortA', title: '分类',align:'center'}
+          ,{field: 'addName', title: '添加方',align:'center'}
+		  ,{field: 'addPoint', title: '添加工作量', align:'center'}
+          ,{field: 'chkName', title: '确认方', align:'center'}
+          ,{field: 'chkPoint', title: '确认工作量', align:'center'}
+          //,{field: 'finalPoint', title: '最终工作量', align:'center'}
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
+	    ]]
+	  });
+    $('#newsadd').on('click', function(){
+		AddTab('新增'+$("title").text(),'table_oh'+ 'new',"gzladd")
+    	
+    })
+	//数据重载
+    $('#kyxm_btn').on('click', function(){
+			table.reload('table_oh', {
+				where: {
+					year: $('#year option:selected').val()
+					//peopleid: $('#jstype option:selected').attr('peopleid')
+				}
+			});
+    })
+    //监听工具条
+	table.on('tool(oh_table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	  console.log('dddd')
+	  
+	  if(layEvent === 'edit'){ //查看
+		AddTab('编辑'+$("title").text(),'oh_table'+ obj.data.id,"gzladd?id="+data.id)
+	    
+	  }else if(layEvent === 'confirm'){
+          let str = '您将确认' + data.addPoint + '工作量，确认之后不可修改，有问题请咨询院办。'
+          console.log('str -----',str)
+            layer.confirm(str, {icon: 3, title:'提示'}, function(index){
+                //do something
+                let confirmdata = {confirm:1,id:data.id,chkPoint:data.addPoint}
+                $.ajax({
+                //本地与服务器
+                    //url:'/manage/newsdel',
+                    url:'<%=base_url%>gzlconfirm',
+                    type:'POST',
+                    data:confirmdata,
+                    dataType : "json",
+                    success:function(result){
+                        if(result.code == 0){
+                            console.log('del success')		
+                            layer.msg('ok')	
+                            //alert("aa")
+                            layer.close(index);
+                        }
+                    },
+                    error:function(msg){
+                        console.log('ajax delete error msg',msg)
+                    }
+                })
+                
+            });
+      } else if(layEvent === 'del'){ //删除
+        console.log('data-----',data)
+	    layer.confirm('确定删除吗?',{closeBtn: 0}, function(index){
+	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+	      layer.close(index);
+	      //向服务端发送删除指令
+	       $.ajax({
+               //本地与服务器
+                //url:'/manage/newsdel',
+			  	url:'<%=base_url%>gzldel',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('del success')		
+                          layer.msg('ok')	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+			  	}
+			})
+	    });
+	  } 
+	});
+    function screen(){
+        let width = $(window).width()
+        if(width>376){//iphone x
+            return 1
+        }
+        else{
+            return 2
+        }
+    }
+});
+
+</script>
+<script type="text/html" id="yjfxbar">
+    {{# if('<%=power%>'=='管理员'){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+    {{# }else{ }}
+        {{# if(d.isConfirm==1){ }}
+            已确认
+        {{# }else{ }} 
+            <a class="layui-btn layui-btn-xs uploadInfo" lay-event="confirm" value="{{d.id}}" >确认</a>
+        {{# } }}
+    {{# } }}
+  
+</script>
+</body>
+</html>
