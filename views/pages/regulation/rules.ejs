@@ -81,7 +81,10 @@
 									})
 								$('.myinput').bind('keydown',function(event){
 									if(event.keyCode == "13") {
-										console.log('点击页面---->',$(this).text(),'构造url')        
+										console.log('点击页面---->',$(this).text(),'构造url')  
+										if($('.myinput').val()>'<%=totalpage%>'){
+                          return false
+                        }      
 										let reg = new RegExp("rules", "g"); 
 										let url = "rules"; 
 										console.log(url.replace(reg, "rules?page=" + $(this).text()))

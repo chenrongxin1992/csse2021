@@ -103,6 +103,9 @@
                 $('.myinput').bind('keydown',function(event){
                     if(event.keyCode == "13") {
                         console.log('回车',$('.myinput').val())
+                        if($('.myinput').val()>'<%=totalpage%>'){
+                          return false
+                        }
                         let reg = new RegExp("index", "g"); 
                         let url = "index"; 
                         let str = '&type=<%=leixing%>'

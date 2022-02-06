@@ -122,6 +122,9 @@
 											$('.myinput').bind('keydown',function(event){
 												if(event.keyCode == "13") {
 													console.log('点击页面---->',$(this).text(),'构造url')        
+													if($('.myinput').val()>'<%=totalpage%>'){
+														return false
+														}
 													let reg = new RegExp("master", "g"); 
 													let url = "master"; 
 													console.log(url.replace(reg, "master?page=" + $(this).text()))

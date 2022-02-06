@@ -45,18 +45,18 @@ type:{type:String},//分系统创建和校园卡两种
 power:{type:String},//分管理员和教职工两种
 pageName:{type:String},//页面名称，有的为空，有的为校园卡号
 account:{type:String},//登录账号，英文或者校园卡号
-college:{type:String},//学院
-college1:{type:String},//英文
+college:{type:String,default:''},//学院
+college1:{type:String,default:''},//英文
 number:{type:String},//校园卡号，后期去掉
-userName:{type:String},//名字
-userName1:{type:String},//英文名
-password:{type:String},
-sex:{type:String},
-sex1:{type:String},
+userName:{type:String,default:''},//名字
+userName1:{type:String,default:''},//英文名
+password:{type:String,default:''},
+sex:{type:String,default:''},
+sex1:{type:String,default:''},
 avatar:{type:String,default:''},//头像
-idCardNO:{type:String},
+idCardNO:{type:String,default:''},
 email:{type:String,default:''},
-qq:{type:String},
+qq:{type:String,default:''},
 mobile:{type:String,default:''},
 mobileSZU:{type:String,default:''},
 phoneOffice:{type:String,default:''},
@@ -64,12 +64,12 @@ AddressOffice:{type:String,default:''},
 AddressOffice1:{type:String,default:''},
 zhicheng:{type:String,default:''},
 zhicheng1:{type:String,default:''},
-xuewei:{type:String},
-xuewei1:{type:String},
-xueli:{type:String},
-xueli1:{type:String},
+xuewei:{type:String,default:''},
+xuewei1:{type:String,default:''},
+xueli:{type:String,default:''},
+xueli1:{type:String,default:''},
 biyeSchool:{type:String},
-biyeSchool1:{type:String},
+biyeSchool1:{type:String,default:''},
 zhiwu:{type:String,default:''},
 zhiwu1:{type:String,default:''},
 intro:{type:String,default:''},
@@ -84,10 +84,10 @@ inDang:{type:String,default:''},
 inDang1:{type:String,default:''},
 urlJump:{type:String,default:''},
 urlJumpBool:{type:String,default:''},
-isVerify:{type:String},
-isDelete:{type:String},
-timeAdd:{type:String},
-timeEdit:{type:String},
+isVerify:{type:String,default:''},
+isDelete:{type:String,default:''},
+timeAdd:{type:String,default:''},
+timeEdit:{type:String,default:''},
 ipAdd:{type:String},
 idAdd:{type:String},
 accountAdd:{type:String},
@@ -121,9 +121,9 @@ const cmsContentSchema = new Schema({
  id:{type:Number},
  idKey:{type:Number},//文章id
  idClass:{type:Number},//不知道
- trees:{type:String},//分类 学院介绍153-227-
- title:{type:String},
- titleEN:{type:String},
+ trees:{type:String,default:''},//分类 学院介绍153-227-
+ title:{type:String,default:''},
+ titleEN:{type:String,default:''},
  pageContent:{type:String,default:''},
  pageContentNaked:{type:String,default:''},
  pageContentEN:{type:String,default:''},
@@ -176,9 +176,9 @@ const cmsSliderSchema = new Schema({
  isDisplay:{type:Number,default:1},
  isDelete:{type:Number},
  list:{type:Number},
- title:{type:String},
- title1:{type:String},
- pic:{type:String},
+ title:{type:String,default:''},
+ title1:{type:String,default:''},
+ pic:{type:String,default:''},
  url:{type:String,default:'#'},
  urlTarget:{type:String},
  memo:{type:String,default:''},
@@ -193,13 +193,13 @@ const cmsSliderSchema = new Schema({
 },{collection:'cmsSlider'})
 const xrldSchema = new Schema({ 
  id:{type:Number},
- name :{type:String},//
- name1 :{type:String},//
- title : {type:String},//职务
- title1 : {type:String},//职务
- work : {type:String},//分管工作
- work1 : {type:String},//分管工作
- pic : {type:String},
+ name :{type:String,default:''},//
+ name1 :{type:String,default:''},//
+ title : {type:String,default:''},//职务
+ title1 : {type:String,default:''},//职务
+ work : {type:String,default:''},//分管工作
+ work1 : {type:String,default:''},//分管工作
+ pic : {type:String,default:''},
  paixu : {type:Number},//排序
  timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
  timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
@@ -224,7 +224,7 @@ const highlightSchema = new Schema({
 },{collection:'highlight'})
 const bkzsSchema = new Schema({ 
  id:{type:Number},
- bsort:{type:String},
+ bsort:{type:String,default:''},
  zhuanye :{type:String,default:''},//
  neirong :{type:String,default:''},//
  xuefei : {type:String,default:''},//
@@ -252,25 +252,25 @@ const bkzsinfoSchema = new Schema({
 },{collection:'bkzsinfo'})
 const officehourSchema = new Schema({ 
  id:{type:Number},
- account :{type:String},//
- userName :{type:String},//
- term : {type:String},//
- address : {type:String},//
- phone : {type:String},
- cellphone : {type:String},//
- email : {type:String},//
- week : {type:String},//
- timeStart : {type:String},//
- timeEnd : {type:String},//
- timeStart1 : {type:String},//
- timeEnd1 : {type:String},//
+ account :{type:String,default:''},//
+ userName :{type:String,default:''},//
+ term : {type:String,default:''},//
+ address : {type:String,default:''},//
+ phone : {type:String,default:''},
+ cellphone : {type:String,default:''},//
+ email : {type:String,default:''},//
+ week : {type:String,default:''},//
+ timeStart : {type:String,default:''},//
+ timeEnd : {type:String,default:''},//
+ timeStart1 : {type:String,default:''},//
+ timeEnd1 : {type:String,default:''},//
  timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
  timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'officehour'})
 
 const cglrSchema = new Schema({ 
  id:{type:Number},
- title :{type:String},//
+ title :{type:String,default:''},//
  year :{type:Number},//
  yearid:{type:String,default:''},
  kanwu : {type:String,default:''},//
@@ -305,35 +305,35 @@ const forlogSchema = new Schema({
 //20220122 教学文档
 const jxwdSchema = new Schema({ 
     id:{type:Number},
-    cTerm :{type:String},//
-    cCode :{type:String},//
-    cName : {type:String},//
+    cTerm :{type:String,default:''},//
+    cCode :{type:String,default:''},//
+    cName : {type:String,default:''},//
     cPoint : {type:Number},//
-    cType : {type:String},
-    cClass : {type:String},
-    cTeacher : {type:String},//
-    jxdg : {type:String},//教学大纲路径
-    jxjdb : {type:String},//教学进度表
-    syjxdg : {type:String},//实验教学大纲
-    syjxapb : {type:String},//实验教学安排表
+    cType : {type:String,default:''},
+    cClass : {type:String,default:''},
+    cTeacher : {type:String,default:''},//
+    jxdg : {type:String,default:''},//教学大纲路径
+    jxjdb : {type:String,default:''},//教学进度表
+    syjxdg : {type:String,default:''},//实验教学大纲
+    syjxapb : {type:String,default:''},//实验教学安排表
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
     timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
    },{collection:'jxwd'})
    //20220122 工作量
 const gzlSchema = new Schema({ 
     id:{type:Number},
-    username :{type:String},//
-    year :{type:String},//
-    sortA : {type:String},//
-    addContent : {type:String},//
+    username :{type:String,default:''},//
+    year :{type:String,default:''},//
+    sortA : {type:String,default:''},//
+    addContent : {type:String,default:''},//
     addPoint : {type:Number},
-    addName : {type:String},
-    addtime : {type:String},//
-    chkContent : {type:String},//教学大纲路径
+    addName : {type:String,default:''},
+    addtime : {type:String,default:''},//
+    chkContent : {type:String,default:''},//教学大纲路径
     chkPoint : {type:Number},//教学进度表
-    chkName : {type:String},//实验教学大纲
-    chkTime : {type:String},//实验教学安排表
-    finalPoint : {type:String},
+    chkName : {type:String,default:''},//实验教学大纲
+    chkTime : {type:String,default:''},//实验教学安排表
+    finalPoint : {type:String,default:''},
     isConfirm : {type:Number,default:0},
     timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
     timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}

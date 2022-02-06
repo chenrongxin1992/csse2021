@@ -171,6 +171,9 @@
                           $('.myinput').bind('keydown',function(event){
                               if(event.keyCode == "13") {
                                   console.log('回车',$('.myinput').val())
+                                  if($('.myinput').val()>'<%=totalpage%>'){
+                          return false
+                        }
                                   let reg = new RegExp("index", "g"); 
                                   let url = "index"; 
                                   window.location.href = url.replace(reg, "index?p=" +$('.myinput').val() +'&y=<%=year%>&b=<%=belongsto%>&s=<%=search_txt%>' );
@@ -230,7 +233,7 @@
                           let reg = new RegExp("index", "g"); 
                           let url = "index"; 
                           console.log(url.replace(reg, "index?page=" + $(this).text()))
-                          window.location.href = url.replace(reg, 'index?p=<%=page%>&y='+$(this).attr('id')+'&s=<%=search_txt%>'); 
+                          window.location.href = url.replace(reg, 'index?p=1&y='+$(this).attr('id')+'&s=<%=search_txt%>'); 
                           $(this).parent().siblings().removeClass('active')
                           $(this).parent().addClass('active')
                           return false
@@ -239,7 +242,7 @@
                           console.log('点击suoxi---->',$(this),'点中状态，前端更新结果') 
                           let reg = new RegExp("index", "g"); 
                           let url = "index";                                 
-                          window.location.href = url.replace(reg, 'index?p=<%=page%>&b='+$(this).attr('id')+'&s=<%=search_txt%>'); 
+                          window.location.href = url.replace(reg, 'index?p=1&b='+$(this).attr('id')+'&s=<%=search_txt%>'); 
                           $(this).parent().siblings().removeClass('active')
                           $(this).parent().addClass('active')
                           return false

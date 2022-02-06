@@ -121,7 +121,11 @@ router.get('/login', function(req, res, next) {
 								return res.json({'code':-1,msg:'密码错误，您今天还能尝试 '+ try_num + ' 次登录。'})
 							})
 						}else{
-							console.log('不是同一天登录，密码错误，次数加1，日期更新为今天')
+							console.log('不是同一天登录，密码错误，次数重新从0加1，日期更新为今天')
+							if(doc.login_num!=0){
+								console.log('之前已有错误次数,重新从0开始')
+								doc.login_num = 0
+							}
 							let update_obj = {
 								login_date:moment().format('YYYY-MM-DD'),
 								login_num:(doc.login_num)?doc.login_num+1:1
@@ -241,7 +245,7 @@ router.get('/main',function(req,res){
 			return res.send(err)
 		}
 		console.log('destroy req.session--------',req.session)
-		res.redirect('/manage/login')
+		res.redirect('/csse/manage/login')
 	})
 })
 

@@ -200,7 +200,7 @@ router.get('/', function(req, res, next) {
 				})
 		},
 		function(cb){
-			let search = cglr.find({},{title:1,kanwu:1,year:1,id:1,fujianPath:1,belongsto:1})
+			let search = cglr.find({"review" : "1"},{title:1,kanwu:1,year:1,id:1,fujianPath:1,belongsto:1})
 				search.sort({'year':-1})
 				search.sort({'timeAdd':-1})
 				search.limit(50)
