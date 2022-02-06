@@ -47,8 +47,8 @@ log4js.configure({
     }
 });
 //manage route
-const base_url = '/csse/manage/'//'/manage/'
-
+//const base_url = '/csse/manage/'//'/manage/'
+const base_url = '/manage/'//'/manage/'
 const logger1 = log4js.getLogger('default');
 const logger2 = log4js.getLogger('default');
 //console.log = logger2.info.bind(logger2)
@@ -185,8 +185,8 @@ app.use('/manage',function(req,res,next){
     if(req.session.account==''||req.session.account==null){
         console.log('no login redirect')
         //本地与服务器
-        //return res.redirect('/manage/login')
-        return res.redirect('/csse/manage/login')//本地
+        return res.redirect('/manage/login')
+        //return res.redirect('/csse/manage/login')//本地
     }else{
       console.log('------- 有session 设置 ----------')
       res.locals.username = req.session.username;   // 从session 获取 user对象
