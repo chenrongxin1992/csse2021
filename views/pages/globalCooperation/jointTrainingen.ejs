@@ -18,7 +18,7 @@
     <div class="header">
         <div class="head-cont">
             <div class="head-left">
-                <a href="/csse" class="home-img">
+                <a href="/" class="home-img">
                     <img src="../../image/common/logo_school.svg" class="logo_school" />
                     <img src="../../image/common/logo_collage.svg" class="logo_collage" />
                 </a>
@@ -114,7 +114,7 @@
                     </a>
                   </li>
               <li>
-                <a href="/csse">Home</a>
+                <a href="/">Home</a>
               </li>
               <li class="first">
                   <a href="../../pages/university/index">About</a>
@@ -212,7 +212,7 @@
     <img src="../../image/en/global_image/m-banner.png" class="b_bg lazy_img mimg" />
   </div>
   <div class="contain">
-    <div class="bread-crumbs">Current Position: <a href="/csse">Home</a> > <a href="partner">Global Cooperation</a> > <a href="jointTraining">Joint Programs</a></div>
+    <div class="bread-crumbs">Current Position: <a href="/">Home</a> > <a href="partner">Global Cooperation</a> > <a href="jointTraining">Joint Programs</a></div>
     <div class="contain-area clearfix">
       <div class="l area-nav">
         <div class="tit b">Global Cooperation</div>
@@ -364,7 +364,7 @@
     $(document).ready(function () {
         $('.changeL').click(function(){
             console.log('change to en')
-            $.get('/csse/setLanguage', {
+            $.get('/setLanguage', {
                 language:'1'
             }, function(data){
                 if(data.success){

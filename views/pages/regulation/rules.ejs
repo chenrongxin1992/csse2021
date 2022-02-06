@@ -91,7 +91,7 @@
 								$('.pagination .prev').click(function(){
 									let page =  Number('<%=page%>')//当前页
 									if(page==1)return
-									page = 1          
+									page = page-1          
 									console.log('点击页面---->',$(this).text(),'构造url')        
 									let reg = new RegExp("rules", "g"); 
 									let url = "rules"; 

@@ -77,7 +77,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="bread-crumbs">当前位置：<a href='/csse'>首页</a> > <a href='index'>招生招聘</a> > <a href="talents">人才招聘</a></div>
+				<div class="bread-crumbs">当前位置：<a href='/'>首页</a> > <a href='index'>招生招聘</a> > <a href="talents">人才招聘</a></div>
 				<div class="m-info-tit c_cca84d b">人才招聘</div>
 				<div class="cont">
 					<div class="area">
@@ -139,7 +139,7 @@
 											$('.pagination .prev').click(function(){
 												let page =  Number('<%=page%>')//当前页
 												if(page==1)return
-												page = 1          
+												page = page-1          
 												console.log('点击页面---->',$(this).text(),'构造url')        
 												let reg = new RegExp("talents", "g"); 
 												let url = "talents"; 

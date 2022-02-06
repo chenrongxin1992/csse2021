@@ -16,7 +16,7 @@
     <div class="header">
         <div class="head-cont">
             <div class="head-left">
-                <a href="/csse" class="home-img">
+                <a href="/" class="home-img">
                     <img src="../../image/common/logo_school.svg" class="logo_school" />
                     <img src="../../image/common/logo_collage.svg" class="logo_collage" />
                 </a>
@@ -112,7 +112,7 @@
                     </a>
                 </li>
               <li>
-                <a href="/csse">Home</a>
+                <a href="/">Home</a>
               </li>
               <li class="first">
                   <a href="../../pages/university/index">About</a>
@@ -347,7 +347,7 @@
     $(document).ready(function () {
         $('#changeL').click(function(){
             console.log('change to en')
-            $.get('/csse/setLanguage', {
+            $.get('/setLanguage', {
                 language:'1'
             }, function(data){
                 if(data.success){
