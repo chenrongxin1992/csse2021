@@ -145,7 +145,7 @@
     $("img").lazyload({effect: "fadeIn"});
     $('.changeL').click(function(){
       console.log('change to en')
-      $.get('/csse/setLanguage', {
+      $.get('/setLanguage', {
         language:'0'
       }, function(data){
         if(data.success){

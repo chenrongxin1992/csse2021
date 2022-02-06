@@ -118,7 +118,7 @@
     $(document).ready(function () {
         $('.changeL').click(function(){
             console.log('change to en')
-            $.get('/csse/setLanguage', {
+            $.get('/setLanguage', {
                 language:'1'
             }, function(data){
                 if(data.success){
