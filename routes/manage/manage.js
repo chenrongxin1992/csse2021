@@ -27,10 +27,12 @@ const fs = require('fs')
 const ejsExcel = require('ejsexcel')
 const moment  = require('moment')
 const attachmentuploaddir = path.resolve(__dirname, '../../public/attachment')//G:\spatial_lab\public\attachment
+console.log('attachmentuploaddir --------------->',attachmentuploaddir)
 fs.existsSync(attachmentuploaddir) || fs.mkdirSync(attachmentuploaddir)
 const async = require('async')
 const co_images = require('images')
-const basedir = '/csse'
+//const basedir = '/csse'
+const basedir = ''
 //参数code表示退出码
 process.on("exit",function(code){
 	//进行一些清理工作
@@ -2011,7 +2013,8 @@ router.get('/hzhb',function(req,res){
     		returnfilename.push(moment().unix() + '_' + item.originalFilename)
     	})
 		//现在有csse,加上路径，后续去除
-		returnimgurl = '/csse'+returnimgurl
+		returnimgurl = ''+returnimgurl
+		//returnimgurl = '/csse'+returnimgurl
 		//returnimgurl = basedir+returnimgurl
     	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
     })
@@ -5965,7 +5968,8 @@ router.get('/jxwd',function(req,res){
     	})
 		console.log('basedir------------------',basedir)
 		console.log('returnimgurl------------------',returnimgurl)
-		returnimgurl = '/csse'+returnimgurl
+		//returnimgurl = '/csse'+returnimgurl
+		returnimgurl = ''+returnimgurl
 		console.log('req.body-----',req.body)
 		let checkuploadfile = (fields.mytype)[0],_obj={},id=(fields.id)[0]
 		console.log('checkuploadtype-----',checkuploadfile,id)
