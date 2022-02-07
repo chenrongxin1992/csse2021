@@ -3728,7 +3728,7 @@ router.get('/pages/news/index',function(req,res){
 		leixing='科研动态'
 		obj = {leixing:leixing,$or:[{tag2:'计软新闻'},{trees:'179-181-'}]}
 	}
-	if(leixing==2||leixing=='国际交流'){
+	if(leixing==2||leixing=='合作交流'){
 		leixing='国际交流'
 		obj = {leixing:leixing,$or:[{tag2:'计软新闻'},{trees:'179-181-'}]}
 	}
