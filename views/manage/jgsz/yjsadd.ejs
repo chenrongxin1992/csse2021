@@ -166,11 +166,14 @@ $(function(){
 		//初始化封面图
 		let fujianarr = ('<%=data.fujianPath%>').split(';')
 		fujianarr.forEach(function(item,index){
-			$('#uploader-list').append(
+			if(item){
+				$('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
                     '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
                     '<img style="height: 150px;" class="fmpic" src='+item+' ></div>'
                 );
+			}
+			
 		})
 		
   		form.render()
@@ -197,7 +200,9 @@ $(function(){
 		let fujianstr = ''
 		$('.fmpic').each(function(index,obj){
 			console.log('ddddd---------------------------',$(obj))
-			fujianstr += $(obj).attr('src') + ';'
+			if($(obj).attr('src')){
+				fujianstr += $(obj).attr('src') + ';'
+			}
 		})
 	  	data.field.fujianPath = fujianstr//.slice(8)//去掉
 	  }else{

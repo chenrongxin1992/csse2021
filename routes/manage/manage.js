@@ -1014,7 +1014,7 @@ router.get('/xzbgs',function(req,res){
     	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
     })
 }).get('/yjs_data',function(req,res){
-	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.yjs,{'tag2':'研究所'})
+	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.yjs,{'tag2':'研究所'},{'organizationsort':1})
 }).get('/yjsadd',function(req,res){
 	let id = req.query.id
 	console.log('cmsContent ID,',id)

@@ -43,7 +43,7 @@ layui.use(['jquery','table','form'], function(){
 	      ,{field: 'title', title: '名称',align:'center',width:350,sort:true}
           ,{field: 'pageContent', title: '简介',align:'center'}
 		  ,{field: 'hbsort', title: '排序',align:'center',sort:true}
-		//   ,{field: 'fujianPath', title: '缩略图', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
+		 ,{field: '', title: '缩略图', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
 	      ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,sort:true}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
 	    ]]
@@ -115,7 +115,7 @@ layui.use(['jquery','table','form'], function(){
 	    });
 	  } else if(layEvent === 'preview'){
 	  	console.log('preview')
-	  	let src = ''+ data.fujianPath
+	  	let src = ''+ (data.fujianPath).split(';')[0]
 	  	layer.photos({ photos: {"data": [{"src": src}]} });
 	  }
 	});
@@ -126,7 +126,9 @@ layui.use(['jquery','table','form'], function(){
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 <script type="text/html" id="sytpimg">
-	<img src="{{d.fujianPath}}" style="height: 100px;max-width: 100%;" class="previewimg" />
+{{# if((d.fujianPath).split(';')[0]){ }}
+	<img src="{{(d.fujianPath).split(';')[0]}}" style="height: 100px;max-width: 100%;" class="previewimg" />
+{{# } }}
 </script>
 </body>
 </html>
