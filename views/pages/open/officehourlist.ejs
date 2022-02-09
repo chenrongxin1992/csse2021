@@ -9,57 +9,22 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="format-detection" content="telephone=no">
-	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../../stylesheets/public.css" media="all" />
 	<style>
         .layui-table-cell{
             height: auto !important;
 			max-height: 100px !important;
         }
-        @media screen and (max-width: 450px){
-			.rc-search-btn {
-				margin-top: 5px;
-			}
-			.layui-form-select .layui-edge{
-				top:75%;
-			}
-		}
-		@media screen and (max-width: 750px){
-			.demoTable .layui-inline {
-				margin: 5px 0;
-			}
-		}
     </style>
 </head>
 <body class="childrenBody">
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：首页 > OfficeHour </div><button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
-	<div class="demoTable layui-form">
-		<div class="layui-inline">
-		  <input class="layui-input" name="userName" id="userName" autocomplete="off" placeholder="姓名">
-		</div>
-		 <div class="layui-inline">
-			  <select name="term" id="term" lay-filter="term" >
-					<option value="">学期</option>
-					<%term.forEach(function(item){%>
-						<option value="<%=item%>" ><%=item%></option>
-					<%})%>
-						<!-- 动态获取 -->
-			 </select>
-		</div>
-		<button class="layui-btn rc-search-btn" data-type="reload" id="kyxm_btn" ><i class="layui-icon">&#xe615;</i>搜索</button>
-		<!-- <button class="layui-btn btnfloat" id="ptglsort" style="float: right;" >人员排序(教师系列)</button> -->
-	</div>
 	<table id="oh_table" lay-filter="oh_table"></table>
-
-<script type="text/javascript" src="../manage/js/thirdpart.js"></script>
+ <script src="../../layui/layui.all.js"></script>
+<!-- <script type="text/javascript" src="../manage/js/thirdpart.js"></script> -->
 <script type="text/javascript">
 layui.use(['jquery','table','form'], function(){ 
     let $ = layui.$ //重点处
-	$(document).ready(function(){
-		if('<%=power%>'!='管理员'){
-			$('.demoTable').css('display','none')
-		}
-	})
     let table = layui.table,
     	form = layui.form
     table.render({
@@ -67,10 +32,10 @@ layui.use(['jquery','table','form'], function(){
 	    ,id:'table_oh'//重载需要
 	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
-        ,url: '<%=base_url%>oh_data' //数据接口
+        ,url: 'oh_data_list' //数据接口
 	    ,page: true //开启分页
-        ,limits: [15,30,45]
-        ,limit: 15 //每页默认显示的数量
+        ,limits: [50,100,150]
+        ,limit: 50 //每页默认显示的数量
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:60,align:'center'}
 	      ,{field: 'term', title: '学期',align:'center',width:350}
@@ -80,7 +45,6 @@ layui.use(['jquery','table','form'], function(){
 		  ,{field: 'email', title: '邮箱', align:'center'}
           ,{field: 'cellphone', title: '手机', align:'center'}
 	      ,{title: 'OfficeHour', align:'center',templet:'#sytpimg'}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     $('#newsadd').on('click', function(){
@@ -116,7 +80,7 @@ layui.use(['jquery','table','form'], function(){
 	       $.ajax({
                //本地与服务器
                 //url:'/manage/newsdel',
-			  	url:'<%=base_url%>ohdel',
+			  	url:'ohdel',
 			  	type:'POST',
 			  	data:data,
 			  	dataType : "json",
@@ -144,10 +108,6 @@ layui.use(['jquery','table','form'], function(){
     }
 });
 
-</script>
-<script type="text/html" id="yjfxbar">
-  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 <script type="text/html" id="sytpimg">
 	{{d.week + d.timeStart + ':' + d.timeEnd + '-' + d.timeStart1 + ':' + d.timeEnd1}}

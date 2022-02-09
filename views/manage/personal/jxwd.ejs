@@ -16,6 +16,16 @@
             height: auto !important;
 			max-height: 100px !important;
         }
+        @media screen and (max-width: 450px){
+			.rc-search-btn {
+				margin-top: 5px;
+			}
+		}
+		@media screen and (max-width: 750px){
+			.demoTable .layui-inline {
+				margin: 5px 0;
+			}
+		}
     </style>
 </head>
 <body class="childrenBody">
@@ -95,11 +105,11 @@ layui.use(['jquery','table','form','upload'], function(){
           ,{field: 'cPoint', title: '学分',align:'center',width:60}
           ,{ title: '课程类别/主选班级',align:'center',templet:'#kclb'}
 		  ,{field: 'cTeacher', title: '教师', align:'center'}
-          ,{field: 'jxdg', title: '教学大纲', align:'center',templet:'#jxdg'}
-	      ,{field: 'jxjdb', title: '教学进度表', align:'center',templet:'#jxjdb'}
-          ,{field: 'syjxdg', title: '实验教学大纲', align:'center',templet:'#syjxdg'}
-          ,{field: 'syjxapb', title: '实验教学安排表', align:'center',templet:'#syjxjdb'}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+          ,{field: 'jxdg', title: '教学大纲', align:'center',templet:'#jxdg',width:140}
+	      ,{field: 'jxjdb', title: '教学进度表', align:'center',templet:'#jxjdb',width:140}
+          ,{field: 'syjxdg', title: '实验教学大纲', align:'center',templet:'#syjxdg',width:140}
+          ,{field: 'syjxapb', title: '实验教学安排表', align:'center',templet:'#syjxjdb',width:140}
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:160} //这里的toolbar值是模板元素的选择器
 	    ]],
         done:function(res,curr,count){
             let uploadParam = {}

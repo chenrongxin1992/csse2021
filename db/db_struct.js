@@ -38,6 +38,24 @@
  let Schema = mongoose.Schema,
  moment = require('moment')
 
+const gzlSchema = new Schema({ 
+    id:{type:Number},
+    username :{type:String,default:''},//
+    year :{type:String,default:''},//
+    sortA : {type:String,default:''},//
+    addContent : {type:String,default:''},//
+    addPoint : {type:Number},
+    addName : {type:String,default:''},
+    addtime : {type:String,default:''},//
+    chkContent : {type:String,default:''},//教学大纲路径
+    chkPoint : {type:Number},//教学进度表
+    chkName : {type:String,default:''},//实验教学大纲
+    chkTime : {type:String,default:''},//实验教学安排表
+    finalPoint : {type:String,default:''},
+    isConfirm : {type:Number,default:0},
+    timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
+    timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
+   },{collection:'gzl'})
 const userSchema = new Schema({
 id:{type:Number},
 list:{type:Number},//不知道是啥，后期看看删除
@@ -331,3 +349,4 @@ exports.user = mongoose.model('allUser',userSchema)
 exports.cmsContent = mongoose.model('cmsContent',cmsContentSchema)
 exports.cmsSlider = mongoose.model('cmsSlider',cmsSliderSchema)
 exports.jxwd = mongoose.model('jxwd',jxwdSchema)//本科招生
+exports.gzl = mongoose.model('gzl',gzlSchema)
