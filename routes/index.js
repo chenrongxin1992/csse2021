@@ -14,6 +14,7 @@ const highlight = require('../db/db_struct').highlight
 const bkzs = require('../db/db_struct').bkzs
 const bkzsinfo = require('../db/db_struct').bkzsinfo
 const cglr = require('../db/db_struct').cglr
+const officehour = require('../db/db_struct').officehour
 const co_images = require('images')
 const fs = require('fs')
 const path = require('path')
@@ -23,6 +24,68 @@ const attachmentuploaddir = path.resolve(__dirname, '../public/attachment/uedito
 //result.rowsAffected[5]
 //result.returnValue:number
 /* GET home page. */
+router.get('/pages/open/oh_data_list',function(req,res){
+	console.log('router oh_data',req.session)
+	let page = req.query.page,
+		limit = req.query.limit
+
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit)
+	let nowyear = moment().year(),nowmonth = moment().month(),nowterm
+    console.log('----------------',nowyear,nowmonth)
+    if(nowmonth >= 7){
+        nowterm = nowyear + ' - ' + (nowyear+1) + '第一学期'
+    }else{
+        nowterm = (nowyear-1) + ' - '  + nowyear + '第二学期'
+    }
+    console.log('nowterm----',nowterm)
+	async.waterfall([
+		function(cb){
+			//get count
+			let _obj = {'term':nowterm}
+			console.log('_obj',_obj)
+			let search = officehour.find(_obj).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('oh_data get total err',err)
+						cb(err)
+					}
+					console.log('oh_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let _obj = {'term':nowterm}
+			console.log('_obj',_obj)
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)			
+				let search = officehour.find(_obj)
+					search.sort({'id':-1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('oh_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})	
+		}
+	],function(error,result){
+		if(error){
+			console.log('oh_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('oh_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).get('/pages/open/officehourlist',function(req,res){
+	console.log('-------')
+	res.render('pages/open/officehourlist')
+})
 function compress_images(arg){
 	console.log('----------------- attachmentuploaddir ------------------',attachmentuploaddir)
 	fs.readdir(arg, function(err, files){    
