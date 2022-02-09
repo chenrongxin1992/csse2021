@@ -459,8 +459,8 @@
     width: 80%;
     padding: 8% 0;
     font-size: 48px;
-    margin-left: 16%;
-    margin-right: 4%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 .internationality_cont .img{
     width: 33.3%;
@@ -477,8 +477,8 @@
 }
 .internationality_cont .more{
     width: 80%;
-    margin-left: 16%;
-    margin-right: 4%;
+    margin-left: 10%;
+    margin-right: 10%;
     color:#666666;
     display: flex;
     justify-content: center;
@@ -492,9 +492,9 @@
     vertical-align: bottom;
 } */
 .internationality_logo{
-    width: 80%;
-    margin-left: 16%;
-    margin-right: 4%;
+    width: 85%;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
     display: flex;
     flex-wrap: wrap;
 }
