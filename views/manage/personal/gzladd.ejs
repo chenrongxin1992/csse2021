@@ -31,6 +31,11 @@
 				display:none;
 			}
 		}
+		@media screen and (max-width: 450px){
+			.layui-form-select .layui-edge{
+				top:75%;
+			}
+		}
 	</style>
 </head>
 <body class="childrenBody">
@@ -83,8 +88,8 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<div class="layui-col-xs-offset1">
-					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				<div class="layui-input-block">
+					<a class="layui-btn layui-btn-normal " lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
 				</div>
 			</div>
         </form>

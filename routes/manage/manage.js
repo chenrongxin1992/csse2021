@@ -6100,6 +6100,15 @@ router.get('/jxwd',function(req,res){
   	form.on('close', () => {  // 表单数据解析完成，触发close事件
 	    console.log('表单数据解析完成')
 	  })
+}).post('/jxwddel',function(req,res){
+	console.log('jxwddel',req.body.id)
+	jxwd.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('jxwddel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del jxwddel success'})
+	})
 })
 //20220129 工作量
 router.get('/gzl',function(req,res){
@@ -6361,6 +6370,15 @@ router.get('/gzl',function(req,res){
 			return res.json({'code':'-1','msg':error})
 		}
 		return res.json({'code':'0','msg':'gzlconfirm success'})
+	})
+}).post('/gzldel',function(req,res){
+	console.log('gzldel',req.body.id)
+	gzl.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('gzldel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del gzldel success'})
 	})
 })
 //20220105

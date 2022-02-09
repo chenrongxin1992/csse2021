@@ -31,6 +31,11 @@
 				display:none;
 			}
 		}
+		@media screen and (max-width: 450px){
+			.layui-form-select .layui-edge{
+				top:75%;
+			}
+		}
 	</style>
 </head>
 <body class="childrenBody">
@@ -90,7 +95,7 @@
             </div>
             <div class="layui-form-item">
                     <label class="layui-form-label">开始</label>
-                    <div class="layui-input-inline" style="max-width: 100px;">
+                    <div class="layui-input-inline" >
 						<select name="timeStart" lay-filter="timeStart" id="timeStart" lay-verify="required">
                             <option value="07">07</option>
                             <option value="08">08</option>
@@ -107,7 +112,8 @@
                             <option value="19">19</option>
                         </select>
 				    </div>
-                    <div class="layui-input-inline" style="max-width: 100px;">
+					<label class="layui-form-label"></label>
+                    <div class="layui-input-inline" >
 						<select name="timeEnd" lay-filter="timeEnd" id="timeEnd" lay-verify="required">
                             <option value="00">00</option>
                             <option value="10">10</option>
@@ -120,7 +126,7 @@
             </div>
             <div class="layui-form-item">
                     <label class="layui-form-label">结束</label>
-                    <div class="layui-input-inline" style="max-width: 100px;">
+                    <div class="layui-input-inline" >
 						<select name="timeStart1" lay-filter="timeStart1" id="timeStart1" disabled>
                             <option value="09">09</option>
                             <option value="10">10</option>
@@ -135,7 +141,8 @@
                             <option value="19">19</option>
                         </select>
 				    </div>
-                    <div class="layui-input-inline" style="max-width: 100px;">
+					<label class="layui-form-label"></label>
+                    <div class="layui-input-inline" >
 						<select name="timeEnd1" lay-filter="timeEnd1" id="timeEnd1" disabled>
                             <option value="00">00</option>
                             <option value="10">10</option>
@@ -147,8 +154,8 @@
 				    </div>
 			</div>
 			<div class="layui-form-item">
-				<div class="layui-col-xs-offset1">
-					<a class="layui-btn layui-btn-sm" lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
+				<div class="layui-input-block">
+					<a class="layui-btn layui-btn-normal " lay-filter="update" lay-submit><i class="layui-icon">&#xe609;</i>保存</a>
 				</div>
 			</div>
         </form>
