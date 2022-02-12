@@ -28,12 +28,10 @@ const fs = require('fs')
 const ejsExcel = require('ejsexcel')
 const moment  = require('moment')
 const attachmentuploaddir = path.resolve(__dirname, '../../public/attachment')//G:\spatial_lab\public\attachment
-console.log('attachmentuploaddir --------------->',attachmentuploaddir)
 fs.existsSync(attachmentuploaddir) || fs.mkdirSync(attachmentuploaddir)
 const async = require('async')
 const co_images = require('images')
-//const basedir = '/csse'
-const basedir = ''
+const basedir = '/'
 //参数code表示退出码
 process.on("exit",function(code){
 	//进行一些清理工作
@@ -123,7 +121,11 @@ router.get('/login', function(req, res, next) {
 								return res.json({'code':-1,msg:'密码错误，您今天还能尝试 '+ try_num + ' 次登录。'})
 							})
 						}else{
-							console.log('不是同一天登录，密码错误，次数加1，日期更新为今天')
+							console.log('不是同一天登录，密码错误，次数重新从0加1，日期更新为今天')
+							if(doc.login_num!=0){
+								console.log('之前已有错误次数,重新从0开始')
+								doc.login_num = 0
+							}
 							let update_obj = {
 								login_date:moment().format('YYYY-MM-DD'),
 								login_num:(doc.login_num)?doc.login_num+1:1
@@ -243,7 +245,7 @@ router.get('/main',function(req,res){
 			return res.send(err)
 		}
 		console.log('destroy req.session--------',req.session)
-		res.redirect('/manage/login')
+		res.redirect('/csse/manage/login')
 	})
 })
 
@@ -351,6 +353,7 @@ router.get('/xyjj',function(req,res){
 			if(err){
 				return res.send(err)
 			}	
+			console.log('doc',doc.id)
 			res.render('manage/xygk/xyjj',{data:doc})
 		})
 }).post('/year',function(req,res){
@@ -470,6 +473,7 @@ router.get('/xyjj',function(req,res){
 	//G:\newcsse\public\attachment\hzhb 
 	let imgpath = attachmentuploaddir + '\\word' //替换 
 	fs.existsSync(imgpath) || fs.mkdirSync(imgpath) 
+	console.log('1 uploadDir ----------------------- >',imgpath)
 	let form = new multiparty.Form();
 	form.encoding = 'utf-8';
 	form.uploadDir = imgpath 
@@ -492,6 +496,7 @@ router.get('/xyjj',function(req,res){
 			let newfilename =  moment().unix() + '_' + item.originalFilename
 			returnimgurl.push(basedir +baseimgpath+'/'+ newfilename)
 			fs.renameSync(item.path,imgpath+'/'+ newfilename);
+			console.log('2 returnimgurl --------------------->',returnimgurl[0])
 			return res.json({'code':0,'msg':'update success','fileName':returnimgurl[0],uploaded:1,url:returnimgurl[0]})
 		});
 	})
@@ -528,12 +533,14 @@ router.get('/xyjj',function(req,res){
 //院长寄语
 router.get('/yzjy',function(req,res){
 	console.log('in yzjy')
-	let search = cmsContent.findOne({})
-		search.where('title').equals('院长寄语')
+	//20220210欧金凤只要院长简介部分动态录入
+	let search = cmsContent.findOne({id:3019})
+		//search.where('title').equals('院长寄语')
 		search.exec(function(err,doc){
 			if(err){
 				return res.send(err)
 			}	
+			console.log('docid--------',doc.id)
 			res.render('manage/xygk/yzjy',{data:doc})
 		})
 }).post('/yzjy',function(req,res){
@@ -1015,7 +1022,7 @@ router.get('/xzbgs',function(req,res){
     	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
     })
 }).get('/yjs_data',function(req,res){
-	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.yjs,{'tag2':'研究所'},{'organizationsort':1})
+	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.yjs,{'tag2':'研究所'})
 }).get('/yjsadd',function(req,res){
 	let id = req.query.id
 	console.log('cmsContent ID,',id)
@@ -2014,8 +2021,7 @@ router.get('/hzhb',function(req,res){
     		returnfilename.push(moment().unix() + '_' + item.originalFilename)
     	})
 		//现在有csse,加上路径，后续去除
-		returnimgurl = ''+returnimgurl
-		//returnimgurl = '/csse'+returnimgurl
+		returnimgurl = '/csse'+returnimgurl
 		//returnimgurl = basedir+returnimgurl
     	return res.json({"errno":0,"data":returnimgurl,"returnfilename":returnfilename})
     })
@@ -5969,8 +5975,7 @@ router.get('/jxwd',function(req,res){
     	})
 		console.log('basedir------------------',basedir)
 		console.log('returnimgurl------------------',returnimgurl)
-		//returnimgurl = '/csse'+returnimgurl
-		returnimgurl = ''+returnimgurl
+		returnimgurl = '/csse'+returnimgurl
 		console.log('req.body-----',req.body)
 		let checkuploadfile = (fields.mytype)[0],_obj={},id=(fields.id)[0]
 		console.log('checkuploadtype-----',checkuploadfile,id)
@@ -6108,6 +6113,277 @@ router.get('/jxwd',function(req,res){
 			return res.json({'code':'-1','msg':error})
 		}
 		return res.json({'code':'0','msg':'del jxwddel success'})
+	})
+})
+//20220129 工作量
+router.get('/gzl',function(req,res){
+	let add_sum = 0,confirm_sum = 0,final_sum = 0
+	async.waterfall([
+		function(cb){
+			let search = gzl.find({'username':req.session.username,year:moment().format('YYYY')})
+				search.exec(function(err,docs){
+					if(err){
+						console.log(err)
+						return res.json(err)
+					}
+					docs.forEach(function(item){
+						add_sum += item.addPoint
+						//confirm_sum += item.chkPoint
+					})
+					cb()
+					//final_sum = confirm_sum
+				})
+		},
+		function(cb){
+			let search = gzl.find({'username':req.session.username,year:moment().format('YYYY'),isConfirm:1})
+				search.exec(function(err,docs){
+					if(err){
+						console.log(err)
+						return res.json(err)
+					}
+					docs.forEach(function(item){
+					//	add_sum += item.addPoint
+						confirm_sum += item.chkPoint
+					})
+					
+					final_sum = confirm_sum
+					cb()
+				})
+		}
+	],function(error,result){
+		if(error){
+			console.log(error)
+				return res.json(error)
+		}
+		res.render('manage/personal/gzl',{add_sum:add_sum,confirm_sum:confirm_sum,final_sum:final_sum})
+	})	
+}).get('/gzl_data',function(req,res){
+	console.log('router gzl_data',req.session)
+	let page = req.query.page,
+		limit = req.query.limit,
+		year  = req.query.year
+	console.log('year -------',year)
+	if(!year){
+		console.log('-------- 默认当前年份 ---------')
+		year = moment().format('YYYY')
+	}
+	page ? page : 1;//当前页
+	limit ? limit : 15;//每页数据
+	let total = 0
+	console.log('page limit',page,limit,req.session.userName)
+	async.waterfall([
+		function(cb){
+			//get count
+			let _obj = {}
+			if(req.session.power!='管理员'){
+				_obj = {
+					'username':{$regex:req.session.username,$options:'$i'}
+				}
+			}else{
+				if(year){
+					_obj = {
+						'year':year
+					}
+				}
+			}
+			console.log('_obj',_obj)
+			let search = gzl.find(_obj).count()
+				search.exec(function(err,count){
+					if(err){
+						console.log('oh_data get total err',err)
+						cb(err)
+					}
+					console.log('oh_data count',count)
+					total = count
+					cb(null)
+				})
+		},
+		function(cb){
+			let _obj = {}
+			if(req.session.power!='管理员'){
+				_obj = {
+					'username':{$regex:req.session.username,$options:'$i'}
+				}
+			}else{
+				if(year){
+					_obj = {
+						'year':year
+					}
+				}
+			}
+			console.log('_obj',_obj)
+			let numSkip = (page-1)*limit
+			limit = parseInt(limit)			
+				let search = gzl.find(_obj)
+					search.sort({'year':-1})
+					search.sort({'username':1})
+					search.limit(limit)
+					search.skip(numSkip)
+					search.exec(function(error,docs){
+						if(error){
+							console.log('oh_data error',error)
+							cb(error)
+						}
+						cb(null,docs)
+					})	
+		}
+	],function(error,result){
+		if(error){
+			console.log('oh_data async waterfall error',error)
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+		}
+		console.log('oh_data async waterfall success')
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+	})
+}).get('/gzladd',function(req,res){
+	let id = req.query.id
+	console.log('gzladd ID,',id)
+	if(id&&typeof(id)!='undefined'){
+		let yemiandata = {}
+		if(req.session.power!='管理员'){
+			console.log('------ 非管理员 --------')
+			yemiandata.addName = req.session.username
+			yemiandata.username = req.session.username
+			yemiandata.power = ''
+		}else{
+			console.log('------ 管理员 --------')
+			yemiandata.addName = '院办'
+			yemiandata.username = ''
+			yemiandata.power = '管理员'
+		}
+		yemiandata.year = moment().format('YYYY')
+		let search = gzl.findOne({})
+		search.where('id').equals(id)
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			if(doc){
+				console.log('doc-----',doc)
+				res.render('manage/personal/gzladd',{doc:doc,data:yemiandata})
+			}
+			if(!doc){
+				res.render('manage/personal/gzladd',{doc:{},data:yemiandata})
+			}
+		})
+	}else{
+		let yemiandata = {}
+		if(req.session.power!='管理员'){
+			console.log('------ 非管理员 --------')
+			yemiandata.addName = req.session.username
+			yemiandata.username = req.session.username
+			yemiandata.power = ''
+		}else{
+			console.log('------ 管理员 --------')
+			yemiandata.addName = '院办'
+			yemiandata.username = ''
+			yemiandata.power = '管理员'
+		}
+		yemiandata.year = moment().format('YYYY')
+		res.render('manage/personal/gzladd',{data:yemiandata,doc:{}})
+	}
+}).post('/gzladd',function(req,res){
+	console.log('gzladd------------------>',)
+	if(req.body.id==''||req.body.id==null){
+		console.log('新增 gzladd')
+		async.waterfall([
+			function(cb){
+				let search = gzl.findOne({})
+					search.sort({'id':-1})//倒序，取最大值
+					search.limit(1)
+					search.exec(function(err,doc){
+						if(err){
+								console.log('find id err',err)
+							cb(err)
+						}
+						if(doc){
+							console.log('表中最大id',doc.id)
+							cb(null,doc.id)
+						}
+						if(!doc){
+							console.log('表中无记录')
+							cb(0,null)
+						}
+					})
+			},
+			function(docid,cb){
+				let id = 1
+				if(docid){
+					id = parseInt(docid) + 1
+				}
+				let gzlAdd = new gzl({
+					id:id,
+					year:req.body.year,//加入权限后需要更新
+					addName:req.body.addName,
+					username:req.body.username,
+					addPoint:req.body.addPoint,
+					sortA:req.body.sortA,
+					addContent:req.body.addContent
+				})
+				gzlAdd.save(function(error,doc){
+					if(error){
+						console.log('jxwdAdd save error',error)
+						cb(error)
+					}
+					console.log('jxwdAdd save success')
+					cb(null,doc)
+				})
+			}
+		],function(error,result){
+			if(error){
+				console.log('jxwdAdd async error',error)
+				return res.end(error)
+			}
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}else{
+		console.log('officehourAdd',req.body)
+		//return false
+		async.waterfall([
+			function(cb){
+				let obj = {
+					year:req.body.year,//加入权限后需要更新
+					addName:req.body.addName,
+					username:req.body.username,
+					addPoint:req.body.addPoint,
+					sortA:req.body.sortA,
+					addContent:req.body.addContent
+				}
+				gzl.updateOne({id:req.body.id},obj,function(error){
+					if(error){
+						console.log('jxwd update error',error)
+						cb(error)
+					}
+					console.log('jxwd update success')
+					cb(null)
+				})
+			},
+		],function(error,result){
+			if(error){
+				console.log('jxwd async error',error)
+				return res.end(error)
+			}
+			console.log('officehourAdd',result)
+			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
+		})
+	}
+}).post('/gzlconfirm',function(req,res){
+	console.log('gzlconfirm------------------>',req.body)
+	gzl.updateOne({'id':req.body.id},{isConfirm:1,chkPoint:req.body.chkPoint,chkName:req.session.username},function(error){
+		if(error){
+			console.log('gzlconfirm  error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'gzlconfirm success'})
+	})
+}).post('/gzldel',function(req,res){
+	console.log('gzldel',req.body.id)
+	gzl.deleteOne({'id':req.body.id},function(error){
+		if(error){
+			console.log('gzldel del error',error)
+			return res.json({'code':'-1','msg':error})
+		}
+		return res.json({'code':'0','msg':'del gzldel success'})
 	})
 })
 //20220105
@@ -6571,277 +6847,6 @@ router.get('/yjssort',function(req,res){
 			return res.json({'code':-1,'msg':error})
 		}
 		return res.json({'code':0,'msg':'ok'})
-	})
-})
-//20220129 工作量
-router.get('/gzl',function(req,res){
-	let add_sum = 0,confirm_sum = 0,final_sum = 0
-	async.waterfall([
-		function(cb){
-			let search = gzl.find({'username':req.session.username,year:moment().format('YYYY')})
-				search.exec(function(err,docs){
-					if(err){
-						console.log(err)
-						return res.json(err)
-					}
-					docs.forEach(function(item){
-						add_sum += item.addPoint
-						//confirm_sum += item.chkPoint
-					})
-					cb()
-					//final_sum = confirm_sum
-				})
-		},
-		function(cb){
-			let search = gzl.find({'username':req.session.username,year:moment().format('YYYY'),isConfirm:1})
-				search.exec(function(err,docs){
-					if(err){
-						console.log(err)
-						return res.json(err)
-					}
-					docs.forEach(function(item){
-					//	add_sum += item.addPoint
-						confirm_sum += item.chkPoint
-					})
-					
-					final_sum = confirm_sum
-					cb()
-				})
-		}
-	],function(error,result){
-		if(error){
-			console.log(error)
-				return res.json(error)
-		}
-		res.render('manage/personal/gzl',{add_sum:add_sum,confirm_sum:confirm_sum,final_sum:final_sum})
-	})	
-}).get('/gzl_data',function(req,res){
-	console.log('router gzl_data',req.session)
-	let page = req.query.page,
-		limit = req.query.limit,
-		year  = req.query.year
-	console.log('year -------',year)
-	if(!year){
-		console.log('-------- 默认当前年份 ---------')
-		year = moment().format('YYYY')
-	}
-	page ? page : 1;//当前页
-	limit ? limit : 15;//每页数据
-	let total = 0
-	console.log('page limit',page,limit,req.session.userName)
-	async.waterfall([
-		function(cb){
-			//get count
-			let _obj = {}
-			if(req.session.power!='管理员'){
-				_obj = {
-					'username':{$regex:req.session.username,$options:'$i'}
-				}
-			}else{
-				if(year){
-					_obj = {
-						'year':year
-					}
-				}
-			}
-			console.log('_obj',_obj)
-			let search = gzl.find(_obj).count()
-				search.exec(function(err,count){
-					if(err){
-						console.log('oh_data get total err',err)
-						cb(err)
-					}
-					console.log('oh_data count',count)
-					total = count
-					cb(null)
-				})
-		},
-		function(cb){
-			let _obj = {}
-			if(req.session.power!='管理员'){
-				_obj = {
-					'username':{$regex:req.session.username,$options:'$i'}
-				}
-			}else{
-				if(year){
-					_obj = {
-						'year':year
-					}
-				}
-			}
-			console.log('_obj',_obj)
-			let numSkip = (page-1)*limit
-			limit = parseInt(limit)			
-				let search = gzl.find(_obj)
-					search.sort({'year':-1})
-					search.sort({'username':1})
-					search.limit(limit)
-					search.skip(numSkip)
-					search.exec(function(error,docs){
-						if(error){
-							console.log('oh_data error',error)
-							cb(error)
-						}
-						cb(null,docs)
-					})	
-		}
-	],function(error,result){
-		if(error){
-			console.log('oh_data async waterfall error',error)
-			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
-		}
-		console.log('oh_data async waterfall success')
-		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
-	})
-}).get('/gzladd',function(req,res){
-	let id = req.query.id
-	console.log('gzladd ID,',id)
-	if(id&&typeof(id)!='undefined'){
-		let yemiandata = {}
-		if(req.session.power!='管理员'){
-			console.log('------ 非管理员 --------')
-			yemiandata.addName = req.session.username
-			yemiandata.username = req.session.username
-			yemiandata.power = ''
-		}else{
-			console.log('------ 管理员 --------')
-			yemiandata.addName = '院办'
-			yemiandata.username = ''
-			yemiandata.power = '管理员'
-		}
-		yemiandata.year = moment().format('YYYY')
-		let search = gzl.findOne({})
-		search.where('id').equals(id)
-		search.exec(function(err,doc){
-			if(err){
-				return res.send(err)
-			}
-			if(doc){
-				console.log('doc-----',doc)
-				res.render('manage/personal/gzladd',{doc:doc,data:yemiandata})
-			}
-			if(!doc){
-				res.render('manage/personal/gzladd',{doc:{},data:yemiandata})
-			}
-		})
-	}else{
-		let yemiandata = {}
-		if(req.session.power!='管理员'){
-			console.log('------ 非管理员 --------')
-			yemiandata.addName = req.session.username
-			yemiandata.username = req.session.username
-			yemiandata.power = ''
-		}else{
-			console.log('------ 管理员 --------')
-			yemiandata.addName = '院办'
-			yemiandata.username = ''
-			yemiandata.power = '管理员'
-		}
-		yemiandata.year = moment().format('YYYY')
-		res.render('manage/personal/gzladd',{data:yemiandata,doc:{}})
-	}
-}).post('/gzladd',function(req,res){
-	console.log('gzladd------------------>',)
-	if(req.body.id==''||req.body.id==null){
-		console.log('新增 gzladd')
-		async.waterfall([
-			function(cb){
-				let search = gzl.findOne({})
-					search.sort({'id':-1})//倒序，取最大值
-					search.limit(1)
-					search.exec(function(err,doc){
-						if(err){
-								console.log('find id err',err)
-							cb(err)
-						}
-						if(doc){
-							console.log('表中最大id',doc.id)
-							cb(null,doc.id)
-						}
-						if(!doc){
-							console.log('表中无记录')
-							cb(0,null)
-						}
-					})
-			},
-			function(docid,cb){
-				let id = 1
-				if(docid){
-					id = parseInt(docid) + 1
-				}
-				let gzlAdd = new gzl({
-					id:id,
-					year:req.body.year,//加入权限后需要更新
-					addName:req.body.addName,
-					username:req.body.username,
-					addPoint:req.body.addPoint,
-					sortA:req.body.sortA,
-					addContent:req.body.addContent
-				})
-				gzlAdd.save(function(error,doc){
-					if(error){
-						console.log('jxwdAdd save error',error)
-						cb(error)
-					}
-					console.log('jxwdAdd save success')
-					cb(null,doc)
-				})
-			}
-		],function(error,result){
-			if(error){
-				console.log('jxwdAdd async error',error)
-				return res.end(error)
-			}
-			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
-		})
-	}else{
-		console.log('officehourAdd',req.body)
-		//return false
-		async.waterfall([
-			function(cb){
-				let obj = {
-					year:req.body.year,//加入权限后需要更新
-					addName:req.body.addName,
-					username:req.body.username,
-					addPoint:req.body.addPoint,
-					sortA:req.body.sortA,
-					addContent:req.body.addContent
-				}
-				gzl.updateOne({id:req.body.id},obj,function(error){
-					if(error){
-						console.log('jxwd update error',error)
-						cb(error)
-					}
-					console.log('jxwd update success')
-					cb(null)
-				})
-			},
-		],function(error,result){
-			if(error){
-				console.log('jxwd async error',error)
-				return res.end(error)
-			}
-			console.log('officehourAdd',result)
-			return res.json({'code':0,'data':result})//返回跳转到该新增的项目
-		})
-	}
-}).post('/gzlconfirm',function(req,res){
-	console.log('gzlconfirm------------------>',req.body)
-	gzl.updateOne({'id':req.body.id},{isConfirm:1,chkPoint:req.body.chkPoint,chkName:req.session.username},function(error){
-		if(error){
-			console.log('gzlconfirm  error',error)
-			return res.json({'code':'-1','msg':error})
-		}
-		return res.json({'code':'0','msg':'gzlconfirm success'})
-	})
-}).post('/gzldel',function(req,res){
-	console.log('gzldel',req.body.id)
-	gzl.deleteOne({'id':req.body.id},function(error){
-		if(error){
-			console.log('gzldel del error',error)
-			return res.json({'code':'-1','msg':error})
-		}
-		return res.json({'code':'0','msg':'del gzldel success'})
 	})
 })
 //20220124 业务口排序

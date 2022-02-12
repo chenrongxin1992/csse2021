@@ -27,7 +27,7 @@
 }
 .contain-area{
     width: 83.3333%;
-	max-width: 1600px;
+    max-width: 1600px;
     margin: 0 auto;
 }
 .contain-area .nav-list{
@@ -120,17 +120,16 @@
     margin-bottom: 25px;
 }
 .area-desc .img-left,
-.area-desc .img-right{
+.cont .info .img-right{
     width: 34px;
 }
 .area-desc .img-left{
     margin-bottom: 15px;
 }
-.area-desc .img-right{
+/* .intro .img-right{
     position: absolute;
-    right: 11.25%;
-    bottom: -15px;
-}
+    right: 0%;
+} */
 
 .area-desc .msg{
     font-weight: bold;
@@ -143,26 +142,33 @@
 .area-desc .msg .p2{
     text-align: right;
 }
-
-.contain-area .intro{
-    width: 75.78125%;
-    margin: 0 auto;
-    padding: 45px 0 130px;
+.cont .info{
+    position: relative;
+    width: 87.4%;
+    margin: 55px auto 80px;
 }
-.contain-area .intro p{
+.cont .info  p{
     text-align: center;
     font-size: 32px;
     color: #cca84d;
     font-weight: bold;
     line-height: 1.75;
-    margin-bottom: 80px;
+}
+.cont .info .img-right{
+    position: absolute;
+    right: 0;
+}
+
+.contain-area .intro{
+    width: 87.4%;
+    margin: 0 auto;
+    padding: 45px 0 130px;
 }
 .contain-area .intro div{
     font-size: 18px;
     color: #333;
 }
-.contain-area .intro span{
-    display: inline-block;
+.contain-area .intro p{
     text-align: justify;
 }
 .contain-area .intro .d1{
@@ -190,11 +196,12 @@
     }
     .area-desc .tit{
         font-size: 26px;
+        margin: 15px 0;
     }
     /* university */
-	.university .contain-area .nav-list {
-		display: none;
-	}
+    .university .contain-area .nav-list {
+        display: none;
+    }
     .cont{
         display: block;
         padding-bottom: 0;
@@ -204,9 +211,6 @@
     .contain-area .intro{
         padding-bottom: 65px;
     }
-    .contain-area .intro p{
-        margin-bottom: 40px;
-    }
 
     .contain-area{
         width: 100%;
@@ -214,11 +218,17 @@
     .cont .img-file{
         width: 85%;
     }
-    .contain-area .intro p{
-        font-size: 24px;
-    }
     .contain-area .intro{
         width: 85%;
+    }
+    .cont .info{
+        margin: 35px auto 50px;
+    }
+    .cont .info p{
+        font-size: 24px;
+    }
+    .area-desc{
+        font-size: 16px;
     }
 }
 @media only screen and (max-width: 767px){

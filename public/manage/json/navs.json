@@ -571,21 +571,9 @@
 					"spread": false
 				},
 				{
-					"title": "发展沿革",
-					"icon": "&#xe66c;",
-					"href": "/manage/fzyg",
-					"spread": false
-				},
-				{
 					"title": "现任领导",
 					"icon": "&#xe66c;",
 					"href": "/manage/xrld",
-					"spread": false
-				},
-				{
-					"title": "学院标识",
-					"icon": "&#xe66c;",
-					"href": "/manage/xybs",
 					"spread": false
 				}
 			]
