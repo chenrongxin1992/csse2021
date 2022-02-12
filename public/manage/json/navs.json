@@ -462,6 +462,18 @@
 			"spread": false,
 			"children": [
 				{
+					"title": "学院简介",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/xyjj",
+					"spread": false
+				},
+				{
+					"title": "院长寄语",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/yzjy",
+					"spread": false
+				},
+				{
 					"title": "现任领导",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/xrld",

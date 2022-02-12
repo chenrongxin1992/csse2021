@@ -31,7 +31,7 @@ const attachmentuploaddir = path.resolve(__dirname, '../../public/attachment')//
 fs.existsSync(attachmentuploaddir) || fs.mkdirSync(attachmentuploaddir)
 const async = require('async')
 const co_images = require('images')
-const basedir = '/csse'
+const basedir = '/csse/'
 //参数code表示退出码
 process.on("exit",function(code){
 	//进行一些清理工作
@@ -353,6 +353,7 @@ router.get('/xyjj',function(req,res){
 			if(err){
 				return res.send(err)
 			}	
+			console.log('doc',doc.id)
 			res.render('manage/xygk/xyjj',{data:doc})
 		})
 }).post('/year',function(req,res){
@@ -530,12 +531,14 @@ router.get('/xyjj',function(req,res){
 //院长寄语
 router.get('/yzjy',function(req,res){
 	console.log('in yzjy')
-	let search = cmsContent.findOne({})
-		search.where('title').equals('院长寄语')
+	//20220210欧金凤只要院长简介部分动态录入
+	let search = cmsContent.findOne({id:3019})
+		//search.where('title').equals('院长寄语')
 		search.exec(function(err,doc){
 			if(err){
 				return res.send(err)
 			}	
+			console.log('docid--------',doc.id)
 			res.render('manage/xygk/yzjy',{data:doc})
 		})
 }).post('/yzjy',function(req,res){

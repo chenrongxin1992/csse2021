@@ -24,7 +24,7 @@
 
                 <% } else if (item.type == 'url_input'){  %>
                 <div class="input-box">
-                  <input class="layui-input wx-input" id="<%=item.field%>" name='<%=item.field%>'  showField='<%=item.showField%>' keyField='<%=item.keyField%>' url='<%=item.url%>' autocomplete="off">
+                  <input class="layui-input wx-input"  id="<%=item.field%>" name='<%=item.field%>'  showField='<%=item.showField%>' keyField='<%=item.keyField%>' url='<%=item.url%>' autocomplete="off">
                 </div>
                 <% } else if (item.type == 'input'){  %>
                 <input class="layui-input" id="<%=item.field%>" name='<%=item.field%>' autocomplete="off">
