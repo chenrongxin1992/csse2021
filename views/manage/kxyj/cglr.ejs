@@ -202,7 +202,35 @@ layui.use(['jquery','table','form','element'], function(){
 			  	}
 			})
 	    });
-	  } else if(layEvent === 'preview'){
+	  }else if(layEvent === 'cancelreview'){ //审核
+        console.log('data-----',data)
+	    layer.confirm('取消审核的稿件将会从前台下架，确定取消审核吗?',{closeBtn: 0}, function(index){
+	      layer.close(index);
+	      //向服务端发送删除指令
+	       $.ajax({
+               //本地与服务器
+                //url:'/manage/newsdel',
+			  	url:'<%=base_url%>contentcancelreview',
+			  	type:'POST',
+			  	data:{id:obj.data.id},
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('del success')		
+						layer.msg(result.msg)	
+						table.reload(reload_id, {
+							where: {
+								search_txt: $('#search_txt').val()
+							}
+						});
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax delete error msg',msg)
+			  	}
+			})
+	    });
+	  }  else if(layEvent === 'preview'){
 	  	console.log('preview')
 	  	let src = ''+ data.fujianPath
 	  	layer.photos({ photos: {"data": [{"src": src}]} });
@@ -224,6 +252,9 @@ layui.use(['jquery','table','form','element'], function(){
   <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
   {{# if(d.review != 1 && (d.power == '管理员' || '<%=username%>' == '陈荣鑫' ||'<%=username%>' == '何文锋')){ }} 
   <a class="layui-btn layui-btn-xs" lay-event="review"><i class="layui-icon">&#xe642;</i>审核通过</a>
+  {{# } }}
+  {{# if(d.review == 1 && (d.power == '管理员' || '<%=username%>' == '陈荣鑫' ||'<%=username%>' == '何文锋')){ }} 
+  <a class="layui-btn layui-btn-xs" lay-event="cancelreview"><i class="layui-icon">&#xe642;</i>取消审核</a>
   {{# } }}
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>

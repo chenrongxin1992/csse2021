@@ -13,7 +13,7 @@
 }
 
 .area-right .area-list .txt p {
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 }
 .area-right .area-list .txt td p {
     margin-bottom: 0px!important;
@@ -45,7 +45,7 @@
 		margin-top: 0px!important;
 	}
 	.area-right .area-list .txt p:first-child {
-		margin-top: 20px;
+		/* margin-top: 20px; */
 	}
 
 	.area-right .img img {

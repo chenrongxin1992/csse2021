@@ -1833,6 +1833,14 @@ router.get('/cglr',function(req,res){
 		}else
 		   return res.json({'code':'0','msg':'审核成功'})
 	})
+}).post('/contentcancelreview',function(req,res){
+	console.log('cglrupdate----------------------',req.body.id)
+	cglr.updateOne({id:req.body.id},{$set:{'review':0}},function(error){
+		if(error){
+			return res.json({'code':'-1','msg':error})
+		}else
+		   return res.json({'code':'0','msg':'取消审核成功'})
+	})
 }).post('/cglrdel',function(req,res){
 	console.log('cglrdel----------------------',req.body.id)
 	cglr.deleteOne({'id':req.body.id},function(error){
