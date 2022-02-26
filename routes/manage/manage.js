@@ -151,7 +151,7 @@ router.get('/login', function(req, res, next) {
 						req.session.power = doc.power
 						req.session.cookie.expires= new Date(Date.now() + 60 * 60 * 24 * 1000);
 						//在这里指定各类管理员类型，党群的目前张芯蕾
-						if(doc.power=='管理员'){
+						if(doc.power=='管理员' || doc.userName=='黄惠'){
 							if(doc.userName == '张芯蕾'){
 								console.log('管理党建模块')
 								req.session.powerType = 'dangqMenu'
@@ -193,6 +193,10 @@ router.get('/login', function(req, res, next) {
 							if(doc.userName == '陈荣鑫'){
 								req.session.powerType = 'all'
 								req.session.menu = 'shiyanshiManagement'
+							}
+							if(doc.userName == '黄惠'){
+								req.session.powerType = 'hhMenu'
+								req.session.menu = 'hhMenu'
 							}
 						}
 						console.log('密码一致，如果登录错误次数不为零，重置为0')
@@ -4138,10 +4142,10 @@ router.get('/slider',function(req,res){
 	],function(error,result){
 		if(error){
 			console.log('slider_data async waterfall error',error)
-			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+			return res.json({'code':-1,'msg':err.stack,'count':0,'data':'',search_param:manageconfig.search_param.slider})
 		}
 		console.log('slider_data async waterfall success')
-		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result})
+		return res.json({'code':0,'msg':'获取数据成功','count':total,'data':result,search_param:manageconfig.search_param.slider})
 	})
 }).get('/slider_data1',function(req,res){
 	console.log('router tdgl_data')

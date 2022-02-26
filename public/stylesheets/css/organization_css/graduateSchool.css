@@ -308,7 +308,7 @@
 .area-row {
 	background-color: #fff;
 	margin-bottom: 37px;
-	font-size: 13px;
+	font-size: 16px;
 	margin-left: 20px;
 	position: relative;
 }
@@ -481,6 +481,16 @@
 	border-top: 0px !important;
 }
 
+@media screen and (max-width: 1200px) {
+	.area-row:nth-child(2) .img-txt{
+		padding: 15px 18px;
+	}
+	.area-row:nth-child(3) .img-txt,
+	.area-row:nth-child(8) .img-txt{
+		padding: 15px;
+	}
+}
+
 @media (max-width:727px) {
 
 	.img-txt div,
@@ -649,7 +659,7 @@
 		font-size: 18px;
 	}
 	.area-row .txt div:first-child {
-		height: 79px;
+		height: 75px;
 	}
 }
 

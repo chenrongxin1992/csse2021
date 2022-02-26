@@ -40,12 +40,12 @@ layui.use(['jquery','table','form'], function(){
         ,limit: 10 //每页默认显示的数量
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:60,align:'center',sort:true}
-	      ,{field: 'title', title: '名称',align:'center',width:350,sort:true}
+	      ,{field: 'title', title: '名称',align:'center',width:250,sort:true}
           ,{field: 'pageContent', title: '简介',align:'center'}
-		  ,{field: 'hbsort', title: '排序',align:'center',sort:true}
+		  ,{field: 'hbsort', title: '排序',align:'center',sort:true,width:100}
 		//   ,{field: 'fujianPath', title: '缩略图', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
 	      ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,sort:true}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:150} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载
@@ -63,7 +63,7 @@ layui.use(['jquery','table','form'], function(){
 	    let index = layui.layer.open({
             title : "联合培养排序",
             type : 2,
-            area: ['800px', '500px'],
+			area: ['80%', '400px'],
             content : "lhpysort",
             success : function(layero, index){
             },

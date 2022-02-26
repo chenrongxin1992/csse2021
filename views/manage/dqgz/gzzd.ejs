@@ -27,7 +27,7 @@ layui.use(['jquery','table','form'], function(){
     table.render({
 	    elem: '#news_table'
 	    ,id:'table_news'//重载需要
-	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    ,cellMinWidth: 180 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
         ,url: '<%=base_url%>gzzd_data' //数据接口
         //,url: '/manage/gzzd_data' //数据接口
@@ -39,8 +39,8 @@ layui.use(['jquery','table','form'], function(){
 	      ,{field: 'title', title: '标题',align:'center',sort:true}
           ,{field: 'pageContent', title: '内容',align:'center'}
 		//   ,{field: 'fujianPath', title: '封面图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
-	      ,{field: 'timeAdd', title: '发布时间', align:'center',sort:true}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+	      ,{field: 'timeAdd', title: '发布时间', align:'center',sort:true,width:200}
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载

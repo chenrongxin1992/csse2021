@@ -227,6 +227,9 @@ $(function(){
 							  ,closeBtn: 0
 							}, function(){
 								layer.close(frameindex);
+								let myindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+								console.log('myindex-------->',myindex)
+                    			parent.layer.close(myindex);
 							});	  			
 				  		}
 				  	},

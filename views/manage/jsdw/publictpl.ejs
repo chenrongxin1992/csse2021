@@ -11,13 +11,23 @@
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
+	<style>
+		@media screen and (max-width: 450px){
+			.layui-elem-quote .layui-btn .mybtn{
+				margin-top: 54px !important;
+				margin-top: 10px !important;
+				/* margin-bottom: 10px; */
+				padding: 0 8px;
+			}
+		}
+	</style>
 </head>
 <body class="childrenBody">
 	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：师资队伍</div> 
 		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 10px;" id="yjssort">研究所人员排序</button>
 		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 10px;" id="ywksort">业务口人员排序</button>
 		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;margin-left: 10px;" id="szgk">师资概况</button>
-		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增人员</button>
+		<button class="layui-btn mybtn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="addkyxm"><i class="layui-icon">&#xe654;</i>新增人员</button>
   </blockquote>
 
 	<div class="demoTable layui-form">
@@ -88,7 +98,7 @@ layui.use(['jquery','table','form'], function(){
     	//do somehing
     	console.log('业务口排序')
 	    let index = layui.layer.open({
-            title : "伙伴排序",
+            title : "业务口排序",
             type : 2,
             area: ['70%', '400px'],
             content : "ywksort",

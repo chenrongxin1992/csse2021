@@ -149,6 +149,12 @@ const search_param = {
     {field: 'pageContent', title: '详情',type:'input'},
     {field: 'pageContentEN', title: '详情(EN)',type:'input'}
    ],
+   material:[
+    {field: 'title', title: '标题',type:'input'},
+    {field: 'leixing', title: '类别',type:'input'},
+    {field: 'pageContent', title: '详情',type:'input'},
+    {field: 'pageContentEN', title: '详情(EN)',type:'input'}
+   ],
    
 }
 const wx = {

@@ -24,16 +24,20 @@
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">师资概况</label>
-				<div class="layui-input-inline" style="width: 540px;">
+				<div class="layui-input-block" id="intro_bk"  style='max-width: 1150px;margin:0 auto'>
 					<textarea id="cggk"  value="<%=data.pageContent%>" /><%=data.pageContent%></textarea>
-		       </div>
+					
+				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">师资概况(EN)</label>
-				<div class="layui-input-inline" style="width: 540px;">
+				<div class="layui-input-block" id="intro_bk"  style='max-width: 1150px;margin:0 auto'>
 					<textarea id="cggk1"  value="<%=data.pageContentEN%>" /><%=data.pageContentEN%></textarea>
-		       </div>
+					
+				</div>
 			</div>
+
+			
 			<div class="layui-form-item">
 				<hr class="layui-bg-gray" />
 				<label class="layui-form-label"></label>
@@ -91,6 +95,9 @@ layui.use(['jquery','table','form','upload','layer','laydate'], function(){
 						  ,time : 3000
 						}, function(){
 							layer.close(frameindex);
+							let myindex = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+								console.log('myindex-------->',myindex)
+                    			parent.layer.close(myindex);
 						});	
 			  		}
 			  	},

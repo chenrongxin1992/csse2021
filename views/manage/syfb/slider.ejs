@@ -20,8 +20,11 @@
 </head>
     <br>
     <div style="clear:both;"></div> 
-	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：首页发布 > 轮动图 </div><button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd"><i class="layui-icon">&#xe654;</i>新增</button></blockquote>
-	<%# include('../search.ejs', {realod_id: 'table_slider'}); %>
+	<blockquote class="layui-elem-quote"><div class="layui-elem-quote-title">当前位置：首页发布 > 轮动图 </div>
+		<button class="layui-btn" data-type="getCheckData" style="float: right;margin-top: -8px;" id="newsadd">
+			<i class="layui-icon">&#xe654;</i>新增</button>
+	</blockquote>
+	<%- include('../search.ejs', {realod_id: 'table_slider'}); %>
 	<table id="slider_table" lay-filter="slider_table"></table>
 
 <script type="text/javascript" src="../manage/js/thirdpart.js"></script>
@@ -33,7 +36,7 @@ layui.use(['jquery','table','form'], function(){
     table.render({
 	    elem: '#slider_table'
 	    ,id:'table_slider'//重载需要
-	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    ,cellMinWidth: 150 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
         //,url: '/manage/slider_data' //数据接口
 	    ,url: '<%=base_url%>slider_data' //数据接口
 	    ,page: true //开启分页
@@ -41,11 +44,11 @@ layui.use(['jquery','table','form'], function(){
 	      {type:'numbers', title: '序号',width:90,align:'center',sort:true}
 	      ,{field: 'title', title: '标题',align:'center',sort:true}
 	    //   ,{field: 'title1', title: '标题(EN)',align:'center',sort:true}
-	      ,{field: 'pic', title: '图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
-	      ,{field: 'url', title: '链接', align:'center',sort:true}
+	      ,{field: 'pic', title: '图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:300}
+	      ,{field: 'url', title: '链接', align:'center',sort:true,width:150}
 	      //,{field: 'isDisplay', title: '是否显示', align:'center',templet:'#displaytpl'}
 	      //,{field: 'timeEdit', title: '修改时间', align:'center'}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:200} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载

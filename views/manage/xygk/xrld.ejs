@@ -38,12 +38,12 @@ layui.use(['jquery','table','form'], function(){
         ,limits: [15,30,45]
         ,limit: 15 //每页默认显示的数量
 	    ,cols: [[ //表头
-	      {type:'numbers', title: '序号',width:90,align:'center',sort:true}
+	      {type:'numbers', title: '序号',width:60,align:'center',sort:true}
 	      ,{field: 'name', title: '姓名',align:'center',sort:true}
-          ,{field: 'title', title: '职务',align:'center',sort:true}
-          ,{field: 'work', title: '分管工作',align:'center',sort:true}
+          ,{field: 'title', title: '职务',align:'center',sort:true,width:120}
+          ,{field: 'work', title: '分管工作',align:'center',sort:true,width:150}
 		  ,{field: 'paixu', title: '排序',align:'center',sort:true}
-		  ,{field: 'pic', title: '照片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
+		  ,{field: 'pic', title: '照片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:150}
 	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });

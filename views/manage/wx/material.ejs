@@ -51,11 +51,11 @@ layui.use(['jquery','table','form','element'], function(){
 	    ,cols: [[ //表头
 		   {type:'numbers', title: '序号',width:60,align:'center',sort:true}
 	      ,{field: 'title', title: '标题',align:'center',width:350,sort:true}
-		  ,{field: 'leixing', title: '类别',align:'center',sort:true}
+		  ,{field: 'leixing', title: '类别',align:'center',sort:true,width:120}
           ,{field: 'pageContent', title: '内容',align:'center'}
 		  ,{field: 'fujianPath', title: '封面图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
 	      ,{field: 'timeAdd', title: '发布时间', align:'center',width:180,sort:true}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:250} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载
@@ -193,7 +193,7 @@ layui.use(['jquery','table','form','element'], function(){
 	  	let src = ''+ data.fujianPath
 	  	layer.photos({ photos: {"data": [{"src": src}]} });
 	  }else if(layEvent === 'detailpreview'){
-		AddTab('预览'+data.id,'details'+ obj.data.id,'/pages/research/details?id='+data.id)
+		AddTab('预览'+data.id,'details'+ obj.data.id,'../pages/news/details?id='+data.id)
 	  }
 	});
 });

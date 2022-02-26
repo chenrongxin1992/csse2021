@@ -33,7 +33,7 @@ layui.use(['jquery','table','form'], function(){
     table.render({
 	    elem: '#jxx_table'
 	    ,id:'table_jxx'//重载需要
-	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    ,cellMinWidth: 180 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
         ,url: '<%=base_url%>jxx_data' //数据接口
 	    ,page: true //开启分页
@@ -43,11 +43,11 @@ layui.use(['jquery','table','form'], function(){
 	      {type:'numbers', title: '序号',width:60,align:'center',sort:true}
 	      ,{field: 'title', title: '系名称',align:'center',sort:true}
           ,{field: 'zhur', title: '主任',align:'center',sort:true}
-          ,{field: 'fuzhur', title: '副主任',align:'center',sort:true}
-          ,{field: 'pageContent', title: '简介',align:'center'}
+          ,{field: 'fuzhur', title: '副主任',align:'center',sort:true,width:150}
+          ,{field: 'pageContent', title: '简介',align:'center',width:250}
 		  ,{field: 'fujianPath', title: '封面图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
 	     // ,{field: 'timeAdd', title: '发布时间', align:'center',width:180,sort:true}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:150} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载

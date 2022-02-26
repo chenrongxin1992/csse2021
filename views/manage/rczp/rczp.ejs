@@ -36,11 +36,11 @@ layui.use(['jquery','table','form'], function(){
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:90,align:'center',sort:true}
 	      ,{field: 'title', title: '标题',align:'center',sort:true}
-		  ,{field: 'zplx', title: '招聘类型',align:'center',sort:true}
+		  ,{field: 'zplx', title: '招聘类型',align:'center',sort:true,width:180}
           //,{field: 'pageContent', title: '内容',align:'center'}
 		//   ,{field: 'fujianPath', title: '封面图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview'}
-	      ,{field: 'timeAdd', title: '发布时间', align:'center',sort:true}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+	      ,{field: 'timeAdd', title: '发布时间', align:'center',sort:true,width:220}
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载

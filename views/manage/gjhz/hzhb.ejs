@@ -33,7 +33,7 @@ layui.use(['jquery','table','form'], function(){
     table.render({
 	    elem: '#hzhb_table'
 	    ,id:'table_hzhb'//重载需要
-	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    ,cellMinWidth: 150 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
         ,url: '<%=base_url%>hzhb_data' //数据接口
 	    ,page: true //开启分页
@@ -42,11 +42,11 @@ layui.use(['jquery','table','form'], function(){
 	    ,cols: [[ //表头
 	      {type:'numbers', title: '序号',width:60,align:'center',sort:true}
 	      ,{field: 'title', title: '伙伴名称',align:'center',sort:true}
-          ,{field: 'url', title: '伙伴链接',align:'center',sort:true}
-		  ,{field: 'hbsort', title: '排列顺序',align:'center',sort:true}
-		  ,{field: 'fujianPath', title: '伙伴logo', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:230,}
+          ,{field: 'url', title: '伙伴链接',align:'center',sort:true,width:250}
+		  ,{field: 'hbsort', title: '排列顺序',align:'center',sort:true,width:150}
+		  ,{field: 'fujianPath', title: '伙伴logo', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:350,}
 	    //   ,{field: 'timeAdd', title: '添加时间', align:'center',width:180,sort:true}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:150} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载
@@ -68,7 +68,7 @@ layui.use(['jquery','table','form'], function(){
 	    let index = layui.layer.open({
             title : "伙伴排序",
             type : 2,
-            area: ['800px', '500px'],
+			area: ['80%', '400px'],
             content : "hzhbsort",
             success : function(layero, index){
             },

@@ -147,6 +147,7 @@
 	color: #666;
 	line-height: 1.5em;
 	padding: 10px 15px;
+	font-size: 16px;
 }
 
 .area-row .txt .c_cca84d {
@@ -212,14 +213,6 @@
 	height: auto;
 }
 
-@media screen and (min-width: 1680px) {
-	.area-row .img-txt {
-		font-size: 24px;
-	}
-	.area-row .txt {
-		font-size: 16px;
-	}
-}
 @media screen and (max-width: 1200px) {
 	.area-nav{
 		display: none;
@@ -633,6 +626,7 @@
 	transform: translate(-50%, -50%);
 	width: 100%;
 	text-align: center;
+	font-size: 24px;
 }
 
 
@@ -643,4 +637,19 @@
 .area-desc p:nth-child(2),
 .area-desc .c_cca84d{
 	text-indent: 0em;
+}
+@media screen and (max-width: 1700px) {
+	.area-row .img-txt {
+		font-size: 22px;
+	}
+}
+@media screen and (max-width: 1500px) {
+	.area-row .img-txt {
+		font-size: 18px;
+	}
+}
+@media screen and (max-width: 1366px) {
+	.area-row .img-txt {
+		font-size: 16px;
+	}
 }

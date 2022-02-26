@@ -3604,7 +3604,7 @@ router.get('/pages/regulation/index',function(req,res){
 	console.log('page limit',page,limit)
 	async.waterfall([
 		function(cb){
-			let search = cmsContent.find({'tag2':'党建活动'}).count()
+			let search = cmsContent.find({'tag2':'党建活动',isDisplay:1}).count()
 				search.exec(function(err,count){
 					if(err){
 						console.log('get total err',err)
@@ -3619,7 +3619,7 @@ router.get('/pages/regulation/index',function(req,res){
 			let numSkip = (page-1)*limit
 			limit = parseInt(limit)
 			console.log('不带搜索参数')
-			let search = cmsContent.find({tag2:'党建活动'})
+			let search = cmsContent.find({tag2:'党建活动',isDisplay:1})
 				//search.where('isDelete').equals(0)
 				//search.sort({'id':-1})
 				//search.sort({'isTop':-1})//正序
@@ -3666,7 +3666,7 @@ router.get('/pages/regulation/index',function(req,res){
 	console.log('page limit',page,limit)
 	async.waterfall([
 		function(cb){
-			let search = cmsContent.find({'tag2':'规章制度'}).count()
+			let search = cmsContent.find({'tag2':'规章制度',isDisplay:1}).count()
 				search.exec(function(err,count){
 					if(err){
 						console.log('get total err',err)
@@ -3681,7 +3681,7 @@ router.get('/pages/regulation/index',function(req,res){
 			let numSkip = (page-1)*limit
 			limit = parseInt(limit)
 			console.log('不带搜索参数')
-			let search = cmsContent.find({tag2:'规章制度'})
+			let search = cmsContent.find({tag2:'规章制度',isDisplay:1})
 				search.where('isDelete').equals(0)
 				search.sort({'id':-1})
 				search.sort({'isTop':-1})//正序
@@ -3719,7 +3719,7 @@ router.get('/pages/regulation/index',function(req,res){
 	console.log('page limit',page,limit)
 	async.waterfall([
 		function(cb){
-			let search = cmsContent.find({'tag2':'学习园地'}).count()
+			let search = cmsContent.find({'tag2':'学习园地',isDisplay:1}).count()
 				search.exec(function(err,count){
 					if(err){
 						console.log('get total err',err)
@@ -3734,7 +3734,7 @@ router.get('/pages/regulation/index',function(req,res){
 			let numSkip = (page-1)*limit
 			limit = parseInt(limit)
 			console.log('不带搜索参数')
-			let search = cmsContent.find({tag2:'学习园地'})
+			let search = cmsContent.find({tag2:'学习园地',isDisplay:1})
 				search.where('isDelete').equals(0)
 				search.sort({'id':-1})
 				search.sort({'isTop':-1})//正序
@@ -4056,7 +4056,7 @@ router.get('/pages/recruitment/doctor',function(req,res){
 		type = decodeURIComponent(type)
 
 	}
-	let obj = {tag2:'人才招聘',zplx:type}
+	let obj = {tag2:'人才招聘',zplx:type,isDisplay:1}
 	console.log('obj ------>' ,obj,type)
 	//return
 	if(!page){page = 1}
@@ -4103,7 +4103,7 @@ router.get('/pages/recruitment/doctor',function(req,res){
 		},
 		function(cb){
 			let search = cmsContent.aggregate([
-				{$match:{tag2:'人才招聘'}},
+				{$match:{tag2:'人才招聘',isDisplay:1}},
 				{$group:{'_id':'$zplx',num:{$sum:1}}},
 				{$sort:{zplx:-1}}
 			])
