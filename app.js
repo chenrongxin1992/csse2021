@@ -14,6 +14,7 @@ const ueditor = require('./routes/ueditor/ueditor');
 //20220105
 const moment = require('moment')
 const forlog = require('./db/db_struct').forlog
+const cmsContent = require('./db/db_struct').cmsContent
 //20210730
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
@@ -170,6 +171,18 @@ function check_caozuo(url){
     return '手动确认'
   }
 }
+app.use(function(req,res,next){
+  console.log('------------ 获取菜单中跳转公众号链接 --------------')
+  let search = cmsContent.findOne({id:724})//获取position的微信链接
+			search.exec(function(err,doc){
+					if(err){
+						return next(err)
+					}
+					console.log('------------------------',doc.gzhlink)
+					res.locals.position_gzhlink = doc.gzhlink
+					next()
+				})
+})
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //20210730

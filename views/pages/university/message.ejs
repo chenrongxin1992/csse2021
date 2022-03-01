@@ -14,7 +14,7 @@
 </head>
 <body class="university">
 <%if(L=='1'){%>
-  <%include headcom.ejs%>
+  <%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
   <%include ../../headcom.ejs%>
@@ -88,7 +88,9 @@
 <script src="../../javascripts/js/anime.min.js"></script>
 
 <script>
-  
+  $(document).ready(function () {
+    $('.<%=check_nav%>').addClass('active')
+  })
 </script>
 </body>
 </html>

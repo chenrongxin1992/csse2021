@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+  <title>深圳大学计算机与软件学院</title>
+  <link rel="stylesheet" href="../../stylesheets/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/css/organization_css/organization.css" />
+  <script src="../../javascripts/js/jquery.min.js"></script>
+</head>
+<body class="organization">
+<%if(L=='1'){%>
+	<%include ../pages_header_cn.ejs%>
+<%}%>
+<%if(L!='1'){%>
+	<%include ../pages_header_en.ejs%>
+<%}%>
+
+  <div class="banner">
+    <img src="../../image/organization_image/banner.png" class="b_bg lazy_img pimg" />
+    <img src="../../image/organization_image/m-banner.png" class="b_bg lazy_img mimg" />
+  </div>
+  <!-- 详情 -->
+  <div class="contain">
+    <div class="contain-area-2">
+      <div class="details-back">
+        <span class="icon"></span>
+        <span><a href="departments">返回上一页</a></span>
+      </div>
+      <div class="details-content">
+        <%if(L=='1'){%>
+          <div class="tit"><%=data.title%></div>
+          <div><%-data.pageContent-%></div>
+        <%}else{%>
+          <div class="tit"><%=data.titleEN%></div>
+          <div><%-data.pageContentEN-%></div>
+        <%}%>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div id="footer"></div> -->
+	<%if(L=='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+	<%if(L!='1'){%>
+		<%include ../../footercom.ejs%>
+	<%}%>
+  <script src="../../javascripts/js/jquery.min.js"></script>
+<script src="../../javascripts/js/jquery.lazyload.min.js"></script>
+<script src="../../javascripts/js/common.js"></script>
+
+<script src="../../javascripts/js/brcheck.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.<%=check_nav%>').addClass('active')
+    $('.changeL').css('display','none')
+  })
+</script>
+</body>
+</html>

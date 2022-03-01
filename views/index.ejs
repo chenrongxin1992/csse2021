@@ -25,10 +25,11 @@
       
     </div>
   </div>
+  <div class="m-banner-txt"><%=data.slider[0].title%></div>
   <div class="p-area contain">
-    <!-- 新闻动态 -->
+    <!-- 新闻报道 -->
     <div class="news">
-      <div class="news-tit b c_cca84d">新闻动态</div>
+      <div class="news-tit b c_cca84d">新闻报道</div>
       <div class="news-list">
         <div class="news-row news-row1">
           <a href="/csse/pages/news/details?id=<%=data.news1.id%>">
@@ -107,14 +108,20 @@
             <div class="research_tit c_cca84d b">科研成果</div>
             <div class="pc-slider slider ">
                 <%data.kycg.forEach(function(item,index){%>
-                  <a href="/csse/pages/research/details?id=<%=item.id%>" class="item"><img class="slider-img" src="<%=item.fujianPath%>" data-src="" style="max-height: 461px;"/></a>
+                  <%if(item.wzlink){%>
+                    <a href="<%=item.wzlink%>" class="item" target="_blank"><img class="slider-img" src="<%=item.fujianPath%>" style="max-height: 461px;"/></a>
+                  <%}else{%>
+                    <a href="/csse/pages/research/details?id=<%=item.id%>" class="item"><img class="slider-img" src="<%=item.fujianPath%>" data-src="" style="max-height: 461px;"/></a>
+                  <%}%>
+                  
                 <%})%>
             </div>
           </div>
           <div class="research_desc">
             <div class="c_cca84d"><%=data.kycg[0].title%></div>
             <div class="c_666 txt">
-              <span><%=data.kycg[0].kanwu%> <%=data.kycg[0].year%></span>
+              <span class="kanwu"><%=data.kycg[0].kanwu%> <%=data.kycg[0].year%></span>
+              <span class="ky_zuozhe"><%=data.kycg[0].zuozhe%> </span>
               <div class="c_999"><%=data.kycg[0].belongsto%></div>
             </div>
             <a class="more" href="/csse/pages/research/index">
@@ -138,15 +145,15 @@
           <div class="r-list clearfix">
             <a class="r-row active" href="/csse/pages/recruitment/index">
               <img src="image/recruitment/img1.png" class="img" />
-              <span class="txt">本科生招生</span>
+              <span class="txt">本科招生</span>
             </a>
             <a class="r-row" href="/csse/pages/recruitment/master">
               <img src="image/recruitment/img2.png" class="img" />
-              <span class="txt">硕士生招生</span>
+              <span class="txt">硕士招生</span>
             </a>
             <a class="r-row" href="/csse/pages/recruitment/doctor">
               <img src="image/recruitment/img3.png" class="img" />
-              <span class="txt">博士生招生</span>
+              <span class="txt">博士招生</span>
             </a>
             <a class="r-row" href="https://cce.szu.edu.cn/" target="_blank">
               <img src="image/recruitment/img4.png" class="img" />
@@ -202,8 +209,7 @@
           </div>
           <div class="l l-40">
             <span class="num c_cca84d b mynum" id="count-3"><%=data.highlights.csrankings%></span>
-            <p class="c_333399 small">CSRankings</p>
-            <p class="c_333399 small">（2016-2022）</p>
+            <p class="c_333399 small">CSRankings（2016-2022）</p>
           </div>
           <div class="l l-30 noBorBot">
             <span class="num c_cca84d b mynum"><%=data.highlights.taiws%></span>
@@ -282,10 +288,10 @@
   </div>
   <!-- ----------------------------------------------------------分割线 手机端------------------------------------------------------------- -->
   <div class="m-area contain">
-    <!-- 新闻动态 -->
+    <!-- 新闻报道 -->
     <div class="news">
       <div class="news-tit b c_cca84d">
-        新闻动态
+        新闻报道
         <!-- <div class="more"> -->
           <a class="more" href="/csse/pages/news/index">
           更多新闻 <img class="more_img" src="image/index/right.png" />
@@ -373,14 +379,19 @@
 
             <div class="mo-slider slider ">
               <%data.kycg.forEach(function(item,index){%>
-              <a href="/csse/pages/research/details?id=<%=item.id%>" class="item"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
+                <%if(item.wzlink){%>
+                  <a href="<%=item.wzlink%>" class="item" target="_blank"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
+                <%}else{%>
+                  <a href="/csse/pages/research/details?id=<%=item.id%>" class="item"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
+                <%}%>
               <%})%>
             </div>
           </div>
           <div class="research_desc">
             <div class="c_cca84d"><%=data.kycg[0].title%></div>
             <div class="c_666 txt">
-              <span><%=data.kycg[0].kanwu%> <%=data.kycg[0].year%></span>
+              <span class="kanwu"><%=data.kycg[0].kanwu%> <%=data.kycg[0].year%></span>
+              <span class="ky_zuozhe"><%=data.kycg[0].zuozhe%> </span>
               <div class="c_999"><%=data.kycg[0].belongsto%></div>
             </div>
             <div class="more">
@@ -407,19 +418,19 @@
             <!-- <div class="r-row"> -->
               <a class="r-row active" href="/csse/pages/recruitment/index">
                 <img src="image/recruitment/img1.png" class="img" />
-                <span class="txt">本科生招生</span>
+                <span class="txt">本科招生</span>
               </a>
             <!-- </div> -->
             <!-- <div class="r-row"> -->
               <a class="r-row" href="/csse/pages/recruitment/master">
                 <img src="image/recruitment/img2.png" class="img" />
-                <span class="txt">硕士生招生</span>
+                <span class="txt">硕士招生</span>
               </a>
             <!-- </div> -->
             <!-- <div class="r-row"> -->
               <a class="r-row" href="/csse/pages/recruitment/doctor">
                 <img src="image/recruitment/img3.png" class="img" />
-                <span class="txt">博士生招生</span>
+                <span class="txt">博士招生</span>
               </a>
             <!-- </div> -->
             <!-- <div class="r-row"> -->

@@ -14,15 +14,15 @@
 </head>
 <body class="recruitment">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
 <%}%>
 
 	<div class="banner">
-		<img src="../../image/recruitment_image/banner.png" class="b_bg lazy_img pimg" />
-		<img src="../../image/recruitment_image/m-banner.png" class="b_bg lazy_img mimg" />
+		<img src="../../image/recruitment_image/cn-admission-big.png" class="b_bg lazy_img pimg" />
+		<img src="../../image/recruitment_image/cn-admission-small.jpg" class="b_bg lazy_img mimg" />
 	</div>
 	<div class="contain">
 		<div class="contain-area clearfix">
@@ -31,7 +31,7 @@
 					<div class="r-row">
 						<a href="index">
 							<img src="../../image/recruitment_image/img1.png" class="img" />
-							<span class="txt">本科生招生</span>
+							<span class="txt">本科招生</span>
 							<div class="img-mask"></div>
 							<img class="icon" src="../../image/recruitment_image/icon.png">
 						</a>
@@ -39,7 +39,7 @@
 					<div class="r-row active">
 						<a href="#">
 							<img src="../../image/recruitment_image/img2.png" class="img" />
-							<span class="txt">硕士生招生</span>
+							<span class="txt">硕士招生</span>
 							<div class="img-mask"></div>
 							<img class="icon" src="../../image/recruitment_image/icon.png">
 						</a>
@@ -47,7 +47,7 @@
 					<div class="r-row">
 						<a href="doctor">
 							<img src="../../image/recruitment_image/img3.png" class="img" />
-							<span class="txt">博士生招生</span>
+							<span class="txt">博士招生</span>
 							<div class="img-mask"></div>
 							<img class="icon" src="../../image/recruitment_image/icon.png">
 						</a>
@@ -77,7 +77,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="bread-crumbs">当前位置：<a href='/csse'>首页</a> > <a href='index'>招生招聘</a> > <a href='master'>硕士生招生</a></div>
+				<!-- <div class="bread-crumbs">当前位置：<a href='/csse'>首页</a> > <a href='index'>招生招聘</a> > <a href='master'>硕士生招生</a></div> -->
 				<div class="m-info-tit c_cca84d b">硕士生招生</div>
 				<div class="cont">
 					<div class="area">
@@ -98,7 +98,15 @@
 										<%data.ssszs.forEach(function(item,index){%>
 										<div class="mess">
 											<span class="ball">● </span>
-											<a class="txt" href="details?id=<%=item.id%>"><%=item.title%></a>
+											<a class="txt" href="details?id=<%=item.id%>">
+												<div>
+													<span class="title"><%=item.title%></span>
+													<!-- <span>
+														<span class="new">new</span>
+														<span class="top">top</span>
+													</span> -->
+												</div>
+											</a>
 											<span class="time c_999"><%=item.timeAdd%></span>
 										</div>
 										<%})%>
@@ -180,8 +188,8 @@
 													<div class="contact-title">
 														联系方式
 													</div>
-													<p>深圳大学研招办新浪官方微博：http://weibo.com/szuyzb</p>
-													<p>深圳大学研究生招生网：https://yz.szu.edu.cn</p>
+													<p>深圳大学研招办新浪官方微博：<a href="http://weibo.com/szuyzb" target="_blank">http://weibo.com/szuyzb</a></p>
+													<p>深圳大学研究生招生网：<a href="https://yz.szu.edu.cn" target="_blank">https://yz.szu.edu.cn</a></p>
 													<p>咨询电话：0755-26534301</p>
 													<p>咨询邮箱：xiongdr@szu.edu.cn</p>
 													<p>2022年推免生QQ群：638984459</p>
@@ -213,6 +221,11 @@
   <script src="../../javascripts/js/common.js"></script>
   
   <script src="../../javascripts/js/brcheck.js"></script>
-  
+  <script>
+	$(document).ready(function () {
+		//$('.changeL').css('display','none')
+	  $('.<%=check_nav%>').addClass('active')
+	})
+</script>
   </body>
   </html>

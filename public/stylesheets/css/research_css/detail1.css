@@ -75,6 +75,7 @@
 
 .cont .area img {
 	max-width: 100%;
+	height: auto;
 }
 
 .cont .area .b{

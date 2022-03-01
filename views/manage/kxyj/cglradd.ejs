@@ -72,7 +72,7 @@
 								<option value=""  belongstoid="" belongsto1=""></option>
 								<option value="软件工程研究中心"  belongstoid="11" belongsto1="Software Engineering Research Center">软件工程研究中心</option>
 								<option value="教学系" suoxiid="9" belongsto1="">教学系</option>
-								<option value="高性能计算研究所" belongstoid="1" belongsto1="National High Performance Computing Center (NHPCC) at Shenzhen">高性能计算研究所</option>
+								<option value="高性能计算研究所" belongstoid="1" belongsto1="High Performance Computing Institute">高性能计算研究所</option>
 								<option value="大数据技术与应用研究所"  belongstoid="2" belongsto1="Big Data Institute">大数据技术与应用研究所</option>
 								<option value="未来媒体技术与计算研究所"  belongstoid="3" belongsto1="Research Institute for Future Media Computing">未来媒体技术与计算研究所</option>
 								<option value="网络与信息安全研究所"  belongstoid="4" belongsto1="Research Institute of Network and Information Security">网络与信息安全研究所</option>
@@ -81,6 +81,12 @@
 								<option value="物联网研究中心"  belongstoid="7" belongsto1="The IoT Research Center">物联网研究中心</option>
 								<option value="可视计算研究中心"  belongstoid="8" belongsto1="Visual Computing Research Center (VCC)">可视计算研究中心</option>
 							</select>
+						</div>
+				    </div>
+					<div class="form-item">
+						<label class="layui-form-label">文章链接</label>
+						<div class="form-item-inline" >
+						<input type="text" name="wzlink" autocomplete="off" class="layui-input" id="wzlink" value="<%=data.wzlink%>" placeholder="文章具体链接">
 						</div>
 				    </div>
 				</div>
@@ -306,6 +312,7 @@ $(function(){
         $('#year').val("<%- data.year%>")
 
         $('#belongsto').val('<%=data.belongsto%>')
+		$('#wzlink').val('<%=data.wzlink%>')
 		//20211106
 		let patharr = '<%=data.patharr%>',
 			namearr = '<%=data.namearr%>'
@@ -368,6 +375,7 @@ $(function(){
       data.field.year = $('#year').val()
       data.field.kanwu =  $('#kanwu').val()
       data.field.zuozhe = $('#zuozhe').val()
+	  data.field.wzlink = $('#wzlink').val()
 	  data.field.danwei = $('#danwei').val()
       data.field.belongsto = $('#belongsto option:selected').val()
 	  data.field.belongstoid = $('#belongsto option:selected').attr('belongstoid')

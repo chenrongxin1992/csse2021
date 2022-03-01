@@ -56,7 +56,6 @@
 }
 .banner .slick-dots li.slick-active button{background-color: #352C84;border-color: #fff;}
 
-
 .banner .banner-txt{
     position: absolute;
     right: 0;
@@ -70,6 +69,18 @@
     align-items: center;
     background-color: #352C84;
     font-size: 30px;
+    border-top-left-radius: 50px;
+}
+
+.m-banner-txt{
+    display: none;
+    color: #fff;
+    background-color: #352C84;
+    font-size: 14px;
+    height: 26px;
+    line-height: 30px;
+    text-align: center;
+    width: 100%;
 }
 
 .banner{
@@ -223,6 +234,7 @@
     font-size: 22px;
     line-height: 1;
     text-align: center;
+    text-transform: uppercase;
 }
 .news .time .day{
     display: block;
@@ -393,10 +405,17 @@
     font-size: 24px;
 }
 .research_desc .txt{
-    padding: 20px 0;
+    padding: 20px 0 10px;
     font-size: 18px;
 }
-
+.research_desc .txt span{
+    display: block;
+}
+.research_desc .txt span:nth-child(2){
+    font-size: 14px;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
 
 /*recruitment */
 .recruitment{
@@ -662,25 +681,32 @@
     width: 50%;
 }
 .high-list .l{
-    height: 130px;
+    height: 180px;
     display: flex;
     align-items: center;
     flex-flow: column;
-    padding-top: 20px;
+    justify-content: center;
     box-sizing: border-box;
-    /* border-bottom: 1px solid rgba(238,238,238,.44);
-    border-right: 1px solid rgba(238,238,238,.44); */
+    border-bottom: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
 }
 .high-list .img{
     height: 40px;
 }
 .high-list .high-left .num{
-    font-size: 36px;
+    font-size: 72px;
     font-family: 'Times New Roman', Times, serif;
 }
+.high-list .high-left .small{
+    font-size: 18px;
+}
 .high-list .high-right .num{
-    font-size: 20px;
+    font-size: 40px;
     font-family: 'Times New Roman', Times, serif;
+    line-height: 1.2;
+}
+.high-list .high-right .small {
+    font-size: 16px;
 }
 .high-list .noBorBot{
     border-bottom: none;
@@ -722,15 +748,17 @@
     background-position: 50% 16%;
 }
 .m-area .news .news-list{
-    width: 94.4%;
+    width: 100%;
     padding-bottom: 43px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .m-area .news .news-list .news-row1, .m-area .news .news-row3{
     padding-top: 0;
 }
 .m-area .news .news-txt .time{
     padding: 0 15px;
-    font-family: Microsoft YaHei;
+    /* font-family: Microsoft YaHei; */
 }
 .m-area .news .time .day{
     font-size: 48px;
@@ -739,6 +767,7 @@
     line-height: 24px;
     padding-bottom: 4px;
     padding-top: 10px;
+    font-family: Microsoft YaHei;
 }
 .m-area .news .time .month{
     font-size: 22px;
@@ -764,15 +793,22 @@
     width: 48%;
 }
 .m-area .news .news-row3{
-    width: 94%;
-    margin: 0 auto;
+    width: 100%;
+    padding: 0 10px;
     margin-bottom: 30px;
+}
+.m-area .news .news-row3 ul{
+    padding: 0 10px;
+}
+.m-area .news .news-row3 li a{
+    padding: 10px 0;
 }
 .m-area .news .news-row3 .tit{
     text-align: left;
-    padding-left: 2.5%;
+    padding: 10px 5%;
     box-sizing: border-box;
     position: relative;
+    font-size: 22px;
 }
 .m-area .news .news-row3 .more{
     position: absolute;
@@ -946,29 +982,15 @@
     max-height: 80%;
 }
 
-@media only screen and (min-width:1920px){
-    .high-list .high-left .num{
-        font-size: 72px;
-    }
-    .high-list .high-left .small{
-        font-size: 18px;
-    }
-    .high-list .high-right .num {
-        font-size: 24px;
-    }
-    .high-list .high-right .small {
-        font-size: 16px;
-    }
-    .high-list .l {
-        height: 200px;
-    }
-    .high-list .high-right .l{
-        padding-top: 50px;
-    }
-}
 @media only screen and (max-width:1680px){
     .research .research_txt{
         font-size: 25px;
+    }
+    .high-list .high-left .num{
+        font-size: 64px;
+    }
+    .high-list .high-right .num{
+        font-size: 34px;
     }
 }
 
@@ -982,6 +1004,18 @@
     }
     .research .research_btn{
         font-size: 18px;
+    }
+    .high-list .high-left .num{
+        font-size: 56px;
+    }
+    .high-list .high-left .small{
+        font-size: 16px;
+    }
+    .high-list .high-right .num{
+        font-size: 28px;
+    }
+    .high-list .high-right .small {
+        font-size: 14px;
     }
 }
 @media only screen and (max-width:1200px){
@@ -1007,6 +1041,7 @@
     }
     .m-area{
         display: block;
+        padding-top: 10px;
     }
 
 	.banner .slick-dots {
@@ -1014,15 +1049,11 @@
 		transform: translateX(50%);
         display: none !important;
 	}
-
+    .m-banner-txt{
+        display: block;
+    }
 	.banner .banner-txt {
-		font-size: 24px;
-		height: 46px;
-		padding-left: 0;
-		width: 100%;
-		position: relative;
-		text-align: center;
-		justify-content: center;
+        display: none;
 	}
 
     .research .semicircle1{
@@ -1056,6 +1087,9 @@
         width: 78%;
         overflow: visible;
     }
+    /* .m-area .news .news-list .news-row{
+        width: 49%;
+    } */
 }
 @media only screen and (max-width:959px){
     .m-area .research .research_txt{
@@ -1074,6 +1108,18 @@
         font-size: 24px;
         top: 47%;
     }
+    .m-area .news .news-tit{
+        font-size: 20px;
+        padding: 10px 15px;
+        font-weight: normal;
+        color: #333;
+    }
+    
+    .m-area .news-tit .more{
+        font-size: 14px;
+        bottom: 8px;
+        color: #666;
+    }
 }
 @media only screen and (max-width: 620px) {
     .m-area .research .research_txt{
@@ -1083,6 +1129,22 @@
     .m-area .research_btn{
         font-size: 14px;
         padding: 2px 10px;
+    }
+    .high-list .l{
+        height: 120px;
+    }
+    .high-list .high-left .num{
+        font-size: 28px;
+    }
+    .high-list .high-left .small{
+        font-size: 16px;
+    }
+    .high-list .high-right .num{
+        font-size: 16px;
+        line-height: 1.45;
+    }
+    .high-list .high-right .small {
+        font-size: 14px;
     }
 }
 @media only screen and (max-width:479px) {
@@ -1094,40 +1156,47 @@
         font-size: 12px;
         padding: 2px 5px;
     }
-    .m-area .news .news-list{
+    /* .m-area .news .news-list{
         display: block;
-    }
-    .m-area .news .news-list .news-row1{
+    } */
+    /* .m-area .news .news-list .news-row1{
         margin-bottom: 20px;
+    } */
+    .m-area .news .news-txt{
+        margin-top: 12px;
+        padding: 0 1%;
     }
-    .m-area .news .news-list .news-row{
-        width: 100%;
-    }
-    .m-area .news .news-tit{
-        font-size: 24px;
-        padding: 20px 3.6%;
+    .m-area .news .news-txt .time{
+        padding: 0 8px;
     }
     
-    .m-area .news-tit .more{
-        font-size: 16px;
-        bottom: 20px;
-    }
     .m-area .more{
-        font-size: 16px;
+        font-size: 14px;
     }
     .m-area  .more_img {
-        width: 22px;
+        width: 20px;
     }
     .m-area .news .time .day{
-        font-size: 34px;
+        font-size: 30px;
+        padding: 0;
+        line-height: 1;
+        margin-bottom: -7px;
     }
     .m-area .news .time .month{
-        font-size: 18px;
+        font-size: 16px;
+        padding-bottom: 0;
+        line-height: 1;
+        margin-top: -3px;
+        display: inline-block;
     }
     .m-area .news .news-list {
-        padding-bottom: 30px;
+        padding-bottom: 20px;
     }
-    .m-area .news-txt .txt,.m-area .news .news-row3 .txt,.m-area .recruitment_cont .r-row .txt{
+    .m-area .news-txt .txt{
+        line-height: 1.2;
+        font-size: 14px;
+    }
+    .m-area .news .news-row3 .txt,.m-area .recruitment_cont .r-row .txt{
         font-size: 16px;
     }
     .m-area .research_banner .research_tit,.m-area .recruitment_cont .tit,.m-area .internationality_cont .tit{
@@ -1147,11 +1216,8 @@
     .m-area .internationality_cont .more{
         padding-bottom: 30px;
     }
-    .high-list .l{
+    /* .high-list .l{
         height: 120px;
-    }
-    .high-list .high-left .num{
-        font-size: 24px;
     }
     .high-list .img{
         height: 30px;
@@ -1161,12 +1227,5 @@
     }
     .high-list .high-right .num{
         font-size: 16px;
-    }
-}
-@media only screen and (max-width: 350px) {
-    .m-area .research .research_txt{
-        font-size: 12px;
-        top: 47%;
-        min-width: 144px;
-    }
+    } */
 }

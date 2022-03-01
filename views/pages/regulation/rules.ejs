@@ -18,7 +18,7 @@
 	</style>
 <body class="news">
 	<%if(L=='1'){%>
-		<%include headcom.ejs%>
+		<%include ../pages_header_cn.ejs%>
 	  <%}%>
 	  <%if(L!='1'){%>
 		<%include ../../headcom.ejs%>
@@ -58,7 +58,19 @@
 									<%data.gzzd.forEach(function(item,index){%>
 									<a href="details?id=<%=item.id%>"><div class="mess">
 										<span class="ball">● </span>
-										<span class="txt"><%=item.title%></span>
+										<div class="txt">
+											<div>
+												<span class="title"><%=item.title%></span>
+												<span>
+													<%if(item.plusN==1){%>
+														<span class="new">new</span>
+													<%}%>
+													<%if(item.isTop==1){%>
+														<span class="top">top</span>
+													<%}%>
+												</span>
+											</div>
+										</div>
 									</div></a>
 									<%})%>
 									<div class="pagination">
@@ -200,6 +212,11 @@
 			  }
 		  })
 		  </script>
-		  
+		  <script>
+			$(document).ready(function () {
+				$('.changeL').css('display','none')
+			  $('.<%=check_nav%>').addClass('active')
+			})
+		</script>
 		  </body>
 		  </html>

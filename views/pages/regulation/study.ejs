@@ -12,13 +12,30 @@
 		<script src="../../javascripts/js/jquery.min.js"></script>
 </head>
 <style type="text/css">
-	.mess .txt {
-		width: 100%;
+	.mess .txt{
+		display: inline-block;
+		width: 95%;
+		padding-right: 10px;
+	}
+	.mess .txt div{
+		max-width: 100%;
+		display: inline-flex;
+		align-items: center;
+	}
+	.mess .txt span:last-child{
+		flex-shrink: 0;
+	}
+	.mess .txt .title{
+		flex-shrink: 1;
+		flex: auto;
+		overflow:hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 </style>
 <body class="news">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../pages_header_cn.ejs%>
   <%}%>
   <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
@@ -58,7 +75,19 @@
 							<a href="details?id=<%=item.id%>">
 								<div class="mess">
 									<span class="ball">● </span>
-									<span class="txt"><%=item.title%></span>
+									<div class="txt">
+										<div>
+											<span class="title"><%=item.title%></span>
+											<span>
+												<%if(item.plusN==1){%>
+													<span class="new">new</span>
+												<%}%>
+												<%if(item.isTop==1){%>
+													<span class="top">top</span>
+												<%}%>
+											</span>
+										</div>
+									</div>
 								</div>
 							</a>
 						<%})%>
@@ -201,6 +230,12 @@
 	  }
   })
   </script>
+  <script>
+	$(document).ready(function () {
+		$('.changeL').css('display','none')
+	  $('.<%=check_nav%>').addClass('active')
+	})
+</script>
   
   </body>
   </html>

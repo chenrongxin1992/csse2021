@@ -15,7 +15,7 @@
 </head>
 <body class="news">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
@@ -53,5 +53,11 @@
 	  <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
 	  <script src="../../javascripts/js/common.js"></script>
 	  <script src="../../javascripts/js/brcheck.js"></script>
+	  <script>
+		$(document).ready(function () {
+			$('.changeL').css('display','none')
+		  $('.<%=check_nav%>').addClass('active')
+		})
+	</script>
 	</body>
 	</html>

@@ -322,11 +322,24 @@
     position: relative;
 }
 .mess .txt{
-    width: 75%;
+    display: inline-block;
+    width: 85%;
+    padding-right: 10px;
+}
+.mess .txt div{
+    max-width: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+.mess .txt span:last-child{
+    flex-shrink: 0;
+}
+.mess .txt .title{
+    flex-shrink: 1;
+    flex: auto;
     overflow:hidden;
     text-overflow: ellipsis;
-	white-space: nowrap;
-	display: inline-block;
+    white-space: nowrap;
 }
 .mess .time{
     position: absolute;
@@ -419,7 +432,21 @@
     padding: 40px 0;
     display: none;
 }
-
+@media screen and (max-width: 1800px){
+    .mess .txt{
+        width: 83%;
+    }
+}
+@media screen and (max-width: 1600px){
+    .mess .txt{
+        width: 80%;
+    }
+}
+@media screen and (max-width: 1400px){
+    .mess .txt{
+        width: 77%;
+    }
+}
 @media only screen and (max-width:1200px){
     .mess-list .talents-tit,
 	.info .r-list{

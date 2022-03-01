@@ -114,6 +114,20 @@
 					"target": ""
 				},
 				{
+					"title": "Admission",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/lxszs",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "Position",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/faculty",
+					"spread": false,
+					"target": ""
+				},
+				{
 					"title": "成教招生",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/cjzkzs",
@@ -272,26 +286,6 @@
 					"target": ""
 				}
 			]
-		},
-		{
-			"title":"操作记录",
-			"icon": "&#xe612;",
-			"href": "/csse/manage/czjl"
-		},
-		{
-			"title":"OfficeHour",
-			"icon": "",
-			"href": "/csse/manage/officehour"
-		},
-		{
-			"title":"本科教学文档",
-			"icon": "",
-			"href": "/csse/manage/jxwd"
-		},
-		{
-			"title":"工作量",
-			"icon": "",
-			"href": "/csse/manage/gzl"
 		}
 	],
 	"hhMenu": [
@@ -763,6 +757,20 @@
 					"title": "博士生招生",
 					"icon": "&#xe66c;",
 					"href": "/csse/manage/bsszs",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "留学生招生",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/lxszs",
+					"spread": false,
+					"target": ""
+				},
+				{
+					"title": "Faculty",
+					"icon": "&#xe66c;",
+					"href": "/csse/manage/faculty",
 					"spread": false,
 					"target": ""
 				},

@@ -275,13 +275,13 @@
     display: none;
 }
 
-.line{
+/* .line{
     background: #CCA84D;
     height: 3px;
     width: 83%;
 	float: right;
 	margin-bottom: 50px;
-}
+} */
 @media only screen and (max-width:1200px){
 	.info{
 		display: none;

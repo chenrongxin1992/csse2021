@@ -14,14 +14,14 @@
 </head>
 <body class="recruitment">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
 <%}%>
 	<div class="banner">
-		<img src="../../image/recruitment_image/banner.png" class="b_bg lazy_img pimg" />
-		<img src="../../image/recruitment_image/m-banner.png" class="b_bg lazy_img mimg" />
+		<img src="../../image/recruitment_image/cn-admission-big.png" class="b_bg lazy_img pimg" />
+		<img src="../../image/recruitment_image/cn-admission-small.jpg" class="b_bg lazy_img mimg" />
 	</div>
 	<div class="contain">
 		<div class="contain-area clearfix">
@@ -30,7 +30,7 @@
 					<div class="r-row">
 						<a href="index">
 							<img src="../../image/recruitment_image/img1.png" class="img" />
-							<span class="txt">本科生招生</span>
+							<span class="txt">本科招生</span>
 							<div class="img-mask"></div>
 							<img class="icon" src="../../image/recruitment_image/icon.png">
 						</a>
@@ -38,7 +38,7 @@
 					<div class="r-row">
 						<a href="master">
 							<img src="../../image/recruitment_image/img2.png" class="img" />
-							<span class="txt">硕士生招生</span>
+							<span class="txt">硕士招生</span>
 							<div class="img-mask"></div>
 							<img class="icon" src="../../image/recruitment_image/icon.png">
 						</a>
@@ -46,7 +46,7 @@
 					<div class="r-row active">
 						<a href="#">
 							<img src="../../image/recruitment_image/img3.png" class="img" />
-							<span class="txt">博士生招生</span>
+							<span class="txt">博士招生</span>
 							<div class="img-mask"></div>
 							<img class="icon" src="../../image/recruitment_image/icon.png">
 						</a>
@@ -77,7 +77,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="bread-crumbs">当前位置：<a href='/csse'>首页</a> > <a href='index'>招生招聘</a> > <a href='doctor'>博士招生</a></div>
+			<!-- <div class="bread-crumbs">当前位置：<a href='/csse'>首页</a> > <a href='index'>招生招聘</a> > <a href='doctor'>博士招生</a></div> -->
 			<div class="cont">
 				<div class="area">
 					<div class="area-right">
@@ -101,6 +101,11 @@
   <script src="../../javascripts/js/common.js"></script>
   
   <script src="../../javascripts/js/brcheck.js"></script>
-  
+  <script>
+	$(document).ready(function () {
+		//$('.changeL').css('display','none')
+	  $('.<%=check_nav%>').addClass('active')
+	})
+</script>
   </body>
   </html>

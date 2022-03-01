@@ -14,7 +14,7 @@
 </head>
 <body class="globalCooperation">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
@@ -25,7 +25,7 @@
     <img src="../../image/globalCooperation_image/m-banner.png" class="b_bg lazy_img mimg" />
   </div>
   <div class="contain">
-    <div class="bread-crumbs">当前位置：<a href='/csse'>首页</a> > <a href='partner'>国际合作</a> > <a href='jointTraining'>联合培养</a></div>
+    <!-- <div class="bread-crumbs">当前位置：<a href='/csse'>首页</a> > <a href='partner'>国际合作</a> > <a href='jointTraining'>联合培养</a></div> -->
     <div class="contain-area clearfix">
       <div class="l area-nav">
         <div class="tit b">国际合作</div>
@@ -78,6 +78,10 @@
   <script src="../../javascripts/js/common.js"></script>
 
   <script src="../../javascripts/js/brcheck.js"></script>
-
+  <script>
+		$(document).ready(function () {
+		  $('.<%=check_nav%>').addClass('active')
+		})
+	</script>
 </body>
 </html>

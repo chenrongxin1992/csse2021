@@ -934,7 +934,11 @@ router.get('/xzbgs',function(req,res){
 					zhur1:req.body.zhur1,
 					fuzhur1:req.body.fuzhur1,
 					tag2:'教学系',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					jxxzhuanye:req.body.jxxzhuanye,
+					jxxteseban:req.body.jxxteseban,
+					jxxzhuanye1:req.body.jxxzhuanye1,
+					jxxteseban1:req.body.jxxteseban1
 				})
 				cmsContentadd.save(function(error,doc){
 					if(error){
@@ -967,7 +971,11 @@ router.get('/xzbgs',function(req,res){
 					zhur1:req.body.zhur1,
 					fuzhur1:req.body.fuzhur1,
 					tag2:'教学系',
-					fujianPath:req.body.fujianPath
+					fujianPath:req.body.fujianPath,
+					jxxzhuanye:req.body.jxxzhuanye,
+					jxxteseban:req.body.jxxteseban,
+					jxxzhuanye1:req.body.jxxzhuanye1,
+					jxxteseban1:req.body.jxxteseban1
 				}
 				cmsContent.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -1082,6 +1090,7 @@ router.get('/xzbgs',function(req,res){
 					pageContentEN:req.body.pageContentEN,
 					tag2:'研究所',
 					fujianPath:req.body.fujianPath,
+					fujianPath1:req.body.fujianPath1,
 					url:req.body.url
 				})
 				cmsContentadd.save(function(error,doc){
@@ -1112,6 +1121,7 @@ router.get('/xzbgs',function(req,res){
 					pageContentEN:req.body.pageContentEN,
 					tag2:'研究所',
 					fujianPath:req.body.fujianPath,
+					fujianPath1:req.body.fujianPath1,
 					url:req.body.url
 				}
 				cmsContent.updateOne({id:req.body.id},obj,function(error){
@@ -1341,6 +1351,54 @@ router.get('/bkszs',function(req,res){
 			}
 			res.render('manage/zsjy/publictpl',{data:doc})
 		})
+}).get('/lxszs',function(req,res){
+	console.log('in lxszs')
+	let search = cmsContent.findOne({})
+		search.where('tag2').equals('留学生招生')
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			// if(!doc){
+			// 	doc = {}
+			// }
+			res.render('manage/zsjy/lxszs',{data:doc})
+		})
+}).post('/lxszs',function(req,res){
+	console.log('lxszs 更新')
+	//console.log('req.bdoy',req.body)
+	cmsContent.updateOne({'id':req.body.id},{'title':req.body.title,'titleEN':req.body.titleEN,'pageContent':req.body.pageContent,'pageContentEN':req.body.pageContentEN,'timeAdd':req.body.timeAdd,'timeEdit':req.body.timeEdit},function(error){
+		if(error){
+			console.log('lxszs error',error)
+			res.json({'code':-1,'msg':error})
+		}
+		console.log('lxszs success')
+		res.json({'code':0,'msg':'update success'})
+	})
+}).get('/faculty',function(req,res){
+	console.log('in faculty')
+	let search = cmsContent.findOne({})
+		search.where('tag2').equals('faculty')
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			// if(!doc){
+			// 	doc = {}
+			// }
+			res.render('manage/zsjy/faculty',{data:doc})
+		})
+}).post('/faculty',function(req,res){
+	console.log('faculty 更新')
+	//console.log('req.bdoy',req.body)
+	cmsContent.updateOne({'id':req.body.id},{'gzhlink':req.body.gzhlink,'title':req.body.title,'titleEN':req.body.titleEN,'pageContent':req.body.pageContent,'pageContentEN':req.body.pageContentEN,'timeAdd':req.body.timeAdd,'timeEdit':req.body.timeEdit},function(error){
+		if(error){
+			console.log('faculty error',error)
+			res.json({'code':-1,'msg':error})
+		}
+		console.log('faculty success')
+		res.json({'code':0,'msg':'update success'})
+	})
 }).get('/cjzkzs',function(req,res){
 	console.log('in cjzkzs')
 	let search = cmsContent.findOne({})
@@ -1517,6 +1575,54 @@ router.get('/bkszs',function(req,res){
 	})
 })
 //科研成果-成果录入
+router.get('/cglr_sortbyhand',function(req,res){
+	let id = req.query.id
+	console.log('cglr ID,',id)
+	res.render('manage/kxyj/sortbyhand',{id:id})
+}).post('/cglr_sortbyhand',function(req,res){
+	console.log('sortbyhand------------------>',req.body.sortbyhand,req.body.id)
+	cglr.updateOne({id:req.body.id},{sortbyhand:req.body.sortbyhand},function(error){
+		if(error){
+			console.log('cglr update error',error)
+			cb(error)
+		}
+		console.log('cglr update success')
+		return res.json({'code':0})
+	})
+}).post('/changecglrshowinslider',function(req,res){
+	console.log(req.body.showinslider)
+	let obj = {	showinslider:req.body.showinslider }
+	cglr.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log('showinslider showinslider hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log('showinslider showinslider hide success')
+		return res.json({'code':0})		
+	})
+}).post('/changecglrtop',function(req,res){
+	console.log(req.body.isTop)
+	let obj = {	isTop:req.body.isTop }
+	cglr.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log('changecglrtop isTop hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log('changecglrtop isTop hide success')
+		return res.json({'code':0})		
+	})
+}).post('/changecglrplusn',function(req,res){
+	console.log(req.body.plusN)
+	let obj = {	plusN:req.body.plusN }
+	cglr.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log('changecglrtop plusN hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log('changecglrtop plusN hide success')
+		return res.json({'code':0})		
+	})
+})
 router.get('/cglr',function(req,res){
 	console.log('in gxn')
 	res.render('manage/kxyj/cglr',{search_param:manageconfig.search_param.cglr})
@@ -1530,7 +1636,8 @@ router.get('/cglr',function(req,res){
 	// 	})
 }).get('/cglr_data',function(req,res){
 	console.log('cglr_data')
-	commonfunc.DataSearch(req,res,cglr,manageconfig.search_param.cglr,{},{review:1,id:-1})
+	//commonfunc.DataSearch(req,res,cglr,manageconfig.search_param.cglr,{},{review:1,id:-1})
+	commonfunc.DataSearch(req,res,cglr,manageconfig.search_param.cglr,{},{review:1,isTop:-1,plusN:-1,sortbyhand:-1,timeAdd:-1})
 	/*console.log('router cglr_data')
 	let page = req.query.page,
 		limit = req.query.limit,
@@ -1704,7 +1811,8 @@ router.get('/cglr',function(req,res){
 					belongstoid:req.body.belongstoid,
 					yearid : yearid,
 					patharr : req.body.patharr,
-					namearr : req.body.namearr
+					namearr : req.body.namearr,
+					wzlink : req.body.wzlink
 				})
 				cmsContentadd.save(function(error,doc){
 					if(error){
@@ -1746,7 +1854,9 @@ router.get('/cglr',function(req,res){
 					belongstoid:req.body.belongstoid,
 					yearid:yearid,
 					patharr : req.body.patharr,
-					namearr : req.body.namearr
+					namearr : req.body.namearr,
+					wzlink : req.body.wzlink,
+					timeEdit:moment().format('YYYY/MM/DD HH:mm:ss')
 				}
 				cglr.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -2643,6 +2753,17 @@ router.get('/zzgk',function(req,res){
 		console.log('changedjhdtop isTop hide success')
 		return res.json({'code':0})		
 	})
+}).post('/changedjhdplusn',function(req,res){
+	console.log(req.body.plusN)
+	let obj = {	plusN:req.body.plusN }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' plusN hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' plusN hide success')
+		return res.json({'code':0})		
+	})
 }).get('/djhdadd',function(req,res){
 	let id = req.query.id
 	console.log('cmsContent ID,',id)
@@ -2817,6 +2938,17 @@ router.get('/zzgk',function(req,res){
 			return res.json({'code':1,'msg':error})
 		}
 		console.log(' changexxyddisplay hide success')
+		return res.json({'code':0})		
+	})
+}).post('/changexxydplusn',function(req,res){
+	console.log(req.body.plusN)
+	let obj = {	plusN:req.body.plusN }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' plusN hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' plusN hide success')
 		return res.json({'code':0})		
 	})
 }).post('/changexxydtop',function(req,res){
@@ -3038,6 +3170,17 @@ router.get('/zzgk',function(req,res){
 		console.log('changegzzdtop isTop hide success')
 		return res.json({'code':0})		
 	})
+}).post('/changegzzdplusn',function(req,res){
+	console.log(req.body.plusN)
+	let obj = {	plusN:req.body.plusN }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' plusN hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' plusN hide success')
+		return res.json({'code':0})		
+	})
 }).get('/gzzdadd',function(req,res){
 	let id = req.query.id
 	console.log('cmsContent ID,',id)
@@ -3214,6 +3357,17 @@ router.get('/jszp',function(req,res){
 		console.log(' changerczpdisplay hide success')
 		return res.json({'code':0})		
 	})
+}).post('/changerczpplusn',function(req,res){
+	console.log(req.body.plusN)
+	let obj = {	plusN:req.body.plusN }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' plusN hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' plusN hide success')
+		return res.json({'code':0})		
+	})
 }).post('/changerczptop',function(req,res){
 	console.log(req.body.isTop)
 	let obj = {	isTop:req.body.isTop }
@@ -3281,6 +3435,7 @@ router.get('/jszp',function(req,res){
 					isTop:req.body.isTop,
 					timeAdd:req.body.timeAdd,
 					timeEdit:req.body.timeEdit,
+					gzhlink:req.body.gzhlink,
 					//fujianPath:req.body.fujianPath,
 					tag2:'人才招聘',
 					tag1:'招生招聘',
@@ -3312,6 +3467,7 @@ router.get('/jszp',function(req,res){
 					pageContent:req.body.pageContent,
 					isTop:req.body.isTop,
 					timeAdd:req.body.timeAdd,
+					gzhlink:req.body.gzhlink,
 					//fujianPath:req.body.fujianPath,
 					timeEdit:req.body.timeEdit,
 					zplx:req.body.zplx
@@ -4330,7 +4486,8 @@ router.get('/slider',function(req,res){
 					jianjie1:req.body.jianjie,
 					pic:req.body.pic,
 					url:req.body.url,
-					isen:0
+					isen:0,
+					isDisplay:1
 				})
 				slideradd.save(function(error,doc){
 					if(error){
@@ -4360,7 +4517,8 @@ router.get('/slider',function(req,res){
 					jianjie1:req.body.jianjie1,
 					pic:req.body.pic,
 					url:req.body.url,
-					isen:0
+					isen:0,
+					isDisplay:1
 				}
 				slider.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -4417,7 +4575,8 @@ router.get('/slider',function(req,res){
 					jianjie1:req.body.jianjie,
 					pic:req.body.pic,
 					url:req.body.url,
-					isen:1
+					isen:1,
+					isDisplay:1
 				})
 				slideradd.save(function(error,doc){
 					if(error){
@@ -4447,7 +4606,8 @@ router.get('/slider',function(req,res){
 					jianjie1:req.body.jianjie1,
 					pic:req.body.pic,
 					url:req.body.url,
-					isen:1
+					isen:1,
+					isDisplay:1
 				}
 				slider.updateOne({id:req.body.id},obj,function(error){
 					if(error){
@@ -4476,6 +4636,20 @@ router.get('/slider',function(req,res){
 			return res.json({'code':'-1','msg':error})
 		}
 		return res.json({'code':'0','msg':'del sliderdel success'})
+	})
+}).get('/slider_sortbyhand',function(req,res){
+	let id = req.query.id
+	console.log('cmsContent ID,',id)
+	res.render('manage/syfb/slider_sortbyhand',{id:id})
+}).post('/slider_sortbyhand',function(req,res){
+	console.log('sortbyhand------------------>',req.body.sortbyhand,req.body.id)
+	slider.updateOne({id:req.body.id},{sortbyhand:req.body.sortbyhand},function(error){
+		if(error){
+			console.log('cmsContent update error',error)
+			cb(error)
+		}
+		console.log('cmsContent update success')
+		return res.json({'code':0})
 	})
 }).post('/newsupload',function(req,res){
 	console.log('newsupload')
@@ -4526,7 +4700,7 @@ router.get('/slider',function(req,res){
 }).get('/jrnews',function(req,res){
 	res.render('manage/syfb/jrxw',{search_param:manageconfig.search_param.jrxw})
 }).get('/news_data',function(req,res){
-	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.jrxw,{'trees':'179-181-'},{timeAdd:-1,isTop:-1,timeAddStamp:-1})
+	commonfunc.DataSearch(req,res,cmsContent,manageconfig.search_param.jrxw,{'trees':'179-181-'},{sortbyhad:-1,timeAdd:-1,isTop:-1,timeAddStamp:-1})
 }).get('/jrxwadd',function(req,res){
 	let id = req.query.id
 	console.log('cmsContent ID,',id)
@@ -4547,6 +4721,20 @@ router.get('/slider',function(req,res){
 	}else{
 		res.render('manage/syfb/jrxwadd',{data:{}})
 	}
+}).get('/sortbyhand',function(req,res){
+	let id = req.query.id
+	console.log('cmsContent ID,',id)
+	res.render('manage/syfb/sortbyhand',{id:id})
+}).post('/sortbyhand',function(req,res){
+	console.log('sortbyhand------------------>',req.body.sortbyhand,req.body.id)
+	cmsContent.updateOne({id:req.body.id},{sortbyhand:req.body.sortbyhand},function(error){
+		if(error){
+			console.log('cmsContent update error',error)
+			cb(error)
+		}
+		console.log('cmsContent update success')
+		return res.json({'code':0})
+	})
 }).post('/jrxwadd',function(req,res){
 	console.log('jrxwadd------------------>',)
 	let othersaveparam = {trees:'179-181-',tag2:'计软新闻'}
@@ -4677,6 +4865,17 @@ router.get('/slider',function(req,res){
 		console.log('cmsContent isTop hide success')
 		return res.json({'code':0})		
 	})
+}).post('/changenewsplusn',function(req,res){
+	console.log(req.body.plusN)
+	let obj = {	plusN:req.body.plusN }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' plusN hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' plusN hide success')
+		return res.json({'code':0})		
+	})
 }).get('/notice',function(req,res){
 	res.render('manage/syfb/notice',{search_param:manageconfig.search_param.notice})
 }).get('/notice_data',function(req,res){
@@ -4701,6 +4900,17 @@ router.get('/slider',function(req,res){
 			return res.json({'code':1,'msg':error})
 		}
 		console.log('changenoticedisplay  hide success')
+		return res.json({'code':0})		
+	})
+}).post('/changenoticeplusn',function(req,res){
+	console.log(req.body.plusN)
+	let obj = {	plusN:req.body.plusN }
+	cmsContent.updateOne({id:req.body.id},obj,function(error){
+		if(error){
+			console.log(' plusN hide error',error)
+			return res.json({'code':1,'msg':error})
+		}
+		console.log(' plusN hide success')
 		return res.json({'code':0})		
 	})
 }).post('/changenoticetop',function(req,res){

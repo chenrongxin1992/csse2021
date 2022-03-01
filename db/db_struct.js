@@ -145,6 +145,7 @@ const cmsContentSchema = new Schema({
  accountAdd:{type:String},
  fujianName:{type:String,default:''},//附件
  fujianPath:{type:String,default:''},
+ fujianPath1:{type:String,default:''},//研究所英文图片
  leixing :{type:String,default:'科研动态'},//21年 新闻类型，新闻类型
  leixing1 :{type:String,default:'学术讲座'},//21年 新闻类型，通知公告类型
  year:{type:Number},//21年 成果年份
@@ -169,7 +170,14 @@ const cmsContentSchema = new Schema({
     review:{type:String,default:0},//审核状态,
     fromwx:{type:String,default:0},//是否来自于微信
     mediaid:{type:String},//素材id
-    articleid:{type:String}//素材id
+    articleid:{type:String},//素材id
+    plusN:{type:Number,default:0},
+    gzhlink:{type:String,default:''},//公众号链接
+    jxxzhuanye:{type:String,default:''},//教学系专业
+    jxxteseban:{type:String,default:''},//教学系特色班
+    jxxzhuanye1:{type:String,default:''},//教学系专业
+    jxxteseban1:{type:String,default:''},//教学系特色班
+    sortbyhand:{type:Number,default:1}//排序字段，对新闻等文章进行排序，数字越大靠前
 },{collection:'cmsContent'})
 const cmsSliderSchema = new Schema({
  id:{type:Number},
@@ -189,7 +197,8 @@ const cmsSliderSchema = new Schema({
  accountAdd:{type:String},
  jianjie:{type:String,default:'无'},
  jianjie1:{type:String,default:''},
- isen:{type:Number,default:0}
+ isen:{type:Number,default:0},
+ sortbyhand:{type:Number,default:1}//排序字段，对新闻等文章进行排序，数字越大靠前
 },{collection:'cmsSlider'})
 const xrldSchema = new Schema({ 
  id:{type:Number},
@@ -285,7 +294,11 @@ const cglrSchema = new Schema({
  patharr:{type:String,default:null},//附件路径，用，隔开
  namearr:{type:String,default:null},//附件名，用，隔开
     review:{type:String,default:0},//审核状态
-
+    isTop:{type:Number,default:0},
+    plusN:{type:Number,default:0},
+sortbyhand:{type:Number,default:1},
+wzlink:{type:String,default:''},
+showinslider:{type:Number,default:0},
  timeAdd:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')},
  timeEdit:{type:String,default:moment().format('YYYY/MM/DD HH:mm:ss')}
 },{collection:'cglr'})

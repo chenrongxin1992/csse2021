@@ -20,6 +20,16 @@
 
 <script type="text/javascript" src="../manage/js/thirdpart.js"></script>
 <script type="text/javascript">
+function screen(){
+	let width = $(window).width()
+	console.log('屏幕宽度----',width)
+	if(width<400){//iphone 12 pro
+		return 1
+	}
+	else{
+		return 2
+	}
+}
 layui.use(['jquery','table','form'], function(){ 
     let $ = layui.$ //重点处
     let table = layui.table,
@@ -27,7 +37,7 @@ layui.use(['jquery','table','form'], function(){
     table.render({
 	    elem: '#notice_table'
 	    ,id:'table_notice'//重载需要
-	    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+	    ,cellMinWidth: 120 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 	    //本地与服务器
         ,url: '<%=base_url%>notice_data' //数据接口
         //,url: '/manage/news_data' //数据接口
@@ -39,8 +49,10 @@ layui.use(['jquery','table','form'], function(){
 	      ,{field: 'title', title: '标题',align:'center',sort:true}
 		  ,{field: 'leixing1', title: '类型',align:'center',sort:true}
           ,{field: 'pageContent', title: '内容',align:'center'}
+		  ,{field: 'sortbyhand', title: '排序值', align:'center',width:90,sort:true} 
 	      ,{field: 'timeAdd', title: '发布时间', align:'center',sort:true}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar'} //这里的toolbar值是模板元素的选择器
+		  
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:450} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载
@@ -64,7 +76,24 @@ layui.use(['jquery','table','form'], function(){
 	  if(layEvent === 'edit'){ //查看
 		AddTab('编辑'+$("title").text(),'notice_table'+ obj.data.id,"noticeadd?id="+data.id)
 	  
-	  } else if(layEvent === 'del'){ //删除
+	  } else if(layEvent === 'sortbyhand'){
+	  	console.log('sortbyhand')
+	  	let index = layui.layer.open({
+            title : "文章排序",
+            type : 2,
+            area: screen() == 1 ? ['90%','400px']:['30%', '400px'],
+            content : "sortbyhand?id="+data.id,
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_notice', {
+					where: {
+						//search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
+	  }else if(layEvent === 'del'){ //删除
 	    layer.confirm('确定删除吗?',{skin: 'layui-layer-molv' //样式类名
 				                     ,closeBtn: 0}, function(index){
 	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
@@ -159,6 +188,55 @@ layui.use(['jquery','table','form'], function(){
 				console.log('同步失败',msg)
 			}
 		})
+	  }else if(layEvent === 'plusN'){//设置前台是否显示
+	  	console.log('plusN')
+	  	console.log('plusN------',data)
+	  	if($(this).text()=='取消加N'){
+	  		console.log('取消加N')
+	  		data.plusN=0
+	  		let _this = $(this)
+	  		$.ajax({
+                //本地与服务器
+                //url:'/manage/changexxydtop',
+			  	url:'<%=base_url%>changenoticeplusn',
+                	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('hide success',_this)
+			  			_this.text('加N')	
+                          layer.msg('ok')	
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax hide error msg',msg)
+			  	}
+			})
+	  	}else{
+	  		console.log('加N')
+	  		data.plusN=1
+	  		let _this = $(this)
+	  		$.ajax({
+			  	//本地与服务器
+                //url:'/manage/changexxydtop',
+                url:'<%=base_url%>changenoticeplusn',
+			  	type:'POST',
+			  	data:data,
+			  	dataType : "json",
+			  	success:function(result){
+			  		if(result.code == 0){
+			  			console.log('view success',_this)		
+			  			_this.text('取消加N')	
+                          layer.msg('ok')
+			  		}
+			  	},
+			  	error:function(msg){
+			  		console.log('ajax view error msg',msg)
+			  	}
+			})
+	  	}
+	  	return false
 	  }else if(layEvent === 'changetop'){//设置前台是否显示
 	  	console.log('changetop')
 	  	console.log('data------',data)
@@ -226,7 +304,13 @@ layui.use(['jquery','table','form'], function(){
   {{# if(!d.mediaid && !d.articleid){ }}
   <!--<a class="layui-btn layui-btn-xs" lay-event="uploadwx">转公众号</a>-->
   {{# } }}
-  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-xs" lay-event="sortbyhand">排序</a>
+  {{# if(d.plusN == 1){ }}
+  <a class="layui-btn layui-btn-xs" lay-event="plusN" value='1'>取消加N</a>
+{{# }else{ }}
+  <a class="layui-btn layui-btn-xs" lay-event="plusN" value='0'>加N</a>
+{{# } }}
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 </body>

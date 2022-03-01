@@ -152,11 +152,24 @@
     vertical-align: middle;
 }
 .mess .txt{
+    display: inline-block;
     width: 85%;
+    padding-right: 10px;
+}
+.mess .txt div{
+    max-width: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+.mess .txt span:last-child{
+    flex-shrink: 0;
+}
+.mess .txt .title{
+    flex-shrink: 1;
+    flex: auto;
     overflow:hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    display: inline-block;
 }
 .mess .time{
     position: absolute;

@@ -22,7 +22,7 @@
 </head>
 <body class="news">
 <%if(L=='1'){%>
-  <%include headcom.ejs%>
+  <%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
   <%include ../../headcom.ejs%>
@@ -35,14 +35,14 @@
   </div>
   <div class="contain">
     <div class="contain-area clearfix">
-      <div class="bread-crumbs">
-        当前位置：<a href="/csse">首页</a> &gt; <a href="index">新闻动态</a> &gt; <a href="javascript:;"><%=leixing%></a>
-      </div>
+      <!-- <div class="bread-crumbs">
+        当前位置：<a href="/csse">首页</a> &gt; <a href="index">新闻报道</a> &gt; <a href="javascript:;"><%=leixing%></a>
+      </div> -->
       <div class="cont">
         <div class="area">
           <div class="area-left">
             <div class=" area-nav">
-              <div class="tit b">新闻动态</div>
+              <div class="tit b">新闻报道</div>
               <ul>
                 <li><a href="index?type=1" class="a_news">科研动态</a></li>
                 <li><a href="index?type=2" class="a_news">合作交流</a></li>
@@ -67,7 +67,19 @@
                 <div class="mess">
                   <a href="details?id=<%=item.id%>">
                     <span class="ball">● </span>
-                    <span class="txt"> <%=item.title%> </span>
+                    <div class="txt">
+                      <div>
+                        <span class="title"><%=item.title%></span>
+                        <span>
+                          <%if(item.plusN==1){%>
+                            <span class="new">new</span>
+                          <%}%>
+                          <%if(item.isTop==1){%>
+                            <span class="top">top</span>
+                          <%}%>
+                        </span>
+                      </div>
+                    </div>
                     <span class="time c_999"><%=item.timeAdd%></span>
                   </a>
                 </div>
@@ -252,5 +264,11 @@
   <script src="../../javascripts/js/jquery.lazyload.min.js"></script>
   <script src="../../javascripts/js/common.js"></script>
   <script src="../../javascripts/js/brcheck.js"></script>
+  <script>
+		$(document).ready(function () {
+      $('.changeL').css('display','none')
+		  $('.<%=check_nav%>').addClass('active')
+		})
+	</script>
 </body>
 </html>

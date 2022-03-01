@@ -18,7 +18,7 @@
 </head>
 <body class="research">
 <%if(L=='1'){%>
-  <%include headcom.ejs%>
+  <%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
   <%include ../../headcom.ejs%>
@@ -72,16 +72,16 @@
                     <div class=" area-nav">
                         <div class="tit b">研究所/中心</div>
                         <ul>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[0]._id%>">高性能计算研究所(<%=data.belongstoNum[0].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[1]._id%>"o>大数据技术与应用研究所(<%=data.belongstoNum[1].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[2]._id%>">未来媒体技术与计算研究所(<%=data.belongstoNum[2].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[3]._id%>">网络与信息安全研究所(<%=data.belongstoNum[3].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[4]._id%>">计算机视觉研究所(<%=data.belongstoNum[4].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[7]._id%>">可视计算研究中心(<%=data.belongstoNum[7].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[6]._id%>">物联网研究中心(<%=data.belongstoNum[6].num%>)</a></li>
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[5]._id%>">智能技术与系统集成研究所(<%=data.belongstoNum[5].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[0]._id%>">高性能计算研究所 (<%=data.belongstoNum[0].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[1]._id%>"o>大数据技术与应用研究所 (<%=data.belongstoNum[1].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[2]._id%>">未来媒体技术与计算研究所 (<%=data.belongstoNum[2].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[3]._id%>">网络与信息安全研究所 (<%=data.belongstoNum[3].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[4]._id%>">计算机视觉研究所 (<%=data.belongstoNum[4].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[7]._id%>">可视计算研究中心 (<%=data.belongstoNum[7].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[6]._id%>">物联网研究中心 (<%=data.belongstoNum[6].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[5]._id%>">智能技术与系统集成研究所 (<%=data.belongstoNum[5].num%>)</a></li>
                          <!-- <li><a href="" class="a_sx" id="<%=data.belongstoNum[8]._id%>">教学系(<%=data.belongstoNum[8].num%>)</a></li> -->
-                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[10]._id%>">软件工程研究中心(<%=data.belongstoNum[10].num%>)</a></li>
+                          <li><a href="" class="a_sx" id="<%=data.belongstoNum[10]._id%>">软件工程研究中心 (<%=data.belongstoNum[10].num%>)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -90,13 +90,25 @@
                       <%if(data.kycg.length == 0){%>暂无结果<%}%>
                       <%data.kycg.forEach(function(item,index){%>
                         <div class="page">
-                          <a href="details?id=<%=item.id%>">
+                          <%if(item.wzlink){%>
+                            <a href="<%=item.wzlink%>" target="_blank">
+                          <%}else{%>
+                            <a href="details?id=<%=item.id%>">
+                          <%}%>
                           <div class="row">
                               <img class="img" src="<%=item.fujianPath%>" />
                               <div class="row-right">
-                                  <div class="row-tit"><%=item.title%></div>
-                                  <p class="c_666 small"><%=item.kanwu%> <%=item.year%></p>
-                                  <p class="c_666 small" style="font-size: 18px;"><%=item.belongsto%></p>
+                                  <div class="row-tit"><%=item.title%>
+                                    <%if(item.plusN==1){%>
+                                      <span class="new">new</span>
+                                    <%}%>
+                                    <%if(item.isTop==1){%>
+                                      <span class="top">top</span>
+                                    <%}%>
+                                  </div>
+                                  <p class="p1"><%=item.kanwu%> <%=item.year%></p>
+                                  <p class="p3"><%=item.zuozhe%></p>
+                                  <p class="p2"><%=item.belongsto%></p>
                                   <div class="more">
                                       Project page <img class="more_img" src="../../image/index/right.png" />
                                   </div>
@@ -272,5 +284,10 @@
   <script src="../../javascripts/js/common.js"></script>
 
   <script src="../../javascripts/js/brcheck.js"></script>
+  <script>
+		$(document).ready(function () {
+		  $('.<%=check_nav%>').addClass('active')
+		})
+	</script>
 </body>
 </html>

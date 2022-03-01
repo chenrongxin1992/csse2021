@@ -13,7 +13,7 @@
 	</head>
 	<body class="news">
 	 <%if(L=='1'){%>
-		<%include headcom.ejs%>
+		<%include ../pages_header_cn.ejs%>
 	  <%}%>
 	  <%if(L!='1'){%>
 		<%include ../../headcom.ejs%>
@@ -91,6 +91,11 @@
 			  }
 		  })
 		  </script>
-		  
+		  <script>
+			$(document).ready(function () {
+				$('.changeL').css('display','none')
+			  $('.<%=check_nav%>').addClass('active')
+			})
+		</script>
 		  </body>
 		  </html>

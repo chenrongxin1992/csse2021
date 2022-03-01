@@ -199,13 +199,19 @@ router.get('/', function(req, res, next) {
 				search = slider.find({isen:1})
 			}
 				search.where({'isDisplay':1})
-				//search.sort({'id':-1})
-				search.limit(5)
+				search.sort({'sortbyhand':-1})
+				search.limit(8)
 			search.exec(function(err,docs){
 				if(err){
 					cb(err)
 				}
 				console.log('slider -------',docs.length)
+				if(docs.length==0){
+					docs[0].title = 'CSSE'
+					docs[0].pic = '/csse/attachment/slider/1645815507_index5_05.png'
+					docs[0].url = '#'
+					docs[0].title1 = 'CSSE'
+				}
 				data.slider = docs
 				cb()
 			})
@@ -263,21 +269,48 @@ router.get('/', function(req, res, next) {
 				})
 		},
 		function(cb){
-			let search = cglr.find({"review" : "1"},{title:1,kanwu:1,year:1,id:1,fujianPath:1,belongsto:1})
+			let searchobj = {review:'1',showinslider:1},findwhatobj = {title:1,kanwu:1,year:1,id:1,fujianPath:1,belongsto:1,zuozhe:1}
+			let search = cglr.find(searchobj,findwhatobj)
+			//let search = cglr.find({"review" : "1"},{title:1,kanwu:1,year:1,id:1,fujianPath:1,belongsto:1})
 				search.sort({'year':-1})
+				search.sort({'isTop':-1})
+				search.sort({'plusN':-1})
+				search.sort({'sortbyhand':-1})
 				search.sort({'timeAdd':-1})
-				search.limit(50)
+				search.limit(8)
 				search.exec(function(err,docs){
 					if(err){
 						cb(err)
 					}
-					data.kycg = getRandomArrayElements(docs,5)//循环用
-					data.kycg.forEach(function(item){
-						console.log('item-----year-----',item.year)
-					})
-					data.kycg1 = docs[0]//第一次用
-					data.kycgstr = encodeURIComponent(JSON.stringify(data.kycg))//js中用
-					cb()
+					if(docs.length==0){
+						console.log('----------- 没有设置显示slider--------------')
+						let search1 = cglr.find({"review" : "1"},findwhatobj)
+							search1.sort({'year':-1})
+							search1.sort({'isTop':-1})
+							search1.sort({'plusN':-1})
+							search1.sort({'sortbyhand':-1})
+							search1.sort({'timeAdd':-1})
+							search1.limit(8)
+							search1.exec(function(error,docs1){
+								if(error){
+									cb(error)
+								}
+								data.kycg = docs1
+								data.kycg1 = docs1[0]//第一次用
+								data.kycgstr = encodeURIComponent(JSON.stringify(data.kycg))//js中用
+								cb()
+							})
+					}else{
+						data.kycg = docs
+						//data.kycg = getRandomArrayElements(docs,5)//循环用
+						data.kycg.forEach(function(item){
+							console.log('item-----year-----',item.year)
+						})
+						data.kycg1 = docs[0]//第一次用
+						data.kycgstr = encodeURIComponent(JSON.stringify(data.kycg))//js中用
+						cb()
+					}
+					
 				})
 			//let search_year = moment()
 			// let search = cglr.aggregate([{$match:{review:'1'}},{$sample:{size:5}}])
@@ -327,6 +360,17 @@ router.get('/', function(req, res, next) {
 					}
 					//console.log(doc)	
 					data.yzjy = doc
+					cb()
+				})
+		},
+		function(cb){
+			let search = cmsContent.findOne({id:724})//获取position的微信链接
+				search.exec(function(err,doc){
+					if(err){
+						return res.send(err)
+					}
+					console.log('------------------------',doc.gzhlink)
+					data.position_gzhlink = doc.gzhlink
 					cb()
 				})
 		}
@@ -427,9 +471,9 @@ router.get('/pages/university/index',function(req,res){
 			return res.json(error.message)
 		}
 		if(req.query['L']=='1'){
-			res.render('pages/university/index',{L:req.query['L'],data:data})
+			res.render('pages/university/index',{L:req.query['L'],data:data,check_nav:'active_university'})
 		}else{
-			res.render('pages/university/indexen',{L:req.query['L'],data:data})
+			res.render('pages/university/indexen',{L:req.query['L'],data:data,check_nav:'active_university'})
 		}	
 	})
 }).get('/pages/university/message',function(req,res){
@@ -453,15 +497,15 @@ router.get('/pages/university/index',function(req,res){
 			return res.json(error.message)
 		}
 		if(req.query['L']=='1'){
-			res.render('pages/university/message',{L:req.query['L'],data:data})
+			res.render('pages/university/message',{L:req.query['L'],data:data,check_nav:'active_university'})
 		}
 		else{
-			res.render('pages/university/messageen',{L:req.query['L'],data:data})
+			res.render('pages/university/messageen',{L:req.query['L'],data:data,check_nav:'active_university'})
 		}
 		
 	})
 }).get('/pages/university/develop',function(req,res){
-	res.render('pages/university/develop',{L:req.query['L']})
+	res.render('pages/university/develop',{L:req.query['L'],check_nav:'active_university'})
 }).get('/pages/university/leader',function(req,res){
 	let data = {}
 	async.waterfall([
@@ -482,14 +526,14 @@ router.get('/pages/university/index',function(req,res){
 		}
 		console.log('data',data)
 		if(req.query['L']=='1'){
-			res.render('pages/university/leader',{L:req.query['L'],data:data})
+			res.render('pages/university/leader',{L:req.query['L'],data:data,check_nav:'active_university'})
 		}
 		else{
-			res.render('pages/university/leaderen',{L:req.query['L'],data:data})
+			res.render('pages/university/leaderen',{L:req.query['L'],data:data,check_nav:'active_university'})
 		}
 	})
 }).get('/pages/university/logo',function(req,res){
-	res.render('pages/university/logo',{L:req.query['L']})
+	res.render('pages/university/logo',{L:req.query['L'],check_nav:'active_university'})
 })
 function mysort(attr,rev){
 	//第二个参数没有传递 默认升序排列
@@ -528,7 +572,7 @@ router.get('/pages/research/index',function(req,res){
 		if(year){
 			console.log('------------------------ 还有年份 -----------------------------')
 			if(year=='Before'){
-				year = parseInt(moment().format('YYYY')-6)
+				year = parseInt(moment().format('YYYY')-7)
 				obj = {year:{$lte:year},title:{$regex:search_txt,$options:"$i"}}
 			}else{
 				year = parseInt(year)
@@ -581,12 +625,12 @@ router.get('/pages/research/index',function(req,res){
 								}
 								let tempcount = 0
 								docs.forEach(function(item,index){
-									if(item._id<parseInt(moment().format('YYYY')-5)){
+									if(item._id<parseInt(moment().format('YYYY')-6)){
 										tempcount += item.num
 									}
 								})
 								data.yearNum = docs
-								data.beforeyear = parseInt(moment().format('YYYY')-5) //近5年
+								data.beforeyear = parseInt(moment().format('YYYY')-6) //近5年
 								data.beforeyearNum = tempcount
 								console.log('check data.yearNum -----------------',data.yearNum)
 								cbb()
@@ -624,6 +668,9 @@ router.get('/pages/research/index',function(req,res){
 							console.log('aaa')
 							let search = cglr.find(obj)
 								search.sort({'year':-1})
+								search.sort({'isTop':-1})
+								search.sort({'plusN':-1})
+								search.sort({'sortbyhand':-1})
 								search.sort({'timeAdd':-1})
 								search.limit(limit)
 								search.skip(numSkip)
@@ -662,21 +709,21 @@ router.get('/pages/research/index',function(req,res){
 				return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 			}
 			console.log('check year ------',year)
-			if(year==parseInt(moment().format('YYYY')-6) ){
+			if(year==parseInt(moment().format('YYYY')-7) ){
 				year = 'Before'
 			}
 			console.log('check year ------',year)
 			if(req.query['L']=='1'){
-				res.render('pages/research/indextest',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+				res.render('pages/research/indextest',{check_nav:'active_research',L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
 			}else{
-				res.render('pages/research/indextesten',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+				res.render('pages/research/indextesten',{check_nav:'active_research',L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
 			}	
 		})
 	}else{
 		if(year){
 			console.log('------------------------ 只有年份 -----------------------------')
 			if(year=='Before'){
-				year = parseInt(moment().format('YYYY')-6)
+				year = parseInt(moment().format('YYYY')-7)
 				obj = {year:{$lte:year}}
 				aggregate_obj = {}
 				//aggregate_obj = {year:{$lte:year}}
@@ -697,7 +744,7 @@ router.get('/pages/research/index',function(req,res){
 			obj = {}
 			aggregate_obj = {}
 		}
-		obj['review'] = 1
+		obj['review'] = '1'
 		console.log('check obj,aggregate_obj---------------------------->',obj,aggregate_obj)
 		async.waterfall([
 			function(cb){
@@ -734,12 +781,12 @@ router.get('/pages/research/index',function(req,res){
 								let tempcount = 0
 								docs = docs.sort(mysort('_id',false))
 								docs.forEach(function(item,index){
-									if(item._id<parseInt(moment().format('YYYY')-5)){//2021 2017即小于2017为before
+									if(item._id<parseInt(moment().format('YYYY')-6)){//2021 2017即小于2017为before
 										tempcount += item.num
 									}
 								})
 								data.yearNum = docs
-								data.beforeyear = parseInt(moment().format('YYYY')-5) //近5年
+								data.beforeyear = parseInt(moment().format('YYYY')-6) //近5年
 								data.beforeyearNum = tempcount
 								console.log('check data.yearNum,data.beforeyear------->',data.yearNum,data.beforeyear)
 								cbb()
@@ -774,9 +821,15 @@ router.get('/pages/research/index',function(req,res){
 						},
 						function(cbb){
 							console.log('aaa')
+							//obj.isTop = 1
+							console.log('obj----',obj)
 							let search = cglr.find(obj)
 								search.sort({'year':-1})
+								search.sort({'isTop':-1})
+								search.sort({'plusN':-1})
+								search.sort({'sortbyhand':-1})
 								search.sort({'timeAdd':-1})
+								search.sort({'timeEdit':-1})
 								search.limit(limit)
 								search.skip(numSkip)
 								search.exec(function(error,docs){
@@ -814,14 +867,14 @@ router.get('/pages/research/index',function(req,res){
 				return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 			}
 			console.log('check year ------',year)
-			if(year==parseInt(moment().format('YYYY')-6) ){
+			if(year==parseInt(moment().format('YYYY')-7) ){
 				year = 'Before'
 			}
 			console.log('check year ------',year)
 			if(req.query['L']=='1'){
-				res.render('pages/research/indextest',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+				res.render('pages/research/indextest',{check_nav:'active_research',L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
 			}else{
-				res.render('pages/research/indextesten',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
+				res.render('pages/research/indextesten',{check_nav:'active_research',L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,year:year,belongsto:belongstoid,search_txt:search_txt})
 			}
 			
 		})
@@ -1136,6 +1189,9 @@ router.get('/pages/research/index1',function(req,res){
 			if(error){
 				return res.json(error.message)
 			}
+			if(!doc){
+				return res.json({'msg':'No result'})
+			}
 			let danwei_arr
 			
 			if(doc.danwei&&typeof(doc.danwei)!='undefined'){
@@ -1151,9 +1207,9 @@ router.get('/pages/research/index1',function(req,res){
 				namearr = (doc.namearr).split(',')
 			}
 			if(req.query['L']=='1'){
-				res.render('pages/research/details',{L:req.query['L'],data:data,patharr:patharr,namearr:namearr})
+				res.render('pages/research/details',{check_nav:'active_research',L:req.query['L'],data:data,patharr:patharr,namearr:namearr})
 			}else{
-				res.render('pages/research/detailsen',{L:req.query['L'],data:data,patharr:patharr,namearr:namearr})
+				res.render('pages/research/detailsen',{check_nav:'active_research',L:req.query['L'],data:data,patharr:patharr,namearr:namearr})
 			}	
 			
 		})
@@ -2438,8 +2494,12 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 	if(search_txt){
 		let searchobj = {}
 		console.log('单独搜索----------------',search_txt)
-
-		searchobj = {display:1,userName:{$regex:search_txt},$or:[{power:'教职工'},{power:'管理员'}]}
+		if(req.query['L']==1){
+			searchobj = {display:1,userName:{$regex:search_txt,$options:'$i'},$or:[{power:'教职工'},{power:'管理员'}]}
+		}else{
+			searchobj = {display:1,userName1:{$regex:search_txt,$options:'$i'},$or:[{power:'教职工'},{power:'管理员'}]}
+		}
+		
 		
 		console.log('check searchobj --------',searchobj)
 		async.waterfall([
@@ -2529,7 +2589,7 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 					limit = parseInt(limit)
 				let search = user.find(searchobj)
 					search.where({'display':1})
-					
+					search.sort({'peopleid':1})
 					search.sort({'userName_py':1})
 					search.limit(limit)
 					search.skip(numSkip)
@@ -2571,9 +2631,9 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 			totalpage = Math.ceil(total/limit)
 			console.log('总页数------->',totalpage)
 			if(req.query['L']=='1'){
-				res.render('pages/teacherTeam/indextest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				res.render('pages/teacherTeam/indextest',{check_nav:'active_teacherteam',L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 			}else{
-				res.render('pages/teacherTeam/indexentest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				res.render('pages/teacherTeam/indexentest',{check_nav:'active_teacherteam',L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 			}
 		})
 	}
@@ -2712,9 +2772,9 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 			console.log('总页数------->',totalpage)
 			console.log('i-------------------',i)
 			if(req.query['L']=='1'){
-				res.render('pages/teacherTeam/indextest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				res.render('pages/teacherTeam/indextest',{check_nav:'active_teacherteam',L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 			}else{
-				res.render('pages/teacherTeam/indexentest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+				res.render('pages/teacherTeam/indexentest',{check_nav:'active_teacherteam',L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 			}
 			
 		})
@@ -2914,9 +2974,9 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 				totalpage = Math.ceil(total/limit)
 				console.log('总页数------->',totalpage,zhicheng)
 				if(req.query['L']=='1'){
-					res.render('pages/teacherTeam/indextest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/indextest',{check_nav:'active_teacherteam',L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}else{
-					res.render('pages/teacherTeam/indexentest',{L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/indexentest',{check_nav:'active_teacherteam',L:req.query['L'],jsdw_ys,jsdw_gjzj,jsdw_gjqn,jsdw_gjqt,jsdw_gjry,data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}
 			})
 		}
@@ -3053,9 +3113,9 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 				totalpage = Math.ceil(total/limit)
 				console.log('总页数------->',totalpage)
 				if(req.query['L']=='1'){
-					res.render('pages/teacherTeam/indextest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/indextest',{check_nav:'active_teacherteam',L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}else{
-					res.render('pages/teacherTeam/indexentest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/indexentest',{check_nav:'active_teacherteam',L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}
 			})
 		}
@@ -3210,9 +3270,9 @@ router.get('/pages/teacherTeam/index-2022',function(req,res){
 				totalpage = Math.ceil(total/limit)
 				console.log('总页数------->',totalpage)
 				if(req.query['L']=='1'){
-					res.render('pages/teacherTeam/indextest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/indextest',{check_nav:'active_teacherteam',L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}else{
-					res.render('pages/teacherTeam/indexentest',{L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
+					res.render('pages/teacherTeam/indexentest',{check_nav:'active_teacherteam',L:req.query['L'],data:data,page:page,totalpage:totalpage,zhicheng:zhicheng,suoxi:suoxi,search_txt:search_txt,zimu:i})
 				}				
 			})
 		}
@@ -3246,9 +3306,9 @@ router.get('/pages/user/index',function(req,res){
 				return res.json({'errMsg':'no result'})
 			}
 			if(req.query['L']=='1'){
-				res.render('pages/user/index',{L:req.query['L'],data:doc})
+				res.render('pages/user/index',{L:req.query['L'],data:doc,check_nav:'active_teacherteam'})
 			}else{
-				res.render('pages/user/indexen',{L:req.query['L'],data:doc})
+				res.render('pages/user/indexen',{L:req.query['L'],data:doc,check_nav:'active_teacherteam'})
 			}
 			
 		})
@@ -3622,7 +3682,9 @@ router.get('/pages/regulation/index',function(req,res){
 			let search = cmsContent.find({tag2:'党建活动',isDisplay:1})
 				//search.where('isDelete').equals(0)
 				//search.sort({'id':-1})
-				//search.sort({'isTop':-1})//正序
+				search.sort({'isTop':-1})//正序
+				search.sort({'plusN':-1})
+				search.sort({'sortbyhand':-1})
 				search.sort({'timeAdd':-1})
 				//search.sort({'isDisplay':1})
 				search.limit(limit)
@@ -3646,7 +3708,7 @@ router.get('/pages/regulation/index',function(req,res){
 		}
 		//console.log(' async waterfall success',data)
 		let totalpage = Math.ceil(total/limit)
-		res.render('pages/regulation/index',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage})
+		res.render('pages/regulation/index',{check_nav:'active_regulation',L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage})
 	})
 }).get('/pages/regulation/constitute',function(req,res){
 	let search = cmsContent.findOne({})
@@ -3655,7 +3717,7 @@ router.get('/pages/regulation/index',function(req,res){
 		if(err){
 			return res.send(err)
 		}
-		res.render('pages/regulation/constitute',{L:req.query['L'],data:doc})
+		res.render('pages/regulation/constitute',{check_nav:'active_regulation',L:req.query['L'],data:doc})
 	})
 }).get('/pages/regulation/rules',function(req,res){
 	let page = req.query.p,
@@ -3682,9 +3744,12 @@ router.get('/pages/regulation/index',function(req,res){
 			limit = parseInt(limit)
 			console.log('不带搜索参数')
 			let search = cmsContent.find({tag2:'规章制度',isDisplay:1})
-				search.where('isDelete').equals(0)
-				search.sort({'id':-1})
+				//search.where('isDelete').equals(0)
+				//search.sort({'id':-1})
+				
 				search.sort({'isTop':-1})//正序
+				search.sort({'plusN':-1})
+				search.sort({'sortbyhand':-1})
 				search.sort({'timeAdd':-1})
 				search.sort({'isDisplay':1})
 				search.limit(limit)
@@ -3708,7 +3773,7 @@ router.get('/pages/regulation/index',function(req,res){
 		}
 		console.log(' async waterfall success',data)
 		let totalpage = Math.ceil(total/limit)
-		res.render('pages/regulation/rules',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage})
+		res.render('pages/regulation/rules',{check_nav:'active_regulation',L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage})
 	})
 }).get('/pages/regulation/study',function(req,res){
 	let page = req.query.p,
@@ -3735,11 +3800,13 @@ router.get('/pages/regulation/index',function(req,res){
 			limit = parseInt(limit)
 			console.log('不带搜索参数')
 			let search = cmsContent.find({tag2:'学习园地',isDisplay:1})
-				search.where('isDelete').equals(0)
-				search.sort({'id':-1})
+				//search.where('isDelete').equals(0)
+				
 				search.sort({'isTop':-1})//正序
+				search.sort({'plusN':-1})
+				search.sort({'sortbyhand':-1})
 				search.sort({'timeAdd':-1})
-				search.sort({'isDisplay':1})
+				//search.sort({'isDisplay':1})
 				search.limit(limit)
 				search.skip(numSkip)
 				search.exec(function(error,docs){
@@ -3761,7 +3828,7 @@ router.get('/pages/regulation/index',function(req,res){
 		}
 		//console.log(' async waterfall success',data)
 		let totalpage = Math.ceil(total/limit)
-		res.render('pages/regulation/study',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage})
+		res.render('pages/regulation/study',{check_nav:'active_regulation',L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage})
 	})
 }).get('/pages/regulation/details',function(req,res){
 	let id = req.query.id
@@ -3773,8 +3840,11 @@ router.get('/pages/regulation/index',function(req,res){
 			if(error){
 				return res.json(error.message)
 			}
+			if(!doc){
+				return res.json({'msg':'No result'})
+			}
 			console.log(doc)
-			res.render('pages/regulation/details',{L:req.query['L'],data:doc})
+			res.render('pages/regulation/details',{check_nav:'active_regulation',L:req.query['L'],data:doc})
 		})
 })
 router.get('/pages/news/index',function(req,res){
@@ -3832,11 +3902,13 @@ router.get('/pages/news/index',function(req,res){
 		function(cb){
 			let numSkip = (page-1)*limit
 				limit = parseInt(limit)
-				console.log('不带搜索参数')
+				console.log('obj-------------------',obj)
 				let search = cmsContent.find(obj)
 					//search.where('isDelete').equals(0)
+					search.sort({'isTop':-1})
+					search.sort({'plusN':-1})
+					search.sort({'sortbyhand':-1})
 					search.sort({'timeAdd':-1})
-					search.sort({'isTop':-1})//正序
 					search.sort({'timeAddStamp':-1})
 					//search.sort({'isDisplay':1})
 					search.limit(limit)
@@ -3863,7 +3935,7 @@ router.get('/pages/news/index',function(req,res){
 		if(leixing=='国际交流'){
 			leixing = '合作交流'
 		}
-		res.render('pages/news/index',{L:req.query['L'],data:data,leixing:leixing,count:total,page:page,totalpage:totalpage})
+		res.render('pages/news/index',{check_nav:'active_news',L:req.query['L'],data:data,leixing:leixing,count:total,page:page,totalpage:totalpage})
 	})
 }).get('/pages/news/details',function(req,res){
 	let id = req.query.id,data={}
@@ -3875,7 +3947,10 @@ router.get('/pages/news/index',function(req,res){
 			if(error){
 				return res.json(error.message)
 			}
-			res.render('pages/news/details',{L:req.query['L'],data:doc})
+			if(!doc){
+				return res.json({'msg':'No result'})
+			}
+			res.render('pages/news/details',{check_nav:'active_news',L:req.query['L'],data:doc})
 		})
 })
 router.get('/pages/globalCooperation/coresearch',function(req,res){
@@ -3904,9 +3979,9 @@ router.get('/pages/globalCooperation/coresearch',function(req,res){
 		}
 		console.log('hzhb_data async waterfall success',result)
 		if(req.query['L']=='1'){
-			res.render('pages/globalCooperation/index',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/index',{L:req.query['L'],data:result,check_nav:'active_globalcooperation'})
 		}else{
-			res.render('pages/globalCooperation/indexen',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/indexen',{L:req.query['L'],data:result,check_nav:'active_globalcooperation'})
 		}
 	})
 }).get('/pages/globalCooperation/jointTraining',function(req,res){
@@ -3935,9 +4010,9 @@ router.get('/pages/globalCooperation/coresearch',function(req,res){
 			item.img2 = (item.fujianPath).split(';')[1]
 		})
 		if(req.query['L']=='1'){
-			res.render('pages/globalCooperation/jointTraining',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/jointTraining',{L:req.query['L'],data:result,check_nav:'active_globalcooperation'})
 		}else{
-			res.render('pages/globalCooperation/jointTrainingen',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/jointTrainingen',{L:req.query['L'],data:result,check_nav:'active_globalcooperation'})
 		}
 	})
 }).get('/pages/globalCooperation/partner',function(req,res){
@@ -3963,75 +4038,104 @@ router.get('/pages/globalCooperation/coresearch',function(req,res){
 		}
 		console.log('hzhb_data async waterfall success',result)
 		if(req.query['L']=='1'){
-			res.render('pages/globalCooperation/partner',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/partner',{L:req.query['L'],data:result,check_nav:'active_globalcooperation'})
 		}else{
-			res.render('pages/globalCooperation/partneren',{L:req.query['L'],data:result})
+			res.render('pages/globalCooperation/partneren',{L:req.query['L'],data:result,check_nav:'active_globalcooperation'})
 		}
 	})
 })
 router.get('/pages/recruitment/doctor',function(req,res){
+	if(req.query['L']!=1){
+		res.redirect('admission')
+	}else{
+		console.log('in bsszs')
+		let search = cmsContent.findOne({tag2:'博士生招生'})
+			search.exec(function(err,doc){
+				if(err){
+					return res.send(err)
+				}
+				res.render('pages/recruitment/doctor',{L:req.query['L'],data:doc,check_nav:'active_recruitment'})
+			})
+	}
+}).get('/pages/recruitment/admission',function(req,res){
 	console.log('in bsszs')
-	let search = cmsContent.findOne({tag2:'博士生招生'})
+	let search = cmsContent.findOne({tag2:'留学生招生'})
 		search.exec(function(err,doc){
 			if(err){
 				return res.send(err)
 			}
-			res.render('pages/recruitment/doctor',{L:req.query['L'],data:doc})
+			res.render('pages/recruitment/admission',{L:req.query['L'],data:doc,check_nav:'active_admission'})
+		})
+}).get('/pages/recruitment/position',function(req,res){
+	console.log('in bsszs')
+	let search = cmsContent.findOne({tag2:'faculty'})
+		search.exec(function(err,doc){
+			if(err){
+				return res.send(err)
+			}
+			res.render('pages/recruitment/position',{L:req.query['L'],data:doc,check_nav:'active_position'})
 		})
 }).get('/pages/recruitment/master',function(req,res){
 	console.log('router news_data')
-	let page = req.query.page,
-		limit = req.query.limit
-		if(!page){page = 1}
-		if(!limit){limit = 8 }
-	let total = 0,data = {}
-	console.log('page limit',page,limit)
-	async.waterfall([
-		function(cb){
-			//get count
-			let search = cmsContent.find({'tag2':'硕士生招生'}).count()
-				search.exec(function(err,count){
-					if(err){
-						console.log('ssszs_data get total err',err)
-						cb(err)
-					}
-					console.log('ssszs_data count',count)
-					total = count
-					cb(null)
-				})
-		},
-		function(cb){
-			let numSkip = (page-1)*limit
-			limit = parseInt(limit)
-				console.log('不带搜索参数')
-				let search = cmsContent.find({'tag2':'硕士生招生'})
-					search.where('isDelete').equals(0)
-					search.sort({'id':-1})
-					search.sort({'isTop':-1})//正序
-					search.sort({'timeAdd':-1})
-					search.sort({'isDisplay':1})
-					search.limit(limit)
-					search.skip(numSkip)
-					search.exec(function(error,docs){
-						if(error){
-							console.log('ssszs_data error',error)
-							cb(error)
+	if(req.query['L']!=1){
+		res.redirect('admission')
+	}else{
+		let page = req.query.page,
+			limit = req.query.limit
+			if(!page){page = 1}
+			if(!limit){limit = 8 }
+		let total = 0,data = {}
+		console.log('page limit',page,limit)
+		async.waterfall([
+			function(cb){
+				//get count
+				let search = cmsContent.find({'tag2':'硕士生招生',isDisplay:1}).count()
+					search.exec(function(err,count){
+						if(err){
+							console.log('ssszs_data get total err',err)
+							cb(err)
 						}
-						docs.forEach(function(item,index){
-							item.timeAdd = (item.timeAdd).slice(0,10)
-						})
-						data.ssszs = docs
+						console.log('ssszs_data count',count)
+						total = count
 						cb(null)
 					})
-		}
-	],function(error,result){
-		if(error){
-			console.log('ssszs async waterfall error',error)
-			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
-		}
-		let totalpage = Math.ceil(total/limit)
-		res.render('pages/recruitment/master',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage})
-	})
+			},
+			function(cb){
+				let numSkip = (page-1)*limit
+				limit = parseInt(limit)
+					console.log('不带搜索参数')
+					let search = cmsContent.find({'tag2':'硕士生招生',isDisplay:1})
+						//search.where('isDelete').equals(0)
+						//search.sort({'year':-1})
+						search.sort({'isTop':-1})
+						search.sort({'plusN':-1})
+						search.sort({'sortbyhand':-1})
+						search.sort({'timeAdd':-1})
+						//search.sort({'isDisplay':1})
+						search.limit(limit)
+						search.skip(numSkip)
+						search.exec(function(error,docs){
+							if(error){
+								console.log('ssszs_data error',error)
+								cb(error)
+							}
+							docs.forEach(function(item,index){
+								item.timeAdd = (item.timeAdd).slice(0,10)
+							})
+							data.ssszs = docs
+							cb(null)
+						})
+			}
+		],function(error,result){
+			if(error){
+				console.log('ssszs async waterfall error',error)
+				return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+			}
+			let totalpage = Math.ceil(total/limit)
+			res.render('pages/recruitment/master',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,check_nav:'active_recruitment'})
+		})
+	}
+	
 }).get('/pages/recruitment/details',function(req,res){
 	let id = req.query.id,data={}
 	if(!id){
@@ -4042,7 +4146,10 @@ router.get('/pages/recruitment/doctor',function(req,res){
 			if(error){
 				return res.json(error.message)
 			}
-			res.render('pages/recruitment/details',{L:req.query['L'],data:doc})
+			if(!doc){
+				return res.json({'msg':'No result'})
+			}
+			res.render('pages/recruitment/details',{L:req.query['L'],data:doc,check_nav:'active_recruitment'})
 		})
 }).get('/pages/recruitment/talents',function(req,res){
 	console.log('router rczp_data')
@@ -4082,11 +4189,14 @@ router.get('/pages/recruitment/doctor',function(req,res){
 			limit = parseInt(limit)
 				console.log('不带搜索参数')
 				let search = cmsContent.find(obj)
-					search.where('isDelete').equals(0)
+					//search.where('isDelete').equals(0)
 					//search.sort({'id':-1})
-					search.sort({'isTop':-1})//正序
+					//search.sort({'year':-1})
+					search.sort({'isTop':-1})
+					search.sort({'plusN':-1})
+					search.sort({'sortbyhand':-1})
 					search.sort({'timeAdd':-1})
-					search.sort({'isDisplay':1})
+					//search.sort({'isDisplay':1})
 					search.limit(limit)
 					search.skip(numSkip)
 					search.exec(function(error,docs){
@@ -4122,87 +4232,101 @@ router.get('/pages/recruitment/doctor',function(req,res){
 			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
 		}
 		let totalpage = Math.ceil(total/limit)
-		res.render('pages/recruitment/talents',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,type:type})
+		res.render('pages/recruitment/talents',{L:req.query['L'],data:data,count:total,page:page,totalpage:totalpage,type:type,check_nav:'active_recruitment'})
 	})
 }).get('/pages/recruitment/index',function(req,res){
-	let zhuanye = req.query.bsort,//中文名表示，用来选中左侧菜单
-		info = req.query.info,
-		z = 1 //数字表示
-	if(!zhuanye){
-		zhuanye = 1
-	}
-	// if(zhuanye == 1){
-	// 	zhuanye = '计算机科学与技术'
-	// }else{
-	// 	zhuanye = '计算机科学与技术（卓越班）'
-	// 	z=2
-	// }
-	// else{
-	// 	zhuanye = '软件工程（腾班）'
-	// 	z=3
-	// }
-	let data = {},lmenu=[],allinfo={}
-	console.log(zhuanye)
-	async.waterfall([
-		function(cb){
-			let search = bkzs.findOne({bsort:zhuanye})
-				//search.sort({'timeAdd':-1})
-				search.exec(function(error,docs){
-					if(error){
-						console.log('bkzs_data error',error)
-						cb(error)
-					}
-					data = docs
-					console.log(data)
-					cb(null)
-				})
-		},
-		function(cb){
-			//获取左侧菜单
-			let search = bkzs.find({})
-				search.sort({bsort:1})
-				search.exec(function(err,docs){
-					if(err){
-						cb(err)
-					}
-					
-					docs.forEach(function(item,index){
-						lmenu.push(item.zhuanye)
+	if(req.query['L']!=1){
+		res.redirect('admission')
+	}else{
+		let zhuanye = req.query.bsort,//中文名表示，用来选中左侧菜单
+			info = req.query.info,
+			z = 1 //数字表示
+		if(!zhuanye){
+			zhuanye = 1
+		}
+		// if(zhuanye == 1){
+		// 	zhuanye = '计算机科学与技术'
+		// }else{
+		// 	zhuanye = '计算机科学与技术（卓越班）'
+		// 	z=2
+		// }
+		// else{
+		// 	zhuanye = '软件工程（腾班）'
+		// 	z=3
+		// }
+		let data = {},lmenu=[],allinfo={}
+		console.log(zhuanye)
+		async.waterfall([
+			function(cb){
+				let search = bkzs.findOne({bsort:zhuanye})
+					//search.sort({'timeAdd':-1})
+					search.exec(function(error,docs){
+						if(error){
+							console.log('bkzs_data error',error)
+							cb(error)
+						}
+						data = docs
+						console.log(data)
+						cb(null)
 					})
-					console.log('check lmenu-----',lmenu)
-					//lmenu = docs
-					cb()
-				})
-		},
-		function(cb){
-			let search = bkzsinfo.findOne({})
-				search.exec(function(err,docs){
-					if(err){
-						cb(err)
-					}
-					console.log('check info -----',docs)
-					allinfo = docs
-					cb()
-				})
-		}
-	],function(error,result){
-		if(error){
-			console.log('hzhb_data async waterfall error',error)
-			return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
-		}
-		//console.log('hzhb_data async waterfall success',result)
-		if(info==1){data.info = allinfo.xuefei,info='学费与住宿'}
-		else if(info==2){data.info = allinfo.jxj,info='奖学金'}
-		else if(info==3){data.info = allinfo.jiuye,info='就业情况'}
-		else if(info==4){data.info = allinfo.xyhj,info='校园环境'}
-		else if(info==5){data.info = allinfo.lxfs,info='联系方式'}
-		else if(info==6){data.info = allinfo.zsqk,info='招生情况'}
-		else{info=0}
-		//console.log(data.info,info)
-		console.log(data.patharr.length)
-		//return 
-		res.render('pages/recruitment/index',{L:req.query['L'],data:data,zhuanye:data.zhuanye,z:data.bsort,info:info,patharr:data.patharr,namearr:data.namearr,lmenu:lmenu})
-	})
+			},
+			function(cb){
+				//获取左侧菜单
+				let search = bkzs.find({})
+					search.sort({bsort:1})
+					search.exec(function(err,docs){
+						if(err){
+							cb(err)
+						}
+						
+						docs.forEach(function(item,index){
+							lmenu.push(item.zhuanye)
+						})
+						console.log('check lmenu-----',lmenu)
+						//lmenu = docs
+						cb()
+					})
+			},
+			function(cb){
+				let search = bkzsinfo.findOne({})
+					search.exec(function(err,docs){
+						if(err){
+							cb(err)
+						}
+						console.log('check info -----',docs)
+						allinfo = docs
+						cb()
+					})
+			}
+		],function(error,result){
+			if(error){
+				console.log('hzhb_data async waterfall error',error)
+				return res.json({'code':-1,'msg':err.stack,'count':0,'data':''})
+			}
+			//console.log('hzhb_data async waterfall success',result)
+			if(info==1){data.info = allinfo.xuefei,info='学费与住宿'}
+			else if(info==2){data.info = allinfo.jxj,info='奖学金'}
+			else if(info==3){data.info = allinfo.jiuye,info='就业情况'}
+			else if(info==4){data.info = allinfo.xyhj,info='校园环境'}
+			else if(info==5){data.info = allinfo.lxfs,info='联系方式'}
+			else if(info==6){data.info = allinfo.zsqk,info='招生情况'}
+			else{info=0}
+			//console.log(data.info,info)
+			console.log(data.patharr.length)
+			//return 
+			res.render('pages/recruitment/index',{check_nav:'active_recruitment',L:req.query['L'],data:data,zhuanye:data.zhuanye,z:data.bsort,info:info,patharr:data.patharr,namearr:data.namearr,lmenu:lmenu})
+		})
+	}
+	
+})
+router.get('/pages/organization/jxxdetails',function(req,res){
+	let search = cmsContent.findOne({id:req.query.id})
+		search.exec(function(err,doc){
+			if(err){
+				res.send(err)
+			}
+			res.render('pages/organization/jxxdetails',{L:req.query['L'],check_nav:'active_organization',data:doc})
+		})
 })
 router.get('/pages/organization/departments',function(req,res){
 	let data = {},type = req.query.t,content={}
@@ -4255,9 +4379,9 @@ router.get('/pages/organization/departments',function(req,res){
 		}
 		console.log('hzhb_data async waterfall success',result)
 		if(req.query['L']=='1'){
-			res.render('pages/organization/index',{L:req.query['L'],data:data,doc:content,type:type})
+			res.render('pages/organization/index',{L:req.query['L'],data:data,doc:content,type:type,check_nav:'active_organization'})
 		}else{
-			res.render('pages/organization/indexen',{L:req.query['L'],data:data,doc:content,type:type})
+			res.render('pages/organization/indexen',{L:req.query['L'],data:data,doc:content,type:type,check_nav:'active_organization'})
 		}
 	})
 }).get('/pages/organization/index',function(req,res){
@@ -4291,10 +4415,14 @@ router.get('/pages/organization/departments',function(req,res){
 			item.img1 = (item.fujianPath).split(';')[0]
 			item.img2 = (item.fujianPath).split(';')[1]
 		})
+		data.forEach(function(item,index){
+			item.enimg1 = (item.fujianPath1).split(';')[0]
+			//item.img2 = (item.fujianPath).split(';')[1]
+		})
 		if(req.query['L']=='1'){
-			res.render('pages/organization/graduateSchool',{L:req.query['L'],data:data})
+			res.render('pages/organization/graduateSchool',{L:req.query['L'],data:data,check_nav:'active_organization'})
 		}else{
-			res.render('pages/organization/graduateSchoolen',{L:req.query['L'],data:data})
+			res.render('pages/organization/graduateSchoolen',{L:req.query['L'],data:data,check_nav:'active_organization'})
 		}
 	})
 	
@@ -4307,9 +4435,9 @@ router.get('/pages/organization/departments',function(req,res){
 				return res.send(err)
 			}
 			if(req.query['L']=='1'){
-				res.render('pages/organization/periodical',{L:req.query['L'],data:doc})
+				res.render('pages/organization/periodical',{L:req.query['L'],data:doc,check_nav:'active_organization'})
 			}else{
-				res.render('pages/organization/periodicalen',{L:req.query['L'],data:doc})
+				res.render('pages/organization/periodicalen',{L:req.query['L'],data:doc,check_nav:'active_organization'})
 			}
 			
 		})
@@ -4321,7 +4449,7 @@ router.get('/pages/organization/departments',function(req,res){
 			if(err){
 				return res.send(err)
 			}
-			res.render('pages/organization/executive',{L:req.query['L'],data:doc})
+			res.render('pages/organization/executive',{L:req.query['L'],data:doc,check_nav:'active_organization'})
 		})
 }).get('/pages/organization/executive',function(req,res){
 	console.log('in executive')
@@ -4396,7 +4524,7 @@ router.get('/pages/organization/departments',function(req,res){
 		if(error){
 			return res.json(error)
 		}
-		res.render('pages/organization/executive1',{L:req.query['L'],data:data})
+		res.render('pages/organization/executive1',{L:req.query['L'],data:data,check_nav:'active_organization'})
 	})
 })
 
@@ -4519,7 +4647,7 @@ router.get('/infolist',function(req,res){
 	})
 })
 router.get('/tempaddcms',function(req,res){
-	return res.render('tempaddcms')
+	return res.render('tempaddcms',{data:''})
 }).post('/tempaddcms',function(req,res){
 	let search = cmsContent.findOne({})
 		search.sort({'id':-1})//倒序，取最大值

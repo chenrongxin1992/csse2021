@@ -71,6 +71,38 @@
 				    </div>  
 				</div>
 			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<div class="form-item">
+						<label class="layui-form-label">专业</label>
+						<div class="form-item-inline" >
+							<input type="text" name="jxxzhuanye"  autocomplete="off" class="layui-input" id="jxxzhuanye">
+						</div>
+				    </div>
+					<div class="form-item">
+						<label class="layui-form-label">特色班</label>
+						<div class="form-item-inline" >
+							<input type="text" name="jxxteseban"  autocomplete="off" class="layui-input" id="jxxteseban">
+						</div>
+				    </div>  
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<div class="form-item">
+						<label class="layui-form-label">专业(EN)</label>
+						<div class="form-item-inline" >
+							<input type="text" name="jxxzhuanye1"  autocomplete="off" class="layui-input" id="jxxzhuanye1">
+						</div>
+				    </div>
+					<div class="form-item">
+						<label class="layui-form-label">特色班(EN)</label>
+						<div class="form-item-inline" >
+							<input type="text" name="jxxteseban1"  autocomplete="off" class="layui-input" id="jxxteseban1">
+						</div>
+				    </div>  
+				</div>
+			</div>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">封面图</label>
@@ -195,6 +227,10 @@ $(function(){
 	    $('#fuzhur').val('<%- data.fuzhur%>')
 		$('#zhur1').val('<%- data.zhur1%>')
 	    $('#fuzhur1').val('<%- data.fuzhur1%>')
+		$('#jxxzhuanye').val('<%- data.jxxzhuanye%>')
+	    $('#jxxzhuanye1').val('<%- data.jxxzhuanye1%>')
+		$('#jxxteseban').val('<%- data.jxxteseban%>')
+	    $('#jxxteseban1').val('<%- data.jxxteseban1%>')
 		//初始化封面图
 		$('#uploader-list').append(
                     '<div id="" class="file-iteme">' +
@@ -225,6 +261,10 @@ $(function(){
       data.field.fuzhur = $('#fuzhur').val()
 	  data.field.zhur1 = $('#zhur1').val()
       data.field.fuzhur1 = $('#fuzhur1').val()
+	  data.field.jxxzhuanye = $('#jxxzhuanye').val()
+      data.field.jxxzhuanye1 = $('#jxxzhuanye1').val()
+	  data.field.jxxteseban = $('#jxxteseban').val()
+      data.field.jxxteseban1 = $('#jxxteseban1').val()
 	  if($('#fmpic').attr('src')){
 	  	console.log('ddddd---------------------------',$('#demo1').attr('src'))
 	  	data.field.fujianPath = $('#fmpic').attr('src')//.slice(8)//去掉

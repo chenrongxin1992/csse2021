@@ -7,7 +7,7 @@
 <div class="banner">
     <div class="slider">
         <%data.slider.forEach(function(item,index){%>
-        <a href="">
+        <a href="#">
           <div class="slider-img">
             <img class="lazy_img" src="<%=item.pic%>" />
           </div>
@@ -16,6 +16,7 @@
         <%})%>
     </div>
 </div>
+<div class="m-banner-txt"><%=data.slider[0].title1%></div>
 <!-- pc适配 -->
 <div class="contain">
     <div class="about">
@@ -64,14 +65,20 @@
                     <div class="research_tit c_cca84d b">Research</div>
                     <div class="pc-slider slider">
                       <%data.kycg.forEach(function(item,index){%>
-                        <a href="/csse/pages/research/details?id=<%=item.id%>" class="item"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
+                        <%if(item.wzlink){%>
+                            <a href="<%=item.wzlink%>" class="item" target="_blank"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
+                          <%}else{%>
+                            <a href="/csse/pages/research/details?id=<%=item.id%>" class="item"><img class="slider-img" src="<%=item.fujianPath%>" /></a>
+                          <%}%>
+                        
                       <%})%>
                     </div>
                 </div>
                 <div class="research_desc">
                     <a class="c_cca84d" href="/csse/pages/research/details?id=<%=data.kycg[0].id%>"><%=data.kycg[0].title%></a>
                     <div class="c_666 txt">
-                        <span><%=data.kycg[0].kanwu%> <%=data.kycg[0].year%></span>
+                        <span class="kanwu"><%=data.kycg[0].kanwu%> <%=data.kycg[0].year%></span>
+                        <span class="ky_zuozhe"><%=data.kycg[0].zuozhe%></span>
                         <div class="c_999"><%=data.kycg[0].belongsto1%></div>
                     </div>
                     <a class="more" href="/csse/pages/research/index">
@@ -149,8 +156,7 @@
                 </div>
                 <div class="l l-40">
                     <span class="num c_cca84d b mynum"><%=data.highlights.csrankings%></span>
-                    <p class="c_333399 small">CSRankings</p>
-                    <p class="c_333399 small">（2016-2022）</p>
+                    <p class="c_333399 small">CSRankings（2016-2022）</p>
                 </div>
                 <div class="l l-30 noBorBot">
                     <span class="num c_cca84d b mynum"><%=data.highlights.taiws%></span>

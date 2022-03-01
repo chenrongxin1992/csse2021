@@ -190,6 +190,7 @@
 }
 .area-right .area-txt img{
     max-width: 100%;
+    height: auto;
 }
 .area-right .area-txt .b{
     font-size: 24px;

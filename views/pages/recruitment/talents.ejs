@@ -14,14 +14,14 @@
 </head>
 <body class="recruitment">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
 <%}%>
 
 	<div class="banner">
-		<img src="../../image/recruitment_image/banner.png" class="b_bg lazy_img pimg" />
+		<img src="../../image/recruitment_image/rec_banner.png" class="b_bg lazy_img pimg" />
 		<img src="../../image/recruitment_image/m-banner.png" class="b_bg lazy_img mimg" />
 	</div>
 	<div class="contain">
@@ -31,7 +31,7 @@
 					<div class="r-row">
 						<a href="index">
 							<img src="../../image/recruitment_image/img1.png" class="img" />
-							<span class="txt">本科生招生</span>
+							<span class="txt">本科招生</span>
 							<div class="img-mask"></div>
 							<img class="icon" src="../../image/recruitment_image/icon.png">
 						</a>
@@ -39,7 +39,7 @@
 					<div class="r-row">
 						<a href="master">
 							<img src="../../image/recruitment_image/img2.png" class="img" />
-							<span class="txt">硕士生招生</span>
+							<span class="txt">硕士招生</span>
 							<div class="img-mask"></div>
 							<img class="icon" src="../../image/recruitment_image/icon.png">
 						</a>
@@ -47,7 +47,7 @@
 					<div class="r-row">
 						<a href="doctor">
 							<img src="../../image/recruitment_image/img3.png" class="img" />
-							<span class="txt">博士生招生</span>
+							<span class="txt">博士招生</span>
 							<div class="img-mask"></div>
 							<img class="icon" src="../../image/recruitment_image/icon.png">
 						</a>
@@ -77,7 +77,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="bread-crumbs">当前位置：<a href='/csse'>首页</a> > <a href='index'>招生招聘</a> > <a href="talents">人才招聘</a></div>
+				<!-- <div class="bread-crumbs">当前位置：<a href='/csse'>首页</a> > <a href='index'>招生招聘</a> > <a href="talents">人才招聘</a></div> -->
 				<div class="m-info-tit c_cca84d b">人才招聘</div>
 				<div class="cont">
 					<div class="area">
@@ -105,8 +105,24 @@
 										<%data.rczp.forEach(function(item,index){%>
 										<div class="mess">
 											<span class="ball">● </span>
-											<a class="txt" href="details?id=<%=item.id%>"><%=item.title%></a>
-											<span class="time c_999"><%=item.timeAdd%></span>
+											<%if(item.gzhlink!=''){%>
+												<a class="txt" href="<%=item.gzhlink%>" target="_blank">
+											<%}else{%>
+												<a class="txt" href="details?id=<%=item.id%>">
+											<%}%>
+													<div>
+														<span class="title"><%=item.title%></span>
+														<span>
+															<%if(item.plusN==1){%>
+																<span class="new">new</span>
+															<%}%>
+															<%if(item.isTop==1){%>
+																<span class="top">top</span>
+															<%}%>
+														</span>
+													</div>
+												</a>
+												<span class="time c_999"><%=item.timeAdd%></span>
 										</div>
 										<%})%>
 										<div class="pagination">
@@ -215,6 +231,22 @@
   <script src="../../javascripts/js/common.js"></script>
   
   <script src="../../javascripts/js/brcheck.js"></script>
-  
+  <script>
+	$(document).ready(function () {
+		//$('.changeL').css('display','none')
+	    $('.<%=check_nav%>').addClass('active')
+		$('.changeL').click(function(){
+            console.log('change to en')
+            $.get('/csse/setLanguage', {
+                language:'0'
+            }, function(data){
+                if(data.success){
+                //return 1
+                return window.location.href='/csse/pages/recruitment/position';
+                }
+            }, 'json');
+        })
+	})
+</script>
   </body>
   </html>

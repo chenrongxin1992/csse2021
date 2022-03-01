@@ -203,7 +203,6 @@
 }
 .area-right .page-list .row-right{
     padding-left: 25px;
-    line-height: 1.3em;
     flex-shrink: 1;
     flex: auto;
 }
@@ -211,14 +210,25 @@
     padding: 10px 0;
     border-bottom: 2px dotted #ccc;
     margin-bottom: 10px;
-	font-size: 24px;
-	line-height: 27px;
+	font-size: 20px;
 	font-weight: 400;
 }
 
-.area-right .page-list .row-right p {
+.area-right .page-list .row-right .p1 {
 	font-size: 16px;
 	margin-bottom: 10px;
+    font-weight: bold;
+    color: #616161;
+}
+.area-right .page-list .row-right .p2 {
+	font-size: 18px;
+	margin-bottom: 10px;
+    color: #666666;
+}
+.area-right .page-list .row-right .p3{
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #5f5f5f;
 }
 
 .area-right .page-list .page .row .img{
@@ -259,6 +269,8 @@
     }
     .area-right .page-list .row-right{
         padding-left: 25px;
+        border-bottom: 2px dotted #ccc;
+        padding-bottom: 5px;
     }
     .cont .top-nav{
         display: block;
@@ -266,6 +278,13 @@
     }
     .cont .top-nav .tit{
         margin: 0;
+    }
+    .area-right .page-list .row-right .row-tit{
+        border: none;
+        margin-bottom: 0;
+    }
+    .area-right .page-list .page{
+        margin-bottom: 25px;
     }
 }
 @media only screen and (max-width:959px){
@@ -283,7 +302,7 @@
     }
 }
 
-@media only screen and (max-width:479px){
+@media only screen and (max-width: 767px){
     .info .info-cont .txt{
         text-align: left;
         padding-top: 0px;
@@ -302,18 +321,9 @@
         font-size: 30px;
     }
     .area-right .page-list .row-right .row-tit{
-        font-size: 20px;
-    
+        font-size: 18px;
     }
-}
-@media only screen and (max-width:350px){
-    .cont .top-nav .tit{
-        font-size: 24px;
-    }
-    .area-right .page-list .row-right .row-tit{
+    .area-right .page-list .row-right .p2{
         font-size: 16px;
-    }
-    .area-right .page-list .row-right p {
-        font-size: 14px !important;
     }
 }

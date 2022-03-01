@@ -15,14 +15,14 @@
 </head>
 <body class="recruitment">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
 <%}%>
 
 	<div class="banner">
-		<img src="../../image/recruitment_image/banner.png" class="b_bg lazy_img pimg" />
+		<img src="../../image/recruitment_image/rec_banner.png" class="b_bg lazy_img pimg" />
 		<img src="../../image/recruitment_image/m-banner.png" class="b_bg lazy_img mimg" />
 	</div>
 	<div class="contain">
@@ -53,6 +53,11 @@
   <script src="../../javascripts/js/common.js"></script>
   
   <script src="../../javascripts/js/brcheck.js"></script>
-  
+  <script>
+	$(document).ready(function () {
+		$('.changeL').css('display','none')
+	  $('.<%=check_nav%>').addClass('active')
+	})
+</script>
   </body>
   </html>

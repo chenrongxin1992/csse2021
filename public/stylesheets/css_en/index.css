@@ -63,6 +63,17 @@
     align-items: center;
     background-color: #352C84;
     font-size: 30px;
+    border-top-left-radius: 50px;
+}
+.m-banner-txt{
+    display: none;
+    color: #fff;
+    background-color: #352C84;
+    font-size: 14px;
+    height: 26px;
+    line-height: 30px;
+    text-align: center;
+    width: 100%;
 }
 
 .banner{
@@ -355,10 +366,17 @@
     font-size: 24px;
 }
 .research_desc .txt{
-    padding: 20px 0;
+    padding: 20px 0 10px;
     font-size: 18px;
 }
-
+.research_desc .txt span{
+    display: block;
+}
+.research_desc .txt span:nth-child(2){
+    font-size: 14px;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
 
 /*recruitment */
 .recruitment{
@@ -604,25 +622,32 @@
     width: 50%;
 }
 .high-list .l{
-    height: 130px;
+    height: 180px;
     display: flex;
     align-items: center;
     flex-flow: column;
-    padding-top: 20px;
+    justify-content: center;
     box-sizing: border-box;
-    /* border-bottom: 1px solid rgba(238,238,238,.44);
-    border-right: 1px solid rgba(238,238,238,.44); */
+    border-bottom: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
 }
 .high-list .img{
     height: 40px;
 }
 .high-list .high-left .num{
-    font-size: 36px;
+    font-size: 72px;
     font-family: 'Times New Roman', Times, serif;
 }
+.high-list .high-left .small{
+    font-size: 18px;
+}
 .high-list .high-right .num{
-    font-size: 20px;
+    font-size: 40px;
     font-family: 'Times New Roman', Times, serif;
+    line-height: 1.2;
+}
+.high-list .high-right .small {
+    font-size: 16px;
 }
 .high-list .noBorBot{
     border-bottom: none;
@@ -644,38 +669,33 @@
     bottom: initial;
 }
 
-@media only screen and (min-width:1920px){
-    .high-list .high-left .num{
-        font-size: 72px;
-    }
-    .high-list .high-left .small{
-        font-size: 18px;
-    }
-    .high-list .high-right .num {
-        font-size: 24px;
-    }
-    .high-list .high-right .small {
-        font-size: 16px;
-    }
-    .high-list .l {
-        height: 200px;
-    }
-    .high-list .high-right .l{
-        padding-top: 50px;
-    }
-}
 @media only screen and (max-width:1680px){
     .research .research_txt{
         font-size: 25px;
     }
+    .high-list .high-left .num{
+        font-size: 64px;
+    }
+    .high-list .high-right .num{
+        font-size: 34px;
+    }
 }
 
 @media only screen and (max-width:1440px){
-    .banner .banner-txt {
-        font-size: 26px;
-    }
     .research .research_btn{
         font-size: 18px;
+    }
+    .high-list .high-left .num{
+        font-size: 56px;
+    }
+    .high-list .high-left .small{
+        font-size: 16px;
+    }
+    .high-list .high-right .num{
+        font-size: 28px;
+    }
+    .high-list .high-right .small {
+        font-size: 14px;
     }
 }
 @media only screen and (max-width:1200px){
@@ -737,10 +757,20 @@
         padding: 2% 5%;
         margin: 0;
     }
+    .research_desc .c_cca84d{
+        font-size: 20px;
+        line-height: 1.2;
+        display: block;
+    }
+    .research_desc .txt{
+        padding: 10px 0;
+        font-size: 16px;
+    }
     .research_banner{
         left: 0;
     }
     .research_desc .more{
+        padding-top: 10px;
         font-size: 18px;
         margin-bottom: 34px;
     }
@@ -772,14 +802,11 @@
         display: none !important;
 	}
 
+    .m-banner-txt{
+        display: block;
+    }
 	.banner .banner-txt {
-		font-size: 24px;
-		height: 46px;
-		padding-left: 0;
-		width: 100%;
-		position: relative;
-		text-align: center;
-		justify-content: center;
+		display: none;
 	}
 
 	.high-lights .high-list {
@@ -858,6 +885,22 @@
         font-size: 14px;
         padding: 2px 10px;
     }
+    .high-list .l{
+        height: 120px;
+    }
+    .high-list .high-left .num{
+        font-size: 28px;
+    }
+    .high-list .high-left .small{
+        font-size: 16px;
+    }
+    .high-list .high-right .num{
+        font-size: 16px;
+        line-height: 1.45;
+    }
+    .high-list .high-right .small {
+        font-size: 12px;
+    }
 }
 
 @media only screen and (max-width:480px) {
@@ -868,20 +911,5 @@
     .research_banner .slick-next, .research_banner .slick-prev{
         width: 30px;
         height: 30px;
-    }
-    .high-list .l{
-        height: 120px;
-    }
-    .high-list .high-left .num{
-        font-size: 24px;
-    }
-    .high-list .img{
-        height: 30px;
-    }
-    .high-list .img img{
-        height: 100%;
-    }
-    .high-list .high-right .num{
-        font-size: 16px;
     }
 }

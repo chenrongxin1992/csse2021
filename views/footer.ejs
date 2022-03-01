@@ -118,8 +118,9 @@
         </div>
       </div>
       <div class="foot-bot line">
-        粤ICP备11018045号<span class="txt"><img class="ga_img" src="image/common/ga_img.png" />粤公网安备
-          44030502007936号</span><span class="location">Copyright © 2021 深圳大学 计算机与软件学院</span>
+        <a href="https://beian.miit.gov.cn" target="_blank" style="color: #ccc;">粤ICP备11018045号</a>
+        <span class="txt"><img class="ga_img" src="image/common/ga_img.png" />
+          <a href="" style="color: #ccc;" >粤公网安备44030502007936号</a></span><span class="location">Copyright © 2021 深圳大学 计算机与软件学院</span>
         <span class="to_top"><i></i>TOP</span>
       </div>
     </div>
@@ -167,6 +168,9 @@
         return '<button></button>';
       },
     });
+    $('.banner .slider').on('afterChange', function(event, slick, currentSlide) {
+      $('.m-banner-txt').text(slick.$slides[currentSlide].innerText)
+    })
     $('.pc-slider').slick({
       arrows: true,
       autoplay: true,
@@ -178,11 +182,12 @@
     $('.pc-slider').on('afterChange', function(event, slick, currentSlide){
         // currentSlide 为当前显示的slider下标
         let kycg = JSON.parse(decodeURIComponent('<%=data.kycgstr%>'));
-        console.log('当前下标 ---------- >',currentSlide)
-        console.log(kycg[currentSlide])
+        // console.log('当前下标 ---------- >',currentSlide)
+        // console.log(kycg[currentSlide])
         $('.p-area .research_desc .c_999').html(kycg[currentSlide].belongsto)
         $('.p-area .research_desc .c_cca84d').html(kycg[currentSlide].title)
-        $('.p-area .research_desc .c_666 span').html(kycg[currentSlide].kanwu + ' ' + kycg[currentSlide].year)
+        $('.p-area .research_desc .c_666 .kanwu').html(kycg[currentSlide].kanwu + ' ' + kycg[currentSlide].year)
+        $('.p-area .research_desc .c_666 .ky_zuozhe').html(kycg[currentSlide].zuozhe)
       });
       $('.mo-slider ').slick({
         arrows: true,
@@ -199,7 +204,8 @@
         console.log(kycg[currentSlide])
         $('.m-area .research_desc .c_999').html(kycg[currentSlide].belongsto)
         $('.m-area .research_desc .c_cca84d').html(kycg[currentSlide].title)
-        $('.m-area .research_desc .c_666 span').html(kycg[currentSlide].kanwu + ' ' + kycg[currentSlide].year)
+        $('.m-area .research_desc .c_666 .kanwu').html(kycg[currentSlide].kanwu + ' ' + kycg[currentSlide].year)
+        $('.m-area .research_desc .c_666 .ky_zuozhe').html(kycg[currentSlide].zuozhe)
       });
   });
   // 屏幕滚动到当前元素时，显示动画

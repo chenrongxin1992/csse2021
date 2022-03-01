@@ -18,7 +18,7 @@
 </head>
 <body class="teacherTeam">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
@@ -463,6 +463,10 @@
   <script src="../../javascripts/js/common.js"></script>
 
   <script src="../../javascripts/js/brcheck.js"></script>
-
+  <script>
+    $(document).ready(function () {
+      $('.<%=check_nav%>').addClass('active')
+    })
+</script>
 </body>
 </html>

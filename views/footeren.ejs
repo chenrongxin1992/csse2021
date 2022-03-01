@@ -92,8 +92,8 @@
                 </div>
             </div>
             <div class="foot-bot line">
-                粤ICP备11018045号<span class="txt"><img class="ga_img" src="image/common/ga_img.png" />粤公网安备
-                    44030502007936号</span><span class="location">Copyright © 2021 College of Computer Science and
+                <a href="https://beian.miit.gov.cn" target="_blank" style="color: #ccc;">粤ICP备11018045号</a>
+                <span class="txt"><img class="ga_img" src="image/common/ga_img.png" /><a href="" style="color: #ccc;" >粤公网安备44030502007936号</a></span><span class="location">Copyright © 2021 College of Computer Science and
                     Software Engineering, SZU</span>
                 <span class="to_top"><i></i>TOP</span>
             </div>
@@ -116,6 +116,7 @@
 
 <script>
     $(document).ready(function () {
+       // $('.position_gzhlink').attr('href','<%=data.position_gzhlink%>')
         $('.changeL').click(function(){
             console.log('change to en')
             $.get('/csse/setLanguage', {
@@ -140,6 +141,9 @@
                 return '<button></button>';
             },
         });
+        $('.banner .slider').on('afterChange', function(event, slick, currentSlide) {
+            $('.m-banner-txt').text(slick.$slides[currentSlide].innerText)
+        })
         // 科研成果切换事件
         $('.pc-slider').slick({
             arrows: true,
@@ -161,7 +165,8 @@
             // $('.research_desc .c_999').html('大数据技术与应用研究所 -- ' + currentSlide)
             $('.research_desc .c_999').html(kycg[currentSlide].belongsto1)
             $('.research_desc .c_cca84d').html(kycg[currentSlide].title)
-            $('.research_desc .c_666 span').html(kycg[currentSlide].kanwu + ' ' + kycg[currentSlide].year)
+            $('.research_desc .c_666 .kanwu').html(kycg[currentSlide].kanwu + ' ' + kycg[currentSlide].year)
+            $('.research_desc .c_666 .ky_zuozhe').html(kycg[currentSlide].zuozhe)
         });
         
     });

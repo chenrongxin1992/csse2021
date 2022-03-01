@@ -12,7 +12,40 @@
 	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="../stylesheets/public.css" media="all" />
 	<style type="text/css">
-		
+		.handle {
+			width: 100%;
+            position: absolute;
+            background-color: black;
+            color: white;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+            /* text-align: right; */
+            display: none;
+			top: 0;
+			margin-left: 0px;
+        }
+        .handle i {
+			margin: 0 auto;
+    		display: block;
+			text-align: center;
+        }
+         .handle i:hover {
+            cursor: pointer;
+        }
+        .file-iteme {
+			position: relative;
+			max-width: 150px;
+			margin: 0 auto;
+        }
+		.file-iteme1 {
+			position: relative;
+			max-width: 150px;
+			/* margin: 0 auto; */
+        }
+		/* #uploadarea{
+			text-align: center;
+		} */
 		
         
 	</style>
@@ -50,6 +83,18 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">预览图</label>
 				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list">     
+				</div>
+				 <!-- <p style="margin-left: 105px;">(1100px * 240px)</p> -->
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">图片(EN)</label>
+				<button type="button" class="layui-btn" id="test2">上传</button>
+				<span>240*231/159*74</span>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">预览图</label>
+				<div class="layui-upload-list uploader-list" style="overflow: auto;" id="uploader-list1">     
 				</div>
 				 <!-- <p style="margin-left: 105px;">(1100px * 240px)</p> -->
 			</div>
@@ -111,7 +156,63 @@ $(function(){
 				});
 		});
     });
+	$(document).on("mouseenter mouseleave", ".file-iteme1", function(event){
+            if(event.type === "mouseenter"){
+                //鼠标悬浮
+                $(this).children(".handle").fadeIn("fast");
+            }else if(event.type === "mouseleave") {
+                //鼠标离开
+                $(this).children(".handle").hide();
+            }
+        });
+	// 删除图片
+    $(document).on("click", ".file-iteme1 .handle", function(event){
+		let _self = $(this)
+		layer.confirm('确定要删除图片吗', {
+			btn: ['确定','取消'] //按钮
+			}, function(){
+				console.log('$(this).parent()-----',$(this).parent(),$(this).parent().parent())
+				_self.parent().remove()
+				layer.msg('已删除', {icon: 1});
+			}, function(){
+				layer.msg('已取消', {
+					time: 1000, 
+				});
+		});
+    });
     //图标上传
+	let uploadInst1 = upload.render({
+	    elem: '#test2'
+        //本地与服务器
+	    ,url: '<%=base_url%>yjsupload'
+		,multiple: true
+		,accept:"file"
+        ,exts: 'jpg|jpeg|gif|png'
+	    ,before: function(obj){
+			console.log('try......')
+			layer.msg('图片上传中...', {
+                icon: 16,
+                shade: 0.01,
+                time: 0
+            })
+	    }
+	    ,done: function(res){
+			layer.close(layer.msg());//关闭上传提示窗口
+	      console.log('upload success',res)
+		  $('#uploader-list1').empty()
+		  $('#uploader-list1').append(
+                    '<div id="" class="file-iteme1">' +
+                    '<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
+                    '<img style="height: 150px;" class="fmpic1" src='+ res.data +'>' +
+                    '</div>'
+                );
+          layer.msg('图片上传成功')
+	      //上传成功
+	    }
+	    ,error: function(){
+	      layer.msg('上传失败，请联系CRX')
+	    }
+	  });
 	let uploadInst = upload.render({
 	    elem: '#test1'
         //本地与服务器
@@ -172,6 +273,20 @@ $(function(){
                     '<img style="height: 150px;" class="fmpic" src='+item+' ></div>'
                 );
 		})
+		let fujianarr1 = ('<%=data.fujianPath1%>').split(';')
+		console.log('fujianarr1',fujianarr1)
+		if(fujianarr1.length!=0){
+			fujianarr1.forEach(function(item,index){
+				console.log('item',item)
+				if(item){
+					$('#uploader-list1').append(
+						'<div id="" class="file-iteme1">' +
+						'<div class="handle"><i class="layui-icon layui-icon-delete"></i></div>' +
+						'<img style="height: 150px;" class="fmpic1" src='+item+' ></div>'
+					);
+				}
+			})
+		}
 		
   		form.render()
 	}
@@ -192,16 +307,31 @@ $(function(){
       data.field.titleEN = $('#titleEN').val()
 	  data.field.url = $('#url').val()
 	  if($('.fmpic').length!=0){
-	  	console.log('ddddd---------------------------',$('.fmpic'))
+	  //	console.log('ddddd---------------------------',$('.fmpic'))
 		//20211030
 		let fujianstr = ''
 		$('.fmpic').each(function(index,obj){
-			console.log('ddddd---------------------------',$(obj))
+			//console.log('ddddd---------------------------',$(obj))
 			fujianstr += $(obj).attr('src') + ';'
 		})
 	  	data.field.fujianPath = fujianstr//.slice(8)//去掉
 	  }else{
 		  layer.msg('请上传封面图')
+		  return false
+	  }
+	  if($('.fmpic1').length!=0){
+	  	console.log('ddddd---------------------------',$('.fmpic1'))
+		//20211030
+		let fujianstr1 = ''
+		$('.fmpic1').each(function(index,obj){
+			console.log('eee---------------------------',$(obj).attr('src'))
+			if($(obj).attr('src')){
+				fujianstr1 += $(obj).attr('src') + ';'
+			}
+		})
+	  	data.field.fujianPath1 = fujianstr1//.slice(8)//去掉
+	  }else{
+		  layer.msg('请上传封面图EN')
 		  return false
 	  }
 

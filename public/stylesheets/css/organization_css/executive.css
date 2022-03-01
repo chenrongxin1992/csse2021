@@ -12,12 +12,12 @@
 .item-title{
     width: 100%;
     padding: 35px 0;
-    text-align: center;
+    /* text-align: center; */
     position: relative;
 }
 .item-title span{
     display: inline-block;
-    padding: 0 35px;
+    padding: 0 35px 0 0;
     font-size: 24px;
     color: #cca84d;
     font-weight: bold;
@@ -38,7 +38,7 @@
 
 .user-list{
 	width: 100%;
-	padding: 0 10px;
+	/* padding: 0 10px; */
 	font-size: 0;
 }
 .user-list .item{
@@ -96,17 +96,31 @@
 }
 
 @media screen and (max-width: 1200px) {
+	.contain-area{
+		padding-bottom: 50px;
+	}
 	.user-list .item{
 		width: 100%;
+	}
+	.user-list .item:last-child{
+		margin-bottom: 0;
 	}
 	.item-title span{
 		background-color: #f9f9f9;
 		font-size: 20px;
+		padding-right: 20px;
 	}
 	.user-list .item ul{
 		font-size: 14px;
 	}
 	.user-list .item .name{
 		font-size: 18px;
+	}
+	.item-title{
+		margin: 0 10px;
+	}
+	.user-list{
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 }

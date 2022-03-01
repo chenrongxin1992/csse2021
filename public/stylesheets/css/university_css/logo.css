@@ -90,6 +90,13 @@
     font-size: 18px;
     line-height: 27px;
 }
+.cont .titbg{
+    display: inline-block;
+    border-radius: 10px;
+    padding: 3px 50px;
+    background: linear-gradient(180deg, #796fc5, #cca84d);
+    color: white;
+}
 .cont .logo .row .img{
     width: 100%;
 }

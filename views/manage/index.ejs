@@ -52,7 +52,7 @@
 						<dl class="layui-nav-child">
 							<!-- 原spatial菜单 -->
 							<dd class="layui-this" data-menu="<%=menu%>"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>中文</cite></a></dd>
-							<%if((user.power=='管理员'&&powerType=='ftMenu')||(powerType=='all')){%>
+							<%if((user.power=='管理员'&&powerType=='ftMenu')||(powerType=='all')||(powerType=='hhMenu')){%>
 							<dd class="layui-this" data-menu="enMenu"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>英文</cite></a></dd>
 							<%}%>
 						</dl>
@@ -62,7 +62,7 @@
 					<li class="layui-nav-item layui-this" data-menu="<%=menu%>" >
 						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>中文</cite></a>
 					</li>
-					<%if((user.power=='管理员'&&powerType=='ftMenu')||(powerType=='all')){%>
+					<%if((user.power=='管理员'&&powerType=='ftMenu')||(powerType=='all')||(powerType=='hhMenu')){%>
 					<li class="layui-nav-item layui-this" data-menu="enMenu">
 						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>英文</cite></a>
 					</li>

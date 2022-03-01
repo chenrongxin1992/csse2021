@@ -13,7 +13,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'colors', groups: [ 'colors' ] },
 		'/',
 		{ name: 'others', groups: [ 'others' ] },
-		{ name: 'about', groups: [ 'image2', 'about' ] }
+		{ name: 'about', groups: [ 'image', 'about' ] }
 	];
 	config.removeButtons = 'About,NewPage,ExportPdf,Templates,Replace,Find,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Language,Iframe,ShowBlocks';
 	config.fontSize_sizes ='14/14px;16/16px;20/20px;28/28px;8/8px;9/9px;10/10px;11/11px;12/12px;18/18px;22/22px;24/24px;26/26px;36/36px;48/48px;72/72px';
@@ -23,9 +23,9 @@ CKEDITOR.editorConfig = function( config ) {
         '方正舒体/FZShuTi;方正姚体/FZYaoti;细明体/MingLiU;新细明体/PMingLiU;微软正黑/Microsoft JhengHei;'+  
         'Arial Black/Arial Black;'+ config.font_names;  
 	//config.allowedContent = true
-    config.extraPlugins = 'uploadimage,image2,tableresize,contextmenu,lineheight'
+    config.extraPlugins = 'uploadimage,tableresize,contextmenu,lineheight'
 	config.filebrowserImageUploadUrl ='./ckupload?'
-	config.removePlugins = 'image,exportpdf';
+	config.removePlugins = 'exportpdf';
 	config.colorButton_colors = 'CCA84D,00923E,F8C100,28166F,000,800000,8B4513,2F4F4F,008080,000080,4B0082,696969,' +
     'B22222,A52A2A,DAA520,006400,40E0D0,0000CD,800080,808080,' +
     'F00,FF8C00,FFD700,008000,0FF,00F,EE82EE,A9A9A9,' +

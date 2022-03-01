@@ -18,15 +18,15 @@
 </head>
 <body class="teacherTeam">
 <%if(L=='1'){%>
-	<%include headcom.ejs%>
+	<%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
 	<%include ../../headcom.ejs%>
 <%}%>
 
   <div class="banner">
-    <img src="../../image/teacher_image/banner.png" class="b_bg lazy_img pimg" />
-    <img src="../../image/teacher_image/m-banner.png" class="b_bg lazy_img mimg" />
+    <img src="../../image/teacher_image/people_banner.jpg" class="b_bg lazy_img pimg" />
+    <img src="../../image/teacher_image/m-banner.jpg" class="b_bg lazy_img mimg" />
   </div>
   <div class="contain">
     <div class="p-area contain-area clearfix">
@@ -81,24 +81,24 @@
                     <div class=" area-nav">
                         <div class="tit b">职称</div>
                         <ul id="zc_ul">
-                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[0]._id%>">杰出人才(<%=data.zhichengNum[0].num%>)</a></li>
-                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[1]._id%>">教授(<%=data.zhichengNum[1].num%>)</a></li>
-                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[2]._id%>">副教授(<%=data.zhichengNum[2].num%>)</a></li> 
-                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[4]._id%>">助理教授(<%=data.zhichengNum[4].num%>)</a></li>
-                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[3]._id%>">讲师(<%=data.zhichengNum[3].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[0]._id%>">杰出人才 (<%=data.zhichengNum[0].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[1]._id%>">教授 (<%=data.zhichengNum[1].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[2]._id%>">副教授 (<%=data.zhichengNum[2].num%>)</a></li> 
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[4]._id%>">助理教授 (<%=data.zhichengNum[4].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[3]._id%>">讲师 (<%=data.zhichengNum[3].num%>)</a></li>
                             <li class="third">
                                 <span>专职研究人员(<%=data.zhichengNum[5].num+data.zhichengNum[9].num+data.zhichengNum[8].num%>)</span>
                                 <div>
-                                    <a href="" class="a_zc" id="<%=data.zhichengNum[5]._id%>">研究员(<%=data.zhichengNum[5].num%>)</a>
+                                    <a href="" class="a_zc" id="<%=data.zhichengNum[5]._id%>">研究员 (<%=data.zhichengNum[5].num%>)</a>
                                 </div>
                                 <div>
-                                    <a href="" class="a_zc" id="<%=data.zhichengNum[9]._id%>">副研究员(<%=data.zhichengNum[9].num%>)</a>
+                                    <a href="" class="a_zc" id="<%=data.zhichengNum[9]._id%>">副研究员 (<%=data.zhichengNum[9].num%>)</a>
                                 </div>
                                 <div>
-                                    <a href="" class="a_zc" id="<%=data.zhichengNum[8]._id%>">研究/辅助管理(<%=data.zhichengNum[8].num%>)</a>
+                                    <a href="" class="a_zc" id="<%=data.zhichengNum[8]._id%>">研究/辅助管理 (<%=data.zhichengNum[8].num%>)</a>
                                 </div>
                             </li>                          
-                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[6]._id%>">博士后(<%=data.zhichengNum[6].num%>)</a></li>
+                            <li><a href="" class="a_zc" id="<%=data.zhichengNum[6]._id%>">博士后 (<%=data.zhichengNum[6].num%>)</a></li>
                             
                             
                         </ul>
@@ -106,16 +106,16 @@
                     <div class=" area-nav">
                         <div class="tit b">研究所/中心</div>
                         <ul id="sx_ul">
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[0]._id%>">高性能计算研究所(<%=data.suoxiNum[0].num%>)</a></li>
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[1]._id%>">大数据技术与应用研究所(<%=data.suoxiNum[1].num%>)</a></li>
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[2]._id%>">未来媒体技术与计算研究所(<%=data.suoxiNum[2].num%>)</a></li>
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[3]._id%>">网络与信息安全研究所(<%=data.suoxiNum[3].num%>)</a></li>
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[4]._id%>">计算机视觉研究所(<%=data.suoxiNum[4].num%>)</a></li>
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[7]._id%>">可视计算研究中心(<%=data.suoxiNum[7].num%>)</a></li> 
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[6]._id%>">物联网研究中心(<%=data.suoxiNum[6].num%>)</a></li>
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[5]._id%>">智能技术与系统集成研究所(<%=data.suoxiNum[5].num%>)</a></li>
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[10]._id%>">软件工程研究中心(<%=data.suoxiNum[10].num%>)</a></li>    
-                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[8]._id%>">教学系(<%=data.suoxiNum[8].num%>)</a></li>     
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[0]._id%>">高性能计算研究所 (<%=data.suoxiNum[0].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[1]._id%>">大数据技术与应用研究所 (<%=data.suoxiNum[1].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[2]._id%>">未来媒体技术与计算研究所 (<%=data.suoxiNum[2].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[3]._id%>">网络与信息安全研究所 (<%=data.suoxiNum[3].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[4]._id%>">计算机视觉研究所 (<%=data.suoxiNum[4].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[7]._id%>">可视计算研究中心 (<%=data.suoxiNum[7].num%>)</a></li> 
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[6]._id%>">物联网研究中心 (<%=data.suoxiNum[6].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[5]._id%>">智能技术与系统集成研究所 (<%=data.suoxiNum[5].num%>)</a></li>
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[10]._id%>">软件工程研究中心 (<%=data.suoxiNum[10].num%>)</a></li>    
+                            <li><a href="" class="a_sx" id="<%=data.suoxiNum[8]._id%>">教学系 (<%=data.suoxiNum[8].num%>)</a></li>     
                                               
                         </ul>
                     </div>
@@ -533,6 +533,10 @@
   <script src="../../javascripts/js/common.js"></script>
 
   <script src="../../javascripts/js/brcheck.js"></script>
-
+  <script>
+    $(document).ready(function () {
+      $('.<%=check_nav%>').addClass('active')
+    })
+</script>
 </body>
 </html>

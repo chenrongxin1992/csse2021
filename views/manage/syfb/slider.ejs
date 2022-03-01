@@ -29,6 +29,16 @@
 
 <script type="text/javascript" src="../manage/js/thirdpart.js"></script>
 <script type="text/javascript">
+function screen(){
+	let width = $(window).width()
+	console.log('屏幕宽度----',width)
+	if(width<400){//iphone 12 pro
+		return 1
+	}
+	else{
+		return 2
+	}
+}
 layui.use(['jquery','table','form'], function(){ 
     let $ = layui.$ //重点处
     let table = layui.table,
@@ -46,9 +56,10 @@ layui.use(['jquery','table','form'], function(){
 	    //   ,{field: 'title1', title: '标题(EN)',align:'center',sort:true}
 	      ,{field: 'pic', title: '图片', align:'center',templet:'#sytpimg',style:'cursor: pointer;',event:'preview',width:300}
 	      ,{field: 'url', title: '链接', align:'center',sort:true,width:150}
+		  ,{field: 'sortbyhand', title: '排序值', align:'center',width:110,sort:true}
 	      //,{field: 'isDisplay', title: '是否显示', align:'center',templet:'#displaytpl'}
 	      //,{field: 'timeEdit', title: '修改时间', align:'center'}
-	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:200} //这里的toolbar值是模板元素的选择器
+	      ,{title:'操作', align:'center', toolbar: '#yjfxbar',width:300} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
     //数据重载
@@ -94,6 +105,23 @@ layui.use(['jquery','table','form'], function(){
 	  	console.log('preview')
 	  	let src = ''+ data.pic
 	  	layer.photos({ photos: {"data": [{"src": src}]} });
+	  }else if(layEvent === 'sortbyhand'){
+	  	console.log('sortbyhand')
+	  	let index = layui.layer.open({
+            title : "首页大图排序",
+            type : 2,
+            area: screen() == 1 ? ['90%','400px']:['30%', '400px'],
+            content : "slider_sortbyhand?id="+data.id,
+            success : function(layero, index){
+            },
+			end:function(){
+				table.reload('table_slider', {
+					where: {
+						//search_txt: $('#search_txt').val()
+					}
+				});
+			}
+        })
 	  }else if(layEvent === 'inuse'){//设置前台是否显示
 	  	console.log('inuse')
 	  	console.log('data------',data)
@@ -151,8 +179,9 @@ layui.use(['jquery','table','form'], function(){
   {{# }else{ }}
   	<a class="layui-btn layui-btn-xs" lay-event="inuse" value='0'>显示</a>
   {{# } }}
-  <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-xs" lay-event="sortbyhand">排序</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/html" id="sytpimg">
 	<img src="{{d.pic}}" style="height: 100px;max-width: 100%;" class="previewimg" />

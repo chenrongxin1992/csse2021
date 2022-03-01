@@ -65,10 +65,10 @@
 					<div class="form-item-inline" >
 				      <input type="text" name="title" lay-verify="required" autocomplete="off" class="layui-input" id="title">
 				    </div>
-				    <!-- <label class="layui-form-label" >标题(EN)</label>
+				    <label class="layui-form-label" >公众号链接</label>
 				    <div class="form-item-inline" >
-				      <input type="text" name="titleEN"  autocomplete="off" class="layui-input" id="titleEN">
-				    </div> -->
+				      <input type="text" name="gzhlink"  autocomplete="off" class="layui-input" id="gzhlink">
+				    </div>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -162,6 +162,7 @@ $(function(){
          //初始化表单值
          console.log('编辑',id,'<%- data.timeAdd%>')
         $('#title').val('<%- data.title%>')
+		$('#gzhlink').val('<%- data.gzhlink%>')
 		$('#zplx').val('<%- data.zplx%>')
         $('#timeAdd').val('<%- data.timeAdd%>')
 	    $('#timeEdit').val('<%- data.timeEdit%>')
@@ -184,7 +185,7 @@ $(function(){
 	   data.field.pageContent =pageContent.getData()
 	  data.field.zplx = $('#zplx option:selected').val()
 	  data.field.title = $('#title').val()
-     // data.field.titleEN = $('#titleEN').val()
+      data.field.gzhlink = $('#gzhlink').val()
 	  data.field.timeAdd = $('#timeAdd').val()
       data.field.timeEdit = $('#timeEdit').val()
       data.field.isTop = topstr.substring(0,topstr.length-1)

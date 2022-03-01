@@ -300,7 +300,7 @@
 
 @media screen and (max-width: 1600px) {
 	.area-row .txt div:first-child {
-		height: 105px;
+		height: 99px;
 	}
 	.area-row .txt .txt-more {
 		font-size: 16px;

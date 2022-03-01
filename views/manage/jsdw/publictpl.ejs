@@ -256,7 +256,14 @@ layui.use(['jquery','table','form'], function(){
 			area: ['80%', '400px'],
             content : "jsdwadd?id="+data.id,
             success : function(layero, index){
-            }
+            },
+			end:function(){
+				table.reload('table_jsdw', {
+					where: {
+						//search_txt: $('#search_txt').val()
+					}
+				});
+			}
         })
         console.log('index',index)
         // layui.layer.full(index);

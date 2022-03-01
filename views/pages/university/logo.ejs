@@ -13,7 +13,7 @@
 </head>
 <body class="university">
 <%if(L=='1'){%>
-  <%include headcom.ejs%>
+  <%include ../pages_header_cn.ejs%>
 <%}%>
 <%if(L!='1'){%>
   <%include ../../headcom.ejs%>
@@ -38,26 +38,36 @@
             </div>
             <div class="logo-l">
                 <div class="row row1">
-                    <div class="txt">学院标识-深大红(透明背景)</div>
+                    <div class="txt">
+                      <span class="titbg">学院标识-深大红(透明背景)</span>
+                    </div>
                     <img class="img img1" src="../../image/university_image/logo/logo-l-red.png" />
                 </div>
                 <div class="row">
-                    <div class="txt">学院标识-学院蓝(透明背景)</div>
+                    <div class="txt">
+                      <span class="titbg">学院标识-学院蓝(透明背景)</span>
+                    </div>
                     <img class="img img2" src="../../image/university_image/logo/logo-l-blue.png" />
                 </div>
             </div>
             <div class="logo">
                 <div class="row row1">
-                    <div class="txt">院徽-深大红(透明背景)</div>
+                    <div class="txt">
+                      <span class="titbg">院徽-深大红(透明背景)</span>
+                    </div>
                     <img class="img" src="../../image/university_image/logo/logo-red.png" />
                 </div>
                 <div class="row">
-                    <div class="txt">院徽-学院蓝(透明背景)</div>
+                    <div class="txt">
+                      <span class="titbg">院徽-学院蓝(透明背景)</span>
+                    </div>
                     <img class="img" src="../../image/university_image/logo/logo-blue.png" />
                 </div>
             </div>
             <div class="courtyard-flag">
-                <div class="txt">院旗</div>
+                <div class="txt">
+                  <span class="titbg">院旗</span>
+                </div>
                 <img class="img" src="../../image/university_image/logo/courtyard-flag.png" />
             </div>
         </div>
@@ -82,6 +92,11 @@
   $(document).ready(function(){
     $('.changeL').css('display','none')
 });
+</script>
+<script>
+  $(document).ready(function () {
+    $('.<%=check_nav%>').addClass('active')
+  })
 </script>
 </body>
 </html>

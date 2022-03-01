@@ -15,7 +15,7 @@
 
 <body class="university">
 <%if(L=='1'){%>
-  <%include headcom.ejs%>
+  <%include ../pages_header_cn.ejs%>
 <%}%>
 
   <div class="banner">
@@ -61,35 +61,67 @@
           </div>
           <div class="row row2">
             <div class="b tit c_cca84d">国家级科研平台</div>
-            <p class="m32">大数据系统计算技术国家工程实验室</p>
+            <p class="m32">大数据系统计算技术国家工程实验室<br />
+            粤港现代信息服务协同创新中心（省部共建）</p>
             <div class="b tit c_cca84d">国家级教学平台</div>
             <p class="m32">计算机实验教学中心（国家级）<br />
-              网络工程虚拟仿真实验教学中心（国家级）
+              网络工程虚拟仿真实验教学中心（国家级）<br />
+              腾讯云人工智能学院（国家首批现代产业学院）
             </p>
-            <div class="b tit c_cca84d">市级科研平台</div>
-            <p>
-              深圳市服务计算与应用重点实验室<br />
-              深圳市移动互联网应用中间件技术工程实验室<br />
-              深圳市嵌入式系统设计重点实验室<br />
-              深圳市物联网专用集成电路设计工程实验室<br />
-              深圳市科技创新资源共享平台
-            </p>
+            <div class="pitem">
+              <div class="b tit c_cca84d">市级科研平台</div>
+              <p>
+                深圳市服务计算与应用重点实验室<br />
+                深圳市移动互联网应用中间件技术工程实验室<br />
+                深圳市嵌入式系统设计重点实验室<br />
+                深圳市物联网专用集成电路设计工程实验室<br />
+                深圳市科技创新资源共享平台
+              </p>
+            </div>
+            <div class="mitem">
+              <div class="b tit c_cca84d">省级科研平台</div>
+              <p>
+                人工智能与数字经济广东省实验室<br />
+                广东省大数据协同创新中心<br />
+                广东省普及型高性能计算机重点实验室<br />
+                广东省移动互联网应用中间件工程技术研究中心<br />
+                广东高校大数据分析工程技术研究中心<br />
+                广东省无线大数据与未来网络工程技术研究中心<br />
+                广东省国产高性能数据计算系统工程技术研究中心<br />
+                广东省3D内容制作工程技术研究中心<br />
+                广东省高清视频智能分析与处理研发平台<br />
+                广东省教育厅中英合作视觉信息处理实验室<br />
+                广东省计算机软件协同育人中心
+              </p>
+            </div>
           </div>
           <div class="row">
-            <div class="b tit c_cca84d">省级科研平台</div>
-            <p>
-              人工智能与数字经济广东省实验室<br />
-              广东省大数据协同创新中心<br />
-              广东省普及型高性能计算机重点实验室<br />
-              广东省移动互联网应用中间件工程技术研究中心<br />
-              广东高校大数据分析工程技术研究中心<br />
-              广东省无线大数据与未来网络工程技术研究中心<br />
-              广东省国产高性能数据计算系统工程技术研究中心<br />
-              广东省3D内容制作工程技术研究中心<br />
-              广东省高清视频智能分析与处理研发平台<br />
-              广东省教育厅中英合作视觉信息处理实验室<br />
-              广东省计算机软件协同育人中心
-            </p>
+            <div class="pitem">
+              <div class="b tit c_cca84d">省级科研平台</div>
+              <p>
+                人工智能与数字经济广东省实验室<br />
+                广东省大数据协同创新中心<br />
+                广东省普及型高性能计算机重点实验室<br />
+                广东省移动互联网应用中间件工程技术研究中心<br />
+                广东高校大数据分析工程技术研究中心<br />
+                广东省无线大数据与未来网络工程技术研究中心<br />
+                广东省国产高性能数据计算系统工程技术研究中心<br />
+                广东省3D内容制作工程技术研究中心<br />
+                广东省高清视频智能分析与处理研发平台<br />
+                广东省教育厅中英合作视觉信息处理实验室<br />
+                广东省计算机软件协同育人中心
+              </p>
+            </div>
+            <div class="mitem">
+              <div class="b tit c_cca84d">市级科研平台</div>
+              <p>
+                深圳市服务计算与应用重点实验室<br />
+                深圳市移动互联网应用中间件技术工程实验室<br />
+                深圳市嵌入式系统设计重点实验室<br />
+                深圳市物联网专用集成电路设计工程实验室<br />
+                深圳市科技创新资源共享平台
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -108,8 +140,7 @@
             </div>
             <div class="l l-40">
               <span class="num c_cca84d b mynum"><%=data.highlights.csrankings%></span>
-              <p class="c_333399 small">CSRankings</p>
-              <p class="c_333399 small">（2016-2022）</p>
+              <p class="c_333399 small">CSRankings（2016-2022）</p>
             </div>
             <div class="l l-30 noBorBot">
               <span class="num c_cca84d b mynum"><%=data.highlights.taiws%></span>
@@ -212,6 +243,7 @@
 <script>
   $(document).ready(function () {
     $('.mynum').countUp()
+    $('.<%=check_nav%>').addClass('active')
   })
 </script>
 </body>
